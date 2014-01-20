@@ -1,0 +1,235 @@
+detect_relations: true
+actAs: [Timestampable]
+options:
+  collate: utf8_general_ci
+  charset: utf8
+  
+#
+# COMPANY
+#
+Company:
+  tableName: company
+  columns:
+    id:       { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:     { type: string(50), notnull: true }
+    email:    { type: string(200) }
+    address:  { type: string(100) }
+    phone:    { type: string(50) }
+    logo:     { type: string(50) }
+    
+#
+# APP_USER
+#
+AppUser:
+  tableName: app_user
+  columns:
+    id:                { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:              { type: string(100) }
+    last_name:         { type: string(100) }
+    email:             { type: string(200), notnull: true }
+    phone:             { type: string(50), notnull: true }
+    skype:             { type: string(50) }
+    contact_time_from: { type: string(50), notnull: true }
+    contact_time_to:   { type: string(50), notnull: true }
+    photo:             { type: string(50) }
+    salt:              { type: string(100) }
+    password:          { type: string(100) }
+    recover_token:     { type: string(100) }
+    enabled:           { type: boolean, default: true }
+    last_access:       { type: datetime }
+    company_id:        { type: integer(4), notnull: true }
+    user_role_id:      { type: integer(4), notnull: true }
+
+  relations:
+    Company:       { class: Company, local: company_id, foreign: id, foreignAlias: Company, onDelete: CASCADE }
+    UserRole:      { class: UserRole, local: user_role_id, foreign: id, foreignAlias: UserRole, onDelete: CASCADE }
+    
+#
+# USER_ROLE
+#
+UserRole:
+  tableName: user_role
+  columns:
+    id:          { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:        { type: string(50), notnull: true }
+    credentials: { type: string(250) }
+    code:        { type: string(50) }    
+
+#
+#RegisteredCompanies
+#
+RegisteredCompanies:
+  tableName: registered_companies
+  columns:
+    id:                 { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    date:               { type: datetime }
+    name:               { type: string(50), notnull: true }
+    description:        { type: text }
+    email:              { type: string(200) }
+    address:            { type: string(100) }
+    phone:              { type: string(50) }
+    skype:              { type: string(50) }
+    logo:               { type: string(50) }
+    code:               { type: string(150), notnull: true}
+    contact_first_name: { type: string(30)}
+    contact_last_name:  { type: string(30)}
+    contact_phone:      { type: string(50)}
+    contact_email:      { type: string(200)}
+    type_companies_id:  { type: integer(4), notnull: true }
+    comments:           { type: text } 
+  relations:
+    TypeCompanies:      { class: TypeCompanies, local: type_companies_id, foreign: id, foreignAlias: TypeCompanies, onDelete: CASCADE } 
+    
+#
+#type_companies
+#
+TypeCompanies:
+  tableName: type_companies
+  columns:
+    id:                 { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:               { type: string(50), notnull: true }
+
+#
+#AppUserRegisteredCompanies
+#
+AppUserRegisteredCompanies:
+  tableName: app_user_registered_companies
+  columns:
+    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    app_user_id:             { type: integer(4)}
+    registered_companies_id: { type: integer(4)}
+    notified:                { type: boolean, default: false }
+    
+  relations:
+    AppUser:             { class: AppUser, local: app_user_id, foreign: id, foreignAlias: AppUser, onDelete: SET NULL }
+    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: SET NULL }
+
+#
+#VideosRegisteredCompanies
+#
+VideosRegisteredCompanies:
+  tableName: videos_registered_companies
+  columns:
+    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:                    { type: string(50), notnull: true }
+    url:                     { type: string(200), notnull: true } 
+    registered_companies_id: { type: integer(4), notnull: true  }
+    information_id:          { type: integer(4) }
+    
+  relations:
+    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE }
+    Information:         { class: Information, local: information_id, foreign: id, foreignAlias: Information, onDelete: SET NULL }
+
+#
+#DocumentsRegisteredCompanies
+#
+DocumentsRegisteredCompanies:
+  tableName: documents_registered_companies
+  columns:
+    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:                    { type: string(50), notnull: true }
+    icon:                    { type: string(200), notnull: true }
+    url:                     { type: string(200), notnull: true } 
+    registered_companies_id: { type: integer(4), notnull: true  }
+    information_id:          { type: integer(4) }
+    type_information_id:     { type: integer(4) }
+    calendar_id:             { type: integer(4) }   
+    
+  relations:
+    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE }
+    Information:         { class: Information, local: information_id, foreign: id, foreignAlias: Information, onDelete: SET NULL }
+    TypeInformation:     { class: TypeInformation, local: type_information_id, foreign: id, foreignAlias: TypeInformation, onDelete: CASCADE }  
+    Calendar:            { class: Calendar, local: calendar_id, foreign: id, foreignAlias: Calendar, onDelete: CASCADE }  
+ 
+#
+#information
+#
+Information:
+  tableName: information
+  columns:
+    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    date:                    { type: datetime , notnull: true}
+    name:                    { type: string(50), notnull: true }
+    description:             { type: text }
+    registered_companies_id: { type: integer(4) }
+    type_information_id:     { type: integer(4) }
+    important:               { type: boolean, default: false }
+    
+  relations:
+    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE }  
+    TypeInformation:     { class: TypeInformation, local: type_information_id, foreign: id, foreignAlias: TypeInformation, onDelete: CASCADE }  
+    
+#
+#type_information
+#
+TypeInformation:
+  tableName: type_information
+  columns:
+    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:                    { type: string(50), notnull: true }
+    
+#
+#notifications
+#
+Notifications:
+  tableName: notifications 
+  columns:
+    id:                        { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    registered_companies_id:   { type: integer(4) }
+    information_id:            { type: integer(4) }
+    app_user_id:               { type: integer(4)}
+    type:                      { type: string(50), notnull: true }
+    subject:                   { type: text }
+    important:                 { type: boolean, default: false }
+    
+  relations:
+    RegisteredCompanies:      { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE }
+    Information:              { class: Information, local: information_id, foreign: id, foreignAlias: Information, onDelete: SET NULL }
+    AppUser:                  { class: AppUser, local: app_user_id, foreign: id, foreignAlias: AppUser, onDelete: SET NULL }
+    
+    
+#
+#calendar
+#
+Calendar:
+  tableName: calendar
+  columns:
+    id:                        { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    app_user_id:               { type: integer(4), notnull: true }
+    year:                      { type: integer(8), notnull: true }
+    month:                     { type: integer(8), notnull: true }
+    day:                       { type: integer(8), notnull: true }
+    hour_from:                 { type: string(50), notnull: true }
+    hour_to:                   { type: string(50), notnull: true }
+    subject:                   { type: text }
+    body:                      { type: text }
+    type_calendar_id:          { type: integer(4), notnull: true }
+    registered_companies_id:   { type: integer(4) }
+    next:                      { type: boolean, default: false }
+    
+    
+  relations:
+    AppUser:                   { class: AppUser, local: app_user_id, foreign: id, foreignAlias: AppUser, onDelete: CASCADE }      
+    RegisteredCompanies:       { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE }  
+    TypeCalendar:              { class: TypeCalendar, local: type_calendar_id, foreign: id, foreignAlias: TypeCalendar, onDelete: CASCADE }  
+
+#
+#TypeCalendar
+#
+TypeCalendar:
+  tableName: type_calendar
+  columns:
+    id:                 { type: integer(4), primary: true, notnull: true, autoincrement: true }  
+    name:               { type: string(50), notnull: true }
+    
+    
+#
+#TempsDocuments
+#
+TempsDocuments:
+  tableName: temps_documents
+  columns:
+    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:                    { type: string(50), notnull: true }
+    icon:                    { type: string(200), notnull: true }
+    url:                     { type: string(200), notnull: true } 

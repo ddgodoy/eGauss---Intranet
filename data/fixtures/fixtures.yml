@@ -1,0 +1,76 @@
+Company:
+  egauss:
+    name: eGauss Business Holding I+T
+    email: info@egauss.com
+
+###############################################################
+
+UserRole:
+  user_role_super_admin:
+    id: 1
+    name: Super Admin
+    credentials: super_admin, socios
+    code: super_admin
+
+  user_role_socios:
+    id: 2
+    name: Socios 
+    credentials: socios 
+    code: socios 
+
+###############################################################
+
+AppUser:
+  user_egauss:
+    name: admin
+    email: admin@egauss.com
+    password: 123456
+    Company: egauss
+    UserRole: user_role_super_admin
+    
+###############################################################
+
+TypeCompanies:
+  type_companies_affiliated:
+    id:    1
+    name:  Participadas 
+    
+  type_companies_analyzed:
+    id:    2
+    name:  Analizadas   
+
+###############################################################
+
+TypeInformation:
+  type_information_presentaciones_comerciales:
+    id: 1
+    name: Presentacion Comercial
+    
+  type_information_archivos_juridicos:
+    id: 2
+    name: Archivo Jurídico 
+    
+  type_information_archivos_financieros:
+    id: 3
+    name: Archivo Financiero   
+
+################################################################
+
+RegisteredCompanies:
+  registered_companies_egauss:
+    id: 1
+    date: 2013-01-01
+    name: eGauss Business Holding I+T
+    TypeCompanies: type_companies_affiliated
+    
+#################################################################    
+
+TypeCalendar:
+  type_calendar_agenda:
+    id: 1
+    name: Agenda
+    
+  type_calendar_juntas_de_accionistas:
+    id: 2
+    name: Juntas de Accionistas  
+  

@@ -1,0 +1,51 @@
+#content-part {
+    float: left;
+    padding: 0;
+    width: 1190px;
+    margin-left: 10px;
+    margin-bottom: 50px;
+}
+
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+
+element.style {
+    margin-top: -4%;
+}
+
+.work-item {
+    border: 1px solid #CCCCCC;
+    float: left;
+    height: 130px;
+    margin: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: relative;
+    transition: background-color 0.2s ease 0s, border 0.2s ease 0s, color 0.2s ease 0s, border-color 0.2s ease 0s;
+    width: 130px;
+}
+
+.alignleft {
+    float: left;
+}
+
+a img {
+    border: medium none;
+}
+
+.mejora-description {
+    color: #FFFFFF;
+    height: 130px;
+    left: 0;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    width: 120px;
+}
+

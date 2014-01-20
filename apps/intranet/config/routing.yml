@@ -1,0 +1,299 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+################################################################### shareholders
+
+# shareholders-delete-document rules
+shareholders-delete-document:
+  url:   /shareholders-delete-document
+  param: { module: shareholders, action: deleteDocument }
+
+# shareholders-get-components-documents rules
+shareholders-get-components-documents:
+  url:   /shareholders-get-components-documents
+  param: { module: shareholders, action: getComponentsDocuments }
+  
+# shareholders-register-document rules
+shareholders-register-document:
+  url:   /shareholders-register-document
+  param: { module: shareholders, action: registerDocument }
+
+# shareholders-delete rules
+shareholders-delete:
+  url:   /shareholders-delete/:id
+  param: { module: shareholders, action: delete }
+
+# shareholders-edit rules
+shareholders-edit:
+  url:   /shareholders-edit/:id
+  param: { module: shareholders, action: edit }
+
+# shareholders-register rules
+shareholders-register:
+  url:   /shareholders-register
+  param: { module: shareholders, action: register }
+  
+# shareholders-show rules
+shareholders-show:
+  url:   /shareholders-show/:id
+  param: { module: shareholders, action: show }
+  
+# shareholders rules
+shareholders:
+  url:   /shareholders
+  param: { module: shareholders, action: index }
+
+
+#################################################################### information
+
+# information-delete-document rules
+information-delete-document:
+  url:   /information-delete-document
+  param: { module: information, action: deleteDocument }
+
+# information-get-components-documents rules
+information-get-components-documents:
+  url:   /information-get-components-documents
+  param: { module: information, action: getComponentsDocuments }
+  
+# information-register-document rules
+information-register-document:
+  url:   /information-register-document
+  param: { module: information, action: registerDocument }
+
+# information-delete-video rules
+information-delete-video:
+  url:   /information-delete-video
+  param: { module: information, action: deleteVideo }
+
+# information-get-components-videos rules
+information-get-components-videos:
+  url:   /information-get-components-videos
+  param: { module: information, action: getComponentsVideos }
+  
+# information-register-video rules
+information-register-video:
+  url:   /information-register-video
+  param: { module: information, action: registerVideo }
+  
+# information-delete rules
+information-delete:
+  url:   /information-delete/:id
+  param: { module: information, action: delete }
+
+# information-edit rules
+information-edit:
+  url:   /information-edit/:id
+  param: { module: information, action: edit }
+
+# information-register rules
+information-register:
+  url:   /information-register
+  param: { module: information, action: register }
+  
+# information-show rules
+information-show:
+  url:   /information-show/:id
+  param: { module: information, action: show }
+  
+# information rules
+information:
+  url:   /information
+  param: { module: information, action: index }
+
+
+#################################################################### analyzed
+
+# analyzed-delete-document rules
+analyzed-delete-document:
+  url:   /analyzed-delete-document
+  param: { module: analyzed, action: deleteDocument }
+
+# analyzed-get-components-documents rules
+analyzed-get-components-documents:
+  url:   /analyzed-get-components-documents
+  param: { module: analyzed, action: getComponentsDocuments }
+  
+# analyzed-register-document rules
+analyzed-register-document:
+  url:   /analyzed-register-document
+  param: { module: analyzed, action: registerDocument }
+
+# analyzed-delete-video rules
+analyzed-delete-video:
+  url:   /analyzed-delete-video
+  param: { module: analyzed, action: deleteVideo }
+
+# analyzed-get-components-videos rules
+analyzed-get-components-videos:
+  url:   /analyzed-get-components-videos
+  param: { module: analyzed, action: getComponentsVideos }
+  
+# analyzed-register-video rules
+analyzed-register-video:
+  url:   /analyzed-register-video
+  param: { module: analyzed, action: registerVideo }
+  
+# analyzed-delete rules
+analyzed-delete:
+  url:   /analyzed-delete/:id
+  param: { module: analyzed, action: delete }
+
+# analyzed-edit rules
+analyzed-edit:
+  url:   /analyzed-edit/:id
+  param: { module: analyzed, action: edit }
+
+# analyzed-register rules
+analyzed-register:
+  url:   /analyzed-register
+  param: { module: analyzed, action: register }
+  
+# analyzed-show rules
+analyzed-show:
+  url:   /analyzed-show/:id
+  param: { module: analyzed, action: show }
+  
+# analyzed rules
+analyzed:
+  url:   /analyzed
+  param: { module: analyzed, action: index }
+
+
+#################################################################### affiliated
+
+# affiliated-delete-document rules
+affiliated-delete-document:
+  url:   /affiliated-delete-document
+  param: { module: affiliated, action: deleteDocument }
+
+# affiliated-get-components-documents rules
+affiliated-get-components-documents:
+  url:   /affiliated-get-components-documents
+  param: { module: affiliated, action: getComponentsDocuments }
+  
+# affiliated-register-document rules
+affiliated-register-document:
+  url:   /affiliated-register-document
+  param: { module: affiliated, action: registerDocument }
+
+# affiliated-delete-video rules
+affiliated-delete-video:
+  url:   /affiliated-delete-video
+  param: { module: affiliated, action: deleteVideo }
+
+# affiliated-get-components-videos rules
+affiliated-get-components-videos:
+  url:   /affiliated-get-components-videos
+  param: { module: affiliated, action: getComponentsVideos }
+  
+# affiliated-register-video rules
+affiliated-register-video:
+  url:   /affiliated-register-video
+  param: { module: affiliated, action: registerVideo }
+  
+# affiliated-delete rules
+affiliated-delete:
+  url:   /affiliated-delete/:id
+  param: { module: affiliated, action: delete }
+
+# affiliated-edit rules
+affiliated-edit:
+  url:   /affiliated-edit/:id
+  param: { module: affiliated, action: edit }
+
+# affiliated-register rules
+affiliated-register:
+  url:   /affiliated-register
+  param: { module: affiliated, action: register }
+  
+# affiliated-show rules
+affiliated-show:
+  url:   /affiliated-show/:id
+  param: { module: affiliated, action: show }
+  
+# affiliated rules
+affiliated:
+  url:   /affiliated
+  param: { module: affiliated, action: index }
+  
+#################################################################### calendar
+
+# calendar-delete rules
+calendar-delete:
+  url:   /calendar-delete/:id/:sch_year/:sch_month/:sch_day
+  param: { module: calendar, action: delete }
+
+# calendar-edit rules
+calendar-edit:
+  url:   /calendar-edit/:id/:sch_year/:sch_month/:sch_day
+  param: { module: calendar, action: edit }
+
+# calendar-register rules
+calendar-register:
+  url:   /calendar-register/:sch_year/:sch_month/:sch_day
+  param: { module: calendar, action: register }
+  
+# calendar-show rules
+calendar-show:
+  url:   /calendar-show/:id/:sch_year/:sch_month/:sch_day
+  param: { module: calendar, action: show }
+
+# calendar rules
+calendar:
+  url:   /calendar/:sch_year/:sch_month/:sch_day
+  param: { module: calendar, action: index }
+
+# calendar-get-date rules
+calendar-get-date:
+  url:   /calendar-get-date
+  param: { module: calendar, action: getDate }
+
+# user-delete rules
+user-delete:
+  url:   /user-delete/:id
+  param: { module: user, action: delete }
+
+# user-edit rules
+user-edit:
+  url:   /user-edit/:id
+  param: { module: user, action: edit }
+
+# user-register rules
+user-register:
+  url:   /user-register
+  param: { module: user, action: register }
+  
+# user-show rules
+user-show:
+  url:   /user-show/:id
+  param: { module: user, action: show }
+  
+# user rules
+user:
+  url:   /users
+  param: { module: user, action: index }
+
+# my-profile rules
+my-profile:
+  url:   /user-edit/:id/:profile
+  param: { module: user, action: edit }
+
+# logout rules
+logout:
+  url:   /logout
+  param: { module: home, action: logout }
+
+
+# default rules
+homepage:
+  url:   /
+  param: { module: home, action: index }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

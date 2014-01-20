@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file original="errors" source-language="es_ES" datatype="plaintext">
+    <body>
+      <trans-unit id="1"><source>Enter the email</source><target>Ingrese el email</target></trans-unit>
+      <trans-unit id="2"><source>Enter the password</source><target>Ingrese la contraseña</target></trans-unit>
+      <trans-unit id="3"><source>The user is not registered</source><target>El usuario no esta registrado</target></trans-unit>
+      <trans-unit id="4"><source>The password is not correct</source><target>La contraseña es incorrecta</target></trans-unit>
+      <trans-unit id="5"><source>The user is disabled</source><target>El usuario no esta habilitado</target></trans-unit>
+      <trans-unit id="6"><source>The email seems incorrect</source><target>El email es incorrecto</target></trans-unit>
+      <trans-unit id="7"><source>Wrong captcha</source><target>Ingrese las palabras que ve en la imagen</target></trans-unit>
+      <trans-unit id="8"><source>Cannot send the email</source><target>El email no puede ser enviado</target></trans-unit>
+      <trans-unit id="9"><source>Forgoten password empty token</source><target>Necesita una clave para continuar con este proceso</target></trans-unit>
+      <trans-unit id="10">
+        <source>Forgoten password token not valid</source>
+        <target><![CDATA[El código para solicitud de nueva contraseña no es válido.<br /><br />Por favor, revise el último email que le enviamos e intente de nuevo.]]></target>
+      </trans-unit>
+      <trans-unit id="11"><source>Repeat the password</source><target>Repita la contraseña</target></trans-unit>
+      <trans-unit id="12"><source>The passwords do not match</source><target>Las contraseñas no coinciden</target></trans-unit>
+      <trans-unit id="13"><source>Enter the name</source><target>Ingrese el nombre</target></trans-unit>
+      <trans-unit id="14"><source>The email is already registered</source><target>El email ya se encuentra registrado</target></trans-unit>
+      <trans-unit id="15"><source>The password seems incorrect</source><target>La contraseña parece incorrecta</target></trans-unit>
+      <trans-unit id="16"><source>Select the company</source><target>Seleccione la empresa</target></trans-unit>
+      <trans-unit id="17"><source>Select the user role</source><target>Seleccione el rol de usuario</target></trans-unit>
+      <trans-unit id="18"><source>Select the geo zone</source><target>Seleccione la zona geográfica</target></trans-unit>
+      <trans-unit id="19"><source>Select the city</source><target>Seleccione la ciudad</target></trans-unit>
+      <trans-unit id="20"><source>Select the property type</source><target>Seleccione el tipo de propiedad</target></trans-unit>
+      <trans-unit id="21"><source>Select the neighborhood</source><target>Seleccione el barrio</target></trans-unit>
+      <trans-unit id="22"><source>Select the operation</source><target>Seleccione la operación</target></trans-unit>
+      <trans-unit id="23"><source>Enter the price for the operation</source><target>Ingrese el precio de la operación</target></trans-unit>
+      <trans-unit id="24"><source>The ground seems incorrect</source><target>El Terreno es incorrecto, solo ingrese numeros</target></trans-unit>
+      <trans-unit id="25"><source>The covered_meters seems incorrect</source><target>Los Metros Cubiertos son incorrecto, solo ingrese numeros</target></trans-unit>
+      <trans-unit id="26"><source>The age seems incorrect</source><target>La Antiguedad es incorrecta, solo ingrese numeros</target></trans-unit>
+      <trans-unit id="27"><source>Enter the last name</source><target>Ingrese el apellido</target></trans-unit>
+      <trans-unit id="28"><source>Enter the country</source><target>Ingrese el País</target></trans-unit>
+      <trans-unit id="29"><source>Enter the address</source><target>Ingrese la dirección</target></trans-unit>
+      <trans-unit id="30"><source>Enter the address number</source><target>Ingrese el número de la dirección</target></trans-unit>
+      <trans-unit id="31"><source>Enter the proprietary</source><target>Ingrese el propietario</target></trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,31 @@
+.plupload_list {
+	border: 1px solid #CCC;
+	font-size: 12px;
+	font-family: arial;
+	width: 625px;
+}
+.plupload_list th {
+	background-color: #CCC;
+	color: #0a2a28;
+	text-align: left;
+	padding: 5px;
+	font-weight: normal;
+}
+.plupload_list td {
+	padding: 5px;
+}
+.plupload_none {
+	display: none;
+}
+.plupload_center { text-align: center !important; }
+
+.plupload_bar {
+	background-color: #CCCCCC;
+	width: 0px;
+	height: 15px;
+}
+.plupload_del_img {
+	cursor: pointer;
+	outline: none;
+	border-style: none;
+}
