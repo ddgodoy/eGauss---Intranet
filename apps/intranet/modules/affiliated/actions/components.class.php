@@ -21,7 +21,7 @@ class affiliatedComponents extends sfComponents
         if($id){
             $videos_by_company = VideosRegisteredCompaniesTable::getInstance()->getVideoByCompany($id);
         }
-        $this->array_videos = $this->getUser()->getAttribute('videos', []);
+        $this->array_videos = $this->getUser()->getAttribute('videos', array());
         
         if(count($videos_by_company))
         {

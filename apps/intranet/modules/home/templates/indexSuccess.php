@@ -29,7 +29,7 @@
             <?php endif; ?> 
         </div>
         <div style="width:33%;height:200px;float:left;">
-            <?php if(count($shareholders)>0): ?>
+            <?php if($shareholders): ?>
                 <div class="paneles" style="overflow-y: auto; height: 95px;">
                     <h1><?php echo __('Juntas de Accionistas') ?></h1>
                     <table width="100%" cellspacing="0" border="0" class="listados">
