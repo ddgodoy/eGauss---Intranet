@@ -44,11 +44,11 @@ class homeActions extends sfActions
 
             if ($request->getParameter('code')) {
                 $this->getUser()->setAttribute('accessToken', $client->authenticate($request->getParameter('code')));
+                $this->redirect('@homepage'); 
             } elseif (!$this->getUser()->getAttribute('accessToken')) {
                 $client->authenticate();
+                $this->redirect('@homepage'); 
             }
-            
-           $this->redirect('@homepage'); 
         }else{
            $this->redirect('@homepage');
         }     
