@@ -50,28 +50,39 @@ class homeActions extends sfActions
      */
     public function executeGoogleDrive(sfWebRequest $request)
     {
-        $this->getUser()->setCulture('es');
+        $this->name = '';
+        $this->error = [];
+        $this->msj_ok =false;
         
-        if($this->getUser()->hasCredential('super_admin'))
+        if($request->isMethod('POST'))
         {
-            $client = new Google_Client();
-            $client->setClientId('394341489547.apps.googleusercontent.com');
-            $client->setClientSecret('394341489547@developer.gserviceaccount.com');
-            $client->setRedirectUri('http://egauss-intranet.icox.com/googledrive');
-            $client->setScopes(array('https://www.googleapis.com/auth/drive'));
-            $client->setAccessType('online'); 
+            $client = new Google_Client(); 
+            $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
+            $service = new Google_DriveService($client);
+            
+            $files_upload = $_FILES['file'];   
+            //Insert a file
+            $file = new Google_DriveFile();
+            $file->setTitle(str_replace(' ', '-', $files_upload['name']));
+            $file->setDescription($name);
+            $file->setMimeType($files_upload['type']);
 
-            $service = new Google_AnalyticsService($client);
+            $data = file_get_contents($files_upload['tmp_name']);
 
-            if ($request->getParameter('code')) {
-                $this->getUser()->setAttribute('accessToken', $client->authenticate($request->getParameter('code')));
-                $this->redirect('@homepage'); 
-            } elseif (!$this->getUser()->getAttribute('accessToken')) {
-                $client->authenticate();
-                $this->redirect('@homepage'); 
+            $createdFile = $service->files->insert($file, array(
+                  'data' => $data,
+                  'mimeType' => $files_upload['type'],
+                ));
+
+            $temp_file = new TempsDocuments();
+            $temp_file->setName($createdFile['title']);
+            $temp_file->setIcon($createdFile['iconLink']);
+            $temp_file->setUrl($createdFile['alternateLink']);
+            $temp_file->save();
+
+            if($temp_file){
+             $this->msj_ok = true;   
             }
-        }else{
-           $this->redirect('@homepage');
         }     
     }        
     
