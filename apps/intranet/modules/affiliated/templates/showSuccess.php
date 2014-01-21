@@ -41,6 +41,7 @@ $(document).ready(function() {
             <div class="paneles" style="text-align:center;">
                 <img src="/<?php echo $logo ? 'uploads/company/'.$logo : 'images/no_image.jpg' ?>" border="0" width="150" height="150" title="<?php echo $oValue->getName() ?>" alt="<?php echo $oValue->getName() ?>"/><br/>
             </div>
+            <?php if($oValue->getContactFirstName() || $oValue->getContactLastName()): ?>
             <div class="paneles"  >
                 <h1>Ceo</h1> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="3">
@@ -49,6 +50,7 @@ $(document).ready(function() {
                     <tr><td><?php echo $oValue->getContactEmail() ?></td></tr>
                 </table>
             </div>
+            <?php endif; ?>
             <div class="paneles"  >
                 <h1>Socios Responsables</h1> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="3">
