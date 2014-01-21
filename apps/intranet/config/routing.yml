@@ -291,7 +291,7 @@ homepage:
 
 #google_drive
 google_drive:
-  url: /google_drive
+  url: /google-drive
   param: { module: home, action: googleDrive }
 
 # generic rules

@@ -3,7 +3,7 @@ $(document).ready(function(){
     $("#fancybox-manual-c").click(function() {
             $.fancybox.open({
                     height: '290px',
-                    href : '<?php echo url_for("http://localhost/google_drive/") ?>',
+                    href : '<?php echo url_for("@google_drive") ?>',
                     type : 'iframe',
                     padding : 5,
                     afterClose: function () { // USE THIS IT IS YOUR ANSWER THE KEY WORD IS "afterClose"

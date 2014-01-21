@@ -83,7 +83,9 @@ class homeActions extends sfActions
             if($temp_file){
              $this->msj_ok = true;   
             }
-        }     
+        }
+        
+        $this->setLayout('layout_iframe');
     }        
     
    /**
