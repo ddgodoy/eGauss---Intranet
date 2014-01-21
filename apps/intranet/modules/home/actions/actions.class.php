@@ -24,7 +24,7 @@ class homeActions extends sfActions
             $client = new Google_Client();
             $client->setClientId('394341489547.apps.googleusercontent.com');
             $client->setClientSecret('EqhEQdb4YDZc4ZxXtIh1HskA');
-            $client->setRedirectUri('http://egauss-intranet.icox.com/intranet_dev.php');
+            $client->setRedirectUri('http://egauss-intranet.icox.com');
             $client->setScopes(array('https://www.googleapis.com/auth/drive'));
             $client->setAccessType('online'); 
 
