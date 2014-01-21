@@ -50,8 +50,7 @@ class CalendarTable extends Doctrine_Table
     public function getCalendarByUserAndDate($user, $year, $month, $day)
     {
         $q = $this->createQuery()
-             ->where('app_user_id = ?', $user)
-             ->andWhere('year = ?', $year)
+             ->where('year = ?', $year)
              ->andWhere('month = ?', $month)   
              ->andWhere('day = ?', $day)
              ->orderBy('hour_from ASC');
