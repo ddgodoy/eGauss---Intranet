@@ -44,7 +44,7 @@ class authenticationActions extends sfActions
                         $statusLogin = ServiceAuthentication::validateUserLogin($this->auth_email, $this->auth_password, $i18N);
 
                         if ($statusLogin['continue']) {
-                                $this->redirect('@google_drive');
+                                $this->redirect('@homepage');
                         } else {
                                 $this->auth_error['validate'] = $statusLogin['error'];
                         }
