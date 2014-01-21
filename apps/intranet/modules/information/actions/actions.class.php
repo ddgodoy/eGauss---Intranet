@@ -168,7 +168,7 @@ class informationActions extends sfActions
                           $load_videos = new VideosRegisteredCompanies();
                           $load_videos->setName($value['name']);
                           $load_videos->setUrl($value['url']);
-                          $load_videos->setRegisteredCompaniesId($recorded->getId());
+                          $load_videos->setRegisteredCompaniesId($recorded->getRegisteredCompaniesId());
                           $load_videos->setInformationId($recorded->getId());
                           $load_videos->save();
                       }  

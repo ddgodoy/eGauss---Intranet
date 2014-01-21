@@ -248,6 +248,13 @@ calendar-get-date:
   url:   /calendar-get-date
   param: { module: calendar, action: getDate }
 
+#################################################################### user
+
+# user-view rules
+user-view:
+  url:   /user-view/:id
+  param: { module: user, action: viewUser }
+
 # user-delete rules
 user-delete:
   url:   /user-delete/:id

@@ -196,6 +196,21 @@ class userActions extends sfActions
 
   	if (empty($this->id)) { $this->redirect('@user'); }
   }
+  
+  /**
+   * Executes view action
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeViewUser(sfWebRequest $request)
+  {
+  	$this->id = $request->getParameter('id');
+  	$this->oValue = AppUserTable::getInstance()->find($this->id);
+
+  	if (empty($this->id)) { $this->redirect('@user'); }
+        
+        $this->setLayout('layout_iframe');
+  }
 
   /**
    * Executes delete action
@@ -219,26 +234,5 @@ class userActions extends sfActions
   		}
   	}
   	$this->redirect('@user');
-  }
-  //
-  public function executeAjaxCity(sfWebRequest $request)
-  {
-    $this->geo_zone = $request->getParameter('geo_zone');
-
-    return $this->renderPartial('user/ajaxCity'); exit();
-  }
-  //
-  public function executeAjaxNeighborhood(sfWebRequest $request)
-  {
-    $this->city = $request->getParameter('city');
-
-    return $this->renderPartial('user/ajaxNeighborhood'); exit();
-  }
-
-  //
-  public function executeAjaxCustomer(sfWebRequest $request)
-  {
-     $owner = $request->getParameter('owner', false); 
-     return $this->renderComponent('user', 'customer', array('owner'=>$owner));
   }
 } // end class

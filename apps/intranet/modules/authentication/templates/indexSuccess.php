@@ -15,7 +15,7 @@
 					</li>
 					<li>
 						<label><?php echo __('Password') ?>:</label>
-						<input type="password" name="auth_password" value="" class="form_input_login" style="width:200px;"/>
+						<input type="password" name="auth_password" value="" class="form_input_login" style="width:200px;"/><br/>
 						<a href="<?php echo url_for('authentication/forgotenPassword') ?>"><?php echo __('Forgoten your password?') ?></a>
 					</li>
 				</ul>

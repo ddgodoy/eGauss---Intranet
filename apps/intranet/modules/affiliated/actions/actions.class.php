@@ -320,10 +320,14 @@ class affiliatedActions extends sfActions
    public function executeShow(sfWebRequest $request)
    {
           
-          $this->id      = $request->getParameter('id');
-          $this->oValue  = RegisteredCompaniesTable::getInstance()->find($this->id);
-          $this->logo    = $this->oValue->getLogo();
-
+          $this->id               = $request->getParameter('id');
           if (empty($this->id)) { $this->redirect('@affiliated'); }
+          
+          $this->oValue           = RegisteredCompaniesTable::getInstance()->find($this->id);
+          $this->logo             = $this->oValue->getLogo();
+          $this->partners_company = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
+          $this->information      = InformationTable::getInstance()->findByRegisteredCompaniesId($this->id);  
+          $this->videos           = VideosRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
+          $this->document         = DocumentsRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
    }
 }
