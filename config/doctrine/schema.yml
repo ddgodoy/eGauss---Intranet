@@ -233,3 +233,24 @@ TempsDocuments:
     name:                    { type: string(50), notnull: true }
     icon:                    { type: string(200), notnull: true }
     url:                     { type: string(200), notnull: true } 
+    
+    
+#
+#billing
+#
+Billing:
+  tableName: billing
+  columns:
+    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    year:                    { type: integer(8), notnull: true }
+    month:                   { type: integer(8), notnull: true }
+    total_affiliated:        { type: 'decimal(9, 2)'} 
+    sale_of_affiliated:      { type: 'decimal(9, 2)'}
+    total_consultancy:       { type: 'decimal(9, 2)'}
+    consultancy:             { type: 'decimal(9, 2)'}
+    total_intermediation:    { type: 'decimal(9, 2)'}
+    intermediation:          { type: 'decimal(9, 2)'}
+    total_formation:         { type: 'decimal(9, 2)'}
+    formation:               { type: 'decimal(9, 2)'}
+    total_patents:           { type: 'decimal(9, 2)'}
+    patents:                 { type: 'decimal(9, 2)'}   

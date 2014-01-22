@@ -1,3 +1,27 @@
+<?php if($billing): ?>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Conceptos Facturados', 'Estimado', 'Facturado'],
+      ['Venta de Participadas',  <?php echo $billing->getTotalAffiliated() ?>,<?php echo $billing->getSaleOfAffiliated() ?>],
+      ['Consultoría',  <?php echo $billing->getTotalConsultancy() ?>,<?php echo $billing->getConsultancy() ?>],
+      ['Intermediación',  <?php echo $billing->getTotalIntermediation() ?>,<?php echo $billing->getIntermediation() ?>],
+      ['Formación',  <?php echo $billing->getTotalFormation() ?>,<?php echo $billing->getFormation() ?>],
+      ['Patentes',  <?php echo $billing->getTotalPatents() ?>,<?php echo $billing->getPatents() ?>]
+    ]);
+
+    var options = {
+      hAxis: {title: 'Conceptos Facturados', titleTextStyle: {color: 'red'}}
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+}
+</script>
+<?php endif; ?>
 <div class="content">
     <div class="columnas col2" style="width:98%;">
         <div class="paneles" style="width:33%;height:502px;float:left;overflow:auto;">
@@ -28,7 +52,7 @@
             </table>
             <?php endif; ?> 
         </div>
-        <div style="width:33%;height:200px;float:left;">
+        <div style="width:33%;float:left;">
             <?php if($shareholders): ?>
                 <div class="paneles" style="overflow-y: auto; height: 95px;">
                     <h1><?php echo __('Juntas de Accionistas') ?></h1>
@@ -107,7 +131,21 @@
                     </table>
                 </div>
             <?php endif; ?>   
-        </div>                
+        </div>  
+        <div style="width:31%;float:right;">
+            <?php if($billing): ?>
+            <div class="paneles">
+                <h1><?php echo __('Facturación') ?></h1>
+                <div id="chart_div" style="width: 350px; height: 204px;"></div> 
+            </div>
+            <?php endif; ?>
+            <?php /*
+            <div class="paneles">
+                <h1><?php echo __('Contratos de Intermediación') ?></h1>
+                <div id="chart_div_contract" style="width: 250px; height: 204px;"></div> 
+            </div> */ ?>
+            
+        </div>
     </div>
     <?php include_component('affiliated', 'getAffiliated') ?>
 </div>

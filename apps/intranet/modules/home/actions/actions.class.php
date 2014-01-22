@@ -39,9 +39,10 @@ class homeActions extends sfActions
         }   
         
         $this->shareholders = CalendarTable::getInstance()->findOneByNextAndTypeCalendarId(1,2);
-        $this->information   = InformationTable::getInstance()->getInformation();
+        $this->information  = InformationTable::getInstance()->getInformation();
         $this->notification = NotificationsTable::getInstance()->getNotifications($this->getUser()->getAttribute('user_id'));
         $this->calendar     = CalendarTable::getInstance()->getCalendarByUserAndDate($this->getUser()->getAttribute('user_id'), date('Y'), date('m'), date('d'));
+        $this->billing      = $billing_month = BillingTable::getInstance()->findOneByMonthAndYear(date('m'), date('Y'));
     }
     
     /**

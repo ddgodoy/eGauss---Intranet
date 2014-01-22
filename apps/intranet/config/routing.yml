@@ -1,5 +1,32 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
+################################################################### billing
+
+# billing-delete rules
+billing-delete:
+  url:   /billing-delete/:id
+  param: { module: billing, action: delete }
+
+# billing-edit rules
+billing-edit:
+  url:   /billing-edit/:id
+  param: { module: billing, action: edit }
+
+# billing-register rules
+billing-register:
+  url:   /billing-register
+  param: { module: billing, action: register }
+  
+# billing-show rules
+billing-show:
+  url:   /billing-show/:id
+  param: { module: billing, action: show }
+  
+# billing rules
+billing:
+  url:   /billing
+  param: { module: billing, action: index }
+  
 ################################################################### shareholders
 
 # shareholders-delete-document rules
