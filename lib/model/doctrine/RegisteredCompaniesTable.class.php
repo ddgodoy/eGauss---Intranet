@@ -63,10 +63,16 @@ class RegisteredCompaniesTable extends Doctrine_Table
                                   @chmod($destination.$upload_file, 0777);
                                   $recorded->setLogo($upload_file);
 
+                                  $options = array('metodo'  => 'proportional',
+                                                   'zoom'    => 10,
+                                                   'relleno' => '#000000',
+                                                   'calidad_png' => 9,
+                                                   'calidad_jpg' => 90);
+                                  
                                   ## Create thumbnail
                                   $oResize = new ResizeImage();
                                   $aThumbs = array(ServiceFileHandler::getThumbImage($upload_file) => array('w'=>20, 'h'=>20), $upload_file => array('w'=>150, 'h'=>150));
-                                  $oResize->setMultiple($upload_file, $aThumbs, $destination, 0, 0, $f_extension, array('metodo' => 'full'));
+                                  $oResize->setMultiple($upload_file, $aThumbs, $destination, 0, 0, $f_extension, $options);
                           }
           } 
           elseif ($reset && $recorded->getLogo())
