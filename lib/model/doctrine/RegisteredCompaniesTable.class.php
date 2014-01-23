@@ -65,7 +65,7 @@ class RegisteredCompaniesTable extends Doctrine_Table
 
                                   $options = array('metodo'  => 'proportional',
                                                    'zoom'    => 10,
-                                                   'relleno' => '#FFF',
+                                                   'relleno' => '#ffffff',
                                                    'calidad_png' => 9,
                                                    'calidad_jpg' => 90);
                                   
