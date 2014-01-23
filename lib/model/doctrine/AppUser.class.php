@@ -70,6 +70,7 @@ class AppUser extends BaseAppUser
   		array(
   			'subject'     => 'Sus datos de acceso para eGauss.com',
   			'to_partial'  => array(
+                        'name'      => $name, 
                         'email'     => $email,
                         'password'  => $password,
                         'url'       => url_for('@homepage', true))));

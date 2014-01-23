@@ -4,7 +4,7 @@
 	</head>
 	<table>
                 <tr>
-                    <td><img title="eGauss Business Holding I+T" src="http://egauss/images/no_company_logo.png"></td>
+                    <td><img title="eGauss Business Holding I+T" src="http://egauss-intranet.icox.com/images/no_company_logo.png"></td>
                 </tr>
                 <tr><td style="height: 15px;"></td></tr>
                 <tr>
