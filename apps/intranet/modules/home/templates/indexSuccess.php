@@ -54,8 +54,9 @@
         </div>
         <div style="width:33%;float:left;">
             <?php if($shareholders): ?>
-                <div class="paneles" style="overflow-y: auto; height: 95px;">
+                <div class="paneles">
                     <h1><?php echo __('Juntas de Accionistas') ?></h1>
+                    <div style="overflow-y: auto; height: 95px;">
                     <table width="100%" cellspacing="0" border="0" class="listados">
                         <tr>
                           <th width="5%"></th>  
@@ -72,11 +73,13 @@
                             <td><?php echo $shareholders->getHourFrom() ?></td>
                         </tr> 
                     </table>
+                    </div>    
                 </div>
             <?php endif; ?>   
             <?php if(count($information)>0): ?>
-                <div class="paneles" style="overflow-y: auto; height: 175px;">
+                <div class="paneles">
                     <h1><?php echo __('Información') ?></h1>
+                    <div style="overflow-y: auto; height: 95px;">
                     <table width="100%" cellspacing="0" border="0" class="listados">
                         <tr>
                           <th width="5%"></th>  
@@ -93,6 +96,7 @@
                         </tr> 
                         <?php endforeach; ?>
                     </table>
+                    </div>    
                 </div>
             <?php endif; ?>   
             <?php if(count($notification)>0): ?>
