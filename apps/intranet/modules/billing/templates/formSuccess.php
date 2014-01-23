@@ -6,11 +6,11 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Conceptos Facturados', 'Estimado', 'Facturado'],
-      ['Venta de Participadas',  <?php echo $form['total_affiliated']->getValue() ?>,<?php echo $form['sale_of_affiliated']->getValue() ?>],
-      ['Consultoría',  <?php echo $form['total_consultancy']->getValue() ?>,<?php echo $form['consultancy']->getValue() ?>],
-      ['Intermediación',  <?php echo $form['total_intermediation']->getValue() ?>,<?php echo $form['intermediation']->getValue() ?>],
-      ['Formación',  <?php echo $form['total_formation']->getValue() ?>,<?php echo $form['formation']->getValue() ?>],
-      ['Patentes',  <?php echo $form['total_patents']->getValue() ?>,<?php echo $form['patents']->getValue() ?>]
+      ['Venta de Participadas',  <?php echo $form['total_affiliated']->getValue()?$form['total_affiliated']->getValue():0 ?>,<?php echo $form['sale_of_affiliated']->getValue()?$form['sale_of_affiliated']->getValue():0 ?>],
+      ['Consultoría',            <?php echo $form['total_consultancy']->getValue()?$form['total_consultancy']->getValue():0 ?>,<?php echo $form['consultancy']->getValue()?$form['consultancy']->getValue():0 ?>],
+      ['Intermediación',         <?php echo $form['total_intermediation']->getValue()?$form['total_intermediation']->getValue():0 ?>,<?php echo $form['intermediation']->getValue()?$form['intermediation']->getValue():0 ?>],
+      ['Formación',              <?php echo $form['total_formation']->getValue()?$form['total_formation']->getValue():0 ?>,<?php echo $form['formation']->getValue()?$form['formation']->getValue():0 ?>],
+      ['Patentes',               <?php echo $form['total_patents']->getValue()?$form['total_patents']->getValue():0 ?>,<?php echo $form['patents']->getValue()?$form['patents']->getValue():0 ?>]
     ]);
 
     var options = {
