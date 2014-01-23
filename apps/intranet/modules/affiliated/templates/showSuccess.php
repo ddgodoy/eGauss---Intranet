@@ -57,7 +57,7 @@ $(document).ready(function() {
                     <?php foreach ($partners_company AS $p_value): ?>
                     <?php $_img_user = $p_value->getAppUser()->getPhoto()? 'uploads/user/'.ServiceFileHandler::getThumbImage($p_value->getAppUser()->getPhoto()) : 'images/no_user.jpg'; ?>
                     <tr>
-                        <td class="fancybox-manual-b" id="<?php echo $p_value->getId() ?>" style="cursor: pointer">
+                        <td class="fancybox-manual-b" id="<?php echo $p_value->getAppUser()->getId() ?>" style="cursor: pointer">
                             <img src="/<?php echo $_img_user ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle"/>
                             &nbsp;&nbsp;&nbsp;
                             <?php echo $p_value->getAppUser()->getName().' '.$p_value->getAppUser()->getLastName() ?>
