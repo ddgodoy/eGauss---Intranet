@@ -6,11 +6,11 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Conceptos Facturados', 'Estimado', 'Facturado'],
-      ['Venta de Participadas',  <?php echo $billing->getTotalAffiliated() ?>,<?php echo $billing->getSaleOfAffiliated() ?>],
-      ['Consultoría',  <?php echo $billing->getTotalConsultancy() ?>,<?php echo $billing->getConsultancy() ?>],
-      ['Intermediación',  <?php echo $billing->getTotalIntermediation() ?>,<?php echo $billing->getIntermediation() ?>],
-      ['Formación',  <?php echo $billing->getTotalFormation() ?>,<?php echo $billing->getFormation() ?>],
-      ['Patentes',  <?php echo $billing->getTotalPatents() ?>,<?php echo $billing->getPatents() ?>]
+      ['Venta de Participadas',  <?php echo $billing->getTotalAffiliated()?$billing->getTotalAffiliated():0 ?>,<?php echo $billing->getSaleOfAffiliated()?$billing->getSaleOfAffiliated():0 ?>],
+      ['Consultoría',            <?php echo $billing->getTotalConsultancy()?$billing->getTotalConsultancy():0 ?>,<?php echo $billing->getConsultancy()?$billing->getConsultancy():0 ?>],
+      ['Intermediación',         <?php echo $billing->getTotalIntermediation()?$billing->getTotalIntermediation():0 ?>,<?php echo $billing->getIntermediation()?$billing->getIntermediation():0 ?>],
+      ['Formación',              <?php echo $billing->getTotalFormation()?$billing->getTotalFormation():0 ?>,<?php echo $billing->getFormation()?$billing->getFormation():0 ?>],
+      ['Patentes',               <?php echo $billing->getTotalPatents()?$billing->getTotalPatents():0 ?>,<?php echo $billing->getPatents()?$billing->getPatents():0 ?>]
     ]);
 
     var options = {
