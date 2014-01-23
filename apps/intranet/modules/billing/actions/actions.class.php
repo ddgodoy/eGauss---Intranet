@@ -142,5 +142,50 @@ class billingActions extends sfActions
         }      
         $this->setTemplate('form');
     }
+    
+    /**
+     * billing by month year
+     * @param sfWebRequest $request
+     */
+    public function executeBillingByMonthYear(sfWebRequest $request)
+    {
+        $month_graph = $request->getParameter('month_graph', date('m'));
+        $year_graph  = $request->getParameter('year_graph', date('Y'));
+        
+        $array_data = [
+                        1=>[1=>0,2=>0],
+                        2=>[1=>0,2=>0],
+                        3=>[1=>0,2=>0],
+                        4=>[1=>0,2=>0],
+                        5=>[1=>0,2=>0],
+                        ];
+        
+       
+        $billing = BillingTable::getInstance()->findOneByMonthAndYear($month_graph, $year_graph);
+        
+        if($billing)
+        {
+            $array_data = [
+                            1=>[1=>$billing->getTotalAffiliated()?(double)$billing->getTotalAffiliated():0,2=>$billing->getSaleOfAffiliated()?(double)$billing->getSaleOfAffiliated():0],
+                            2=>[1=>$billing->getTotalConsultancy()?(double)$billing->getTotalConsultancy():0,2=>$billing->getConsultancy()?(double)$billing->getConsultancy():0],
+                            3=>[1=>$billing->getTotalIntermediation()?(double)$billing->getTotalIntermediation():0,2=>$billing->getIntermediation()?(double)$billing->getIntermediation():0],
+                            4=>[1=>$billing->getTotalFormation()?(double)$billing->getTotalFormation():0,2=>$billing->getFormation()?(double)$billing->getFormation():0],
+                            5=>[1=>$billing->getTotalPatents()?(double)$billing->getTotalPatents():0,2=>$billing->getPatents()?(double)$billing->getPatents():0],
+                          ]; 
+        }    
+        
+        
+        
+        
+        $title = ['Conceptos Facturados', 'Estimado', 'Facturado'];
+        $data1 = ['Venta de Participadas', $array_data[1][1], $array_data[1][2]];
+        $data2 = ['Consultoría', $array_data[2][1], $array_data[2][2]];
+        $data3 = ['Intermediación', $array_data[3][1], $array_data[3][2]];
+        $data4 = ['Formación', $array_data[4][1], $array_data[4][2]];
+        $data5 = ['Patentes', $array_data[5][1], $array_data[5][2]];
+       
+        echo json_encode(array($title,$data1, $data2, $data3, $data4, $data5));
+        exit();
+    }        
 }
 ?>

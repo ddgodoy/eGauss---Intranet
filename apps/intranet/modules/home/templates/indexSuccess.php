@@ -1,27 +1,3 @@
-<?php if($billing): ?>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Conceptos Facturados', 'Estimado', 'Facturado'],
-      ['Venta de Participadas',  <?php echo $billing->getTotalAffiliated()?$billing->getTotalAffiliated():0 ?>,<?php echo $billing->getSaleOfAffiliated()?$billing->getSaleOfAffiliated():0 ?>],
-      ['Consultoría',            <?php echo $billing->getTotalConsultancy()?$billing->getTotalConsultancy():0 ?>,<?php echo $billing->getConsultancy()?$billing->getConsultancy():0 ?>],
-      ['Intermediación',         <?php echo $billing->getTotalIntermediation()?$billing->getTotalIntermediation():0 ?>,<?php echo $billing->getIntermediation()?$billing->getIntermediation():0 ?>],
-      ['Formación',              <?php echo $billing->getTotalFormation()?$billing->getTotalFormation():0 ?>,<?php echo $billing->getFormation()?$billing->getFormation():0 ?>],
-      ['Patentes',               <?php echo $billing->getTotalPatents()?$billing->getTotalPatents():0 ?>,<?php echo $billing->getPatents()?$billing->getPatents():0 ?>]
-    ]);
-
-    var options = {
-      hAxis: {title: 'Conceptos Facturados', titleTextStyle: {color: 'red'}}
-    };
-
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-}
-</script>
-<?php endif; ?>
 <div class="content">
     <div class="columnas col2" style="width:98%;">
         <div class="paneles" style="width:33%;height:602px;float:left;overflow:auto;">
@@ -141,12 +117,9 @@
             <?php endif; ?>   
         </div>  
         <div style="width:31%;float:right;">
-            <?php if($billing): ?>
-            <div class="paneles">
-                <h1><?php echo __('Facturación') ?></h1>
-                <div id="chart_div" style="width: 350px; height: 204px;"></div> 
+            <div id="billing">
+                <?php include_component('billing', 'getBillingByMonth') ?> 
             </div>
-            <?php endif; ?>
             <?php /*
             <div class="paneles">
                 <h1><?php echo __('Contratos de Intermediación') ?></h1>

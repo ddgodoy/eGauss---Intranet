@@ -23,7 +23,7 @@ class calendarComponents extends sfComponents
 		$this->year  = $this->getRequestParameter('y', date('Y'));
 		$this->month = $this->getRequestParameter('m', date('m'));
                 
-                $calendar = CalendarTable::getInstance()->findByAppUserIdAndYearAndMonth($this->getUser()->getAttribute('user_id'), $this->year, $this->month);
+                $calendar = CalendarTable::getInstance()->findByYearAndMonth($this->year, $this->month);
                 
                 foreach ($calendar AS $v)
                 {

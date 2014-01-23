@@ -2,6 +2,10 @@
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 ################################################################### billing
 
+# billing-by-month-year
+billing-by-month-year:
+  url:   /billing-by-month-year
+  param: { module: billing, action: billingByMonthYear }
 # billing-delete rules
 billing-delete:
   url:   /billing-delete/:id

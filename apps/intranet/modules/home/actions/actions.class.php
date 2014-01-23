@@ -42,7 +42,6 @@ class homeActions extends sfActions
         $this->information  = InformationTable::getInstance()->getInformation();
         $this->notification = NotificationsTable::getInstance()->getNotifications($this->getUser()->getAttribute('user_id'));
         $this->calendar     = CalendarTable::getInstance()->getCalendarByUserAndDate($this->getUser()->getAttribute('user_id'), date('Y'), date('m'), date('d'));
-        $this->billing      = $billing_month = BillingTable::getInstance()->findOneByMonthAndYear(date('m'), date('Y'));
     }
     
     /**
