@@ -52,7 +52,7 @@ class CalendarTable extends Doctrine_Table
         $q = $this->createQuery()
              ->where('year = ?', $year)
              ->andWhere('month = ?', $month)   
-             ->andWhere('day = ?', $day)
+             ->andWhere('day >= ?', $day)
              ->orderBy('hour_from ASC');
         
         return $q->execute();

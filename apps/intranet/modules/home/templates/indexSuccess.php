@@ -24,12 +24,13 @@
 <?php endif; ?>
 <div class="content">
     <div class="columnas col2" style="width:98%;">
-        <div class="paneles" style="width:33%;height:502px;float:left;overflow:auto;">
+        <div class="paneles" style="width:33%;height:602px;float:left;overflow:auto;">
             <div id="conten-calendar">
                 <?php include_component('calendar', 'calendar') ?>
             </div>    
             <?php if(count($calendar)>0): ?>
             <h1><?php echo __('Date').' '.date('d/m/Y') ?></h1>
+            <div style="overflow-y: auto; height: 310px;">
             <table width="100%" cellspacing="0" border="0" class="listados">
                 <tr>
                     <th width="5%"></th>  
@@ -48,9 +49,10 @@
                         <td><?php echo $item->getSubject() ?></td>
                         <td><?php echo $item->getHourFrom() ?></td>
                     </tr> 
-                    <?php endforeach; ?>
+                <?php endforeach; ?>
             </table>
-            <?php endif; ?> 
+            </div>     
+            <?php endif; ?>       
         </div>
         <div style="width:33%;float:left;">
             <?php if($shareholders): ?>
