@@ -18,7 +18,7 @@ class ContractsIntermediationForm extends BaseContractsIntermediationForm
       'id'               => new sfWidgetFormInputHidden(),
       'date'             => new sfWidgetFormJQueryDate(array('image'=>'/images/calendario.gif','date_widget' => new sfWidgetFormDate(array('format' => '%day% %month% %year%')))),
       'customer'         => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
-      'app_user_id'      => new sfWidgetFormChoice(array('choices'=>$array_user), array('class'=>'form_input', 'style'=>'width:130px;')),
+      'app_user_id'      => new sfWidgetFormChoice(array('choices'=>$array_user), array('class'=>'form_input', 'style'=>'width:406px;')),
       'observations'     => new sfWidgetFormTextareaTinyMCE(array(),array('style' => 'width:100%;  height: 450px;', 'rows' => 10, 'class' => 'foo')),
       'business_amount'  => new sfWidgetFormInputText(array(), array('class'=>'form_input no_letters', 'style'=>'width:400px;')),
       'intermediation'   => new sfWidgetFormInputText(array(), array('class'=>'form_input no_letters', 'style'=>'width:400px;')),
