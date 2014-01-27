@@ -11,8 +11,7 @@ class billingComponents extends sfComponents
 {
     public function executeGetBillingByMonth(sfWebRequest $request)
     {
-         $this->month        = [''=>'-- seleccionar --']+
-                              [ 01=>'Enero',
+         $this->month        =[ 01=>'Enero',
                                 02=>'Febrero',
                                 03=>'Marzo',
                                 04=>'Abril',
