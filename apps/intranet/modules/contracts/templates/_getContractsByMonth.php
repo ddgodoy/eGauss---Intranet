@@ -56,5 +56,7 @@ $(document).ready(function(){
 <?php endif; ?>
 <div class="paneles">
     <h1><?php echo __('Contratos de Intermediación') ?><span style="float: right"><?php echo 'Año:&nbsp;'.date('Y') ?></span></h1>
-    <div id="chart_div_contracts" style="width: 350px; height: 204px;"></div> 
+    <div id="chart_div_contracts" style="width: 350px; height: 204px;">
+        <div style="width: 350px; height: 204px; text-align: center; padding-top: 40px;"><img src="/images/loading.gif"/></div>
+    </div> 
 </div>

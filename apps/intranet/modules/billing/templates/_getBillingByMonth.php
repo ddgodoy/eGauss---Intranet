@@ -50,5 +50,7 @@ $(document).ready(function(){
 <?php endif; ?>
 <div class="paneles">
     <h1><?php echo __('Facturación') ?><span style="float: right"><?php echo select_tag('month_graph', options_for_select($month, (int)date('m')),array('id'=>'month_graph')) ?> / <?php echo select_tag('year_graph', options_for_select($array_year, date('Y')),array('id'=>'year_graph')) ?>  <input type="button" id="btn_action_graph" class="boton" style="padding: 0; padding-bottom: 2px;" value="ver" name="btn_action"></span></h1>
-    <div id="chart_div" style="width: 350px; height: 204px;"></div> 
+    <div id="chart_div" style="width: 350px; height: 204px;">
+        <div style="width: 350px; height: 204px; text-align: center; padding-top: 40px;"><img src="/images/loading.gif"/></div>
+    </div> 
 </div>
