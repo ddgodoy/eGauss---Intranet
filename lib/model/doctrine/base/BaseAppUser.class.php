@@ -24,45 +24,48 @@
  * @property Company $Company
  * @property UserRole $UserRole
  * @property Doctrine_Collection $AppUser
+ * @property Doctrine_Collection $ContractsIntermediation
  * 
- * @method integer             getId()                Returns the current record's "id" value
- * @method string              getName()              Returns the current record's "name" value
- * @method string              getLastName()          Returns the current record's "last_name" value
- * @method string              getEmail()             Returns the current record's "email" value
- * @method string              getPhone()             Returns the current record's "phone" value
- * @method string              getSkype()             Returns the current record's "skype" value
- * @method string              getContactTimeFrom()   Returns the current record's "contact_time_from" value
- * @method string              getContactTimeTo()     Returns the current record's "contact_time_to" value
- * @method string              getPhoto()             Returns the current record's "photo" value
- * @method string              getSalt()              Returns the current record's "salt" value
- * @method string              getPassword()          Returns the current record's "password" value
- * @method string              getRecoverToken()      Returns the current record's "recover_token" value
- * @method boolean             getEnabled()           Returns the current record's "enabled" value
- * @method datetime            getLastAccess()        Returns the current record's "last_access" value
- * @method integer             getCompanyId()         Returns the current record's "company_id" value
- * @method integer             getUserRoleId()        Returns the current record's "user_role_id" value
- * @method Company             getCompany()           Returns the current record's "Company" value
- * @method UserRole            getUserRole()          Returns the current record's "UserRole" value
- * @method Doctrine_Collection getAppUser()           Returns the current record's "AppUser" collection
- * @method AppUser             setId()                Sets the current record's "id" value
- * @method AppUser             setName()              Sets the current record's "name" value
- * @method AppUser             setLastName()          Sets the current record's "last_name" value
- * @method AppUser             setEmail()             Sets the current record's "email" value
- * @method AppUser             setPhone()             Sets the current record's "phone" value
- * @method AppUser             setSkype()             Sets the current record's "skype" value
- * @method AppUser             setContactTimeFrom()   Sets the current record's "contact_time_from" value
- * @method AppUser             setContactTimeTo()     Sets the current record's "contact_time_to" value
- * @method AppUser             setPhoto()             Sets the current record's "photo" value
- * @method AppUser             setSalt()              Sets the current record's "salt" value
- * @method AppUser             setPassword()          Sets the current record's "password" value
- * @method AppUser             setRecoverToken()      Sets the current record's "recover_token" value
- * @method AppUser             setEnabled()           Sets the current record's "enabled" value
- * @method AppUser             setLastAccess()        Sets the current record's "last_access" value
- * @method AppUser             setCompanyId()         Sets the current record's "company_id" value
- * @method AppUser             setUserRoleId()        Sets the current record's "user_role_id" value
- * @method AppUser             setCompany()           Sets the current record's "Company" value
- * @method AppUser             setUserRole()          Sets the current record's "UserRole" value
- * @method AppUser             setAppUser()           Sets the current record's "AppUser" collection
+ * @method integer             getId()                      Returns the current record's "id" value
+ * @method string              getName()                    Returns the current record's "name" value
+ * @method string              getLastName()                Returns the current record's "last_name" value
+ * @method string              getEmail()                   Returns the current record's "email" value
+ * @method string              getPhone()                   Returns the current record's "phone" value
+ * @method string              getSkype()                   Returns the current record's "skype" value
+ * @method string              getContactTimeFrom()         Returns the current record's "contact_time_from" value
+ * @method string              getContactTimeTo()           Returns the current record's "contact_time_to" value
+ * @method string              getPhoto()                   Returns the current record's "photo" value
+ * @method string              getSalt()                    Returns the current record's "salt" value
+ * @method string              getPassword()                Returns the current record's "password" value
+ * @method string              getRecoverToken()            Returns the current record's "recover_token" value
+ * @method boolean             getEnabled()                 Returns the current record's "enabled" value
+ * @method datetime            getLastAccess()              Returns the current record's "last_access" value
+ * @method integer             getCompanyId()               Returns the current record's "company_id" value
+ * @method integer             getUserRoleId()              Returns the current record's "user_role_id" value
+ * @method Company             getCompany()                 Returns the current record's "Company" value
+ * @method UserRole            getUserRole()                Returns the current record's "UserRole" value
+ * @method Doctrine_Collection getAppUser()                 Returns the current record's "AppUser" collection
+ * @method Doctrine_Collection getContractsIntermediation() Returns the current record's "ContractsIntermediation" collection
+ * @method AppUser             setId()                      Sets the current record's "id" value
+ * @method AppUser             setName()                    Sets the current record's "name" value
+ * @method AppUser             setLastName()                Sets the current record's "last_name" value
+ * @method AppUser             setEmail()                   Sets the current record's "email" value
+ * @method AppUser             setPhone()                   Sets the current record's "phone" value
+ * @method AppUser             setSkype()                   Sets the current record's "skype" value
+ * @method AppUser             setContactTimeFrom()         Sets the current record's "contact_time_from" value
+ * @method AppUser             setContactTimeTo()           Sets the current record's "contact_time_to" value
+ * @method AppUser             setPhoto()                   Sets the current record's "photo" value
+ * @method AppUser             setSalt()                    Sets the current record's "salt" value
+ * @method AppUser             setPassword()                Sets the current record's "password" value
+ * @method AppUser             setRecoverToken()            Sets the current record's "recover_token" value
+ * @method AppUser             setEnabled()                 Sets the current record's "enabled" value
+ * @method AppUser             setLastAccess()              Sets the current record's "last_access" value
+ * @method AppUser             setCompanyId()               Sets the current record's "company_id" value
+ * @method AppUser             setUserRoleId()              Sets the current record's "user_role_id" value
+ * @method AppUser             setCompany()                 Sets the current record's "Company" value
+ * @method AppUser             setUserRole()                Sets the current record's "UserRole" value
+ * @method AppUser             setAppUser()                 Sets the current record's "AppUser" collection
+ * @method AppUser             setContractsIntermediation() Sets the current record's "ContractsIntermediation" collection
  * 
  * @package    egauss
  * @subpackage model
@@ -164,6 +167,10 @@ abstract class BaseAppUser extends sfDoctrineRecord
              'onDelete' => 'CASCADE'));
 
         $this->hasMany('AppUserRegisteredCompanies as AppUser', array(
+             'local' => 'id',
+             'foreign' => 'app_user_id'));
+
+        $this->hasMany('ContractsIntermediation', array(
              'local' => 'id',
              'foreign' => 'app_user_id'));
 

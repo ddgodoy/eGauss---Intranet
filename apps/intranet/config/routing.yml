@@ -1,11 +1,44 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
+################################################################### contracts
+
+# contracts-by-month-year
+contracts-by-month-year:
+  url:   /contracts-by-month-year
+  param: { module: contracts, action: contractsByMonthYear }
+  
+# contracts-delete rules
+contracts-delete:
+  url:   /contracts-delete/:id
+  param: { module: contracts, action: delete }
+
+# contracts-edit rules
+contracts-edit:
+  url:   /contracts-edit/:id
+  param: { module: contracts, action: edit }
+
+# contracts-register rules
+contracts-register:
+  url:   /contracts-register
+  param: { module: contracts, action: register }
+  
+# contracts-show rules
+contracts-show:
+  url:   /contracts-show/:id
+  param: { module: contracts, action: show }
+  
+# contracts rules
+contracts:
+  url:   /contracts
+  param: { module: contracts, action: index }
+  
 ################################################################### billing
 
 # billing-by-month-year
 billing-by-month-year:
   url:   /billing-by-month-year
   param: { module: billing, action: billingByMonthYear }
+  
 # billing-delete rules
 billing-delete:
   url:   /billing-delete/:id

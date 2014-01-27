@@ -8,7 +8,6 @@
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">google.load("visualization", "1", {packages:["corechart"]});</script>
   </head>
   <body>
      <?php include_partial('global/header') ?>  

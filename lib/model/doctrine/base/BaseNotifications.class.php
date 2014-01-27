@@ -8,34 +8,40 @@
  * @property integer $id
  * @property integer $registered_companies_id
  * @property integer $information_id
+ * @property integer $contracts_intermediation_id
  * @property integer $app_user_id
  * @property string $type
  * @property text $subject
  * @property boolean $important
  * @property RegisteredCompanies $RegisteredCompanies
  * @property Information $Information
+ * @property ContractsIntermediation $ContractsIntermediation
  * @property AppUser $AppUser
  * 
- * @method integer             getId()                      Returns the current record's "id" value
- * @method integer             getRegisteredCompaniesId()   Returns the current record's "registered_companies_id" value
- * @method integer             getInformationId()           Returns the current record's "information_id" value
- * @method integer             getAppUserId()               Returns the current record's "app_user_id" value
- * @method string              getType()                    Returns the current record's "type" value
- * @method text                getSubject()                 Returns the current record's "subject" value
- * @method boolean             getImportant()               Returns the current record's "important" value
- * @method RegisteredCompanies getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
- * @method Information         getInformation()             Returns the current record's "Information" value
- * @method AppUser             getAppUser()                 Returns the current record's "AppUser" value
- * @method Notifications       setId()                      Sets the current record's "id" value
- * @method Notifications       setRegisteredCompaniesId()   Sets the current record's "registered_companies_id" value
- * @method Notifications       setInformationId()           Sets the current record's "information_id" value
- * @method Notifications       setAppUserId()               Sets the current record's "app_user_id" value
- * @method Notifications       setType()                    Sets the current record's "type" value
- * @method Notifications       setSubject()                 Sets the current record's "subject" value
- * @method Notifications       setImportant()               Sets the current record's "important" value
- * @method Notifications       setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
- * @method Notifications       setInformation()             Sets the current record's "Information" value
- * @method Notifications       setAppUser()                 Sets the current record's "AppUser" value
+ * @method integer                 getId()                          Returns the current record's "id" value
+ * @method integer                 getRegisteredCompaniesId()       Returns the current record's "registered_companies_id" value
+ * @method integer                 getInformationId()               Returns the current record's "information_id" value
+ * @method integer                 getContractsIntermediationId()   Returns the current record's "contracts_intermediation_id" value
+ * @method integer                 getAppUserId()                   Returns the current record's "app_user_id" value
+ * @method string                  getType()                        Returns the current record's "type" value
+ * @method text                    getSubject()                     Returns the current record's "subject" value
+ * @method boolean                 getImportant()                   Returns the current record's "important" value
+ * @method RegisteredCompanies     getRegisteredCompanies()         Returns the current record's "RegisteredCompanies" value
+ * @method Information             getInformation()                 Returns the current record's "Information" value
+ * @method ContractsIntermediation getContractsIntermediation()     Returns the current record's "ContractsIntermediation" value
+ * @method AppUser                 getAppUser()                     Returns the current record's "AppUser" value
+ * @method Notifications           setId()                          Sets the current record's "id" value
+ * @method Notifications           setRegisteredCompaniesId()       Sets the current record's "registered_companies_id" value
+ * @method Notifications           setInformationId()               Sets the current record's "information_id" value
+ * @method Notifications           setContractsIntermediationId()   Sets the current record's "contracts_intermediation_id" value
+ * @method Notifications           setAppUserId()                   Sets the current record's "app_user_id" value
+ * @method Notifications           setType()                        Sets the current record's "type" value
+ * @method Notifications           setSubject()                     Sets the current record's "subject" value
+ * @method Notifications           setImportant()                   Sets the current record's "important" value
+ * @method Notifications           setRegisteredCompanies()         Sets the current record's "RegisteredCompanies" value
+ * @method Notifications           setInformation()                 Sets the current record's "Information" value
+ * @method Notifications           setContractsIntermediation()     Sets the current record's "ContractsIntermediation" value
+ * @method Notifications           setAppUser()                     Sets the current record's "AppUser" value
  * 
  * @package    egauss
  * @subpackage model
@@ -58,6 +64,10 @@ abstract class BaseNotifications extends sfDoctrineRecord
              'length' => 4,
              ));
         $this->hasColumn('information_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
+        $this->hasColumn('contracts_intermediation_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              ));
@@ -92,6 +102,11 @@ abstract class BaseNotifications extends sfDoctrineRecord
 
         $this->hasOne('Information', array(
              'local' => 'information_id',
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
+
+        $this->hasOne('ContractsIntermediation', array(
+             'local' => 'contracts_intermediation_id',
              'foreign' => 'id',
              'onDelete' => 'SET NULL'));
 

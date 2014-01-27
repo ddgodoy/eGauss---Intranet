@@ -13,7 +13,7 @@
 class Notifications extends BaseNotifications
 {
     
-    public static function setNewNotification($type, $subject, $company_id='', $apps_user_id = '', $informatio_id = '')
+    public static function setNewNotification($type, $subject, $company_id='', $apps_user_id = '', $informatio_id = '', $contracts_intermediation_id = '')
     {
        $notification = new Notifications();
        $notification->setType($type);
@@ -32,6 +32,11 @@ class Notifications extends BaseNotifications
        if($informatio_id != '')
        {
            $notification->setInformationId($informatio_id);
+       }
+       
+       if($contracts_intermediation_id != '')
+       {
+           $notification->setContractsIntermediationId($contracts_intermediation_id);
        }
        
        $notification->save();

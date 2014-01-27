@@ -174,17 +174,19 @@ TypeInformation:
 Notifications:
   tableName: notifications 
   columns:
-    id:                        { type: integer(4), primary: true, notnull: true, autoincrement: true }
-    registered_companies_id:   { type: integer(4) }
-    information_id:            { type: integer(4) }
-    app_user_id:               { type: integer(4)}
-    type:                      { type: string(50), notnull: true }
-    subject:                   { type: text }
-    important:                 { type: boolean, default: false }
+    id:                           { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    registered_companies_id:      { type: integer(4) }
+    information_id:               { type: integer(4) }
+    contracts_intermediation_id:  { type: integer(4) }
+    app_user_id:                  { type: integer(4)}
+    type:                         { type: string(50), notnull: true }
+    subject:                      { type: text }
+    important:                    { type: boolean, default: false }
     
   relations:
     RegisteredCompanies:      { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE }
     Information:              { class: Information, local: information_id, foreign: id, foreignAlias: Information, onDelete: SET NULL }
+    ContractsIntermediation:  { class: ContractsIntermediation, local: contracts_intermediation_id, foreign: id, foreignAlias: ContractsIntermediation, onDelete: SET NULL }
     AppUser:                  { class: AppUser, local: app_user_id, foreign: id, foreignAlias: AppUser, onDelete: SET NULL }
     
     
@@ -254,3 +256,23 @@ Billing:
     formation:               { type: 'decimal(9, 2)'}
     total_patents:           { type: 'decimal(9, 2)'}
     patents:                 { type: 'decimal(9, 2)'}   
+    
+    
+#
+#contracts_intermediation
+#
+ContractsIntermediation:
+  tableName: contracts_intermediation
+  columns:
+    id:                        { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    year:                      { type: integer(8), notnull: true }
+    month:                     { type: integer(8), notnull: true }
+    day:                       { type: integer(8), notnull: true }
+    customer:                  { type: string(50), notnull: true }
+    app_user_id:               { type: integer(4), notnull: true }
+    observations:              { type: text }
+    business_amount:           { type: 'decimal(9, 2)'}
+    intermediation:            { type: 'decimal(9, 2)'}
+    final_commission:          { type: 'decimal(9, 2)'}
+    comments:                  { type: text }
+    

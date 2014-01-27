@@ -1,5 +1,4 @@
 <?php if($billing): ?>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(drawChart);
@@ -36,7 +35,7 @@ $(document).ready(function(){
     $('#btn_action_graph').click(function(){
         var month_graph = $('#month_graph').val();
         var year_graph  = $('#year_graph').val();
-        
+        $('#chart_div').html('<div style="width: 350px; height: 204px; text-align: center; padding-top: 40px;"><img src="/images/loading.gif"/></div>');
         jQuery.ajax({
             type: 'POST',
             url: '<?php echo url_for('@billing-by-month-year') ?>',
@@ -50,6 +49,6 @@ $(document).ready(function(){
 </script>
 <?php endif; ?>
 <div class="paneles">
-    <h1><?php echo __('Facturación') ?><span style="float: right"><?php echo select_tag('month_graph', options_for_select($month, (int)date('m')),array('id'=>'month_graph')) ?> / <?php echo select_tag('year_graph', options_for_select($array_year, date('Y')),array('id'=>'year_graph')) ?>  <input type="button" id="btn_action_graph" class="boton" style="padding: 0; padding-bottom: 2px;" value="ir" name="btn_action"></span></h1>
+    <h1><?php echo __('Facturación') ?><span style="float: right"><?php echo select_tag('month_graph', options_for_select($month, (int)date('m')),array('id'=>'month_graph')) ?> / <?php echo select_tag('year_graph', options_for_select($array_year, date('Y')),array('id'=>'year_graph')) ?>  <input type="button" id="btn_action_graph" class="boton" style="padding: 0; padding-bottom: 2px;" value="ver" name="btn_action"></span></h1>
     <div id="chart_div" style="width: 350px; height: 204px;"></div> 
 </div>

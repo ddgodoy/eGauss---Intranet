@@ -72,7 +72,7 @@ class billingActions extends sfActions
           return "$q_order $q_sort";
     }
     
-    /**
+   /**
     * Executes create action
     *
     * @param sfWebRequest $request
@@ -106,7 +106,7 @@ class billingActions extends sfActions
       $this->redirect('@billing');
     }
     
-    /**
+   /**
     * Process form action
     *
     * @param sfWebRequest $request

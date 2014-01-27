@@ -102,6 +102,10 @@
                                                $sf_module = 'information';
                                                $id_type   = $value->getInformationId();  
                                             break;
+                                            case 'contracts':
+                                               $sf_module = 'contracts';
+                                               $id_type   = $value->getContractsIntermediationId();  
+                                            break;
                                  } ?>
                         <tr class="<?php if (!empty($odd_n)) { echo 'gris'; $odd_n=0; } else { echo 'blanco'; $odd_n=1; } ?>" style="cursor: pointer" onclick="document.location='<?php echo url_for('@'.$sf_module.'-show?id='.$id_type) ?>'">
                             <td>
@@ -120,11 +124,9 @@
             <div id="billing">
                 <?php include_component('billing', 'getBillingByMonth') ?> 
             </div>
-            <?php /*
-            <div class="paneles">
-                <h1><?php echo __('Contratos de Intermediación') ?></h1>
-                <div id="chart_div_contract" style="width: 250px; height: 204px;"></div> 
-            </div> */ ?>
+            <div id="contracts">
+                <?php include_component('contracts', 'getContractsByMonth') ?> 
+            </div>
             
         </div>
     </div>
