@@ -58,13 +58,16 @@ class CalendarTable extends Doctrine_Table
      */
     public function getCalendarByUserAndDate($user, $year, $month, $day)
     {
-        $q = $this->createQuery()
-             ->where('year = ?', $year)
-             ->andWhere('month = ?', $month)   
-             ->andWhere('day >= ?', $day)
-             ->orderBy('hour_from ASC');
-        
-        return $q->execute();
+    	/*
+      $q = $this->createQuery()
+           ->where('year = ?', $year)
+           ->andWhere('month = ?', $month)   
+           ->andWhere('day >= ?', $day)
+           ->orderBy('hour_from ASC');
+      */
+			$q = $this->createQuery()->orderBy('CONCAT(year,month,day) DESC')->limit(5);
+
+      return $q->execute();
     }        
     
     /**

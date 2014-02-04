@@ -32,7 +32,7 @@
                      <?php if($sf_user->hasCredential('super_admin')): ?> 
 			<input type="button" onclick="document.location='<?php echo url_for('calendar/edit?id='.$oValue->getId().'&sch_year='.$sch_year.'&sch_month='.$sch_month.'&sch_day='.$sch_day) ?>';" value="<?php echo __('Edit') ?>" class="boton" />
                      <?php endif; ?>   
-			<input type="button" onclick="document.location='<?php echo url_for('calendar/index?sch_year='.$sch_year.'&sch_month='.$sch_month.'&sch_day='.$sch_day) ?>';" value="<?php echo __('Continue to list') ?>" class="boton" />
+			<input type="button" onclick="document.location='<?php echo url_for('@calendar_lista') ?>';" value="<?php echo __('Continue to list') ?>" class="boton" />
 		</div>
 	</div>
 	<div class="clear"></div>

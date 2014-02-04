@@ -312,6 +312,11 @@ calendar-get-date:
   url:   /calendar-get-date
   param: { module: calendar, action: getDate }
 
+# calendar listado
+calendar_lista:
+  url:   /calendar
+  param: { module: calendar, action: index }
+
 #################################################################### user
 
 # user-view rules

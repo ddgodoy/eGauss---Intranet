@@ -1,4 +1,17 @@
-<?php if($id): ?>
+<?php if ($id): ?>
+	<?php
+		$t_affiliated  = $form['total_affiliated']->getValue() ? $form['total_affiliated']->getValue() : 0;
+		$t_consultancy = $form['total_consultancy']->getValue() ? $form['total_consultancy']->getValue() : 0;
+		$t_intermediat = $form['total_intermediation']->getValue() ? $form['total_intermediation']->getValue() : 0;
+		$t_formation   = $form['total_formation']->getValue() ? $form['total_formation']->getValue() : 0;
+		$t_patents     = $form['total_patents']->getValue() ? $form['total_patents']->getValue() : 0;
+		
+		$p_affiliated  = $form['sale_of_affiliated']->getValue() ? $form['sale_of_affiliated']->getValue() : 0;
+		$p_consultancy = $form['consultancy']->getValue() ? $form['consultancy']->getValue() : 0;
+		$p_intermediat = $form['intermediation']->getValue() ? $form['intermediation']->getValue() : 0;
+		$p_formation   = $form['formation']->getValue() ? $form['formation']->getValue() : 0;
+		$p_patents     = $form['patents']->getValue() ? $form['patents']->getValue() : 0;
+	?>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
   google.load("visualization", "1", {packages:["corechart"]});
@@ -6,18 +19,16 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Conceptos Facturados', 'Estimado', 'Facturado'],
-      ['Venta de Participadas',  <?php echo $form['total_affiliated']->getValue()?$form['total_affiliated']->getValue():0 ?>,<?php echo $form['sale_of_affiliated']->getValue()?$form['sale_of_affiliated']->getValue():0 ?>],
-      ['Consultoría',            <?php echo $form['total_consultancy']->getValue()?$form['total_consultancy']->getValue():0 ?>,<?php echo $form['consultancy']->getValue()?$form['consultancy']->getValue():0 ?>],
-      ['Intermediación',         <?php echo $form['total_intermediation']->getValue()?$form['total_intermediation']->getValue():0 ?>,<?php echo $form['intermediation']->getValue()?$form['intermediation']->getValue():0 ?>],
-      ['Formación',              <?php echo $form['total_formation']->getValue()?$form['total_formation']->getValue():0 ?>,<?php echo $form['formation']->getValue()?$form['formation']->getValue():0 ?>],
-      ['Patentes',               <?php echo $form['total_patents']->getValue()?$form['total_patents']->getValue():0 ?>,<?php echo $form['patents']->getValue()?$form['patents']->getValue():0 ?>]
+      ['Venta de Participadas', <?php echo $t_affiliated ?>,<?php echo $p_affiliated ?>],
+      ['Consultoría',           <?php echo $t_consultancy ?>,<?php echo $p_consultancy ?>],
+      ['Intermediación',        <?php echo $t_intermediat ?>,<?php echo $p_intermediat ?>],
+      ['Formación',             <?php echo $t_formation ?>,<?php echo $p_formation ?>],
+      ['Patentes',              <?php echo $t_patents ?>,<?php echo $p_patents ?>]
     ]);
-
     var options = {
       title: 'Facturación',
       hAxis: {title: 'Conceptos Facturados', titleTextStyle: {color: 'red'}}
     };
-
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
@@ -152,9 +163,25 @@ $(document).ready(function(){
                                        </table>       
                                     </td>
                                     <td>
-                                       <?php if($id): ?> 
-                                            <div id="chart_div" style="width: 550px; height: 250px;"></div> 
-                                       <?php endif; ?>
+                                     <?php if ($id): ?>
+                                     		<?php
+                                     			$tot_estimado = $t_affiliated + $t_consultancy + $t_intermediat + $t_formation + $t_patents;
+                                     			$tot_facturad = $p_affiliated + $p_consultancy + $p_intermediat + $p_formation + $p_patents;
+																				?>
+                                      	<div id="chart_div" style="width:550px;height:250px;"></div><br />
+                                      	<table cellpadding="0" cellspacing="0" align="center">
+                                      		<tr><td height="10"></td></tr>
+                                      		<tr>
+                                      			<td><label>TOTAL ESTIMADO:</label></td><td width="10"></td>
+                                      			<td><strong><label><?php echo $tot_estimado; ?></label></strong></td>
+                                      		</tr>
+                                      		<tr><td height="15"></td></tr>
+                                      		<tr>
+                                      			<td><label>TOTAL FACTURADO:</label></td><td width="10"></td>
+                                      			<td><strong><label><?php echo $tot_facturad; ?></label></strong></td>
+                                      		</tr>
+                                      	</table>
+                                     <?php endif; ?>
                                     </td>
                                 </tr>
                             </table>

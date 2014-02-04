@@ -69,10 +69,10 @@
                                 </table>    
                         </fieldset>
                         <div style="padding-top:10px;" class="botonera">
-				<input type="button" onclick="document.location='<?php echo url_for('@'.$str_module.'?sch_year='.$sch_year.'&sch_month='.$sch_month.'&sch_day='.$sch_day) ?>';" value="<?php echo __('Cancel') ?>" class="boton" />
-				<input type="submit" name="btn_action" value="<?php echo __('Register') ?>" class="boton" id="btn_action"/>
-                                <?php echo $form->renderHiddenFields() ?>
-			</div>
+													<input type="button" onclick="document.location='<?php echo url_for('@calendar_lista') ?>';" value="<?php echo __('Cancel') ?>" class="boton" />
+													<input type="submit" name="btn_action" value="<?php echo __('Register') ?>" class="boton" id="btn_action"/>
+                          <?php echo $form->renderHiddenFields() ?>
+												</div>
                 </form>
 	</div>
 	<div class="clear"></div>

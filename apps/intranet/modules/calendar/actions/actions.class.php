@@ -9,7 +9,6 @@
  */
 class calendarActions extends sfActions
 {
-    
    /**
     * Executes index action
     *
@@ -17,10 +16,10 @@ class calendarActions extends sfActions
     */
     public function executeIndex(sfWebRequest $request)
     {
-           $this->iPage  = $request->getParameter('page', 1);
-           $this->oPager = CalendarTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy());
-           $this->oList  = $this->oPager->getResults();
-           $this->oCant  = $this->oPager->getNbResults();
+       $this->iPage  = $request->getParameter('page', 1);
+       $this->oPager = CalendarTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy());
+       $this->oList  = $this->oPager->getResults();
+       $this->oCant  = $this->oPager->getNbResults();
     }
 
     /**
@@ -50,7 +49,6 @@ class calendarActions extends sfActions
            $sch_partial .= " AND day = $this->sch_day";
            $this->f_params .= '&sch_day='.urlencode($this->sch_day);
        }
-       
        return $sch_partial;
     }
 
@@ -61,13 +59,13 @@ class calendarActions extends sfActions
      */
     protected function setOrderBy()
     {
-           $q_order = $this->getRequestParameter('o', 'hour_from');	// order
-           $q_sort  = $this->getRequestParameter('s', 'asc');  // sort
+       $q_order = $this->getRequestParameter('o', 'date');	// order
+       $q_sort  = $this->getRequestParameter('s', 'desc');  // sort
 
-           $this->sort = $q_sort == 'asc' ? 'desc' : 'asc';
-           $this->pager_order = "&o=$q_order&s=$q_sort";
+       $this->sort = $q_sort == 'asc' ? 'desc' : 'asc';
+       $this->pager_order = "&o=$q_order&s=$q_sort";
 
-           return "$q_order $q_sort";
+       return "$q_order $q_sort";
     }
      
     /**
@@ -189,9 +187,9 @@ class calendarActions extends sfActions
           $oValue = CalendarTable::getInstance()->find($request->getParameter('id'));
 
           if ($oValue) {
-                          $oValue->delete();
+            $oValue->delete();
           }
-          $this->redirect('@calendar?sch_year='.$this->sch_year.'&sch_month='.$this->sch_month.'&sch_day='.$this->sch_day);
+          $this->redirect('@calendar_lista');
     }
     
     /**
@@ -208,7 +206,7 @@ class calendarActions extends sfActions
           $this->id = $request->getParameter('id');
           $this->oValue = CalendarTable::getInstance()->find($this->id);
 
-          if (empty($this->id)) { $this->redirect('@calendar?sch_year='.$this->sch_year.'&sch_month='.$this->sch_month.'&sch_day='.$this->sch_day); }
+          if (empty($this->id)) { $this->redirect('@calendar_lista'); }
     }
 }
 ?>

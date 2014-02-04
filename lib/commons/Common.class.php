@@ -125,5 +125,24 @@ class Common
     $date = new DateTime($date);
     return $date->format($format);
   }
+  
+  /**
+	 * Dump debbug info to file
+	 *
+	 * @param string $data
+	 */
+	public static function writeThisInLog($data)
+  {
+    $dir = sfConfig::get('sf_upload_dir') . '/debugging/';
+    $txt = $dir . 'log.txt';
+
+    if ($fh = fopen($txt, 'a+'))
+    {
+      fwrite($fh, $data . "\n");
+      fclose($fh);
+
+      chmod($txt, 0777);
+    }
+  }
 
 } // end class

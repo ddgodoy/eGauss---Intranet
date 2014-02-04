@@ -9,9 +9,14 @@
  */
 class contractsComponents extends sfComponents
 {
-    public function executeGetContractsByMonth(sfWebRequest $request)
-    {
-         $this->contracts = ContractsIntermediationTable::getInstance()->findByYear(date('Y'));
-    }        
-}
-?>
+  public function executeGetContractsByMonth(sfWebRequest $request)
+  {
+    $this->contracts = ContractsIntermediationTable::getInstance()->findByYear(date('Y'));
+  }
+  
+  public function executeGetRankingSocios(sfWebRequest $request)
+  {
+    $this->rSocios = ContractsIntermediationTable::getInstance()->getSumatoriaSocios(date('Y'));
+  }
+
+} // end class

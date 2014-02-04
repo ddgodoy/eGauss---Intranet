@@ -5,7 +5,9 @@
                 <?php include_component('calendar', 'calendar') ?>
             </div>    
             <?php if(count($calendar)>0): ?>
+            <br />
             <h1><?php echo __('Date').' '.date('d/m/Y') ?></h1>
+            <br />
             <div style="overflow-y: auto; height: 310px;">
             <table width="100%" cellspacing="0" border="0" class="listados">
                 <tr>
@@ -126,8 +128,8 @@
             </div>
             <div id="contracts">
                 <?php include_component('contracts', 'getContractsByMonth') ?> 
+                <?php include_component('contracts', 'getRankingSocios') ?> 
             </div>
-            
         </div>
     </div>
     <?php include_component('affiliated', 'getAffiliated') ?>

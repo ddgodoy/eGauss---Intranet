@@ -7,35 +7,69 @@
  */
 class ContractsIntermediationTable extends Doctrine_Table
 {
-    /**
-     * Returns an instance of this class.
-     *
-     * @return object ContractsIntermediationTable
-     */
-    public static function getInstance()
-    {
-        return Doctrine_Core::getTable('ContractsIntermediation');
-    }
-    
-    /**
-     * Get pager for list of contracts
-     *
-     * @param integer $page
-     * @param integer $per_page
-     * @param string $filter
-     * @param string $order
-     * @return doctrine pager
-     */
-    public function getPager($page, $per_page, $filter, $order)
-    {
-        $oPager = new sfDoctrinePager('ContractsIntermediation', $per_page);
-        $oPager->getQuery()
-            ->from('ContractsIntermediation')
-            ->where($filter)
-            ->orderBy($order);
-        $oPager->setPage($page);
-        $oPager->init();
+  /**
+   * Returns an instance of this class.
+   *
+   * @return object ContractsIntermediationTable
+   */
+  public static function getInstance() { return Doctrine_Core::getTable('ContractsIntermediation'); }
+  
+  /**
+   * Get pager for list of contracts
+   *
+   * @param integer $page
+   * @param integer $per_page
+   * @param string $filter
+   * @param string $order
+   * @return doctrine pager
+   */
+  public function getPager($page, $per_page, $filter, $order)
+  {
+      $oPager = new sfDoctrinePager('ContractsIntermediation', $per_page);
+      $oPager->getQuery()
+          ->from('ContractsIntermediation')
+          ->where($filter)
+          ->orderBy($order);
+      $oPager->setPage($page);
+      $oPager->init();
 
-        return $oPager;
-     }
-}
+      return $oPager;
+   }
+
+	/**
+	 * Get sumatoria socios
+	 *
+	 * @param string $year
+	 * @return array
+	 */
+	public function getSumatoriaSocios($year)
+	{
+		$c = Doctrine_Manager::getInstance()->connection();
+		$s = "SELECT
+					c.id AS ind,
+					SUM(c.business_amount) AS volumen,
+					SUM(c.final_commission) AS comision,
+					CONCAT(u.last_name,', ',u.name) AS socio
+					FROM
+					contracts_intermediation c 
+					LEFT JOIN app_user u ON c.app_user_id = u.id
+					WHERE c.year = 2014
+					GROUP BY u.id
+					ORDER BY volumen DESC";
+
+    $q = $c->execute($s);
+
+    $result = $q->fetchAll();
+		$socios = array();
+        
+		foreach ($result as $n)
+		{
+			$id = $n['ind'];
+			$socios[$id]['socio'] = $n['socio'];
+			$socios[$id]['volumen'] = $n['volumen'];
+			$socios[$id]['comision'] = $n['comision'];
+		}
+		return $socios;
+	}
+     
+} // end class
