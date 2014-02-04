@@ -21,9 +21,8 @@
               <?php echo __('Facturación') ?>
       </a>
       <a href="<?php echo url_for('@contracts') ?>" class="first<?php echo $mnGetModule=='contracts' ? ' selected' : '' ?>">
-              <?php echo __('Contratos de Intermediación') ?>
+          <?php echo __('Contratos de Intermediación') ?>
       </a>
-      
       <?php endif; ?>
     </li>
-</ul>    
+</ul>
