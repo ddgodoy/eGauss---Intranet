@@ -1,6 +1,6 @@
 <?php use_helper('DateForCalendar') ?>
 <script>
-    $('document').ready(function()
+    $(document).ready(function()
     {
         $('#last-month').click(function(){
             var data_date = $(this).attr('alt');

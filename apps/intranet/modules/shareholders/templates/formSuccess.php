@@ -1,30 +1,29 @@
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#fancybox-manual-c").click(function() {
-            $.fancybox.open({
-                    height: '290px',
-                    href : '<?php echo url_for("@google_drive") ?>',
-                    type : 'iframe',
-                    padding : 5,
-                    afterClose: function () { // USE THIS IT IS YOUR ANSWER THE KEY WORD IS "afterClose"
-                       jQuery.ajax({
-                            type: 'GET',
-                            url: '<?php echo url_for($url_document) ?>',
-                            success: function(data) {
-                                $('#drive').html(data);
-                            }
-                       });
-                    }
-            });
-            
-            
+  $("#fancybox-manual-c").click(function() {
+    $.fancybox.open({
+      height: '290px',
+      href : '<?php echo url_for("@google_drive") ?>',
+      type : 'iframe',
+      padding : 5,
+      afterClose: function()
+      {
+       jQuery.ajax({
+				type: 'GET',
+				url: '<?php echo url_for($url_document) ?>',
+				success: function(data) {
+					$('#drive').html(data);
+				}
+       });
+      }
     });
+  });
 });
 </script>
 <?php
-	$str_module   = $sf_params->get('module');
-	$str_action   = $sf_params->get('action');
-	$request_id   = $id ?  "?id=$id" : '';
+	$str_module = $sf_params->get('module');
+	$str_action = $sf_params->get('action');
+	$request_id = $id ?  "?id=$id" : '';
 ?>
 <div class="content">
         <div class="rightside">
@@ -89,31 +88,32 @@ $(document).ready(function(){
                                 </tr>
                                 </table>
                                 <table width="100%" cellspacing="4" cellpadding="0" border="0">
-                                <tr><td style="height: 15px;"></td></tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <table width="100%" cellspacing="4" cellpadding="0" border="0">
-                                            <tr>
-                                                <td><?php echo $form['body'] ?></td>
-                                            </tr>    
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
+	                                <tr><td style="height:15px;"></td></tr>
+	                                <tr>
                                     <td>
-                                        <a id="fancybox-manual-c">
-                                            <img src="/images/drive.jpeg" border="0" width="50" height="33" title="Ingresar Documento"  style="cursor: pointer; vertical-align: super"/>
-                                        </a>
+                                      <table width="100%" cellspacing="4" cellpadding="0" border="0">
+                                        <tr><td><?php echo $form['body'] ?></td></tr>    
+                                      </table>
                                     </td>
-                                </tr>      
+	                                </tr>
+	                                <tr><td style="height:15px;"></td></tr>
+	                                <tr>
+	                                  <td width="5%">
+	                                    <a id="fancybox-manual-c">
+	                                      <img src="/images/drive.jpeg" border="0" width="50" height="33" title="Registrar un documento" style="cursor:pointer;vertical-align:middle;"/>
+	                                      <input type="button" value="Registrar un documento" class="boton" />
+	                                    </a>
+	                                  </td>
+	                                </tr>
+	                                <tr><td style="height:15px;"></td></tr>
                                 </table>
                                 <div id="drive">
-                                    <?php include_component('shareholders', 'getDocument') ?>
+                                  <?php include_component('shareholders', 'getDocument') ?>
                                 </div>
                         </fieldset>
                         <div style="padding-top:10px;" class="botonera">
-				<input type="button" onclick="document.location='<?php echo url_for($str_module.'/index') ?>';" value="<?php echo __('Cancel') ?>" class="boton" />
-				<input type="submit" name="btn_action" value="<?php echo __('Register') ?>" class="boton" id="btn_action"/>
+											<input type="button" onclick="document.location='<?php echo url_for($str_module.'/index') ?>';" value="<?php echo __('Cancel') ?>" class="boton" />
+											<input type="submit" name="btn_action" value="<?php echo __('Register') ?>" class="boton" id="btn_action"/>
                                 <?php echo $form->renderHiddenFields() ?>
 			</div>
                 </form>

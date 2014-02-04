@@ -9,6 +9,7 @@
  * @property datetime $date
  * @property string $name
  * @property text $description
+ * @property string $website
  * @property string $email
  * @property string $address
  * @property string $phone
@@ -28,6 +29,7 @@
  * @method datetime            getDate()                Returns the current record's "date" value
  * @method string              getName()                Returns the current record's "name" value
  * @method text                getDescription()         Returns the current record's "description" value
+ * @method string              getWebsite()             Returns the current record's "website" value
  * @method string              getEmail()               Returns the current record's "email" value
  * @method string              getAddress()             Returns the current record's "address" value
  * @method string              getPhone()               Returns the current record's "phone" value
@@ -46,6 +48,7 @@
  * @method RegisteredCompanies setDate()                Sets the current record's "date" value
  * @method RegisteredCompanies setName()                Sets the current record's "name" value
  * @method RegisteredCompanies setDescription()         Sets the current record's "description" value
+ * @method RegisteredCompanies setWebsite()             Sets the current record's "website" value
  * @method RegisteredCompanies setEmail()               Sets the current record's "email" value
  * @method RegisteredCompanies setAddress()             Sets the current record's "address" value
  * @method RegisteredCompanies setPhone()               Sets the current record's "phone" value
@@ -87,6 +90,10 @@ abstract class BaseRegisteredCompanies extends sfDoctrineRecord
              ));
         $this->hasColumn('description', 'text', null, array(
              'type' => 'text',
+             ));
+        $this->hasColumn('website', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
              ));
         $this->hasColumn('email', 'string', 200, array(
              'type' => 'string',

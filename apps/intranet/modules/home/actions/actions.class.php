@@ -53,7 +53,7 @@ class homeActions extends sfActions
         $this->error = array();
         $this->msj_ok =false;
         
-        if($request->isMethod('POST'))
+        if ($request->isMethod('POST'))
         {
             $client = new Google_Client(); 
             $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
@@ -79,11 +79,10 @@ class homeActions extends sfActions
             $temp_file->setUrl($createdFile['alternateLink']);
             $temp_file->save();
 
-            if($temp_file){
+            if ($temp_file) {
              $this->msj_ok = true;   
             }
         }
-        
         $this->setLayout('layout_iframe');
     }        
     

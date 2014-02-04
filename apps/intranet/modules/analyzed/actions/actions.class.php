@@ -10,19 +10,20 @@
  */
 class analyzedActions extends sfActions
 {
-    /**
-     * index
-     * @param sfWebRequest $request
-     */
-    public function executeIndex(sfWebRequest $request)
-    {
-        $this->getUser()->getAttributeHolder()->remove('videos');
-        $temp_document = TempsDocumentsTable::getInstance()->findAll()->delete();
-        $this->iPage  = $request->getParameter('page', 1);
-        $this->oPager = RegisteredCompaniesTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy());
-  	$this->oList  = $this->oPager->getResults();
-        $this->oCant  = $this->oPager->getNbResults();
-    }   
+  /**
+   * index
+   * @param sfWebRequest $request
+   */
+  public function executeIndex(sfWebRequest $request)
+  {
+		$this->getUser()->getAttributeHolder()->remove('videos');
+		$temp_document = TempsDocumentsTable::getInstance()->findAll()->delete();
+		
+		$this->iPage  = $request->getParameter('page', 1);
+		$this->oPager = RegisteredCompaniesTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy());
+		$this->oList  = $this->oPager->getResults();
+		$this->oCant  = $this->oPager->getNbResults();
+  }   
     
     /**
      * Set filter
@@ -36,13 +37,15 @@ class analyzedActions extends sfActions
         $this->sch_name  = trim($this->getRequestParameter('sch_name'));
         $this->sch_email = trim($this->getRequestParameter('sch_email'));
 
-        if (!empty($this->sch_name)) {
-                $sch_partial .= " AND (name LIKE '%$this->sch_name%')";
-                $this->f_params .= '&sch_name='.urlencode($this->sch_name);
+        if (!empty($this->sch_name))
+        {
+          $sch_partial .= " AND (name LIKE '%$this->sch_name%')";
+          $this->f_params .= '&sch_name='.urlencode($this->sch_name);
         }
-        if (!empty($this->sch_email)) {
-                $sch_partial .= " AND email LIKE '%$this->sch_email%'";
-                $this->f_params .= '&sch_email='.urlencode($this->sch_email);
+        if (!empty($this->sch_email))
+        {
+          $sch_partial .= " AND email LIKE '%$this->sch_email%'";
+          $this->f_params .= '&sch_email='.urlencode($this->sch_email);
         }
         return $sch_partial;
     }
@@ -106,80 +109,83 @@ class analyzedActions extends sfActions
    */
   public function executeProcess(sfWebRequest $request)
   {
-      $this->id            = $request->getParameter('id');
-      $this->logo          = '';
-      $entity_object       = NULL;
-      $this->url_register_videos = !$this->id?'@analyzed-register-video':'@analyzed-register-video?id='.$this->id;
-      $this->url_get_videos      = !$this->id?'@analyzed-get-components-videos':'@analyzed-get-components-videos?id='.$this->id;
-      $this->url_document        = !$this->id?'@analyzed-register-document':'@analyzed-register-document?id='.$this->id;
-      if ($this->id) {
-            $entity_object = RegisteredCompaniesTable::getInstance()->find($this->id);
-            $this->logo    = $entity_object->getLogo();
+    $this->id      = $request->getParameter('id');
+    $this->logo    = '';
+    $entity_object = NULL;
+    $this->url_register_videos = !$this->id ? '@analyzed-register-video'       : '@analyzed-register-video?id='.$this->id;
+    $this->url_get_videos      = !$this->id ? '@analyzed-get-components-videos': '@analyzed-get-components-videos?id='.$this->id;
+    $this->url_document        = !$this->id ? '@analyzed-register-document'    : '@analyzed-register-document?id='.$this->id;
+
+    if ($this->id)
+    {
+      $entity_object = RegisteredCompaniesTable::getInstance()->find($this->id);
+      $this->logo    = $entity_object->getLogo();
+    }
+    $this->form = new RegisteredCompaniesForm($entity_object, array('module'=>$this->getContext()->getModuleName()));
+      
+    if ($request->getMethod() == 'POST')
+    {
+      $this->form->bind($request->getParameter($this->form->getName()));
+
+      if ($this->form->isValid()) 
+      {
+        $parameter_post = $request->getParameter($this->form->getName());
+        $recorded = $this->form->save();
+            
+        #set logo
+        RegisteredCompaniesTable::getInstance()->uploadLogo($request->getFiles('logo'), $recorded, $request->getParameter('reset_logo'));
+        
+        #set videos
+        if ($new_videos = $this->getUser()->getAttribute('videos'))
+        {
+          foreach ($new_videos as $k=>$value)
+          {
+            $load_videos = new VideosRegisteredCompanies();
+            $load_videos->setName($value['name']);
+            $load_videos->setUrl($value['url']);
+            $load_videos->setRegisteredCompaniesId($recorded->getId());
+            $load_videos->save();
+          }  
+          $this->getUser()->getAttributeHolder()->remove('videos');
+        }
+        #set document
+        $temp_document = TempsDocumentsTable::getInstance()->findAll();
+
+        if ($temp_document)
+        {
+          foreach ($temp_document AS $v_doc)
+        	{
+            $load_doc = NEW DocumentsRegisteredCompanies();
+            $load_doc->setName($v_doc->getName());
+            $load_doc->setIcon($v_doc->getIcon());
+            $load_doc->setUrl($v_doc->getUrl());
+            $load_doc->setRegisteredCompaniesId($recorded->getId());
+            $load_doc->setTypeInformationId(1);
+            $load_doc->save();
+            
+            $v_doc->delete();
+          }
+        }               
+        if (!$this->id)
+        {
+          #set notification
+          Notifications::setNewNotification('company_analyzed', 'Una nueva Empresas para Analizar fue creada', $recorded->getId());
+        }
+        if ($request->getParameter('affiliated') == 1)
+        {
+          $recorded->setTypeCompaniesId(1);
+          $recorded->save();
+
+          #set notification
+          NotificationsTable::getInstance()->findOneByRegisteredCompaniesId($recorded->getId())->delete();
+          Notifications::setNewNotification('company_affiliated', 'Una nueva Empresas Participadas fue creada', $recorded->getId());
+
+          $this->redirect('@affiliated-edit?id='.$recorded->getId());
+        }
+        $this->redirect('@analyzed-edit?id='.$recorded->getId());
       }
-      
-      $this->form = new RegisteredCompaniesForm($entity_object, array('module'=>$this->getContext()->getModuleName()));
-      
-      if ($request->getMethod() == 'POST') {
-            $this->form->bind($request->getParameter($this->form->getName()));
-            if ($this->form->isValid()) 
-            {
-                $parameter_post = $request->getParameter($this->form->getName());
-                $recorded = $this->form->save();
-                    
-                #set logo
-                RegisteredCompaniesTable::getInstance()->uploadLogo($request->getFiles('logo'), $recorded, $request->getParameter('reset_logo'));
-                
-                #set videos
-                if($new_videos = $this->getUser()->getAttribute('videos'))
-                {
-                    foreach ($new_videos as $k=>$value)
-                    {
-                        $load_videos = new VideosRegisteredCompanies();
-                        $load_videos->setName($value['name']);
-                        $load_videos->setUrl($value['url']);
-                        $load_videos->setRegisteredCompaniesId($recorded->getId());
-                        $load_videos->save();
-                    }  
-                    $this->getUser()->getAttributeHolder()->remove('videos');
-                }
-                
-                #set document
-                $temp_document = TempsDocumentsTable::getInstance()->findAll();
-                if($temp_document)
-                {
-                    foreach ($temp_document AS $v_doc)
-                    {
-                        $load_doc = NEW DocumentsRegisteredCompanies();
-                        $load_doc->setName($v_doc->getName());
-                        $load_doc->setIcon($v_doc->getIcon());
-                        $load_doc->setUrl($v_doc->getUrl());
-                        $load_doc->setRegisteredCompaniesId($recorded->getId());
-                        $load_doc->setTypeInformationId(1);
-                        $load_doc->save();
-                        
-                        $v_doc->delete();
-                    }
-                }
-               
-                if(!$this->id){
-                #set notification
-                Notifications::setNewNotification('company_analyzed', 'Una nueva Empresas para Analizar fue creada', $recorded->getId());
-                }
-                
-                if($request->getParameter('affiliated') == 1){
-                    $recorded->setTypeCompaniesId(1);
-                    $recorded->save();
-                    #set notification
-                    NotificationsTable::getInstance()->findOneByRegisteredCompaniesId($recorded->getId())->delete();
-                    Notifications::setNewNotification('company_affiliated', 'Una nueva Empresas Participadas fue creada', $recorded->getId());
-                    $this->redirect('@affiliated-edit?id='.$recorded->getId());
-                }
-                
-                $this->redirect('@analyzed-edit?id='.$recorded->getId());
-            }
-      }
-      
-      $this->setTemplate('form');
+    }
+    $this->setTemplate('form');
   }
   
   /**

@@ -65,6 +65,7 @@ RegisteredCompanies:
     date:               { type: datetime }
     name:               { type: string(50), notnull: true }
     description:        { type: text }
+    website:            { type: string(250) }
     email:              { type: string(200) }
     address:            { type: string(100) }
     phone:              { type: string(50) }
@@ -275,4 +276,3 @@ ContractsIntermediation:
     intermediation:            { type: 'decimal(9, 2)'}
     final_commission:          { type: 'decimal(9, 2)'}
     comments:                  { type: text }
-    
