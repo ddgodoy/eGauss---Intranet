@@ -1,6 +1,6 @@
 <div class="content">
     <div class="columnas col2" style="width:98%;">
-        <div class="paneles" style="width:33%;height:602px;float:left;overflow:auto;">
+        <div class="paneles" style="width:33%;float:left;overflow:auto;">
             <div id="conten-calendar">
                 <?php include_component('calendar', 'calendar') ?>
             </div>    
