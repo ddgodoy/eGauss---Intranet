@@ -18,15 +18,15 @@ class homeActions extends sfActions
     public function executeIndex(sfWebRequest $request)
     {
         $this->getUser()->setCulture('es');
-        
-        if($this->getUser()->hasCredential('super_admin'))
+
+        if ($this->getUser()->hasCredential('super_admin'))
         {
             $client = new Google_Client();
             $client->setClientId('394341489547.apps.googleusercontent.com');
             $client->setClientSecret('EqhEQdb4YDZc4ZxXtIh1HskA');
             $client->setRedirectUri('http://egauss-intranet.icox.com');
             $client->setScopes(array('https://www.googleapis.com/auth/drive'));
-            $client->setAccessType('online'); 
+            $client->setAccessType('online');
 
             $service = new Google_AnalyticsService($client);
 
@@ -36,8 +36,7 @@ class homeActions extends sfActions
             } elseif (!$this->getUser()->getAttribute('accessToken')) {
                 $client->authenticate();
             }
-        }   
-        
+        }
         $this->shareholders = CalendarTable::getInstance()->findOneByNextAndTypeCalendarId(1,2);
         $this->information  = InformationTable::getInstance()->getInformation();
         $this->notification = NotificationsTable::getInstance()->getNotifications($this->getUser()->getAttribute('user_id'));
@@ -51,7 +50,7 @@ class homeActions extends sfActions
     public function executeGoogleDrive(sfWebRequest $request)
     {
         $this->name = '';
-        $this->error = [];
+        $this->error = array();
         $this->msj_ok =false;
         
         if($request->isMethod('POST'))

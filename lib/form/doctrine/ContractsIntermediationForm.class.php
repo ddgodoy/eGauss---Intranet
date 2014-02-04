@@ -12,7 +12,7 @@ class ContractsIntermediationForm extends BaseContractsIntermediationForm
 {
   public function configure()
   {
-    $array_user = [''=>'-- seleccionar --']+AppUserTable::getInstance()->getAllForSelectContact();
+    $array_user = array(''=>'-- Seleccionar --') + AppUserTable::getInstance()->getAllForSelectContact();
     
     $this->setWidgets(array(
       'id'               => new sfWidgetFormInputHidden(),

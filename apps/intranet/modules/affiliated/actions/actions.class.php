@@ -210,12 +210,12 @@ class affiliatedActions extends sfActions
    */
   public function executeRegisterVideo(sfWebRequest $request)
   {
-      $this->error      = [];
+      $this->error      = array();
       $this->name       = $request->getParameter('name','');
       $this->url        = $request->getParameter('url','');
       $this->msj_ok     = false;
-      $array_videos_new = [];
-      $array_videos     = $this->getUser()->getAttribute('videos',[]);
+      $array_videos_new = array();
+      $array_videos     = $this->getUser()->getAttribute('videos', array());
       
       if($request->isMethod('POST'))
       {          
@@ -224,11 +224,11 @@ class affiliatedActions extends sfActions
           
           if(count($this->error)== 0)
           {
-              $array_videos_new[] = [
+              $array_videos_new[] = array(
                                     'name' => $this->name, 
                                     'url'  => $this->url,
                                     'type' => 'temp'
-                                ];
+                                );
   
               $new_videos_array = array_merge($array_videos,$array_videos_new);
               $this->getUser()->setAttribute('videos', $new_videos_array);
@@ -258,7 +258,7 @@ class affiliatedActions extends sfActions
   public function executeDeleteVideo(sfWebRequest $request)
   {
       $id           = $request->getParameter('id_video');
-      $array_videos = $this->getUser()->getAttribute('videos',[]);
+      $array_videos = $this->getUser()->getAttribute('videos', array());
       $type         = $request->getParameter('type');
       
       if($type == 'real')

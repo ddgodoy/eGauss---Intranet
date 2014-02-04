@@ -1,6 +1,7 @@
 <?php use_helper('DateForCalendar') ?>
 <script>
-    $('docuemt').ready(function(){
+    $('document').ready(function()
+    {
         $('#last-month').click(function(){
             var data_date = $(this).attr('alt');
             new_calendar(data_date)
@@ -10,7 +11,7 @@
             var data_date = $(this).attr('alt');
             new_calendar(data_date)
         })
-    })
+    });
     function new_calendar(data_date)
     {
         var url = '<?php echo url_for('@calendar-get-date?') ?>'+'?'+data_date

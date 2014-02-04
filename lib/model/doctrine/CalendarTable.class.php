@@ -28,15 +28,24 @@ class CalendarTable extends Doctrine_Table
      */
     public function getPager($page, $per_page, $filter, $order)
     {
-           $oPager = new sfDoctrinePager('Calendar', $per_page);
-           $oPager->getQuery()
-                ->from('Calendar')
-                ->where($filter)
-                ->orderBy($order);
-           $oPager->setPage($page);
-           $oPager->init();
+    	$aFix = explode(' ', $order);
+    	$xOrd = $aFix[0];
+    	$xSnt = $aFix[1];
+    	
+    	if ($xOrd == 'date')
+    	{
+    		$order = 'CONCAT(year,month,day) '.$xSnt;
+    	}
+      $oPager = new sfDoctrinePager('Calendar', $per_page);
+      $oPager->getQuery()
+             ->from('Calendar')
+             ->where($filter)
+             ->orderBy($order);
 
-           return $oPager;
+      $oPager->setPage($page);
+      $oPager->init();
+
+      return $oPager;
     } 
     
     /**

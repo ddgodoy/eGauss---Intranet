@@ -17,7 +17,7 @@ class billingActions extends sfActions
     {
         $this->iPage  = $request->getParameter('page', 1);
         $this->oPager = BillingTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy());
-  	$this->oList  = $this->oPager->getResults();
+  			$this->oList  = $this->oPager->getResults();
         $this->oCant  = $this->oPager->getNbResults();
     }   
     
@@ -30,19 +30,22 @@ class billingActions extends sfActions
     {
         $this->f_params     = '';
         $sch_partial        = '1 ';
-        $this->month        = [''=>'-- seleccionar --']+
-                              [ 01=>'Enero',
-                                02=>'Febrero',
-                                03=>'Marzo',
-                                04=>'Abril',
-                                05=>'Mayo',
-                                06=>'Junio',
-                                07=>'julio',
-                                08=>'Agosto',
-                                09=>'Septiembre',
-                                10=>'Octubre',
-                                11=>'Noviembre',
-                                12=>'Diciembre'];
+        
+        
+        $this->month        = array(
+        											'-- Seleccionar --',
+                              'Enero',
+                              'Febrero',
+                              'Marzo',
+                              'Abril',
+                              'Mayo',
+                              'Junio',
+                            	'Julio',
+                              'Agosto',
+                              'Septiembre',
+                              'Octubre',
+                              'Noviembre',
+                              'Diciembre');
         
         $this->sch_month    = trim($this->getRequestParameter('sch_month'));
         
@@ -115,7 +118,7 @@ class billingActions extends sfActions
     {
         $this->id                  = $request->getParameter('id');
         $entity_object             = NULL;
-        $this->error               = [];
+        $this->error               = array();
         if ($this->id) {
               $entity_object = BillingTable::getInstance()->find($this->id);
         }
@@ -152,37 +155,37 @@ class billingActions extends sfActions
         $month_graph = $request->getParameter('month_graph', date('m'));
         $year_graph  = $request->getParameter('year_graph', date('Y'));
         
-        $array_data = [
-                        1=>[1=>0,2=>0],
-                        2=>[1=>0,2=>0],
-                        3=>[1=>0,2=>0],
-                        4=>[1=>0,2=>0],
-                        5=>[1=>0,2=>0],
-                        ];
+        $array_data = array(
+                        1 => array(1=>0, 2=>0),
+                        2 => array(1=>0,2=>0),
+                        3 => array(1=>0,2=>0),
+                        4 => array(1=>0,2=>0),
+                        5 => array(1=>0,2=>0),
+                        );
         
        
         $billing = BillingTable::getInstance()->findOneByMonthAndYear($month_graph, $year_graph);
         
         if($billing)
         {
-            $array_data = [
-                            1=>[1=>$billing->getTotalAffiliated()?(double)$billing->getTotalAffiliated():0,2=>$billing->getSaleOfAffiliated()?(double)$billing->getSaleOfAffiliated():0],
-                            2=>[1=>$billing->getTotalConsultancy()?(double)$billing->getTotalConsultancy():0,2=>$billing->getConsultancy()?(double)$billing->getConsultancy():0],
-                            3=>[1=>$billing->getTotalIntermediation()?(double)$billing->getTotalIntermediation():0,2=>$billing->getIntermediation()?(double)$billing->getIntermediation():0],
-                            4=>[1=>$billing->getTotalFormation()?(double)$billing->getTotalFormation():0,2=>$billing->getFormation()?(double)$billing->getFormation():0],
-                            5=>[1=>$billing->getTotalPatents()?(double)$billing->getTotalPatents():0,2=>$billing->getPatents()?(double)$billing->getPatents():0],
-                          ]; 
+            $array_data = array(
+                            1 => array(1=>$billing->getTotalAffiliated()?(double)$billing->getTotalAffiliated():0,2=>$billing->getSaleOfAffiliated()?(double)$billing->getSaleOfAffiliated():0),
+                            2 => array(1=>$billing->getTotalConsultancy()?(double)$billing->getTotalConsultancy():0,2=>$billing->getConsultancy()?(double)$billing->getConsultancy():0),
+                            3 => array(1=>$billing->getTotalIntermediation()?(double)$billing->getTotalIntermediation():0,2=>$billing->getIntermediation()?(double)$billing->getIntermediation():0),
+                            4 => array(1=>$billing->getTotalFormation()?(double)$billing->getTotalFormation():0,2=>$billing->getFormation()?(double)$billing->getFormation():0),
+                            5 => array(1=>$billing->getTotalPatents()?(double)$billing->getTotalPatents():0,2=>$billing->getPatents()?(double)$billing->getPatents():0),
+                          ); 
         }    
         
         
         
         
-        $title = ['Conceptos Facturados', 'Estimado', 'Facturado'];
-        $data1 = ['Venta de Participadas', $array_data[1][1], $array_data[1][2]];
-        $data2 = ['Consultoría', $array_data[2][1], $array_data[2][2]];
-        $data3 = ['Intermediación', $array_data[3][1], $array_data[3][2]];
-        $data4 = ['Formación', $array_data[4][1], $array_data[4][2]];
-        $data5 = ['Patentes', $array_data[5][1], $array_data[5][2]];
+        $title = array('Conceptos Facturados', 'Estimado', 'Facturado');
+        $data1 = array('Venta de Participadas', $array_data[1][1], $array_data[1][2]);
+        $data2 = array('Consultoría', $array_data[2][1], $array_data[2][2]);
+        $data3 = array('Intermediación', $array_data[3][1], $array_data[3][2]);
+        $data4 = array('Formación', $array_data[4][1], $array_data[4][2]);
+        $data5 = array('Patentes', $array_data[5][1], $array_data[5][2]);
        
         echo json_encode(array($title,$data1, $data2, $data3, $data4, $data5));
         exit();

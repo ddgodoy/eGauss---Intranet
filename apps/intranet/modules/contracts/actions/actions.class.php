@@ -31,20 +31,22 @@ class contractsActions extends sfActions
     {
         $this->f_params     = '';
         $sch_partial        = '1';
-        $this->month        = [''=>'-- seleccionar --']+
-                              [ 01=>'Enero',
-                                02=>'Febrero',
-                                03=>'Marzo',
-                                04=>'Abril',
-                                05=>'Mayo',
-                                06=>'Junio',
-                                07=>'julio',
-                                08=>'Agosto',
-                                09=>'Septiembre',
-                                10=>'Octubre',
-                                11=>'Noviembre',
-                                12=>'Diciembre'];
         
+        $this->month        = array(
+        											'-- Seleccionar --',
+                              'Enero',
+                              'Febrero',
+                              'Marzo',
+                              'Abril',
+                              'Mayo',
+                              'Junio',
+                            	'Julio',
+                              'Agosto',
+                              'Septiembre',
+                              'Octubre',
+                              'Noviembre',
+                              'Diciembre');
+
         $this->sch_customer    = trim($this->getRequestParameter('sch_customer'));
         $this->sch_month    = trim($this->getRequestParameter('sch_month'));
        
@@ -119,7 +121,7 @@ class contractsActions extends sfActions
     {
         $this->id                  = $request->getParameter('id');
         $entity_object             = NULL;
-        $this->error               = [];
+        $this->error               = array();
         if ($this->id) {
               $entity_object = ContractsIntermediationTable::getInstance()->find($this->id);
         }
@@ -179,7 +181,7 @@ class contractsActions extends sfActions
     {
         $month_contracts = $request->getParameter('month_contracts', date('m'));
         $year_contracts  = $request->getParameter('year_contracts', date('Y'));
-        $array_data = ['', 0, '', 0, ''];
+        $array_data = array('', 0, '', 0, '');
         
        
         $contracts = ContractsIntermediationTable::getInstance()->findByMonthAndYear($month_contracts, $year_contracts);
@@ -187,7 +189,7 @@ class contractsActions extends sfActions
         if(count($contracts)>0)
         {   
             $index = 0;
-            $array_data = [];
+            $array_data = array();
             foreach ($contracts AS $v_contract){
               $index++;  
               $array_data[$index][1] = $v_contract->getCustomer();
@@ -199,7 +201,7 @@ class contractsActions extends sfActions
             }
         }
         
-        $date_1 = [$array_data[1][1],$array_data[1][2],$array_data[1][3],$array_data[1][4],$array_data[1][5]];
+        $date_1 = array($array_data[1][1],$array_data[1][2],$array_data[1][3],$array_data[1][4],$array_data[1][5]);
                   
         /*echo '<pre>';
         print_r($array_data);

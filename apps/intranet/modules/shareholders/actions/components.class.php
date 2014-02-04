@@ -16,9 +16,9 @@ class shareholdersComponents extends sfComponents
     public function executeGetDocument(sfWebRequest $request)
     {
         $id                    = $request->getParameter('id');
-        $document_by_company   = [];
-        $this->result_document = [];
-        $temp_document         = [];
+        $document_by_company   = array();
+        $this->result_document = array();
+        $temp_document         = array();
         $this->url_d_document  = !$id?'@shareholders-delete-document':'@shareholders-delete-document?id='.$id;
         if($id){
             $document_by_company = DocumentsRegisteredCompaniesTable::getInstance()->findByCalendarId($id);
@@ -27,24 +27,24 @@ class shareholdersComponents extends sfComponents
         
         foreach ($document_by_company as $value)
         {
-            $this->result_document[] = [
+            $this->result_document[] = array(
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
                                           'icon' => $value->getIcon(),
                                           'type' => 'real'
-                                       ]; 
+                                       ); 
         } 
         
         foreach ($temp_document as $value)
         {
-            $this->result_document[] = [
+            $this->result_document[] = array(
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
                                           'icon' => $value->getIcon(),
                                           'type' => 'temp'
-                                       ]; 
+                                       ); 
         } 
     }
     
@@ -55,21 +55,21 @@ class shareholdersComponents extends sfComponents
     public function executeGetDocumentView(sfWebRequest $request)
     {
         $id                    = $request->getParameter('id');
-        $this->result_document = [];
-        $document_by_company   = [];
+        $this->result_document = array();
+        $document_by_company   = array();
         if($id){
             $document_by_company = DocumentsRegisteredCompaniesTable::getInstance()->findByCalendarId($id);
         }
         
         foreach ($document_by_company as $value)
         {
-            $this->result_document[] = [
+            $this->result_document[] = array(
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
                                           'icon' => $value->getIcon(),
                                           'type' => 'real'
-                                       ]; 
+                                       ); 
         } 
     }        
 }

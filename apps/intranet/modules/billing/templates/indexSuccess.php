@@ -9,7 +9,11 @@
       <form action="<?php echo $index_url ?>" enctype="multipart/form-data" method="post">
         <table cellspacing="4" cellpadding="0" border="0" width="100%">
             <tr><td>Por Mes</td></tr>
-            <tr><td><?php echo select_tag('sch_month', options_for_select($month, $sch_month), array('style'=>'width:100%')) ?></td></tr>
+            <tr>
+            	<td>
+            		<?php echo select_tag('sch_month', options_for_select($month, $sch_month), array('style'=>'width:100%')) ?>
+            	</td>
+            </tr>
             <tr><td style="padding-top:5px;"><input type="submit" name="btn_buscar" value="Buscar" class="boton"></td></tr>
         </table>
       </form>
@@ -41,7 +45,7 @@
               <th colspan="2" width="10%" style=" text-align: center"></th>
         </tr>
         <tr>
-              <th><a href="<?php echo $head_link.'&o=&s=month'.$sort ?>"><?php echo __('Mes') ?></a></th>
+              <th><a href="<?php echo $head_link.'&o=month&s='.$sort ?>"><?php echo __('Mes') ?></a></th>
               <th><a href="<?php echo $head_link.'&o=year&s='.$sort ?>"><?php echo __('Año') ?></a></th>
               <th><a><?php echo __('Estimado') ?></a></th>
               <th><a><?php echo __('Facturado') ?></a></th>
@@ -60,7 +64,12 @@
         </tr>
         <?php foreach ($oList as $item): ?>
           <tr class="<?php if (!empty($odd)) { echo 'gris'; $odd=0; } else { echo 'blanco'; $odd=1; } ?>">
-            <td><?php echo $month[$item->getMonth()] ?></td>
+            <td>
+            	<?php
+            		$item_mes = $item->getMonth();
+            		echo !empty($item_mes) ? $month[$item_mes] : '---';
+            	?>
+            </td>
             <td><?php echo $item->getYear() ?></td>
             <td><?php echo $item->getTotalAffiliated() ?></td>
             <td><?php echo $item->getSaleOfAffiliated() ?></td>

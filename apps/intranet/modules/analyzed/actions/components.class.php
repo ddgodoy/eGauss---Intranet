@@ -21,18 +21,18 @@ class analyzedComponents extends sfComponents
         if($id){
             $videos_by_company = VideosRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($id);
         }
-        $this->array_videos = $this->getUser()->getAttribute('videos', []);
+        $this->array_videos = $this->getUser()->getAttribute('videos', array());
         
         if(count($videos_by_company))
         {
             foreach ($videos_by_company as $value)
             {
-                $this->array_videos[]=[
+                $this->array_videos[]= array(
                                         'id'   => $value->getId(), 
                                         'name' => $value->getName(), 
                                         'url'  => $value->getUrl(),
                                         'type' => 'real'
-                                       ];
+                                       );
             }    
         }
         
@@ -45,9 +45,9 @@ class analyzedComponents extends sfComponents
     public function executeGetDocument(sfWebRequest $request)
     {
         $id                    = $request->getParameter('id');
-        $document_by_company   = [];
-        $this->result_document = [];
-        $temp_document         = [];
+        $document_by_company   = array();
+        $this->result_document = array();
+        $temp_document         = array();
         $this->url_d_document  = !$id?'@analyzed-delete-document':'@analyzed-delete-document?id='.$id;
         if($id){
             $document_by_company = DocumentsRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($id);
@@ -56,24 +56,24 @@ class analyzedComponents extends sfComponents
         
         foreach ($document_by_company as $value)
         {
-            $this->result_document[] = [
+            $this->result_document[] = array(
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
                                           'icon' => $value->getIcon(),
                                           'type' => 'real'
-                                       ]; 
+                                       ); 
         } 
         
         foreach ($temp_document as $value)
         {
-            $this->result_document[] = [
+            $this->result_document[] = array(
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
                                           'icon' => $value->getIcon(),
                                           'type' => 'temp'
-                                       ]; 
+                                       ); 
         } 
     }
     
@@ -84,21 +84,21 @@ class analyzedComponents extends sfComponents
     public function executeGetDocumentView(sfWebRequest $request)
     {
         $id                    = $request->getParameter('id');
-        $this->result_document = [];
-        $document_by_company   = [];
+        $this->result_document = array();
+        $document_by_company   = array();
         if($id){
             $document_by_company = DocumentsRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($id);
         }
         
         foreach ($document_by_company as $value)
         {
-            $this->result_document[] = [
+            $this->result_document[] = array(
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
                                           'icon' => $value->getIcon(),
                                           'type' => 'real'
-                                       ]; 
+                                       ); 
         } 
     }
     
@@ -109,8 +109,8 @@ class analyzedComponents extends sfComponents
     public function executeGetVideosView(sfWebRequest $request)
     {
         $id                       = $request->getParameter('id');
-        $videos_by_company        = [];
-        $this->array_videos       = [];
+        $videos_by_company        = array();
+        $this->array_videos       = array();
         if($id){
             $videos_by_company = VideosRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($id);
         }
@@ -119,12 +119,12 @@ class analyzedComponents extends sfComponents
         {
             foreach ($videos_by_company as $value)
             {
-                $this->array_videos[]=[
+                $this->array_videos[]= array(
                                         'id'   => $value->getId(), 
                                         'name' => $value->getName(), 
                                         'url'  => $value->getUrl(),
                                         'type' => 'real'
-                                       ];
+                                       );
             }    
         }
         

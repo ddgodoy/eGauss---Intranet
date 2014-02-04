@@ -33,19 +33,21 @@ class informationActions extends sfActions
     {
         $this->f_params     = '';
         $sch_partial        = '1';
-        $this->month        = [''=>'-- seleccionar --']+
-                              [ 01=>'Enero',
-                                02=>'Febrero',
-                                03=>'Marzo',
-                                04=>'Abril',
-                                05=>'Mayo',
-                                06=>'Junio',
-                                07=>'julio',
-                                08=>'Agosto',
-                                09=>'Septiembre',
-                                10=>'Octubre',
-                                11=>'Noviembre',
-                                12=>'Diciembre'];
+        $this->month        = array(
+        											'-- Seleccionar --',
+                              'Enero',
+                              'Febrero',
+                              'Marzo',
+                              'Abril',
+                              'Mayo',
+                              'Junio',
+                            	'Julio',
+                              'Agosto',
+                              'Septiembre',
+                              'Octubre',
+                              'Noviembre',
+                              'Diciembre');
+
         $this->type         = TypeInformation::getArrayForSelect();
         $this->company      = RegisteredCompanies::getArrayForSelect(); 
         $this->sch_name    = trim($this->getRequestParameter('sch_name'));
@@ -207,12 +209,12 @@ class informationActions extends sfActions
     */
     public function executeRegisterVideo(sfWebRequest $request)
     {
-        $this->error      = [];
+        $this->error      = array();
         $this->name       = $request->getParameter('name','');
         $this->url        = $request->getParameter('url','');
         $this->msj_ok     = false;
-        $array_videos_new = [];
-        $array_videos     = $this->getUser()->getAttribute('videos',[]);
+        $array_videos_new = array();
+        $array_videos     = $this->getUser()->getAttribute('videos', array());
 
         if($request->isMethod('POST'))
         {          
@@ -221,11 +223,11 @@ class informationActions extends sfActions
 
             if(count($this->error)== 0)
             {
-                $array_videos_new[] = [
+                $array_videos_new[] = array(
                                       'name' => $this->name, 
                                       'url'  => $this->url,
                                       'type' => 'temp'
-                                  ];
+                                  );
 
                 $new_videos_array = array_merge($array_videos,$array_videos_new);
                 $this->getUser()->setAttribute('videos', $new_videos_array);
@@ -255,7 +257,7 @@ class informationActions extends sfActions
     public function executeDeleteVideo(sfWebRequest $request)
     {
         $id           = $request->getParameter('id_video');
-        $array_videos = $this->getUser()->getAttribute('videos',[]);
+        $array_videos = $this->getUser()->getAttribute('videos',array());
         $type         = $request->getParameter('type');
 
         if($type == 'real')

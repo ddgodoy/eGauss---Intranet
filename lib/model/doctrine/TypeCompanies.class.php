@@ -12,19 +12,20 @@
  */
 class TypeCompanies extends BaseTypeCompanies
 {
-    /**
-     * get array for select
-     * @param object $object
-     * @return array
-     */
-    public static function getArrayForSelect($object)
+  /**
+   * Get array for select
+   * @param object $object
+   * @return array
+   */
+  public static function getArrayForSelect($object)
+  {
+    $array = array();
+
+    foreach ($object AS $v)
     {
-        $array = [];
-        
-        foreach ($object AS $v){
-            $array[$v->getId()] = $v->getName();
-        }
-        
-        return $array;
-    }        
-}
+      $array[$v->getId()] = $v->getName();
+    }
+    return $array;
+  }
+
+} // end class

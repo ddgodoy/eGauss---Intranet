@@ -12,19 +12,20 @@
  */
 class RegisteredCompanies extends BaseRegisteredCompanies
 {
-    /**
-     * get array for select
-     * @return array
-     */
-    public static function getArrayForSelect()
+  /**
+   * Get array for select
+   * @return array
+   */
+  public static function getArrayForSelect()
+  {
+    $object = RegisteredCompaniesTable::getInstance()->findByTypeCompaniesId(1);
+    $array = array(''=>'-- Seleccionar --');
+    
+    foreach ($object AS $v)
     {
-        $object = RegisteredCompaniesTable::getInstance()->findByTypeCompaniesId(1);
-        $array = [''=>'-- seleccionar --'];
-        
-        foreach ($object AS $v){
-            $array[$v->getId()] = $v->getName();
-        }
-        
-        return $array;
-    }        
-}
+      $array[$v->getId()] = $v->getName();
+    }
+    return $array;
+  }
+
+} // end class

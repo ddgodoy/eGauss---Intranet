@@ -11,20 +11,20 @@ class billingComponents extends sfComponents
 {
     public function executeGetBillingByMonth(sfWebRequest $request)
     {
-         $this->month        =[ 01=>'Enero',
-                                02=>'Febrero',
-                                03=>'Marzo',
-                                04=>'Abril',
-                                05=>'Mayo',
-                                06=>'Junio',
-                                07=>'julio',
-                                08=>'Agosto',
-                                09=>'Septiembre',
-                                10=>'Octubre',
-                                11=>'Noviembre',
-                                12=>'Diciembre']; 
+         $this->month        = array(1=>'Enero',
+                                 'Febrero',
+                                'Marzo',
+                                'Abril',
+                                'Mayo',
+                                'Junio',
+                                'Julio',
+                                'Agosto',
+                                'Septiembre',
+                                'Octubre',
+                                'Noviembre',
+                                'Diciembre'); 
         
-         $this->array_year = [''=>'-- seleccionar --'];
+         $this->array_year = array('-- Seleccionar --');
          
          $billing_all = BillingTable::getInstance()->findAll();
          

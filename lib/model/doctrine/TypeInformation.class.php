@@ -12,19 +12,20 @@
  */
 class TypeInformation extends BaseTypeInformation
 {
-    /**
-     * get array for select
-     * @return array
-     */
-    public static function getArrayForSelect()
-    {
-        $object = TypeInformationTable::getInstance()->findAll();
-        $array = [''=>'-- seleccionar --'];
-        
-        foreach ($object AS $v){
-            $array[$v->getId()] = $v->getName();
-        }
-        
-        return $array;
-    }        
-}
+  /**
+   * Get array for select
+   * @return array
+   */
+  public static function getArrayForSelect()
+  {
+      $object = TypeInformationTable::getInstance()->findAll();
+      $array  = array('' => '-- Seleccionar --');
+
+      foreach ($object AS $v)
+      {
+        $array[$v->getId()] = $v->getName();
+      }
+      return $array;
+  }
+
+} // end class
