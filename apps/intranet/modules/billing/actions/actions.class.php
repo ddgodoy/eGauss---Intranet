@@ -154,32 +154,44 @@ class billingActions extends sfActions
     {
         $month_graph = $request->getParameter('month_graph', date('m'));
         $year_graph  = $request->getParameter('year_graph', date('Y'));
-        
-        $array_data = array(
-                        1 => array(1=>0, 2=>0),
-                        2 => array(1=>0,2=>0),
-                        3 => array(1=>0,2=>0),
-                        4 => array(1=>0,2=>0),
-                        5 => array(1=>0,2=>0),
-                        );
-        
-       
+
+        $array_data = array
+        (
+          1 => array(1=>0, 2=>0),
+          2 => array(1=>0,2=>0),
+          3 => array(1=>0,2=>0),
+          4 => array(1=>0,2=>0),
+          5 => array(1=>0,2=>0),
+        );
+        $tot_est = 0;
+        $tot_fac = 0;
         $billing = BillingTable::getInstance()->findOneByMonthAndYear($month_graph, $year_graph);
-        
-        if($billing)
+
+        if ($billing)
         {
-            $array_data = array(
-                            1 => array(1=>$billing->getTotalAffiliated()?(double)$billing->getTotalAffiliated():0,2=>$billing->getSaleOfAffiliated()?(double)$billing->getSaleOfAffiliated():0),
-                            2 => array(1=>$billing->getTotalConsultancy()?(double)$billing->getTotalConsultancy():0,2=>$billing->getConsultancy()?(double)$billing->getConsultancy():0),
-                            3 => array(1=>$billing->getTotalIntermediation()?(double)$billing->getTotalIntermediation():0,2=>$billing->getIntermediation()?(double)$billing->getIntermediation():0),
-                            4 => array(1=>$billing->getTotalFormation()?(double)$billing->getTotalFormation():0,2=>$billing->getFormation()?(double)$billing->getFormation():0),
-                            5 => array(1=>$billing->getTotalPatents()?(double)$billing->getTotalPatents():0,2=>$billing->getPatents()?(double)$billing->getPatents():0),
-                          ); 
-        }    
-        
-        
-        
-        
+        	$t_affiliated  = $billing->getTotalAffiliated() ? (double)$billing->getTotalAffiliated() : 0;
+					$t_consultancy = $billing->getTotalConsultancy() ? (double)$billing->getTotalConsultancy() : 0;
+					$t_intermediat = $billing->getTotalIntermediation() ? (double)$billing->getTotalIntermediation() : 0;
+					$t_formation   = $billing->getTotalFormation() ? (double)$billing->getTotalFormation() : 0;
+					$t_patents     = $billing->getTotalPatents() ? (double)$billing->getTotalPatents() : 0;
+					
+					$p_affiliated  = $billing->getSaleOfAffiliated() ? (double)$billing->getSaleOfAffiliated() : 0;
+					$p_consultancy = $billing->getConsultancy() ? (double)$billing->getConsultancy() : 0;
+					$p_intermediat = $billing->getIntermediation() ? (double)$billing->getIntermediation() : 0;
+					$p_formation   = $billing->getFormation() ? (double)$billing->getFormation() : 0;
+					$p_patents     = $billing->getPatents() ? (double)$billing->getPatents() : 0;
+
+          $array_data = array
+          (
+            1 => array(1 => $t_affiliated , 2 => $p_affiliated),
+            2 => array(1 => $t_consultancy, 2 => $p_consultancy),
+            3 => array(1 => $t_intermediat, 2 => $p_intermediat),
+            4 => array(1 => $t_formation  , 2 => $p_formation),
+            5 => array(1 => $t_patents    , 2 => $p_patents),
+          );
+          $tot_est = $t_affiliated + $t_consultancy + $t_intermediat + $t_formation + $t_patents;
+        	$tot_fac = $p_affiliated + $p_consultancy + $p_intermediat + $p_formation + $p_patents;
+        }
         $title = array('Conceptos Facturados', 'Estimado', 'Facturado');
         $data1 = array('Venta de Participadas', $array_data[1][1], $array_data[1][2]);
         $data2 = array('Consultoría', $array_data[2][1], $array_data[2][2]);
@@ -187,8 +199,13 @@ class billingActions extends sfActions
         $data4 = array('Formación', $array_data[4][1], $array_data[4][2]);
         $data5 = array('Patentes', $array_data[5][1], $array_data[5][2]);
        
-        echo json_encode(array($title,$data1, $data2, $data3, $data4, $data5));
+        $test = array(
+        	'estimado'  => $tot_est,
+        	'facturado' => $tot_fac,
+        	'datos'     => array($title,$data1, $data2, $data3, $data4, $data5),
+        );
+        echo json_encode($test);
         exit();
-    }        
+    }
 }
 ?>
