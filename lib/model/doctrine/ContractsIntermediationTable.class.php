@@ -53,8 +53,8 @@ class ContractsIntermediationTable extends Doctrine_Table
 					FROM
 					contracts_intermediation c 
 					LEFT JOIN app_user u ON c.app_user_id = u.id
-					WHERE c.year = 2014
-					GROUP BY u.id
+					WHERE c.year = $year 
+					GROUP BY u.id 
 					ORDER BY volumen DESC";
 
     $q = $c->execute($s);
