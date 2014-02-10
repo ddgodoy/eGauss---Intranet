@@ -25,6 +25,11 @@ investors:
   url:   /investors
   param: { module: investor, action: index }
 
+# investors export to excel
+investor-excel:
+  url:   /investor-excel
+  param: { module: investor, action: excel }
+
 ################################################################### contracts
 
 # contracts-by-month-year

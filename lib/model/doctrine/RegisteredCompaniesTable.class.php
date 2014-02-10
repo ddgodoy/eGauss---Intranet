@@ -94,15 +94,15 @@ class RegisteredCompaniesTable extends Doctrine_Table
   }
   
   /**
-	* Get all for select
+	* Get participadas for select
 	*
 	* @return array
 	*/
-	public function getAllForSelect()
+	public function getParticipadasForSelect()
 	{
 		$arr_options = array();
 		
-		$q = Doctrine_Query::create()->from('RegisteredCompanies')->orderBy('name ASC');
+		$q = Doctrine_Query::create()->from('RegisteredCompanies')->where('type_companies_id = 1')->orderBy('name ASC');
 		$d = $q->fetchArray();
 
 		foreach ($d as $value) {

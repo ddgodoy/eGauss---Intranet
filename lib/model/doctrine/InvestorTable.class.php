@@ -35,6 +35,18 @@ class InvestorTable extends Doctrine_Table
 		$oPager->init();
 
 		return $oPager;
-	}  
+	}
+	
+	/**
+	 * Get for excel export
+	 *
+	 * @return object
+	 */
+	public function getForExcell()
+	{
+		$q = Doctrine_Query::create()->from('Investor i')->leftJoin('i.RegisteredCompanies e')->orderBy('i.name ASC');
+
+		return $q->count() > 0 ? $q->execute() : NULL;
+	}
 
 } // end class

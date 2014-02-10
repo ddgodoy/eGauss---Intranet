@@ -46,7 +46,7 @@
 						<td width="6%"><label><?php echo __('Nombre') ?> *</label></td>
 						<td>
 							<select class="form_input" name="empresa">
-                <?php echo Common::fillSimpleSelect(RegisteredCompaniesTable::getInstance()->getAllForSelect(), $empresa); ?>
+                <?php echo Common::fillSimpleSelect(RegisteredCompaniesTable::getInstance()->getParticipadasForSelect(), $empresa); ?>
 							</select>
 						</td>
 					</tr>
@@ -64,7 +64,7 @@
 				<legend style="padding:0px 10px 0px 10px;">Datos de la inversión</legend>
 				<table width="100%" cellspacing="4" cellpadding="0" border="0">
 					<tr>
-						<td width="5%">&nbsp;</td>
+						<td width="4%">&nbsp;</td>
 						<td width="3%"><label><?php echo __('Año') ?></label></td>
 						<td width="15%"><input type="text" class="form_input" name="year" value="<?php echo $year ?>" style="width:50px;" /></td>
 						<td width="4%"><label><?php echo __('Monto') ?></label></td>

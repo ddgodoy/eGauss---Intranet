@@ -33,11 +33,26 @@ class investorActions extends sfActions
   {
   	$sch_partial = 'i.id > 0';
   	$this->f_params = '';
-		$this->sch_name = trim($this->getRequestParameter('sch_name'));
+		$this->sch_inversor = trim($this->getRequestParameter('sch_inversor'));
+		$this->sch_empresa  = trim($this->getRequestParameter('sch_empresa'));
+		$this->sch_sector   = trim($this->getRequestParameter('sch_sector'));
+		$this->sch_estado   = trim($this->getRequestParameter('sch_estado', ''));
 
-		if (!empty($this->sch_name)) {
-			$sch_partial .= " AND i.name LIKE '%$this->sch_name%'";
-			$this->f_params .= '&sch_name='.urlencode($this->sch_name);
+		if (!empty($this->sch_inversor)) {
+			$sch_partial .= " AND i.name LIKE '%$this->sch_inversor%'";
+			$this->f_params .= '&sch_inversor='.urlencode($this->sch_inversor);
+		}
+		if (!empty($this->sch_empresa)) {
+			$sch_partial .= " AND e.name LIKE '%$this->sch_empresa%'";
+			$this->f_params .= '&sch_empresa='.urlencode($this->sch_empresa);
+		}
+		if (!empty($this->sch_sector)) {
+			$sch_partial .= " AND i.business LIKE '%$this->sch_sector%'";
+			$this->f_params .= '&sch_sector='.urlencode($this->sch_sector);
+		}
+		if (!empty($this->sch_estado)) {
+			$sch_partial .= " AND i.estado = '$this->sch_estado'";
+			$this->f_params .= '&sch_estado='.urlencode($this->sch_estado);
 		}
 		return $sch_partial;
   }
@@ -174,6 +189,93 @@ class investorActions extends sfActions
   		$oValue->delete();
   	}
   	$this->redirect('@investors');
+  }
+  
+ /**
+  * Executes export to excel action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeExcel(sfWebRequest $request)
+  {
+  	define('PHPEXCEL_ROOT', sfConfig::get('sf_root_dir').'/lib/vendor/PHPExcel');
+
+  	require_once PHPEXCEL_ROOT.'/Autoloader.php';
+
+		$oWorkBoook = new PHPExcel();
+		
+		// cell styles
+    $style_header = array(
+    	'borders'   => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)),
+    	'fill'      => array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'ECECEC')),
+    	'font' 			=> array('size' => 10, 'bold' => true),
+    	'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, 'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER)
+    );
+    $style_data = array(
+    	'borders' => array('outline' => array('style' => PHPExcel_Style_Border::BORDER_THIN))
+    );
+    $style_data1 = array(
+    	'alignment' => array('wrap' => true)
+    );
+    //
+    $oXLS = $oWorkBoook->setActiveSheetIndex(0);
+  	$oXLS->setTitle('Reporte de Inversores');
+
+  	$fontStyle = $oXLS->getDefaultStyle()->getFont();
+    $fontStyle->setName('Arial');
+    $fontStyle->setSize(10);
+    
+    $oXLS->setCellValue('A1', 'Nombre del inversor');
+    $oXLS->setCellValue('B1', 'Teléfono');
+    $oXLS->setCellValue('C1', 'Dirección');
+    $oXLS->setCellValue('D1', 'Nombre de la empresa');
+    $oXLS->setCellValue('E1', 'Sector');
+    $oXLS->setCellValue('F1', 'Página web');
+    $oXLS->setCellValue('G1', 'Año de la inversión');
+    $oXLS->setCellValue('H1', 'Monto');
+    $oXLS->setCellValue('I1', 'Estado');
+
+    $oXLS->getRowDimension('1')->setRowHeight(20);
+    $oXLS->getStyle('A1:I1')->applyFromArray($style_header);
+    
+    $oXLS->getColumnDimension('A')->setAutoSize(true);
+    $oXLS->getColumnDimension('B')->setAutoSize(true);
+    $oXLS->getColumnDimension('C')->setAutoSize(true);
+    $oXLS->getColumnDimension('D')->setAutoSize(true);
+    $oXLS->getColumnDimension('E')->setAutoSize(true);
+    $oXLS->getColumnDimension('F')->setAutoSize(true);
+    $oXLS->getColumnDimension('G')->setAutoSize(true);
+    $oXLS->getColumnDimension('H')->setAutoSize(true);
+    $oXLS->getColumnDimension('I')->setAutoSize(true);
+		//
+		$ex_fila = 1;
+		$obDatos = InvestorTable::getInstance()->getForExcell();
+
+		foreach ($obDatos as $dato)
+		{
+			$ex_fila++;
+
+			$oXLS->setCellValue("A$ex_fila", utf8_encode($dato->getName()));
+	    $oXLS->setCellValue("B$ex_fila", utf8_encode($dato->getPhone()));
+	    $oXLS->setCellValue("C$ex_fila", utf8_encode($dato->getAddress()));
+	    $oXLS->setCellValue("D$ex_fila", utf8_encode($dato->RegisteredCompanies->getName()));
+	    $oXLS->setCellValue("E$ex_fila", utf8_encode($dato->getBusiness()));
+	    $oXLS->setCellValue("F$ex_fila", utf8_encode($dato->getWebsite()));
+	    $oXLS->setCellValue("G$ex_fila", utf8_encode($dato->getYear()));
+	    $oXLS->setCellValue("H$ex_fila", $dato->getAmount());
+	    $oXLS->setCellValue("I$ex_fila", strtoupper(utf8_encode($dato->getEstado())));
+		}
+		$oXLS->getStyle("A2:I$ex_fila")->applyFromArray($style_data);
+		$oXLS->getStyle("H2:I$ex_fila")->applyFromArray($style_data1);
+		//
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+	  header('Content-Disposition: attachment;filename="inversores_'.date('Ymd_His').'.xlsx"');
+	  header('Cache-Control: max-age=0');
+	
+	  $objWriter = PHPExcel_IOFactory::createWriter($oWorkBoook, 'Excel2007');
+	  $objWriter->save('php://output');
+
+	  exit();
   }
 
 } // end class
