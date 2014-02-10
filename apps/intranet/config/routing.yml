@@ -1,5 +1,30 @@
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/10-Routing
+################################################################### inversores
+
+# investor-delete rules
+investor-delete:
+  url:   /investor-delete/:id
+  param: { module: investor, action: delete }
+
+# investor-edit rules
+investor-edit:
+  url:   /investor-edit/:id
+  param: { module: investor, action: edit }
+
+# investor-register rules
+investor-register:
+  url:   /investor-register
+  param: { module: investor, action: register }
+  
+# investor-show rules
+investor-show:
+  url:   /investor-show/:id
+  param: { module: investor, action: show }
+  
+# investors rules
+investors:
+  url:   /investors
+  param: { module: investor, action: index }
+
 ################################################################### contracts
 
 # contracts-by-month-year

@@ -56,6 +56,25 @@ UserRole:
     code:        { type: string(50) }    
 
 #
+#INVESTOR
+#
+Investor:
+  tableName: investor
+  columns:
+    id:        { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:      { type: string(200) }
+    amount:    { type: decimal(10), scale: 2, default: 0 }
+    phone:     { type: string(50) }
+    website:   { type: string(250) }
+    address:   { type: string(200) }
+    business:  { type: string(250) }
+    year:      { type: integer(8) }
+    estado:    { type: integer(30) }
+    registered_companies_id:  { type: integer(4) }
+  relations:
+    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE } 
+
+#
 #RegisteredCompanies
 #
 RegisteredCompanies:

@@ -12,11 +12,8 @@ class RegisteredCompaniesTable extends Doctrine_Table
      *
      * @return object RegisteredCompaniesTable
      */
-    public static function getInstance()
-    {
-        return Doctrine_Core::getTable('RegisteredCompanies');
-    }
-    
+    public static function getInstance() { return Doctrine_Core::getTable('RegisteredCompanies'); }
+
     /**
      * Get pager for list of users
      *
@@ -84,17 +81,34 @@ class RegisteredCompaniesTable extends Doctrine_Table
           }
           $recorded->save();
     }
+
+  /**
+   * Get affiliated
+   * @return object
+   */
+  public function getAffiliated()
+  {
+    $q = $this->createQuery()->where('id >1 AND type_companies_id = 1');
     
-    
-    /**
-     * get affiliated
-     * @return object
-     */
-    public function getAffiliated()
-    {
-        $q = $this->createQuery()
-             ->where('id >1 AND type_companies_id = 1');
-        
-        return $q->execute();
-    }        
-}
+    return $q->execute();
+  }
+  
+  /**
+	* Get all for select
+	*
+	* @return array
+	*/
+	public function getAllForSelect()
+	{
+		$arr_options = array();
+		
+		$q = Doctrine_Query::create()->from('RegisteredCompanies')->orderBy('name ASC');
+		$d = $q->fetchArray();
+
+		foreach ($d as $value) {
+			$arr_options[$value['id']] = $value['name'];
+		}
+		return $arr_options;
+	}
+
+} // end class

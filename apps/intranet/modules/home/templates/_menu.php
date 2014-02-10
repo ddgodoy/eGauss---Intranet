@@ -5,10 +5,10 @@
 	          <?php echo __('Users') ?>
 	  </a>
 	  <a href="<?php echo url_for('@affiliated') ?>" class="first<?php echo $mnGetModule=='affiliated' ? ' selected' : '' ?>">
-	          <?php echo __('Empresas Participadas') ?>
+	          <?php echo __('Participadas') ?>
 	  </a>
 	  <a href="<?php echo url_for('@analyzed') ?>" class="first<?php echo $mnGetModule=='analyzed' ? ' selected' : '' ?>">
-	          <?php echo __('Empresas Analizadas') ?>
+	          <?php echo __('Analizadas') ?>
 	  </a>
 	  <a href="<?php echo url_for('@information') ?>" class="first<?php echo $mnGetModule=='information' ? ' selected' : '' ?>">
 	          <?php echo __('Información') ?>
@@ -21,10 +21,13 @@
 	      <?php echo __('Facturación') ?>
 		  </a>
 		  <a href="<?php echo url_for('@contracts') ?>" class="first<?php echo $mnGetModule=='contracts' ? ' selected' : '' ?>">
-	      <?php echo __('Contratos de Intermediación') ?>
+	      <?php echo __('Intermediación') ?>
 		  </a>
 		  <a href="<?php echo url_for('@calendar_lista') ?>" class="first<?php echo $mnGetModule=='calendar' ? ' selected' : '' ?>">
 	      <?php echo __('Eventos') ?>
+		  </a>
+		  <a href="<?php echo url_for('@investors') ?>" class="first<?php echo $mnGetModule=='investor' ? ' selected' : '' ?>">
+	      <?php echo __('Inversores') ?>
 		  </a>
 	  <?php endif; ?>
   </li>
