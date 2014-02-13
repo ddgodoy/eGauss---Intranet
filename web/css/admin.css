@@ -996,3 +996,22 @@ h2.grupo {
 	font-weight: bold;
 	font-size: 13px;
 }
+.bscmp_table {
+	border: 1px solid #CCC;
+	font-size: 12px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+.bscmp_link {
+	font-size: 13px;
+	color: #66666a;
+	text-decoration: underline;
+	font-weight: normal;
+	cursor: pointer;
+}
+.bscmp_link:hover {
+	text-decoration: none;
+	background-color: #66666a;
+	color: #FFFFFF;
+	padding: 3px;
+}

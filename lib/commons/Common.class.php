@@ -144,5 +144,89 @@ class Common
       chmod($txt, 0777);
     }
   }
+  
+  /**
+   * Replace html linebreak with plain text linebreak
+   *
+   * @param string $input
+   * @return string
+   */
+  public static function br2n($input)
+  {
+ 		return preg_replace('/<br(\s+)?\/?>/i', "\n", $input);
+	}
+
+	/**
+	 * Get nombre mes según idioma
+	 *
+	 * @param integer $nro_mes
+	 * @param string $idioma
+	 * @return string
+	 */
+	public static function nombresMes($nro_mes, $idioma = 'es')
+	{
+		$nro_mes = is_int($nro_mes) ? $nro_mes: (integer) $nro_mes;
+		$nro_mes = $nro_mes > 0 && $nro_mes < 13 ? $nro_mes : 1;
+
+		$arMeses = array(
+			'es'=>array(1=>'Enero'  ,'Febrero' ,'Marzo','Abril','Mayo','Junio','Julio'  ,'Agosto','Setiembre','Octubre','Noviembre','Diciembre'),
+			'en'=>array(1=>'January','February','March','April','May' ,'June' ,'July'   ,'August','September','October','November' ,'December'),
+			'fr'=>array(1=>'Janvier','Février' ,'Mars' ,'Avril','Mai' ,'Juin' ,'Juillet','Août'  ,'Septembre','Octobre','Novembre' ,'Décembre')
+		);
+		return $arMeses[$idioma][$nro_mes];
+	}
+
+	/**
+	 * Get día semana según idioma
+	 *
+	 * @param integer $nro_dia
+	 * @param string $idioma
+	 * @return string
+	 */
+	public static function diaSemana($nro_dia, $idioma = 'es')
+	{
+		$nro_dia = is_int($nro_dia) ? $nro_dia : (integer) $nro_dia;
+		$nro_dia = $nro_dia >= 0 && $nro_dia <= 6 ? $nro_dia : 0;
+
+		$arrDias = array(
+			'es'=>array('Domingo' ,'Lunes' ,'Martes'  ,'Miércoles','Jueves'    ,'Viernes' ,'Sábado'),
+			'en'=>array('Sunday'  ,'Monday','Tuesday' ,'Wednesday','Thursday'  ,'Friday'  ,'Saturday'),
+			'fr'=>array('Dimanche','Lundi' ,'Mardi'   ,'Mercredi' ,'Jeudi'     ,'Vendredi','Samedi')
+		);
+		return $arrDias[$idioma][$nro_dia];
+	}
+	
+	/**
+	 * Select multiple con checkboxes
+	 *
+	 * @param string $objeto
+	 * @param array $datos
+	 * @param array $seleccionados
+	 * @param integer $altura_div
+	 * @return string
+	 */
+	public static function llenarSelectMultipleWithBoxes($objeto, $datos, $seleccionados = "", $altura_div = 158)
+	{
+		$Opciones = "<div class='d_2' style='height:".$altura_div."px;'>";
+
+		if (!is_array($seleccionados)) {
+			$seleccionados = array($seleccionados);
+		}
+		foreach($datos as $indice => $valor)
+		{
+			$elegida = "";
+			$bgcolor = "#E5E5E5";
+			$frcolor = "#000000";
+
+			if (in_array($indice, $seleccionados)) {
+				$elegida = " CHECKED ";
+				$bgcolor = "#F1DCB4";
+			}
+			$Opciones .= "<label style='display:block;background-color:$bgcolor;color:$frcolor;'>";
+			$Opciones .= "<input name='$objeto' value='$indice' type='checkbox' $elegida onclick='highlight_div(this);' style='vertical-align:middle;'>";
+			$Opciones .= "&nbsp;$valor</label>\n";
+		}
+		return $Opciones."</div>";
+	}
 
 } // end class

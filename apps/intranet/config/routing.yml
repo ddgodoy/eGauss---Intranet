@@ -1,3 +1,15 @@
+################################################################### basecamp
+
+# project-list rules
+project-list:
+  url:   /project-list
+  param: { module: basecamp, action: index }
+
+# task-list rules
+task-list:
+  url:   /task-list/:id/:project
+  param: { module: basecamp, action: task }
+
 ################################################################### inversores
 
 # investor-delete rules

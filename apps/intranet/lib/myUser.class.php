@@ -33,13 +33,13 @@ class myUser extends sfBasicSecurityUser
 		}
 	}
         
-        /**
+  /**
 	 * Automatic notification to vendor on real_property registration
 	 *
 	 * @param boolean $go
 	 * @param integer $real_property_id
 	 * @param string $hostname
-         * @param int $vendor 
+   * @param int $vendor 
 	 */
 	public static function notifyVendorAboutThis($real_property_id, $hostname, $vendor_id)
 	{
@@ -63,12 +63,12 @@ class myUser extends sfBasicSecurityUser
 			}
 	}
         
-        /**
+  /**
 	 * Automatic notification to user on response contact registration
 	 *
 	 * @param integer $contact_id
 	 * @param string $hostname
-         * @param int $user_id 
+   * @param int $user_id 
 	 */
 	public static function notifyUserResponseAboutThis($contact_id, $hostname, $user_id)
 	{
@@ -91,4 +91,5 @@ class myUser extends sfBasicSecurityUser
 				);
 			}
 	}
-}
+	
+} // end class

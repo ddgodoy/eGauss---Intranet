@@ -12,10 +12,7 @@ class AppUserTable extends Doctrine_Table
      *
      * @return object AppUserTable
      */
-    public static function getInstance()
-    {
-        return Doctrine_Core::getTable('AppUser');
-    }
+    public static function getInstance() { return Doctrine_Core::getTable('AppUser'); }
     
     /**
      * Get pager for list of users
@@ -103,23 +100,94 @@ class AppUserTable extends Doctrine_Table
      */
     public function getAllForSelectContact()
     {
-           $i18N = sfContext::getInstance()->getI18N();
-           $arr_options = array();
-           
-           $q = Doctrine_Query::create()
-                   ->select('au.id AS id, au.name AS name, au.last_name AS last_name, ur.name AS rol')
-                   ->from('AppUser au')
-                   ->leftJoin('au.UserRole ur')
-                   ->where('au.email IS NOT NULL')
-                   ->andWhere('au.user_role_id = ?', 2)
-                   ->orderBy(' id');
-           
-           $d = $q->fetchArray();
-           
-           foreach ($d as $value) {
-                   $arr_options[$value['id']] = $value['name'].' '.$value['last_name'].' ('.$i18N->__($value['rol']).')';
-           }
-           return $arr_options;
+       $i18N = sfContext::getInstance()->getI18N();
+       $arr_options = array();
+       
+       $q = Doctrine_Query::create()
+               ->select('au.id AS id, au.name AS name, au.last_name AS last_name, ur.name AS rol')
+               ->from('AppUser au')
+               ->leftJoin('au.UserRole ur')
+               ->where('au.email IS NOT NULL')
+               ->andWhere('au.user_role_id = ?', 2)
+               ->orderBy(' id');
+       
+       $d = $q->fetchArray();
+       
+       foreach ($d as $value) {
+         $arr_options[$value['id']] = $value['name'].' '.$value['last_name'].' ('.$i18N->__($value['rol']).')';
+       }
+       return $arr_options;
     }
     
-}
+    /**
+     * Get proyectos relaciones en basecamp
+     *
+     * @param integer $usuario_id
+     * @return array
+     */
+    public function getRelEnBasecamp($usuario_id)
+    {
+    	$a = array();
+    	$q = Doctrine_Query::create()->from('Userprojects')->where('app_user_id = '.$usuario_id);
+    	
+    	if ($q->count() > 0) {
+    		$d = $q->execute();
+    		
+    		foreach ($d as $value) { $a[] = $value->getProjectId(); }
+    	}
+    	return $a;
+    }
+    
+    /**
+     * Set proyectos relaciones en basecamp
+     *
+     * @param integer $usuario_id
+     * @param array $proyectos
+     * @param array $nombres
+     */
+    public function setRelEnBasecamp($usuario_id, $proyectos, $nombres)
+    {
+    	Doctrine_Query::create()->delete('Userprojects')->where('app_user_id = '.$usuario_id)->execute();
+
+    	foreach ($proyectos as $proyecto)
+    	{
+    		$name = '---';
+    		
+    		foreach ($nombres as $nombre) {
+    			$aux = explode('$', $nombre);
+
+    			if ($aux[0] == $proyecto) { $name = $aux[1]; break; }
+    		}
+    		$ob = new Userprojects();
+
+    		$ob->setAppUserId  ($usuario_id);
+    		$ob->setProjectId  ($proyecto);
+    		$ob->setProjectName($name);
+    		$ob->save();
+    	}
+    }
+    
+    /**
+     * Get proyectos para este usuario
+     *
+     * @param integer $usuario_id
+     * @return array
+     */
+    public function getProyectosForThisUser($usuario_id)
+    {
+    	$a = array();
+    	$q = Doctrine_Query::create()->from('Userprojects')->where('app_user_id = '.$usuario_id);
+    	
+    	if ($q->count() > 0) {
+    		$d = $q->execute();
+    		
+    		foreach ($d as $value)
+    		{
+    			$i = ''.$value->getProjectId();
+    			$a[$i] = $value->getProjectName();
+    		}
+    	}
+    	return $a;
+    }
+
+} // end class

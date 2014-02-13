@@ -166,7 +166,7 @@ abstract class BaseAppUser extends sfDoctrineRecord
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
 
-        $this->hasMany('AppUserRegisteredCompanies as AppUser', array(
+        $this->hasMany('Userprojects as AppUser', array(
              'local' => 'id',
              'foreign' => 'app_user_id'));
 

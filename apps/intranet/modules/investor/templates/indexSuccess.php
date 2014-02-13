@@ -36,10 +36,10 @@
 	</div>
   <h1 class="titulos">
   	<?php echo __('Listado de Inversores') ?>
-  	<?php if ($oCant > 0): ?>
   		<input type="button" value="<?php echo __('Registrar un inversor') ?>" style="float:right;" class="boton" onclick="document.location='<?php echo url_for('@investor-register') ?>';"/>
+  	<?php if ($oCant > 0): ?>
+  		<input type="button" value="<?php echo __('Exportal a Excel') ?>" style="float:right;margin-right:10px;" class="boton" onclick="document.location='<?php echo url_for('@investor-excel') ?>';"/>
   	<?php endif; ?>
-  	<input type="button" value="<?php echo __('Exportal a Excel') ?>" style="float:right;margin-right:10px;" class="boton" onclick="document.location='<?php echo url_for('@investor-excel') ?>';"/>
   </h1>
   	<?php include_partial('home/pager', array('pager'=>$oPager, 'url'=>$index_url, 'params'=>$f_params.$pager_order, 'oCant'=>$oCant)) ?>
 

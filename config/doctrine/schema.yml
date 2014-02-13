@@ -56,6 +56,19 @@ UserRole:
     code:        { type: string(50) }    
 
 #
+#USERPROJECTS
+#
+Userprojects:
+  tableName: userprojects
+  columns:
+    id:           { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    app_user_id:  { type: integer(4) }
+    project_id:   { type: string(50) }
+    project_name: { type: string(200) }
+  relations:
+    AppUser:      { class: AppUser, local: app_user_id, foreign: id, foreignAlias: AppUser, onDelete: CASCADE }
+
+#
 #INVESTOR
 #
 Investor:

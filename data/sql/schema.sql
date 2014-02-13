@@ -14,6 +14,7 @@ CREATE TABLE type_calendar (id INT AUTO_INCREMENT, name VARCHAR(50) NOT NULL, cr
 CREATE TABLE type_companies (id INT AUTO_INCREMENT, name VARCHAR(50) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 CREATE TABLE type_information (id INT AUTO_INCREMENT, name VARCHAR(50) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 CREATE TABLE user_role (id INT AUTO_INCREMENT, name VARCHAR(50) NOT NULL, credentials VARCHAR(250), code VARCHAR(50), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
+CREATE TABLE userprojects (id INT AUTO_INCREMENT, app_user_id INT, project_id VARCHAR(50), project_name VARCHAR(200), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX app_user_id_idx (app_user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 CREATE TABLE videos_registered_companies (id INT AUTO_INCREMENT, name VARCHAR(50) NOT NULL, url VARCHAR(200) NOT NULL, registered_companies_id INT NOT NULL, information_id INT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX registered_companies_id_idx (registered_companies_id), INDEX information_id_idx (information_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 ALTER TABLE app_user ADD CONSTRAINT app_user_user_role_id_user_role_id FOREIGN KEY (user_role_id) REFERENCES user_role(id) ON DELETE CASCADE;
 ALTER TABLE app_user ADD CONSTRAINT app_user_company_id_company_id FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE;
@@ -35,5 +36,6 @@ ALTER TABLE notifications ADD CONSTRAINT notifications_information_id_informatio
 ALTER TABLE notifications ADD CONSTRAINT notifications_app_user_id_app_user_id FOREIGN KEY (app_user_id) REFERENCES app_user(id) ON DELETE SET NULL;
 ALTER TABLE notifications ADD CONSTRAINT ncci FOREIGN KEY (contracts_intermediation_id) REFERENCES contracts_intermediation(id) ON DELETE SET NULL;
 ALTER TABLE registered_companies ADD CONSTRAINT registered_companies_type_companies_id_type_companies_id FOREIGN KEY (type_companies_id) REFERENCES type_companies(id) ON DELETE CASCADE;
+ALTER TABLE userprojects ADD CONSTRAINT userprojects_app_user_id_app_user_id FOREIGN KEY (app_user_id) REFERENCES app_user(id) ON DELETE CASCADE;
 ALTER TABLE videos_registered_companies ADD CONSTRAINT vrri FOREIGN KEY (registered_companies_id) REFERENCES registered_companies(id) ON DELETE CASCADE;
 ALTER TABLE videos_registered_companies ADD CONSTRAINT videos_registered_companies_information_id_information_id FOREIGN KEY (information_id) REFERENCES information(id) ON DELETE SET NULL;
