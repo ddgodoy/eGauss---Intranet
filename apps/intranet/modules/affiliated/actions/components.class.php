@@ -129,16 +129,15 @@ class affiliatedComponents extends sfComponents
         }
         
     }
-    
-    /**
-     * get sfWebRequest $request
-     * @param sfWebRequest $request
-     */
-    public function executeGetAffiliated(sfWebRequest $request)
-    {
-        $this->array_new_affiliated = array();
-        
-        $this->array_new_affiliated = RegisteredCompaniesTable::getInstance()->getAffiliated();
-        
-    }        
-}
+
+  /**
+   * Get sfWebRequest $request
+   * 
+   * @param sfWebRequest $request
+   */
+  public function executeGetAffiliated(sfWebRequest $request)
+  {
+    $this->array_new_affiliated = RegisteredCompaniesTable::getInstance()->getAffiliated();
+  }
+
+} // end class
