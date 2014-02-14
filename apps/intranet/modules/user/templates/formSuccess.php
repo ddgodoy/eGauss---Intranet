@@ -138,7 +138,7 @@
       <?php if (!$my_profile): ?>
       <fieldset>
 			  <legend>&nbsp;<?php echo __('Proyectos en Basecamp') ?>&nbsp;</legend>
-			  <?php $allProjects = RunBasecamp::todosLosProyectos(); ?>
+			  <?php $allProjects = NewBasecamp::todosLosProyectos(); ?>
 			  <table cellpadding="0" cellspacing="0">
 			    <tr>
 			      <td width="310">

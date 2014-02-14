@@ -1015,3 +1015,41 @@ h2.grupo {
 	color: #FFFFFF;
 	padding: 3px;
 }
+.bscmp_link2 {
+	font-size: 13px;
+	color: #66666a !important;
+	text-decoration: underline !important;
+	font-weight: bold;
+	cursor: pointer;
+}
+.bscmp_link2:hover {
+	text-decoration: none !important;
+}
+.bscmp_link3 {
+	font-size: 16px;
+	color: #990f28 !important;
+	text-decoration: none !important;
+	font-weight: normal;
+	cursor: pointer;
+}
+.bscmp_link3:hover {
+	text-decoration: underline !important;
+}
+.bscmp_link4 {
+	font-size: 13px;
+	color: #3e697d !important;
+	text-decoration: underline !important;
+	font-weight: normal;
+	cursor: pointer;
+}
+.bscmp_link4:hover {
+	text-decoration: none !important;
+}
+.bscmp_tdb {
+	border-bottom: 1px solid #CCCCCC;
+	padding-bottom: 3px;
+}
+.bscmp_tnml {
+	font-size: 13px;
+	color: #333333;
+}

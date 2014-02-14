@@ -122,8 +122,8 @@ class userActions extends sfActions
         
     if ($this->id)
     {
-      $this->form->setDefault('contact_time_from',$entity_object->getContactTimeFrom()); 
-      $this->form->setDefault('contact_time_to',$entity_object->getContactTimeTo());
+      $this->form->setDefault('contact_time_from', $entity_object->getContactTimeFrom()); 
+      $this->form->setDefault('contact_time_to', $entity_object->getContactTimeTo());
     }
   	if ($request->getMethod() == 'POST')
   	{

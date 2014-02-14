@@ -18,14 +18,26 @@ class basecampActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
   	$sUser = sfContext::getInstance()->getUser();
-  	
+
   	if ($sUser->getAttribute('user_role') == 'super_admin') {
-  		$this->arrDatos = RunBasecamp::todosLosProyectos();
+  		$this->arrDatos = NewBasecamp::todosLosProyectos();
   	} else {
   		$this->arrDatos = AppUserTable::getInstance()->getProyectosForThisUser($sUser->getAttribute('user_id'));
   	}
   }
 
+ /**
+  * Executes resumen action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeResumen(sfWebRequest $request)
+  {
+  	$this->idPr  = $request->getParameter('id');
+  	$this->name  = $request->getParameter('project');
+  	$this->datos = NewBasecamp::getResumenByProyecto($this->idPr);
+  }
+  
  /**
   * Executes task action
   *

@@ -11,7 +11,7 @@
   		<?php if (count($arrDatos) > 0): ?>
   			<th width="10%"><?php echo __('Id') ?></th>
 		  	<th width="80%"><?php echo __('Nombre') ?></th>
-		    <th width="10%" style="text-align:center;">Ver actividades</th>
+		    <th width="10%" style="text-align:center;">Ver resumen</th>
   		<?php else: ?>
   			<th style="text-align:center;"><?php echo __('No results') ?></th>
   		<?php endif; ?>
@@ -25,7 +25,7 @@
       		$fixed = str_replace('.', '-', $v_item);
       	?>
       	<a href="<?php echo url_for('@task-list?id='.$k_item.'&project='.$fixed) ?>">
-      		<img border="0" src="/images/ver.png" alt="<?php echo __('Tareas') ?>" title="<?php echo __('Tareas') ?>" width="28">
+      		<img border="0" src="/images/ver.png" alt="<?php echo __('Resumen') ?>" title="<?php echo __('Resumen') ?>" width="28">
       	</a>
       </td>
     </tr>
