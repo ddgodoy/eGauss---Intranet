@@ -22,6 +22,7 @@
  * @property string $contact_email
  * @property integer $type_companies_id
  * @property text $comments
+ * @property string $basecamp_id
  * @property TypeCompanies $TypeCompanies
  * @property Doctrine_Collection $RegisteredCompanies
  * 
@@ -42,6 +43,7 @@
  * @method string              getContactEmail()        Returns the current record's "contact_email" value
  * @method integer             getTypeCompaniesId()     Returns the current record's "type_companies_id" value
  * @method text                getComments()            Returns the current record's "comments" value
+ * @method string              getBasecampId()          Returns the current record's "basecamp_id" value
  * @method TypeCompanies       getTypeCompanies()       Returns the current record's "TypeCompanies" value
  * @method Doctrine_Collection getRegisteredCompanies() Returns the current record's "RegisteredCompanies" collection
  * @method RegisteredCompanies setId()                  Sets the current record's "id" value
@@ -61,6 +63,7 @@
  * @method RegisteredCompanies setContactEmail()        Sets the current record's "contact_email" value
  * @method RegisteredCompanies setTypeCompaniesId()     Sets the current record's "type_companies_id" value
  * @method RegisteredCompanies setComments()            Sets the current record's "comments" value
+ * @method RegisteredCompanies setBasecampId()          Sets the current record's "basecamp_id" value
  * @method RegisteredCompanies setTypeCompanies()       Sets the current record's "TypeCompanies" value
  * @method RegisteredCompanies setRegisteredCompanies() Sets the current record's "RegisteredCompanies" collection
  * 
@@ -143,6 +146,10 @@ abstract class BaseRegisteredCompanies extends sfDoctrineRecord
              ));
         $this->hasColumn('comments', 'text', null, array(
              'type' => 'text',
+             ));
+        $this->hasColumn('basecamp_id', 'string', 50, array(
+             'type' => 'string',
+             'length' => 50,
              ));
 
         $this->option('collate', 'utf8_general_ci');

@@ -33,9 +33,8 @@ class basecampActions extends sfActions
   */
   public function executeResumen(sfWebRequest $request)
   {
-  	$this->idPr  = $request->getParameter('id');
-  	$this->name  = $request->getParameter('project');
-  	$this->datos = NewBasecamp::getResumenByProyecto($this->idPr);
+  	$this->idPr = $request->getParameter('id');
+  	$this->name = $request->getParameter('project');
   }
   
  /**

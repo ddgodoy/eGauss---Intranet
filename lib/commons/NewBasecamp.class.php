@@ -10,11 +10,12 @@ class NewBasecamp
 	/**
 	 * Get array de proyectos
 	 *
+	 * @param boolean $add_empty
 	 * @return array
 	 */
-	public static function todosLosProyectos()
+	public static function todosLosProyectos($add_empty = false)
 	{
-		$arrDatos = array();
+		$arrDatos = $add_empty ? array('' => '-- Seleccionar --') : array();
 		$basecamp = self::getBasecampInstance();
 	  $projects = $basecamp('GET', '/projects.json');
 		

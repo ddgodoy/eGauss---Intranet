@@ -109,7 +109,8 @@ RegisteredCompanies:
     contact_phone:      { type: string(50)}
     contact_email:      { type: string(200)}
     type_companies_id:  { type: integer(4), notnull: true }
-    comments:           { type: text } 
+    comments:           { type: text }
+    basecamp_id:        { type: string(50) }
   relations:
     TypeCompanies:      { class: TypeCompanies, local: type_companies_id, foreign: id, foreignAlias: TypeCompanies, onDelete: CASCADE } 
     
