@@ -12,6 +12,7 @@ class contractsComponents extends sfComponents
   public function executeGetContractsByMonth(sfWebRequest $request)
   {
     $this->contracts = ContractsIntermediationTable::getInstance()->findByYear(date('Y'));
+    $this->rSocios   = ContractsIntermediationTable::getInstance()->getSumatoriaSocios(date('Y'));
   }
   
   public function executeGetRankingSocios(sfWebRequest $request)

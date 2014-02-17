@@ -126,9 +126,8 @@
             <div id="billing">
                 <?php include_component('billing', 'getBillingByMonth') ?> 
             </div>
-            <div id="contracts">
+            <div id="contracts">      
                 <?php include_component('contracts', 'getContractsByMonth') ?> 
-                <?php include_component('contracts', 'getRankingSocios') ?> 
             </div>
         </div>
     </div>
