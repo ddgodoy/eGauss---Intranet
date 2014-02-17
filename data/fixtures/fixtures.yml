@@ -37,7 +37,11 @@ TypeCompanies:
     
   type_companies_analyzed:
     id:    2
-    name:  Analizadas   
+    name:  Analizadas  
+    
+  type_companies_investor:
+    id:    3
+    name:  Inversionista    
 
 ###############################################################
 

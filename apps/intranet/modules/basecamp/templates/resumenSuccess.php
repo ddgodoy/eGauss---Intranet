@@ -1,5 +1,10 @@
 <div class="content">
-  <div class="leftside">
+  <div class="rightside">
+    <div class="paneles" id="conten-calendar">
+      <?php include_component('calendar', 'calendar') ?>
+    </div>
+  </div>  
+  <div class="leftside" style="margin-left:260px;">
 	  <div class="mapa">
 			<a href="<?php echo url_for('@homepage') ?>"><strong><?php echo __('Home') ?></strong></a>
 			&nbsp;&gt;&nbsp;

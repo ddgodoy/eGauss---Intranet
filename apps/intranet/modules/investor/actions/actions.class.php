@@ -100,51 +100,74 @@ class investorActions extends sfActions
    */
   public function executeProcess(sfWebRequest $request)
   {
-  	$this->id      = $request->getParameter('id');
-  	$this->empresa = 0;
-  	$this->name    = '';
-  	$this->amount  = 0;
-  	$this->phone   = '';
-  	$this->website = '';
-  	$this->address = '';
-  	$this->sector  = '';
-  	$this->year    = date('Y');
-  	$this->estado  = 'pendiente';
-  	$this->error   = array();
-  	$entity_object = new Investor();
+  	$this->id           = $request->getParameter('id');
+  	$this->empresa      = 0;
+  	$this->name         = '';
+        $this->name_company = '';
+        $this->investor     = '1';
+  	$this->amount       = 0;
+  	$this->phone        = '';
+  	$this->website      = '';
+  	$this->address      = '';
+  	$this->sector       = '';
+  	$this->year         = date('Y');
+  	$this->estado       = 'pendiente';
+  	$this->error        = array();
+  	$entity_object      = new Investor();
 
   	if ($this->id)
   	{
   		$entity_object = InvestorTable::getInstance()->find($this->id);
 
-  		$this->empresa = $entity_object->getRegisteredCompaniesId();
-	  	$this->name    = $entity_object->getName();
-	  	$this->amount  = $entity_object->getAmount();
-	  	$this->phone   = $entity_object->getPhone();
-	  	$this->website = $entity_object->getWebsite();
-	  	$this->address = $entity_object->getAddress();
-	  	$this->sector  = $entity_object->getBusiness();
-	  	$this->year    = $entity_object->getYear();
-	  	$this->estado  = $entity_object->getEstado();
+  		$this->empresa      = $entity_object->getRegisteredCompaniesId();
+                $this->name_company = $entity_object->getRegisteredCompanies()->getName();
+                $this->investor     = $entity_object->getRegisteredCompanies()->getTypeCompaniesId()==3?2:1;
+	  	$this->name         = $entity_object->getName();
+	  	$this->amount       = $entity_object->getAmount();
+	  	$this->phone        = $entity_object->getPhone();
+	  	$this->website      = $entity_object->getWebsite();
+	  	$this->address      = $entity_object->getAddress();
+	  	$this->sector       = $entity_object->getBusiness();
+	  	$this->year         = $entity_object->getYear();
+	  	$this->estado       = $entity_object->getEstado();
   	}
   	if ($request->getMethod() == 'POST')
   	{
-  		$this->empresa = $request->getParameter('empresa');
-	  	$this->name    = trim($request->getParameter('name'));
-	  	$this->amount  = trim($request->getParameter('amount', 0));
-	  	$this->phone   = trim($request->getParameter('phone'));
-	  	$this->website = trim($request->getParameter('website'));
-	  	$this->address = trim($request->getParameter('address'));
-	  	$this->sector  = trim($request->getParameter('sector'));
-	  	$this->year    = trim($request->getParameter('year'));
-	  	$this->estado  = $request->getParameter('estado');
+  		$this->empresa      = $request->getParameter('empresa');
+	  	$this->name         = trim($request->getParameter('name'));
+	  	$this->amount       = trim($request->getParameter('amount', 0));
+	  	$this->phone        = trim($request->getParameter('phone'));
+                $this->name_company = trim($request->getParameter('name_company'));
+                $this->investor     = trim($request->getParameter('investor'));
+	  	$this->website      = trim($request->getParameter('website'));
+	  	$this->address      = trim($request->getParameter('address'));
+	  	$this->sector       = trim($request->getParameter('sector'));
+	  	$this->year         = trim($request->getParameter('year'));
+	  	$this->estado       = $request->getParameter('estado');
 
 	  	if (empty($this->name))  { $this->error['name']  = 'Ingrese el nombre'; }
   		if (empty($this->phone)) { $this->error['phone'] = 'Ingrese el teléfono'; }
   		if (empty($this->year))  { $this->error['year']  = 'Ingrese el año'; }
+                
+                if($this->investor == 2 && $this->name_company == ''){$this->error['name_company']  = 'Ingrese el nombre de la Empresa';}
 
   		if (count($this->error) == 0)
   		{
+                        if($this->investor == 2){
+                            
+                            if($request->getParameter('empresa_new')){
+                              $company = RegisteredCompaniesTable::getInstance()->findOneById($request->getParameter('empresa_new'));  
+                            }else{
+                              $company = new RegisteredCompanies();
+                              $company->setDate(date('Y-m-d'));
+                              $company->setTypeCompaniesId(3);
+                            }
+                            $company->setName($this->name_company);
+                            $company->save();
+                            
+                            $this->empresa = $company->getId(); 
+                        }
+                    
   			$entity_object->setName    ($this->name);
   			$entity_object->setAmount  ($this->amount);
   			$entity_object->setPhone   ($this->phone);

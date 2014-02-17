@@ -29,6 +29,9 @@
         </table>
       </form>
     </div>
+    <div class="paneles" id="conten-calendar">
+      <?php include_component('calendar', 'calendar') ?>
+    </div> 
   </div>
   <div class="leftside" style="margin-left:260px;">
   <div class="mapa">
@@ -65,7 +68,7 @@
         <td><?php echo strtoupper($item->getEstado()) ?></td>
         <td align="center">
         	<a href="<?php echo url_for('@investor-show?id='.$item->getId()) ?>">
-        		<img border="0" src="/images/ver.png" alt="<?php echo __('Ver resultados') ?>" title="<?php echo __('Ver resultados') ?>" width="28">
+        		<img border="0" src="/images/investor.png" alt="<?php echo __('Ver detalle') ?>" title="<?php echo __('Ver detalle') ?>">
         	</a>
         </td>
         <td align="center">

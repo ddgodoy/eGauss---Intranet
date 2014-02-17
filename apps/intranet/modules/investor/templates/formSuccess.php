@@ -1,10 +1,29 @@
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".checked-company").click(function(){
+        var value   = $(this).val();
+        if(value == 1){
+            $("#select_company").show();
+            $("#input_company").hide();
+        }else{
+            $("#select_company").hide();
+            $("#input_company").show();
+        }
+    });
+});
+</script>
 <?php
 	$str_module = $sf_params->get('module');
 	$str_action = $sf_params->get('action');
 	$request_id = $id ?  "?id=$id" : '';
 ?>
 <div class="content">
-	<div class="leftside">
+        <div class="rightside">
+            <div class="paneles" id="conten-calendar">
+                <?php include_component('calendar', 'calendar') ?>
+            </div> 
+        </div>
+	<div class="leftside" style="margin-left:260px;">
 		<div class="mapa">
 			<a href="<?php echo url_for('@homepage') ?>"><strong><?php echo __('Home') ?></strong></a>
 			&nbsp;&gt;&nbsp;
@@ -39,15 +58,32 @@
 					</tr>
 				</table>
 			</fieldset>
-			<fieldset style="margin-top:20px;">
+                        <fieldset style="margin-top:20px;">
+                            <legend style="padding:0px 10px 0px 10px;">Empresa</legend>
+                            <table width="20%" cellspacing="4" cellpadding="0" border="0">
+                                <tr>
+                                    <td><input type="radio" style="vertical-align:middle;margin-left:10px;" value="1" <?php if($investor == 1): ?> checked="checked" <?php endif; ?> class="checked-company" name="investor"></td>
+                                    <td><label><?php echo __('Participadas') ?></label></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" style="vertical-align:middle;margin-left:10px;" value="2" <?php if($investor == 2): ?> checked="checked" <?php endif; ?> name="investor" class="checked-company"></td>
+                                    <td><label><?php echo __('Inversión') ?></label></td>
+                                </tr>
+                            </table>
+                        </fieldset>    
+                        <fieldset style="margin-top:20px;" style="display: none">
 				<legend style="padding:0px 10px 0px 10px;">Datos de la empresa</legend>
 				<table width="100%" cellspacing="4" cellpadding="0" border="0">
 					<tr>
 						<td width="6%"><label><?php echo __('Nombre') ?> *</label></td>
-						<td>
+						<td id="select_company" <?php if($investor == 2): ?> style="display: none" <?php endif; ?>>
 							<select class="form_input" name="empresa">
-                <?php echo Common::fillSimpleSelect(RegisteredCompaniesTable::getInstance()->getParticipadasForSelect(), $empresa); ?>
+                                                            <?php echo Common::fillSimpleSelect(RegisteredCompaniesTable::getInstance()->getParticipadasForSelect(), $empresa); ?>
 							</select>
+						</td>
+                                                <td id="input_company" <?php if($investor == 1): ?> style="display: none" <?php endif; ?> >
+                                                    <input type="text" class="form_input" name="name_company" value="<?php echo $name_company ?>" style="width:600px;" />
+                                                    <?php if($investor == 2): ?> <input type="hidden" name="empresa_new" value="<?php echo  $empresa ?>" /><?php endif; ?>
 						</td>
 					</tr>
 					<tr>
