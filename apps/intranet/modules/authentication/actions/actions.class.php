@@ -25,6 +25,7 @@ class authenticationActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+        ServiceAuthentication::closeSessionProcess();
   	$i18N = $this->getContext()->getI18N();
 
   	$this->auth_error    = array();
