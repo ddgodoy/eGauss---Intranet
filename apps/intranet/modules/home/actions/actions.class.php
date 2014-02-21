@@ -34,7 +34,7 @@ class homeActions extends sfActions
                 $this->getUser()->setAttribute('accessToken', $client->authenticate($request->getParameter('code')));
                 $this->redirect('@homepage'); 
             } elseif (!$this->getUser()->getAttribute('accessToken')) {
-                $client->authenticate();
+                $service = new Google_AnalyticsService($client);
             }
         }
         $this->shareholders = CalendarTable::getInstance()->findOneByNextAndTypeCalendarId(1,2);
