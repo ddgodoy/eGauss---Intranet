@@ -49,7 +49,11 @@
       </tr>
       <?php foreach ($oList as $item): ?>
       <tr class="<?php if (!empty($odd)) { echo 'gris'; $odd=0; } else { echo 'blanco'; $odd=1; } ?>">
-        <td><img src="/<?php echo $item->getLogo() ? 'uploads/company/'.$item->getLogo() : 'images/no_image.jpg' ?>" width="50" height="50" alt="User" border="0"/></td>  
+        <td>
+            <a href="<?php echo url_for('@'.$str_module.'-show?id='.$item->getId()) ?>">
+                <img src="/<?php echo $item->getLogo() ? 'uploads/company/'.$item->getLogo() : 'images/no_image.jpg' ?>" width="50" height="50" alt="<?php echo $item->getName() ?>" title="<?php echo $item->getName() ?>" border="0"/>
+            </a>
+        </td>  
         <td><?php echo Common::getFormattedDate($item->getDate(),'d/m/Y') ?></td>
         <td><?php echo $item->getName() ?></td>
         <td><?php echo $item->getEmail() ?></td>

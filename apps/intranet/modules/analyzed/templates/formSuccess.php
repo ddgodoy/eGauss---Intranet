@@ -129,7 +129,7 @@ $(document).ready(function(){
                   <table width="100%" cellspacing="4" cellpadding="0" border="0">
                     <tr>
                       <td width="10%"><input type="checkbox" name="affiliated" value="1" style="vertical-align:middle;margin-left:10px;"/></td>
-                      <td><label>Praticipar</label></td>
+                      <td><label>Participada</label></td>
                     </tr>
                   </table>
                 </fieldset>

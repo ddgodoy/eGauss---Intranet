@@ -35,7 +35,7 @@
         <div style="width:33%;float:left;">
             <?php if($shareholders): ?>
                 <div class="paneles">
-                    <h1><?php echo __('Juntas de Accionistas') ?></h1>
+                    <h1><?php echo __('Próxima junta de accionistas') ?></h1>
                     <div style="overflow-y: auto; height: 95px;">
                     <table width="100%" cellspacing="0" border="0" class="listados">
                         <tr>
