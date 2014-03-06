@@ -65,6 +65,7 @@ class homeActions extends sfActions
             $file->setTitle(str_replace(' ', '-', $files_upload['name']));
             $file->setDescription($name);
             $file->setMimeType($files_upload['type']);
+            $file->setShared('sharing');
            
             $data = file_get_contents($files_upload['tmp_name']);
 
