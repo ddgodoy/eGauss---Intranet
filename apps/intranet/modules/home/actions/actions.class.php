@@ -65,7 +65,7 @@ class homeActions extends sfActions
             $file->setTitle(str_replace(' ', '-', $files_upload['name']));
             $file->setDescription($name);
             $file->setMimeType($files_upload['type']);
-
+           
             $data = file_get_contents($files_upload['tmp_name']);
 
             $createdFile = $service->files->insert($file, array(
@@ -73,6 +73,10 @@ class homeActions extends sfActions
                   'mimeType' => $files_upload['type'],
                 ));
 
+            echo '<pre>';
+            print_r($createdFile);
+            echo '</pre>';
+            exit();
             $temp_file = new TempsDocuments();
             $temp_file->setName($createdFile['title']);
             $temp_file->setIcon($createdFile['iconLink']);
