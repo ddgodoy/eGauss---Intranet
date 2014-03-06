@@ -63,7 +63,7 @@ class homeActions extends sfActions
             //Insert a file
             $file = new Google_DriveFile();
             $file->setTitle(str_replace(' ', '-', $files_upload['name']));
-            $file->setDescription($name);
+            $file->setDescription('hello world!!');
             $file->setMimeType('application/vnd.google-apps.document');
            
             $file = $service->files->insert($file);
@@ -82,7 +82,7 @@ class homeActions extends sfActions
             $service->permissions->insert($file->getId(), $permission);
             
             echo '<pre>';
-            print_r($createdFile);
+            print_r($file);
             echo '</pre>';
             exit();
             $temp_file = new TempsDocuments();
