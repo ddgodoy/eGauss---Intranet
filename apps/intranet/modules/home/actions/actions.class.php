@@ -64,22 +64,22 @@ class homeActions extends sfActions
             $file = new Google_DriveFile();
             $file->setTitle(str_replace(' ', '-', $files_upload['name']));
             $file->setDescription($name);
-            $file->setMimeType($files_upload['type']);
-            $file->setShared(true);
+            $file->setMimeType('application/vnd.google-apps.document');
            
-            $data = file_get_contents($files_upload['tmp_name']);
+            $file = $service->files->insert($file);
+            //$data = file_get_contents($files_upload['tmp_name']);
 
-            $createdFile = $service->files->insert($file, array(
+            /*$createdFile = $service->files->insert($file, array(
                   'data' => $data,
                   'mimeType' => $files_upload['type'],
-                ));
+                ));*/
 
             //Give everyone permission to read and write the file
             $permission = new Google_Permission();
             $permission->setRole('writer');
             $permission->setType('anyone');
             $permission->setValue('me');
-            $service->permissions->insert($createdFile['id'], $permission);
+            $service->permissions->insert($file->getId(), $permission);
             
             echo '<pre>';
             print_r($createdFile);
