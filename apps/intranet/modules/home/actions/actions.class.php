@@ -74,6 +74,13 @@ class homeActions extends sfActions
                   'mimeType' => $files_upload['type'],
                 ));
 
+            //Give everyone permission to read and write the file
+            $permission = new Google_Permission();
+            $permission->setRole('writer');
+            $permission->setType('anyone');
+            $permission->setValue('me');
+            $service->permissions->insert($createdFile['id'], $permission );
+            
             echo '<pre>';
             print_r($createdFile);
             echo '</pre>';
