@@ -79,7 +79,7 @@ class homeActions extends sfActions
             $permission->setRole('writer');
             $permission->setType('anyone');
             $permission->setValue('me');
-            $service->permissions->insert($file->getId(), $permission);
+            $service->permissions->insert($file['id'], $permission);
             
             echo '<pre>';
             print_r($file);
