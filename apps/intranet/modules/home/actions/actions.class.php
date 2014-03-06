@@ -80,10 +80,6 @@ class homeActions extends sfActions
             $permission->setValue('me');
             $service->permissions->insert($createdFile['id'], $permission);
             
-            echo '<pre>';
-            print_r($createdFile);
-            echo '</pre>';
-            exit();
             $temp_file = new TempsDocuments();
             $temp_file->setName($createdFile['title']);
             $temp_file->setIcon($createdFile['iconLink']);
