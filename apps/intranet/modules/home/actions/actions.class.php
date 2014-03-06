@@ -63,26 +63,25 @@ class homeActions extends sfActions
             //Insert a file
             $file = new Google_DriveFile();
             $file->setTitle(str_replace(' ', '-', $files_upload['name']));
-            $file->setDescription('hello world!!');
-            $file->setMimeType('application/vnd.google-apps.document');
+            $file->setDescription(str_replace(' ', '-', $files_upload['name']));
+            $file->setMimeType($files_upload['type']);
            
-            $file = $service->files->insert($file);
-            //$data = file_get_contents($files_upload['tmp_name']);
+            $data = file_get_contents($files_upload['tmp_name']);
 
-            /*$createdFile = $service->files->insert($file, array(
+            $createdFile = $service->files->insert($file, array(
                   'data' => $data,
                   'mimeType' => $files_upload['type'],
-                ));*/
+                ));
 
             //Give everyone permission to read and write the file
             $permission = new Google_Permission();
             $permission->setRole('writer');
             $permission->setType('anyone');
             $permission->setValue('me');
-            $service->permissions->insert($file['id'], $permission);
+            $service->permissions->insert($createdFile['id'], $permission);
             
             echo '<pre>';
-            print_r($file);
+            print_r($createdFile);
             echo '</pre>';
             exit();
             $temp_file = new TempsDocuments();
