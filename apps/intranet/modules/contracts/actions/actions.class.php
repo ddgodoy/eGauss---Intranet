@@ -16,6 +16,7 @@ class contractsActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
+        
         $this->iPage  = $request->getParameter('page', 1);
         $this->oPager = ContractsIntermediationTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy());
   	$this->oList  = $this->oPager->getResults();
@@ -33,19 +34,20 @@ class contractsActions extends sfActions
         $sch_partial        = '1';
         
         $this->month        = array(
-        											'-- Seleccionar --',
-                              'Enero',
-                              'Febrero',
-                              'Marzo',
-                              'Abril',
-                              'Mayo',
-                              'Junio',
-                            	'Julio',
-                              'Agosto',
-                              'Septiembre',
-                              'Octubre',
-                              'Noviembre',
-                              'Diciembre');
+                              0=>'--Seleccionar--',
+                              1=>'Enero',
+                              2=>'Febrero',
+                              3=>'Marzo',
+                              4=>'Abril',
+                              5=>'Mayo',
+                              6=>'Junio',
+                              7=>'Julio',
+                              8=>'Agosto',
+                              9=>'Septiembre',
+                              10=>'Octubre',
+                              11=>'Noviembre',
+                              12=>'Diciembre');
+
 
         $this->sch_customer    = trim($this->getRequestParameter('sch_customer'));
         $this->sch_month    = trim($this->getRequestParameter('sch_month'));
@@ -122,30 +124,56 @@ class contractsActions extends sfActions
         $this->id                  = $request->getParameter('id');
         $entity_object             = NULL;
         $this->error               = array();
+        $this->company             = 1;
+        $this->empresa             = 1;
         if ($this->id) {
               $entity_object = ContractsIntermediationTable::getInstance()->find($this->id);
+              
+              
+              
+              if($entity_object->getRegisteredCompaniesId()){
+                  $this->empresa = $entity_object->getRegisteredCompaniesId();
+                  $this->company = 1;
+              }else{
+                  $this->company = 2;
+              }
         }
         
         $this->form = new ContractsIntermediationForm($entity_object);
+        $this->form->setDefault('date', "0000-00-0"); 
         
-        if($this->id)
-        {
-           $this->form->setDefault('date', $entity_object->getYear()."-".$entity_object->getMonth()."-".$entity_object->getDay()); 
-        }
         
         if ($request->getMethod() == 'POST') {
-            
-              
+              $this->company = $request->getParameter('company');
+              $this->empresa = $request->getParameter('empresa');
               $this->form->bind($request->getParameter($this->form->getName()));
               if ($this->form->isValid() && count($this->error)== 0) 
               {
                   $form_request = $request->getParameter($this->form->getName());
+                  
                   $recorded = $this->form->save();
                   
-                  $recorded->setDay($form_request['date']['day']);
-                  $recorded->setMonth($form_request['date']['month']);
-                  $recorded->setYear($form_request['date']['year']);
+                  $recorded->setDay(date('d'));
+                  $recorded->setMonth($form_request['month']);
+                  $recorded->setYear($form_request['year']);
+                  
+                  if($this->company==1){
+                    $recorded->setRegisteredCompaniesId($this->empresa);    
+                  }else{
+                    $recorded->setRegisteredCompaniesId(NULL);      
+                  }
+                  
                   $recorded->save();
+                  
+                  if($form_request['date']['year']!= ''){
+                      $date_reunion = $form_request['date']['year'].'-'.$form_request['date']['month'].'-'.$form_request['date']['day'];
+                      
+                      $reunion = new ReunionContractsIntermediation();
+                      $reunion->setDate($date_reunion);
+                      $reunion->setComments($form_request['comments_reunion']);
+                      $reunion->setContractsIntermediationId($recorded->getId());
+                      $reunion->save();
+                  }
                   
                   if(!$this->id){
                     #set notification
@@ -167,10 +195,25 @@ class contractsActions extends sfActions
    {
           
           $this->id      = $request->getParameter('id');
-          $this->oValue  = ContractsIntermediationTable::getInstance()->find($this->id);
-         
-
           if (empty($this->id)) { $this->redirect('@contracts'); }
+          $this->oValue  = ContractsIntermediationTable::getInstance()->find($this->id);
+          $this->month        = array(
+                              1=>'Enero',
+                              2=>'Febrero',
+                              3=>'Marzo',
+                              4=>'Abril',
+                              5=>'Mayo',
+                              6=>'Junio',
+                              7=>'Julio',
+                              8=>'Agosto',
+                              9=>'Septiembre',
+                              10=>'Octubre',
+                              11=>'Noviembre',
+                              12=>'Diciembre');
+
+          $this->reunion_action = ReunionContractsIntermediationTable::getInstance()->getReunionByContract($this->id);
+          
+          
    }
    
    /**
@@ -203,12 +246,27 @@ class contractsActions extends sfActions
         
         $date_1 = array($array_data[1][1],$array_data[1][2],$array_data[1][3],$array_data[1][4],$array_data[1][5]);
                   
-        /*echo '<pre>';
-        print_r($array_data);
-        echo '</pre>';
-        exit();*/
         echo json_encode($date_1);
         exit();
-    }        
+    } 
+    
+    /**
+     * delete reunion by contract
+     * @param sfWebRequest $request
+     */
+    public function executeDeleteReunionByContract(sfWebRequest $request)
+    {
+        $id_reunion = $request->getParameter('id_reunion');
+        
+        $reunion = ReunionContractsIntermediationTable::getInstance()->findOneById($id_reunion);
+        
+        if($reunion){
+            $reunion->delete();
+        }
+        
+        return $this->renderComponent('contracts', 'getReunionByContract');
+        
+        exit();
+    }
 }
 ?>

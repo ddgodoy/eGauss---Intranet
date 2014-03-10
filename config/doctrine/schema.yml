@@ -302,10 +302,36 @@ ContractsIntermediation:
     year:                      { type: integer(8), notnull: true }
     month:                     { type: integer(8), notnull: true }
     day:                       { type: integer(8), notnull: true }
-    customer:                  { type: string(50), notnull: true }
+    customer_name:             { type: string(50), notnull: true }
+    customer_company:          { type: string(150)}
+    customer_workstation:      { type: string(200)}
+    customer_email:            { type: string(200)}
+    customer_phone:            { type: string(200)}
+    company_name:              { type: string(50), notnull: true }
+    company_contact:           { type: string(150)}
+    company_email:             { type: string(250)}
+    company_phone:             { type: string(250)}
     app_user_id:               { type: integer(4), notnull: true }
     observations:              { type: text }
     business_amount:           { type: 'decimal(9, 2)'}
     intermediation:            { type: 'decimal(9, 2)'}
     final_commission:          { type: 'decimal(9, 2)'}
     comments:                  { type: text }
+    registered_companies_id:   { type: integer(4)}
+    
+  relations:
+    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: SET NULL } 
+    
+#
+#Reunion Contracts Intermediation
+#
+ReunionContractsIntermediation:
+  tableName: reunion_contracts_intermediation
+  columns:
+    id:                            { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    date:                          { type: datetime , notnull: true}
+    comments:                      { type: text }
+    contracts_intermediation_id:   { type: integer(4), notnull: true}
+   
+  relations:
+    ContractsIntermediation:       { class: ContractsIntermediation, local: contracts_intermediation_id, foreign: id, foreignAlias: ContractsIntermediation, onDelete: CASCADE }   

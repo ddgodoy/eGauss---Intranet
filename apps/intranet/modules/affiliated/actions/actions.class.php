@@ -126,7 +126,7 @@ class affiliatedActions extends sfActions
       $texto_mensaje  = 'actualizado';
     }
     $this->form = new RegisteredCompaniesForm($entity_object, array('module'=>$this->getContext()->getModuleName()));
-		//
+    //
     if ($request->getMethod() == 'POST')
     {
       $this->form->bind($request->getParameter($this->form->getName()));

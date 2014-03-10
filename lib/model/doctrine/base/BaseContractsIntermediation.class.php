@@ -9,13 +9,23 @@
  * @property integer $year
  * @property integer $month
  * @property integer $day
- * @property string $customer
+ * @property string $customer_name
+ * @property string $customer_company
+ * @property string $customer_workstation
+ * @property string $customer_email
+ * @property string $customer_phone
+ * @property string $company_name
+ * @property string $company_contact
+ * @property string $company_email
+ * @property string $company_phone
  * @property integer $app_user_id
  * @property text $observations
  * @property decimal $business_amount
  * @property decimal $intermediation
  * @property decimal $final_commission
  * @property text $comments
+ * @property integer $registered_companies_id
+ * @property RegisteredCompanies $RegisteredCompanies
  * @property AppUser $AppUser
  * @property Doctrine_Collection $ContractsIntermediation
  * 
@@ -23,26 +33,46 @@
  * @method integer                 getYear()                    Returns the current record's "year" value
  * @method integer                 getMonth()                   Returns the current record's "month" value
  * @method integer                 getDay()                     Returns the current record's "day" value
- * @method string                  getCustomer()                Returns the current record's "customer" value
+ * @method string                  getCustomerName()            Returns the current record's "customer_name" value
+ * @method string                  getCustomerCompany()         Returns the current record's "customer_company" value
+ * @method string                  getCustomerWorkstation()     Returns the current record's "customer_workstation" value
+ * @method string                  getCustomerEmail()           Returns the current record's "customer_email" value
+ * @method string                  getCustomerPhone()           Returns the current record's "customer_phone" value
+ * @method string                  getCompanyName()             Returns the current record's "company_name" value
+ * @method string                  getCompanyContact()          Returns the current record's "company_contact" value
+ * @method string                  getCompanyEmail()            Returns the current record's "company_email" value
+ * @method string                  getCompanyPhone()            Returns the current record's "company_phone" value
  * @method integer                 getAppUserId()               Returns the current record's "app_user_id" value
  * @method text                    getObservations()            Returns the current record's "observations" value
  * @method decimal                 getBusinessAmount()          Returns the current record's "business_amount" value
  * @method decimal                 getIntermediation()          Returns the current record's "intermediation" value
  * @method decimal                 getFinalCommission()         Returns the current record's "final_commission" value
  * @method text                    getComments()                Returns the current record's "comments" value
+ * @method integer                 getRegisteredCompaniesId()   Returns the current record's "registered_companies_id" value
+ * @method RegisteredCompanies     getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
  * @method AppUser                 getAppUser()                 Returns the current record's "AppUser" value
  * @method Doctrine_Collection     getContractsIntermediation() Returns the current record's "ContractsIntermediation" collection
  * @method ContractsIntermediation setId()                      Sets the current record's "id" value
  * @method ContractsIntermediation setYear()                    Sets the current record's "year" value
  * @method ContractsIntermediation setMonth()                   Sets the current record's "month" value
  * @method ContractsIntermediation setDay()                     Sets the current record's "day" value
- * @method ContractsIntermediation setCustomer()                Sets the current record's "customer" value
+ * @method ContractsIntermediation setCustomerName()            Sets the current record's "customer_name" value
+ * @method ContractsIntermediation setCustomerCompany()         Sets the current record's "customer_company" value
+ * @method ContractsIntermediation setCustomerWorkstation()     Sets the current record's "customer_workstation" value
+ * @method ContractsIntermediation setCustomerEmail()           Sets the current record's "customer_email" value
+ * @method ContractsIntermediation setCustomerPhone()           Sets the current record's "customer_phone" value
+ * @method ContractsIntermediation setCompanyName()             Sets the current record's "company_name" value
+ * @method ContractsIntermediation setCompanyContact()          Sets the current record's "company_contact" value
+ * @method ContractsIntermediation setCompanyEmail()            Sets the current record's "company_email" value
+ * @method ContractsIntermediation setCompanyPhone()            Sets the current record's "company_phone" value
  * @method ContractsIntermediation setAppUserId()               Sets the current record's "app_user_id" value
  * @method ContractsIntermediation setObservations()            Sets the current record's "observations" value
  * @method ContractsIntermediation setBusinessAmount()          Sets the current record's "business_amount" value
  * @method ContractsIntermediation setIntermediation()          Sets the current record's "intermediation" value
  * @method ContractsIntermediation setFinalCommission()         Sets the current record's "final_commission" value
  * @method ContractsIntermediation setComments()                Sets the current record's "comments" value
+ * @method ContractsIntermediation setRegisteredCompaniesId()   Sets the current record's "registered_companies_id" value
+ * @method ContractsIntermediation setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
  * @method ContractsIntermediation setAppUser()                 Sets the current record's "AppUser" value
  * @method ContractsIntermediation setContractsIntermediation() Sets the current record's "ContractsIntermediation" collection
  * 
@@ -77,10 +107,43 @@ abstract class BaseContractsIntermediation extends sfDoctrineRecord
              'notnull' => true,
              'length' => 8,
              ));
-        $this->hasColumn('customer', 'string', 50, array(
+        $this->hasColumn('customer_name', 'string', 50, array(
              'type' => 'string',
              'notnull' => true,
              'length' => 50,
+             ));
+        $this->hasColumn('customer_company', 'string', 150, array(
+             'type' => 'string',
+             'length' => 150,
+             ));
+        $this->hasColumn('customer_workstation', 'string', 200, array(
+             'type' => 'string',
+             'length' => 200,
+             ));
+        $this->hasColumn('customer_email', 'string', 200, array(
+             'type' => 'string',
+             'length' => 200,
+             ));
+        $this->hasColumn('customer_phone', 'string', 200, array(
+             'type' => 'string',
+             'length' => 200,
+             ));
+        $this->hasColumn('company_name', 'string', 50, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => 50,
+             ));
+        $this->hasColumn('company_contact', 'string', 150, array(
+             'type' => 'string',
+             'length' => 150,
+             ));
+        $this->hasColumn('company_email', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
+             ));
+        $this->hasColumn('company_phone', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
              ));
         $this->hasColumn('app_user_id', 'integer', 4, array(
              'type' => 'integer',
@@ -108,6 +171,10 @@ abstract class BaseContractsIntermediation extends sfDoctrineRecord
         $this->hasColumn('comments', 'text', null, array(
              'type' => 'text',
              ));
+        $this->hasColumn('registered_companies_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
 
         $this->option('collate', 'utf8_general_ci');
         $this->option('charset', 'utf8');
@@ -116,6 +183,11 @@ abstract class BaseContractsIntermediation extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('RegisteredCompanies', array(
+             'local' => 'registered_companies_id',
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
+
         $this->hasOne('AppUser', array(
              'local' => 'app_user_id',
              'foreign' => 'id'));

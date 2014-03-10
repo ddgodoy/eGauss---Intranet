@@ -43,7 +43,11 @@ investor-excel:
   param: { module: investor, action: excel }
 
 ################################################################### contracts
-
+# delete-reunion-by-contract
+delete-reunion-by-contract:
+  url:   /delete-reunion-by-contract
+  param: { module: contracts, action: deleteReunionByContract }
+  
 # contracts-by-month-year
 contracts-by-month-year:
   url:   /contracts-by-month-year

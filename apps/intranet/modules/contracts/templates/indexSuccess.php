@@ -34,11 +34,11 @@
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="listados">
       <tr>
       	<?php if (count($oList) > 0): ?>
-                <th width="10%"><a href="<?php echo $head_link.'&o=date&s='.$sort ?>"><?php echo __('Fecha de entrega') ?></a></th>
-	        <th width="23%"><a href="<?php echo $head_link.'&o=name&s='.$sort ?>"><?php echo __('Cliente') ?></a></th>
+                <th width="23%"><a href="<?php echo $head_link.'&o=date&s='.$sort ?>"><?php echo __('Mes previsto de ingresos') ?></a></th>
+	        <th width="23%"><a href="<?php echo $head_link.'&o=customer_name&s='.$sort ?>"><?php echo __('Cliente') ?></a></th>
                 <th width="23%"><a href="<?php echo $head_link.'&o=app_user_id&s='.$sort ?>"><?php echo __('Socio') ?></a></th>
-                <th width="10%"><a href="<?php echo $head_link.'&o=business_amount&s='.$sort ?>"><?php echo __('Volumen negocio') ?></a></th>
-                <th width="10%"><a href="<?php echo $head_link.'&o=final_commission&s='.$sort ?>"><?php echo __('Comisión final') ?></a></th>
+                <th width="23%"><a href="<?php echo $head_link.'&o=business_amount&s='.$sort ?>"><?php echo __('Volumen negocio') ?></a></th>
+                <th width="23%"><a href="<?php echo $head_link.'&o=final_commission&s='.$sort ?>"><?php echo __('Comisión') ?></a></th>
                 <th width="4%"></th>
 	        <?php if($sf_user->hasCredential('super_admin')): ?>
                 <th width="4%"></th>
@@ -50,8 +50,8 @@
       </tr>
       <?php foreach ($oList as $item): ?>
       <tr class="<?php if (!empty($odd)) { echo 'gris'; $odd=0; } else { echo 'blanco'; $odd=1; } ?>">
-        <td><?php echo sprintf("%02d",$item->getDay()).'/'.sprintf("%02d",$item->getMonth()).'/'.$item->getYear() ?></td>
-        <td><?php echo $item->getCustomer() ?></td>
+        <td><?php echo $month[$item->getMonth()].' -- '.$item->getYear() ?></td>
+        <td><?php echo $item->getCustomerName() ?></td>
         <td><?php echo $item->getAppUser()->getName().' '.$item->getAppUser()->getLastName() ?></td>
         <td><?php echo $item->getBusinessAmount() ?></td>
         <td><?php echo $item->getFinalCommission() ?></td>

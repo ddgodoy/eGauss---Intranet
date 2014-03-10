@@ -30,7 +30,7 @@
 	     'Volumen negocio', {type: 'string', role: 'tooltip', 'p': {'html': true}},
 	     'Comisión final', {type: 'string', role: 'tooltip', 'p': {'html': true}}],
 	    <?php foreach ($contracts AS $v_contract): ?>
-                ['<?php echo $v_contract->getCustomer() ?>', <?php echo $v_contract->getBusinessAmount()?$v_contract->getBusinessAmount():0 ?>,'<div style="padding:10px;">&nbsp;<b>Fecha de entrega:</b>&nbsp;<?php echo sprintf("%02d",$v_contract->getDay()).'/'.sprintf("%02d",$v_contract->getMonth()).'/'.$v_contract->getYear() ?>&nbsp;<br/>&nbsp;<b>Cliente:</b>&nbsp;<?php echo $v_contract->getCustomer() ?>&nbsp;<br/>&nbsp;<b>Volumen negocio:</b>&nbsp;<?php echo $v_contract->getBusinessAmount()?$v_contract->getBusinessAmount():0 ?></div>',<?php echo $v_contract->getFinalCommission()?$v_contract->getFinalCommission():0 ?>, '<div style="padding: 10px;">&nbsp;<b>Fecha de entrega:</b>&nbsp;<?php echo sprintf("%02d",$v_contract->getDay()).'/'.sprintf("%02d",$v_contract->getMonth()).'/'.$v_contract->getYear() ?>&nbsp;<br/>&nbsp;<b>Socio:</b>&nbsp;<?php echo $v_contract->getAppUser()->getName().' '.$v_contract->getAppUser()->getLastName() ?>&nbsp;<br/>&nbsp;<b>Comisión final:</b>&nbsp;<?php echo $v_contract->getFinalCommission()?$v_contract->getFinalCommission():0 ?></div>'],
+                ['<?php echo $v_contract->getCustomerName() ?>', <?php echo $v_contract->getBusinessAmount()?$v_contract->getBusinessAmount():0 ?>,'<div style="padding:10px;">&nbsp;<b>Fecha de entrega:</b>&nbsp;<?php echo sprintf("%02d",$v_contract->getDay()).'/'.sprintf("%02d",$v_contract->getMonth()).'/'.$v_contract->getYear() ?>&nbsp;<br/>&nbsp;<b>Cliente:</b>&nbsp;<?php echo $v_contract->getCustomerName() ?>&nbsp;<br/>&nbsp;<b>Volumen negocio:</b>&nbsp;<?php echo $v_contract->getBusinessAmount()?$v_contract->getBusinessAmount():0 ?></div>',<?php echo $v_contract->getFinalCommission()?$v_contract->getFinalCommission():0 ?>, '<div style="padding: 10px;">&nbsp;<b>Fecha de entrega:</b>&nbsp;<?php echo sprintf("%02d",$v_contract->getDay()).'/'.sprintf("%02d",$v_contract->getMonth()).'/'.$v_contract->getYear() ?>&nbsp;<br/>&nbsp;<b>Socio:</b>&nbsp;<?php echo $v_contract->getAppUser()->getName().' '.$v_contract->getAppUser()->getLastName() ?>&nbsp;<br/>&nbsp;<b>Comisión final:</b>&nbsp;<?php echo $v_contract->getFinalCommission()?$v_contract->getFinalCommission():0 ?></div>'],
 	    <?php endforeach; ?>
 	  ]);
 	  var options = 
@@ -52,7 +52,7 @@
       ([
       ['Socios', 'Volumen', 'Comisión'],
       <?php foreach ($rSocios as $vsocio): ?>
-        ['<?php echo $vsocio['socio']; ?>', <?php echo $vsocio['volumen']; ?>, <?php echo $vsocio['comision']; ?>],
+        ['<?php echo $vsocio['socio']; ?>', <?php echo !empty($vsocio['volumen'])?$vsocio['volumen']:0; ?>, <?php echo !empty($vsocio['comision'])?$vsocio['comision']:0 ?>],
       <?php endforeach; ?>
       ]);
       var chart = new google.visualization.BarChart(document.getElementById('chart_div_socios'));

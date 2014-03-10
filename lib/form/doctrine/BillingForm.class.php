@@ -12,20 +12,20 @@ class BillingForm extends BaseBillingForm
 {
   public function configure()
   {
-  	$month        = array(
-										'-- Seleccionar --',
-                    'Enero',
-                    'Febrero',
-                    'Marzo',
-                    'Abril',
-                    'Mayo',
-                    'Junio',
-                  	'Julio',
-                    'Agosto',
-                    'Septiembre',
-                    'Octubre',
-                    'Noviembre',
-                    'Diciembre');
+    $month = array(
+                '-- Seleccionar --',
+                'Enero',
+                'Febrero',
+                'Marzo',
+                'Abril',
+                'Mayo',
+                'Junio',
+                    'Julio',
+                'Agosto',
+                'Septiembre',
+                'Octubre',
+                'Noviembre',
+                'Diciembre');
     
     $array_year = array();
     $year_now   = date('Y');
