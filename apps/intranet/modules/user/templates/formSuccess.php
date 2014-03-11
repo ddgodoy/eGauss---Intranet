@@ -135,7 +135,7 @@
 			    </tr>
 			  </table>
       </fieldset>
-      <?php if (!$my_profile): ?>
+      <?php /* if (!$my_profile): ?>
       <fieldset>
 			  <legend>&nbsp;<?php echo __('Proyectos en Basecamp') ?>&nbsp;</legend>
 			  <?php $allProjects = NewBasecamp::todosLosProyectos(); ?>
@@ -155,7 +155,7 @@
 			  	<input type="hidden" name="auxi_lista[]" value="<?php echo $kproject.'$'.$vproject ?>" />
 			  <?php endforeach; ?>
       </fieldset>
-      <?php endif; ?>
+      <?php endif; */ ?>
 			<div style="padding-top:10px;" class="botonera">
 				<input type="button" onclick="document.location='<?php echo url_for($str_module.'/index') ?>';" value="<?php echo __('Cancel') ?>" class="boton" />
 				<input type="submit" name="btn_action" value="<?php echo __('Register') ?>" class="boton" id="btn_action"/>

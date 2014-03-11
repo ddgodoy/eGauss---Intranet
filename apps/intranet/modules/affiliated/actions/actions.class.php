@@ -110,9 +110,9 @@ class affiliatedActions extends sfActions
   {
     $this->id       = $request->getParameter('id');
     $this->logo     = '';
-    $this->basecamp = '';
     $entity_object  = NULL;
     $texto_mensaje  = 'registrado';
+    
 
     $this->url_register_videos = !$this->id ? '@affiliated-register-video':'@affiliated-register-video?id='.$this->id;
     $this->url_get_videos      = !$this->id ? '@affiliated-get-components-videos':'@affiliated-get-components-videos?id='.$this->id;
@@ -122,7 +122,6 @@ class affiliatedActions extends sfActions
     {
       $entity_object  = RegisteredCompaniesTable::getInstance()->find($this->id);
       $this->logo     = $entity_object->getLogo();
-      $this->basecamp = $entity_object->getBasecampId();
       $texto_mensaje  = 'actualizado';
     }
     $this->form = new RegisteredCompaniesForm($entity_object, array('module'=>$this->getContext()->getModuleName()));
@@ -133,11 +132,8 @@ class affiliatedActions extends sfActions
 
       if ($this->form->isValid())
       {
-      	$this->basecamp = $request->getParameter('basecamp', '');
         $parameter_post = $request->getParameter($this->form->getName());
-
         $recorded = $this->form->save();
-        $recorded->setBasecampId($this->basecamp);
         $recorded->save();
         
         if (!$this->id)
@@ -346,6 +342,7 @@ class affiliatedActions extends sfActions
       $this->videos           = VideosRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
       $this->document         = DocumentsRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
       $this->basecamp_id      = $this->oValue->getBasecampId();
+      $this->arrDatos         = NewBasecamp::todosLosProyectos(false, $this->basecamp_id);
    }
 
 } // end class

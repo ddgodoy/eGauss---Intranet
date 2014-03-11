@@ -16,7 +16,7 @@ class basecampComponents extends sfComponents
    */
   public function executeDrawResumen(sfWebRequest $request)
   {
-		$this->datos = NewBasecamp::getResumenByProyecto($this->project_id);
+		$this->datos = NewBasecamp::getResumenByProyecto($this->project_id, $this->account);
   }
 
 } // end class

@@ -35,6 +35,8 @@ class basecampActions extends sfActions
   {
   	$this->idPr = $request->getParameter('id');
   	$this->name = $request->getParameter('project');
+        $this->account = $request->getParameter('account');
+        $this->setLayout('layout_iframe');
   }
   
  /**
@@ -44,13 +46,14 @@ class basecampActions extends sfActions
   */
   public function executeTask(sfWebRequest $request)
   {
-		require_once sfConfig::get('sf_root_dir').'/lib/vendor/rest_basecamp/Basecamp.class.php';
-  	
-		$this->idPr = $request->getParameter('id');
-  	$this->name = $request->getParameter('project');
+        require_once sfConfig::get('sf_root_dir').'/lib/vendor/rest_basecamp/Basecamp.class.php';
 
-		$this->datos = array();
-		$this->aConn = RunBasecamp::getConnValues();
+        $this->idPr    = $request->getParameter('id');
+        $this->name    = $request->getParameter('project');
+        $this->account = $request->getParameter('account');
+
+        $this->datos = array();
+        $this->aConn = RunBasecamp::getConnValues();
 		
   	$conn = new Basecamp($this->aConn['baseUri'], $this->aConn['username'], $this->aConn['password']);
 

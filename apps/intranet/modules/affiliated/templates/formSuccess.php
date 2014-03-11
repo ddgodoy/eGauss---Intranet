@@ -102,12 +102,8 @@ $(document).ready(function()
 	              </tr>
 	              <tr><td height="15"></td></tr>
 	              <tr>
-	                <td><label>Proyecto asociado en Basecamp</label></td>
-	                <td>
-	                	<select name="basecamp" class="form_input" style="width:307px;">
-	                		<?php echo Common::fillSimpleSelect(NewBasecamp::todosLosProyectos(true), $basecamp); ?>
-	                	</select>
-	                </td>
+	                <td><label>Cuenta de Basecamp</label></td>
+	                <td><?php echo $form['basecamp_id'] ?></td>
 	              </tr>
 	              <tr><td height="15"></td></tr>
 	              <tr>
@@ -164,10 +160,13 @@ $(document).ready(function()
 	        <div id="drive"><?php include_component('affiliated', 'getDocument') ?></div>
        	</fieldset>
         <div style="padding-top:10px;" class="botonera">
-					<input type="button" onclick="document.location='<?php echo url_for($str_module.'/index') ?>';" value="<?php echo __('Cancel') ?>" class="boton" />
-					<input type="submit" name="btn_action" value="<?php echo __('Register') ?>" class="boton" id="btn_action"/>
-          <?php echo $form->renderHiddenFields() ?>
-				</div>
+            <input type="button" onclick="document.location='<?php echo url_for($str_module.'/index') ?>';" value="<?php echo __('Cancel') ?>" class="boton" />
+            <?php if($id): ?>
+                <input type="button" onclick="document.location='<?php echo url_for('@'.$str_module.'-show?id='.$id) ?>';" value="<?php echo __('See') ?>" class="boton" />
+            <?php endif; ?>
+            <input type="submit" name="btn_action" value="<?php echo __('Register') ?>" class="boton" id="btn_action"/>
+            <?php echo $form->renderHiddenFields() ?>
+        </div>
      	</form>
 		</div>
 		<div class="clear"></div>

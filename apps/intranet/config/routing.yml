@@ -7,7 +7,7 @@ project-list:
 
 # task-list rules
 task-list:
-  url:   /task-list/:id/:project
+  url:   /task-list/:id/:project/:account
   param: { module: basecamp, action: resumen }
 
 ################################################################### inversores

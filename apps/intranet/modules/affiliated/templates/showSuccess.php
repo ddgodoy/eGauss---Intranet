@@ -24,7 +24,7 @@ $(document).ready(function()
       buttons : {}
     }
   }); 
-	//
+  //
   $(".fancybox-manual-b").click(function()
   {
     var id = $(this).attr('id');
@@ -34,6 +34,18 @@ $(document).ready(function()
       padding : 5
     });
   });
+  
+  //
+  $(".fancybox-manual-c").click(function()
+  {
+    var id = $(this).attr('id');
+    $.fancybox.open({
+      href : id,
+      type : 'iframe',
+      padding : 5
+    });
+  });
+  
 });
 </script>
 <div class="content">
@@ -71,6 +83,26 @@ $(document).ready(function()
     </div>
   </div>
   <div style="width:350px;float:right;">
+      <?php if(count($arrDatos) > 0): ?>
+      <div class="paneles" style="overflow-y: auto; height: 175px;">
+        <h1>Basecamp</h1>
+        <table width="100%" cellspacing="0" border="0" class="listados">
+          <tr>
+            <th width="5%"></th>  
+            <th width="25%" align="left"><?php echo __('Id') ?></th>
+            <th width="65%" align="left"><?php echo __('Nombre') ?></th>
+          </tr>
+          <?php foreach ($arrDatos as $k_item => $v_item): ?>
+          <?php $fixed = str_replace('.', '-', $v_item);?>
+          <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?> fancybox-manual-c" id="<?php echo url_for('@task-list?id='.$k_item.'&project='.$fixed.'&account='.$basecamp_id) ?>" style="cursor: pointer">
+            <td><img src="/images/basecamp.png" border="0"/></td>
+            <td><?php echo $k_item ?></td>
+            <td><?php echo $v_item ?></td>
+          </tr> 
+          <?php endforeach; ?>
+        </table>
+      </div>  
+      <?php endif; ?>
       <?php if (count($information) > 0): ?>
       <div class="paneles" style="overflow-y: auto; height: 175px;">
         <h1>Información</h1>
@@ -93,7 +125,7 @@ $(document).ready(function()
       </div>
     <?php endif; ?>
     
-    <?php if (count($information) > 0): ?>
+    <?php if (count($videos) > 0): ?>
       <div class="paneles" style="overflow-y: auto; height: 175px;">
         <h1>Vídeos</h1>
         <table width="100%" cellspacing="0" border="0" class="listados">
@@ -139,37 +171,34 @@ $(document).ready(function()
         </div>
       <?php endif; ?>
     </div>
-    
-		<div class="leftside" style="margin-left:260px;">
-		<div class="mapa">
-			<a href="<?php echo url_for('home/index') ?>"><strong><?php echo __('Home') ?></strong></a>
-			&nbsp;&gt;&nbsp;
-			<a href="<?php echo url_for('affiliated/index') ?>"><strong><?php echo __('Empresas Participadas') ?></strong></a>
-			&nbsp;&gt;&nbsp;
-			<?php echo $oValue->getName(); ?>
-		</div>
-		<h1 class="titulos" style="border:none;">
-			<?php echo $oValue->getName() ?>
-			<span style="padding-left:20px;font-size:15px;">[&nbsp;<?php echo Common::getFormattedDate($oValue->getDate(),'d/m/Y') ?>&nbsp;]</span>
-		</h1>
-		<?php if ($oValue->getDescription()): ?>
-      <fieldset style="width:60%;">
-			<table width="100%" cellspacing="4" cellpadding="2" border="0">
+    <div class="leftside" style="margin-left:260px;">
+        <div class="mapa">
+                <a href="<?php echo url_for('home/index') ?>"><strong><?php echo __('Home') ?></strong></a>
+                &nbsp;&gt;&nbsp;
+                <a href="<?php echo url_for('affiliated/index') ?>"><strong><?php echo __('Empresas Participadas') ?></strong></a>
+                &nbsp;&gt;&nbsp;
+                <?php echo $oValue->getName(); ?>
+        </div>
+        <h1 class="titulos" style="border:none;">
+                <?php echo $oValue->getName() ?>
+                <span style="padding-left:20px;font-size:15px;">[&nbsp;<?php echo Common::getFormattedDate($oValue->getDate(),'d/m/Y') ?>&nbsp;]</span>
+        </h1>
+        <?php if ($oValue->getDescription()): ?>
+        <fieldset style="width:60%;">
+                <table width="100%" cellspacing="4" cellpadding="2" border="0">
         <tr>
-          <td class="text_detail"><?php echo html_entity_decode($oValue->getDescription()) ?></td>
-				</tr>
-			</table>
-		</fieldset>
-    <?php endif; ?>    
-    <?php
-    	if (!empty($basecamp_id)) { echo '<br />'; include_component('basecamp', 'drawResumen', array('project_id' => $basecamp_id)); }
-    ?>
-		<div style="padding-top:10px;" class="botonera">
-     <?php if ($sf_user->hasCredential('super_admin')): ?> 
-				<input type="button" onclick="document.location='<?php echo url_for('affiliated/edit?id='.$oValue->getId()) ?>';" value="<?php echo __('Edit') ?>" class="boton" />
-     <?php endif; ?>
-			<input type="button" onclick="document.location='<?php echo url_for('affiliated/index') ?>';" value="<?php echo __('Continue to list') ?>" class="boton" />
-		</div>
-	</div>
-	<div class="clear"></div>
+        <td class="text_detail"><?php echo html_entity_decode($oValue->getDescription()) ?></td>
+                        </tr>
+                </table>
+        </fieldset>
+        <?php endif; ?>    
+
+        <div style="padding-top:10px;" class="botonera">
+        <?php if ($sf_user->hasCredential('super_admin')): ?> 
+        <input type="button" onclick="document.location='<?php echo url_for('affiliated/edit?id='.$oValue->getId()) ?>';" value="<?php echo __('Edit') ?>" class="boton" />
+        <?php endif; ?>
+        <input type="button" onclick="document.location='<?php echo url_for('affiliated/index') ?>';" value="<?php echo __('Continue to list') ?>" class="boton" />
+        </div>
+    </div>
+    <div class="clear"></div>
 </div>

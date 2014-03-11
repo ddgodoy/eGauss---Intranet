@@ -172,10 +172,13 @@ $(document).ready(function(){
         <?php endif; ?>
       </fieldset>
       <div style="padding-top:10px;" class="botonera">
-				<input type="button" onclick="document.location='<?php echo url_for($str_module.'/index') ?>';" value="<?php echo __('Cancel') ?>" class="boton" />
-				<input type="submit" name="btn_action" value="<?php echo __('Register') ?>" class="boton" id="btn_action"/>
+        <input type="button" onclick="document.location='<?php echo url_for($str_module.'/index') ?>';" value="<?php echo __('Cancel') ?>" class="boton" />
+        <?php if($id): ?>
+            <input type="button" onclick="document.location='<?php echo url_for('@'.$str_module.'-show?id='.$id) ?>';" value="<?php echo __('See') ?>" class="boton" />
+        <?php endif; ?>
+        <input type="submit" name="btn_action" value="<?php echo __('Register') ?>" class="boton" id="btn_action"/>
         <?php echo $form->renderHiddenFields() ?>
-			</div>
+      </div>
     </form>
 	</div>
 	<div class="clear"></div>

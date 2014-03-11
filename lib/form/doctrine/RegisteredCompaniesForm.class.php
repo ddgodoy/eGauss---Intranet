@@ -40,6 +40,7 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
       'contact_last_name'  => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
       'contact_phone'      => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
       'contact_email'      => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
+      'basecamp_id'        => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
       'type_companies_id'  => new sfWidgetFormInputHidden(),
       'comments'           => new sfWidgetFormTextareaTinyMCE(array('config' => 'theme_advanced_buttons1 : "cut, copy, paste, images, bold, italic, underline, justifyleft, justifycenter, justifyright , outdent, indent, bullist, numlist, undo, redo, link",theme_advanced_buttons2 : "",theme_advanced_buttons3 : ""'),array('style' => 'width:900px;  height: 150px;', 'rows' => 10, 'class' => 'foo')),
       'contacts'           => new sfWidgetFormChoice(array('choices'=> $contact,'renderer_class' => 'sfWidgetFormSelectDoubleList','renderer_options'=>array('associated_first'=>FALSE,'associated_choices' => $associated, 'label_unassociated'=>$i18N->__('Unassociated'), 'label_associated'=>$i18N->__('Associated'))))  
@@ -58,6 +59,7 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
       'contact_last_name'  => new sfValidatorString(array('max_length' => 30, 'required' => false)),
       'contact_phone'      => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'contact_email'      => new sfValidatorString(array('max_length' => 200, 'required' => false)),
+      'basecamp_id'        => new sfValidatorString(array('max_length' => 200, 'required' => false)),  
       'type_companies_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TypeCompanies'))),
       'comments'           => new sfValidatorPass(array('required' => false)),
       'contacts'           => new sfValidatorChoice(array('choices' => array_keys($contact), 'multiple' => true, 'required'=>$required_contacts ),array('required'=>$required_contacts))  
