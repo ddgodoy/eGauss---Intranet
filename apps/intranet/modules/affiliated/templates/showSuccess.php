@@ -46,34 +46,6 @@ $(document).ready(function()
     });
   });
   
-  $("#mas_doc_c").click(function(){
-      $('#div_doc_c').attr('style','overflow-y: auto;height: 175px');
-      $('#table_doc_c').show("slow");
-      $(this).hide();
-      $('#menos_doc_c').show();
-  });
-  
-  $("#menos_doc_c").click(function(){
-      $('#div_doc_c').attr('style','overflow-y: auto;height: 30px');
-      $('#table_doc_c').hide();
-      $(this).hide();
-      $('#mas_doc_c').show();
-  })
-  
-  $("#mas_doc_o").click(function(){
-      $('#div_doc_o').attr('style','overflow-y: auto;height: 175px');
-      $('#table_doc_o').show("slow");
-      $(this).hide();
-      $('#menos_doc_o').show();
-  });
-  
-  $("#menos_doc_o").click(function(){
-      $('#div_doc_o').attr('style','overflow-y: auto;height: 30px');
-      $('#table_doc_o').hide();
-      $(this).hide();
-      $('#mas_doc_o').show();
-  })
-  
 });
 </script>
 <div class="content">
@@ -181,16 +153,25 @@ $(document).ready(function()
               <h1>Documentos Comerciales </h1>
               <table width="100%" cellspacing="0" id="table_doc_c" border="0" class="listados">
                   <tr>
-                    <th width="5%"></th>  
                     <th width="25%" align="left"><?php echo __('Date') ?></th>
                     <th width="65%" align="left"><?php echo __('Titulo') ?></th>
-                    <th width="25%" align="left"><?php echo __('Descripción') ?></th>
+                    <th width="10%" align="center"></th>
+                    <th width="10%" align="center"></th>
                   </tr>
                   <?php foreach ($document_c AS $d_value): ?>
                   <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>" style="cursor: pointer" onclick="window.open('<?php echo $d_value->getUrl()?>')">
-                    <td><img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;"/></td>
                     <td><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></td>
                     <td><?php echo $d_value->getName() ?></td>
+                    <td>
+                        <a  href="<?php echo $d_value->getUrl() ?>" target="_blanck">
+                            <img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;" title="Ver"/>
+                        </a>
+                    </td>
+                    <td>
+                        <a  href="<?php echo $d_value->getDownload() ?>">
+                            <img src="/images/descargar-documento.jpg" border="0" style="width:20px;height:20px;" title="Descargar"/>
+                        </a>    
+                    </td>
                   </tr>
                   <?php endforeach; ?>
               </table>
@@ -201,15 +182,25 @@ $(document).ready(function()
               <h1>Otros Documentos</h1>
               <table width="100%" cellspacing="0" border="0" id="table_doc_o" class="listados">
                   <tr>
-                    <th width="5%"></th>  
                     <th width="25%" align="left"><?php echo __('Date') ?></th>
                     <th width="65%" align="left"><?php echo __('Titulo') ?></th>
+                    <th width="10%" align="center"></th>
+                    <th width="10%" align="center"></th>
                   </tr>
                   <?php foreach ($document_o AS $d_value): ?>
                   <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>" style="cursor: pointer" onclick="window.open('<?php echo $d_value->getUrl()?>')">
-                    <td><img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;"/></td>
                     <td><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></td>
                     <td><?php echo $d_value->getName() ?></td>
+                    <td>
+                        <a  href="<?php echo $d_value->getUrl() ?>" target="_blanck">
+                            <img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;" title="Ver"/>
+                        </a>
+                    </td>
+                    <td>
+                        <a  href="<?php echo $d_value->getDownload() ?>">
+                            <img src="/images/descargar-documento.jpg" border="0" style="width:20px;height:20px;" title="Descargar"/>
+                        </a>    
+                    </td>
                   </tr>
                   <?php endforeach; ?>
               </table>
