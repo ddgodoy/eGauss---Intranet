@@ -202,6 +202,7 @@ class affiliatedActions extends sfActions
             $load_doc->setName($v_doc->getName());
             $load_doc->setIcon($v_doc->getIcon());
             $load_doc->setDescription($v_doc->getDescription());
+            $load_doc->setDownload($v_doc->getDownload());
             $load_doc->setUrl($v_doc->getUrl());
             $load_doc->setRegisteredCompaniesId($recorded->getId());
             $load_doc->setTypeInformationId(1);

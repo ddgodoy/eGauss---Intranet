@@ -74,10 +74,6 @@ class homeActions extends sfActions
                   'mimeType' => $files_upload['type'],
                 ));
 
-            echo '<pre>';
-            print_r($createdFile);
-            echo '</pre>';
-            exit();
             //Give everyone permission to read and write the file
             $permission = new Google_Permission();
             $permission->setRole('writer');
@@ -90,6 +86,7 @@ class homeActions extends sfActions
             $temp_file->setDescription($this->description);
             $temp_file->setIcon($createdFile['iconLink']);
             $temp_file->setUrl($createdFile['alternateLink']);
+            $temp_file->setDownload($createdFile['webContentLink']);
             $temp_file->save();
 
             if ($temp_file) {
