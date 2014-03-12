@@ -1053,3 +1053,9 @@ h2.grupo {
 	font-size: 13px;
 	color: #333333;
 }
+.img_doc{
+        width:20px;
+        height:20px;
+        float: right;
+        cursor: pointer
+}

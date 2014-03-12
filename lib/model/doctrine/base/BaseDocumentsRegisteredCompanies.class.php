@@ -13,7 +13,7 @@
  * @property integer $information_id
  * @property integer $type_information_id
  * @property integer $calendar_id
- * @property text $descripcion
+ * @property text $description
  * @property RegisteredCompanies $RegisteredCompanies
  * @property Information $Information
  * @property TypeInformation $TypeInformation
@@ -27,7 +27,7 @@
  * @method integer                      getInformationId()           Returns the current record's "information_id" value
  * @method integer                      getTypeInformationId()       Returns the current record's "type_information_id" value
  * @method integer                      getCalendarId()              Returns the current record's "calendar_id" value
- * @method text                         getDescripcion()             Returns the current record's "descripcion" value
+ * @method text                         getDescription()             Returns the current record's "description" value
  * @method RegisteredCompanies          getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
  * @method Information                  getInformation()             Returns the current record's "Information" value
  * @method TypeInformation              getTypeInformation()         Returns the current record's "TypeInformation" value
@@ -40,7 +40,7 @@
  * @method DocumentsRegisteredCompanies setInformationId()           Sets the current record's "information_id" value
  * @method DocumentsRegisteredCompanies setTypeInformationId()       Sets the current record's "type_information_id" value
  * @method DocumentsRegisteredCompanies setCalendarId()              Sets the current record's "calendar_id" value
- * @method DocumentsRegisteredCompanies setDescripcion()             Sets the current record's "descripcion" value
+ * @method DocumentsRegisteredCompanies setDescription()             Sets the current record's "description" value
  * @method DocumentsRegisteredCompanies setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
  * @method DocumentsRegisteredCompanies setInformation()             Sets the current record's "Information" value
  * @method DocumentsRegisteredCompanies setTypeInformation()         Sets the current record's "TypeInformation" value
@@ -94,7 +94,7 @@ abstract class BaseDocumentsRegisteredCompanies extends sfDoctrineRecord
              'type' => 'integer',
              'length' => 4,
              ));
-        $this->hasColumn('descripcion', 'text', null, array(
+        $this->hasColumn('description', 'text', null, array(
              'type' => 'text',
              ));
 

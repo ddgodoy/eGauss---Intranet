@@ -7,18 +7,18 @@
  * 
  * @property integer $id
  * @property string $name
- * @property text $descripcion
+ * @property text $description
  * @property string $icon
  * @property string $url
  * 
  * @method integer        getId()          Returns the current record's "id" value
  * @method string         getName()        Returns the current record's "name" value
- * @method text           getDescripcion() Returns the current record's "descripcion" value
+ * @method text           getDescription() Returns the current record's "description" value
  * @method string         getIcon()        Returns the current record's "icon" value
  * @method string         getUrl()         Returns the current record's "url" value
  * @method TempsDocuments setId()          Sets the current record's "id" value
  * @method TempsDocuments setName()        Sets the current record's "name" value
- * @method TempsDocuments setDescripcion() Sets the current record's "descripcion" value
+ * @method TempsDocuments setDescription() Sets the current record's "description" value
  * @method TempsDocuments setIcon()        Sets the current record's "icon" value
  * @method TempsDocuments setUrl()         Sets the current record's "url" value
  * 
@@ -43,7 +43,7 @@ abstract class BaseTempsDocuments extends sfDoctrineRecord
              'notnull' => true,
              'length' => 50,
              ));
-        $this->hasColumn('descripcion', 'text', null, array(
+        $this->hasColumn('description', 'text', null, array(
              'type' => 'text',
              ));
         $this->hasColumn('icon', 'string', 200, array(

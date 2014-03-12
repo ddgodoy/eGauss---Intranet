@@ -201,7 +201,7 @@ class affiliatedActions extends sfActions
             $load_doc = NEW DocumentsRegisteredCompanies();
             $load_doc->setName($v_doc->getName());
             $load_doc->setIcon($v_doc->getIcon());
-            $load_doc->setDescripcion($v_doc->getDescripcion());
+            $load_doc->setDescription($v_doc->getDescription());
             $load_doc->setUrl($v_doc->getUrl());
             $load_doc->setRegisteredCompaniesId($recorded->getId());
             $load_doc->setTypeInformationId(1);
@@ -341,7 +341,8 @@ class affiliatedActions extends sfActions
       $this->partners_company = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
       $this->information      = InformationTable::getInstance()->findByRegisteredCompaniesId($this->id);  
       $this->videos           = VideosRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
-      $this->document         = DocumentsRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
+      $this->document_c       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentsByCompanyAndType($this->id, array(0,1));
+      $this->document_o       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentsByCompanyAndType($this->id, array(2,3));
       $this->basecamp_id      = $this->oValue->getBasecampId();
       $this->arrDatos         = NewBasecamp::todosLosProyectos(false, $this->basecamp_id);
    }

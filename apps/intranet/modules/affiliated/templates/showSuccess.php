@@ -46,6 +46,34 @@ $(document).ready(function()
     });
   });
   
+  $("#mas_doc_c").click(function(){
+      $('#div_doc_c').attr('style','overflow-y: auto;height: 175px');
+      $('#table_doc_c').show("slow");
+      $(this).hide();
+      $('#menos_doc_c').show();
+  });
+  
+  $("#menos_doc_c").click(function(){
+      $('#div_doc_c').attr('style','overflow-y: auto;height: 30px');
+      $('#table_doc_c').hide();
+      $(this).hide();
+      $('#mas_doc_c').show();
+  })
+  
+  $("#mas_doc_o").click(function(){
+      $('#div_doc_o').attr('style','overflow-y: auto;height: 175px');
+      $('#table_doc_o').show("slow");
+      $(this).hide();
+      $('#menos_doc_o').show();
+  });
+  
+  $("#menos_doc_o").click(function(){
+      $('#div_doc_o').attr('style','overflow-y: auto;height: 30px');
+      $('#table_doc_o').hide();
+      $(this).hide();
+      $('#mas_doc_o').show();
+  })
+  
 });
 </script>
 <div class="content">
@@ -148,28 +176,48 @@ $(document).ready(function()
         </table>
       </div>
     <?php endif; ?>
-    
-    <?php if (count($document) > 0 ): ?>
-	      <div class="paneles" style="overflow-y: auto; height: 175px;">
-	        <h1>Documentos</h1>
-	        <table width="100%" cellspacing="0" border="0" class="listados">
-	          <tr>
-	            <th width="5%"></th>  
-	            <th width="25%" align="left"><?php echo __('Date') ?></th>
-	            <th width="65%" align="left"><?php echo __('Titulo') ?></th>
-	            <th width="25%" align="left"><?php echo __('Categoría') ?></th>
-	          </tr>
-            <?php foreach ($document AS $d_value): ?>
-            <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>" style="cursor: pointer" onclick="window.open('<?php echo $d_value->getUrl()?>')">
-              <td><img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;"/></td>
-              <td><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></td>
-              <td><?php echo $d_value->getName() ?></td>
-              <td><?php echo $d_value->getTypeInformation()->getName() ?></td>
-            </tr>
-            <?php endforeach; ?>
-          </table>
-        </div>
-      <?php endif; ?>
+    <?php if (count($document_c) > 0 ): ?>
+            <div class="paneles" id="div_doc_c" style="overflow-y: auto; <?php if (count($document_o) != 0 ): ?> height: 30px; <?php else: ?> height: 175px;<?php endif; ?>">
+              <h1>Documentos Comerciales <img src="/images/mas.png" border="0" id ="mas_doc_c" <?php if (count($document_o) == 0 ): ?> style="display: none" <?php endif; ?> class="img_doc"/><img src="/images/menos.png" border="0" id ="menos_doc_c" class="img_doc" <?php if (count($document_o) > 0 ): ?> style="display: none" <?php endif; ?>/></h1>
+              <table width="100%" cellspacing="0" id="table_doc_c" border="0" class="listados" <?php if (count($document_o) > 0 ): ?> style="display: none" <?php endif; ?>>
+                  <tr>
+                    <th width="5%"></th>  
+                    <th width="25%" align="left"><?php echo __('Date') ?></th>
+                    <th width="65%" align="left"><?php echo __('Titulo') ?></th>
+                    <th width="25%" align="left"><?php echo __('Descripción') ?></th>
+                  </tr>
+                  <?php foreach ($document_c AS $d_value): ?>
+                  <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>" style="cursor: pointer" onclick="window.open('<?php echo $d_value->getUrl()?>')">
+                    <td><img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;"/></td>
+                    <td><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></td>
+                    <td><?php echo $d_value->getName() ?></td>
+                    <td><?php echo $d_value->getDescription() ?></td>
+                  </tr>
+                  <?php endforeach; ?>
+              </table>
+            </div>
+    <?php endif; ?>
+    <?php if (count($document_o) > 0 ): ?>
+            <div class="paneles" id="div_doc_o" style="overflow-y: auto; <?php if (count($document_c) != 0 ): ?> height: 30px; <?php else: ?> height: 175px;<?php endif; ?>">
+              <h1>Otros Documentos <img src="/images/mas.png" border="0" id ="mas_doc_o" class="img_doc" <?php if (count($document_c) == 0 ): ?> style="display: none" <?php endif; ?>/><img src="/images/menos.png" border="0" id ="menos_doc_o" class="img_doc" <?php if (count($document_c) > 0 ): ?> style="display: none" <?php endif; ?>/></h1>
+              <table width="100%" cellspacing="0" border="0" id="table_doc_o" class="listados" <?php if (count($document_c) > 0 ): ?> style="display: none" <?php endif; ?>>
+                  <tr>
+                    <th width="5%"></th>  
+                    <th width="25%" align="left"><?php echo __('Date') ?></th>
+                    <th width="65%" align="left"><?php echo __('Titulo') ?></th>
+                    <th width="25%" align="left"><?php echo __('Descripción') ?></th>
+                  </tr>
+                  <?php foreach ($document_o AS $d_value): ?>
+                  <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>" style="cursor: pointer" onclick="window.open('<?php echo $d_value->getUrl()?>')">
+                    <td><img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;"/></td>
+                    <td><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></td>
+                    <td><?php echo $d_value->getName() ?></td>
+                    <td><?php echo $d_value->getDescription() ?></td>
+                  </tr>
+                  <?php endforeach; ?>
+              </table>
+            </div>
+    <?php endif; ?>  
     </div>
     <div class="leftside" style="margin-left:260px;">
         <div class="mapa">

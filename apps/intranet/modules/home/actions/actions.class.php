@@ -83,7 +83,7 @@ class homeActions extends sfActions
             
             $temp_file = new TempsDocuments();
             $temp_file->setName($this->name);
-            $temp_file->setDescripcion($this->description);
+            $temp_file->setDescription($this->description);
             $temp_file->setIcon($createdFile['iconLink']);
             $temp_file->setUrl($createdFile['alternateLink']);
             $temp_file->save();

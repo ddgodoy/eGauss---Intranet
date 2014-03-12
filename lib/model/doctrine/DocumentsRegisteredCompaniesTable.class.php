@@ -29,5 +29,21 @@ class DocumentsRegisteredCompaniesTable extends Doctrine_Table
              ->orderBy('id DESC');
         
         return $q->execute();
-    }      
+    }
+    
+    /**
+     * get documents by company and type
+     * @param int $id_company
+     * @param array $type 
+     * @return object
+     */
+    public function getDocumentsByCompanyAndType($id_company, $type)
+    {
+        $q = $this->createQuery()
+             ->where('registered_companies_id = '.$id_company)
+             ->whereIn('type_information_id', $type)   
+             ->orderBy('id DESC');
+        
+        return $q->execute();
+    }
 }
