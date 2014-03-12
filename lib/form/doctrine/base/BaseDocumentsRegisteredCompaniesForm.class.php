@@ -24,6 +24,7 @@ abstract class BaseDocumentsRegisteredCompaniesForm extends BaseFormDoctrine
       'type_information_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TypeInformation'), 'add_empty' => true)),
       'calendar_id'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Calendar'), 'add_empty' => true)),
       'description'             => new sfWidgetFormInputText(),
+      'download'                => new sfWidgetFormInputText(),
       'created_at'              => new sfWidgetFormDateTime(),
       'updated_at'              => new sfWidgetFormDateTime(),
     ));
@@ -38,6 +39,7 @@ abstract class BaseDocumentsRegisteredCompaniesForm extends BaseFormDoctrine
       'type_information_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TypeInformation'), 'required' => false)),
       'calendar_id'             => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Calendar'), 'required' => false)),
       'description'             => new sfValidatorPass(array('required' => false)),
+      'download'                => new sfValidatorString(array('max_length' => 200)),
       'created_at'              => new sfValidatorDateTime(),
       'updated_at'              => new sfValidatorDateTime(),
     ));

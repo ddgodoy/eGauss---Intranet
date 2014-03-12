@@ -20,6 +20,7 @@ abstract class BaseTempsDocumentsForm extends BaseFormDoctrine
       'description' => new sfWidgetFormInputText(),
       'icon'        => new sfWidgetFormInputText(),
       'url'         => new sfWidgetFormInputText(),
+      'download'    => new sfWidgetFormInputText(),
       'created_at'  => new sfWidgetFormDateTime(),
       'updated_at'  => new sfWidgetFormDateTime(),
     ));
@@ -30,6 +31,7 @@ abstract class BaseTempsDocumentsForm extends BaseFormDoctrine
       'description' => new sfValidatorPass(array('required' => false)),
       'icon'        => new sfValidatorString(array('max_length' => 200)),
       'url'         => new sfValidatorString(array('max_length' => 200)),
+      'download'    => new sfValidatorString(array('max_length' => 200)),
       'created_at'  => new sfValidatorDateTime(),
       'updated_at'  => new sfValidatorDateTime(),
     ));

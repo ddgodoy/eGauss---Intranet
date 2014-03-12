@@ -10,17 +10,20 @@
  * @property text $description
  * @property string $icon
  * @property string $url
+ * @property string $download
  * 
  * @method integer        getId()          Returns the current record's "id" value
  * @method string         getName()        Returns the current record's "name" value
  * @method text           getDescription() Returns the current record's "description" value
  * @method string         getIcon()        Returns the current record's "icon" value
  * @method string         getUrl()         Returns the current record's "url" value
+ * @method string         getDownload()    Returns the current record's "download" value
  * @method TempsDocuments setId()          Sets the current record's "id" value
  * @method TempsDocuments setName()        Sets the current record's "name" value
  * @method TempsDocuments setDescription() Sets the current record's "description" value
  * @method TempsDocuments setIcon()        Sets the current record's "icon" value
  * @method TempsDocuments setUrl()         Sets the current record's "url" value
+ * @method TempsDocuments setDownload()    Sets the current record's "download" value
  * 
  * @package    egauss
  * @subpackage model
@@ -52,6 +55,11 @@ abstract class BaseTempsDocuments extends sfDoctrineRecord
              'length' => 200,
              ));
         $this->hasColumn('url', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => 200,
+             ));
+        $this->hasColumn('download', 'string', 200, array(
              'type' => 'string',
              'notnull' => true,
              'length' => 200,

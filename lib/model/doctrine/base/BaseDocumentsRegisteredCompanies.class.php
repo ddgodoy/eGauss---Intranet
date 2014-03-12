@@ -14,6 +14,7 @@
  * @property integer $type_information_id
  * @property integer $calendar_id
  * @property text $description
+ * @property string $download
  * @property RegisteredCompanies $RegisteredCompanies
  * @property Information $Information
  * @property TypeInformation $TypeInformation
@@ -28,6 +29,7 @@
  * @method integer                      getTypeInformationId()       Returns the current record's "type_information_id" value
  * @method integer                      getCalendarId()              Returns the current record's "calendar_id" value
  * @method text                         getDescription()             Returns the current record's "description" value
+ * @method string                       getDownload()                Returns the current record's "download" value
  * @method RegisteredCompanies          getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
  * @method Information                  getInformation()             Returns the current record's "Information" value
  * @method TypeInformation              getTypeInformation()         Returns the current record's "TypeInformation" value
@@ -41,6 +43,7 @@
  * @method DocumentsRegisteredCompanies setTypeInformationId()       Sets the current record's "type_information_id" value
  * @method DocumentsRegisteredCompanies setCalendarId()              Sets the current record's "calendar_id" value
  * @method DocumentsRegisteredCompanies setDescription()             Sets the current record's "description" value
+ * @method DocumentsRegisteredCompanies setDownload()                Sets the current record's "download" value
  * @method DocumentsRegisteredCompanies setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
  * @method DocumentsRegisteredCompanies setInformation()             Sets the current record's "Information" value
  * @method DocumentsRegisteredCompanies setTypeInformation()         Sets the current record's "TypeInformation" value
@@ -96,6 +99,11 @@ abstract class BaseDocumentsRegisteredCompanies extends sfDoctrineRecord
              ));
         $this->hasColumn('description', 'text', null, array(
              'type' => 'text',
+             ));
+        $this->hasColumn('download', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => 200,
              ));
 
         $this->option('collate', 'utf8_general_ci');
