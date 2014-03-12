@@ -6,6 +6,7 @@ $(document).ready(function()
   $(".fancybox-manual-d").click(function()
   {
     var id = $(this).attr('dir');
+    alert(id);
     $.fancybox.open({
       href : id,
       type : 'iframe',
