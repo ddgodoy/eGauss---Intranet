@@ -171,8 +171,8 @@ $(document).ready(function()
                   </tr>
                   <?php foreach ($document_c AS $d_value): ?>
                   <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>">
-                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>"><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></a></td>
-                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>"><?php echo $d_value->getName() ?></a></td>
+                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>" style="text-decoration: none; cursor: pointer "><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></a></td>
+                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>" style="text-decoration: none; cursor: pointer "><?php echo $d_value->getName() ?></a></td>
                     <td>
                         <a  href="<?php echo $d_value->getUrl() ?>" target="_blanck">
                             <img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;" title="Ver"/>
@@ -200,8 +200,8 @@ $(document).ready(function()
                   </tr>
                   <?php foreach ($document_o AS $d_value): ?>
                   <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>">
-                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>"><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></a></td>
-                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>"><?php echo $d_value->getName() ?></a></td>
+                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>" style="text-decoration: none; cursor: pointer "><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></a></td>
+                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>" style="text-decoration: none; cursor: pointer "><?php echo $d_value->getName() ?></a></td>
                     <td>
                         <a  href="<?php echo $d_value->getUrl() ?>" target="_blanck">
                             <img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;" title="Ver"/>
