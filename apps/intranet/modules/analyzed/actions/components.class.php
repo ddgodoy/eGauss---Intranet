@@ -96,8 +96,10 @@ class analyzedComponents extends sfComponents
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
+                                          'download'=> $value->getDownload(),  
                                           'icon' => $value->getIcon(),
-                                          'type' => 'real'
+                                          'type' => 'real',
+                                          'date' => $value->getCreatedAt(),
                                        ); 
         } 
     }
