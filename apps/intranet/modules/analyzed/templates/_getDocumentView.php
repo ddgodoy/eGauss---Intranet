@@ -26,13 +26,13 @@ $(document).ready(function()
                     <label style="cursor: pointer"><strong><?php echo $v['name'] ?></strong></label>
                 </a>        
             </td>
-            <td width="10%">
+            <td width="10%" class="text_detail">
                 <a  href="<?php echo $v['url'] ?>" target="_blanck">
                     <img src="<?php echo $v['icon'] ?>" border="0" style="width:20px;height:20px;" title="Ver"/>
                     Ver Documento
                 </a>
             </td>
-            <td width="10%">
+            <td width="10%" class="text_detail">
                 <a  href="<?php echo $v['download']!=''?$v['download']:$v['url'] ?>" <?php if($v['download']==''): ?> target="_blanck" <?php endif; ?>>
                     <img src="/images/descargar-documento.jpg" border="0" style="width:20px;height:20px;" title="Descargar"/>
                     Descargar Documento
