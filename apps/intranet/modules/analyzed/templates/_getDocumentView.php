@@ -29,11 +29,13 @@ $(document).ready(function()
             <td width="10%">
                 <a  href="<?php echo $v['url'] ?>" target="_blanck">
                     <img src="<?php echo $v['icon'] ?>" border="0" style="width:20px;height:20px;" title="Ver"/>
+                    Ver Documento
                 </a>
             </td>
             <td width="10%">
                 <a  href="<?php echo $v['download']!=''?$v['download']:$v['url'] ?>" <?php if($v['download']==''): ?> target="_blanck" <?php endif; ?>>
                     <img src="/images/descargar-documento.jpg" border="0" style="width:20px;height:20px;" title="Descargar"/>
+                    Descargar Documento
                 </a>    
             </td>
         </tr>
