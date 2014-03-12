@@ -159,7 +159,7 @@ $(document).ready(function()
                     <th width="10%" align="center"></th>
                   </tr>
                   <?php foreach ($document_c AS $d_value): ?>
-                  <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>" style="cursor: pointer" onclick="window.open('<?php echo $d_value->getUrl()?>')">
+                  <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>">
                     <td><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></td>
                     <td><?php echo $d_value->getName() ?></td>
                     <td>
@@ -188,7 +188,7 @@ $(document).ready(function()
                     <th width="10%" align="center"></th>
                   </tr>
                   <?php foreach ($document_o AS $d_value): ?>
-                  <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>" style="cursor: pointer" onclick="window.open('<?php echo $d_value->getUrl()?>')">
+                  <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>">
                     <td><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></td>
                     <td><?php echo $d_value->getName() ?></td>
                     <td>
