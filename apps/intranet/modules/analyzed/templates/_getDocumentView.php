@@ -1,12 +1,28 @@
 <?php if(count($result_document)>0): ?>
+<script type="text/javascript">
+$(document).ready(function()
+{
+//
+  $(".fancybox-manual-d").click(function()
+  {
+    var id = $(this).attr('dir');
+    $.fancybox.open({
+      href : '<?php echo url_for('@show-document?id=') ?>'+id,
+      type : 'iframe',
+      padding : 5
+    });
+  });
+  
+});
+</script>
 <fieldset>
     <legend>Documento</legend>
     <table width="100%" cellspacing="4" cellpadding="0" border="0">
         <?php foreach($result_document AS $k=>$v):?>
         <tr>
-            <td width="3%"><?php echo Common::getFormattedDate($v['date'] , 'd/m/Y') ?></td>
-            <td width="35%">
-                <a target="_blanck" title="<?php echo $v['name'] ?>" href="<?php echo $v['url'] ?>">
+            <td width="3%" class="text_detail"><a class="fancybox-manual-d" dir="<?php echo $v['id'] ?>" style="text-decoration: none; cursor: pointer "><?php echo Common::getFormattedDate($v['date'] , 'd/m/Y') ?></a></td>
+            <td width="35%" class="text_detail">
+                <a class="fancybox-manual-d" dir="<?php echo $v['id'] ?>" style="text-decoration: none; cursor: pointer ">
                     <label style="cursor: pointer"><strong><?php echo $v['name'] ?></strong></label>
                 </a>        
             </td>
