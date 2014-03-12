@@ -26,9 +26,14 @@ function setGifAnimado()
             <label class="lineaListados">Campos obligatorios&nbsp;(*)</label><br>
             <fieldset>
                 <table width="100%" cellspacing="4" cellpadding="0" border="0">
-                    <tbody><tr>
+                    <tbody>
+                    <tr>
                         <td width="10%"><label>Nombre </label></td>
                         <td><input type="text" class="form_input" value="<?php echo $name ?>" style="width:300px;" name="name" id="name"></td>
+                    </tr>
+                    <tr>
+                        <td width="10%"><label>Descripción</label></td>
+                        <td><textarea name="description" style="width: 300px; height: 80px"><?php $description ?></textarea></td>
                     </tr>
                     <tr>
                         <td width="10%"><label>Archivo *</label></td>

@@ -15,21 +15,23 @@ abstract class BaseTempsDocumentsForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'         => new sfWidgetFormInputHidden(),
-      'name'       => new sfWidgetFormInputText(),
-      'icon'       => new sfWidgetFormInputText(),
-      'url'        => new sfWidgetFormInputText(),
-      'created_at' => new sfWidgetFormDateTime(),
-      'updated_at' => new sfWidgetFormDateTime(),
+      'id'          => new sfWidgetFormInputHidden(),
+      'name'        => new sfWidgetFormInputText(),
+      'descripcion' => new sfWidgetFormInputText(),
+      'icon'        => new sfWidgetFormInputText(),
+      'url'         => new sfWidgetFormInputText(),
+      'created_at'  => new sfWidgetFormDateTime(),
+      'updated_at'  => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
-      'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'name'       => new sfValidatorString(array('max_length' => 50)),
-      'icon'       => new sfValidatorString(array('max_length' => 200)),
-      'url'        => new sfValidatorString(array('max_length' => 200)),
-      'created_at' => new sfValidatorDateTime(),
-      'updated_at' => new sfValidatorDateTime(),
+      'id'          => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'name'        => new sfValidatorString(array('max_length' => 50)),
+      'descripcion' => new sfValidatorPass(array('required' => false)),
+      'icon'        => new sfValidatorString(array('max_length' => 200)),
+      'url'         => new sfValidatorString(array('max_length' => 200)),
+      'created_at'  => new sfValidatorDateTime(),
+      'updated_at'  => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('temps_documents[%s]');

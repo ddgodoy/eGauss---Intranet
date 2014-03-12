@@ -20,6 +20,7 @@ abstract class BaseDocumentsRegisteredCompaniesFormFilter extends BaseFormFilter
       'information_id'          => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Information'), 'add_empty' => true)),
       'type_information_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TypeInformation'), 'add_empty' => true)),
       'calendar_id'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Calendar'), 'add_empty' => true)),
+      'descripcion'             => new sfWidgetFormFilterInput(),
       'created_at'              => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'              => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
@@ -32,6 +33,7 @@ abstract class BaseDocumentsRegisteredCompaniesFormFilter extends BaseFormFilter
       'information_id'          => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Information'), 'column' => 'id')),
       'type_information_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('TypeInformation'), 'column' => 'id')),
       'calendar_id'             => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Calendar'), 'column' => 'id')),
+      'descripcion'             => new sfValidatorPass(array('required' => false)),
       'created_at'              => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'              => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
@@ -61,6 +63,7 @@ abstract class BaseDocumentsRegisteredCompaniesFormFilter extends BaseFormFilter
       'information_id'          => 'ForeignKey',
       'type_information_id'     => 'ForeignKey',
       'calendar_id'             => 'ForeignKey',
+      'descripcion'             => 'Text',
       'created_at'              => 'Date',
       'updated_at'              => 'Date',
     );

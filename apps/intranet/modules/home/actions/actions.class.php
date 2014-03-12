@@ -49,7 +49,8 @@ class homeActions extends sfActions
      */
     public function executeGoogleDrive(sfWebRequest $request)
     {
-        $this->name = '';
+        $this->name = $request->getParameter('name','');
+        $this->description = $request->getParameter('description','');
         $this->error = array();
         $this->msj_ok =false;
         
@@ -81,7 +82,8 @@ class homeActions extends sfActions
             $service->permissions->insert($createdFile['id'], $permission);
             
             $temp_file = new TempsDocuments();
-            $temp_file->setName($createdFile['title']);
+            $temp_file->setName($this->name);
+            $temp_file->setDescripcion($this->description);
             $temp_file->setIcon($createdFile['iconLink']);
             $temp_file->setUrl($createdFile['alternateLink']);
             $temp_file->save();

@@ -7,17 +7,20 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property text $descripcion
  * @property string $icon
  * @property string $url
  * 
- * @method integer        getId()   Returns the current record's "id" value
- * @method string         getName() Returns the current record's "name" value
- * @method string         getIcon() Returns the current record's "icon" value
- * @method string         getUrl()  Returns the current record's "url" value
- * @method TempsDocuments setId()   Sets the current record's "id" value
- * @method TempsDocuments setName() Sets the current record's "name" value
- * @method TempsDocuments setIcon() Sets the current record's "icon" value
- * @method TempsDocuments setUrl()  Sets the current record's "url" value
+ * @method integer        getId()          Returns the current record's "id" value
+ * @method string         getName()        Returns the current record's "name" value
+ * @method text           getDescripcion() Returns the current record's "descripcion" value
+ * @method string         getIcon()        Returns the current record's "icon" value
+ * @method string         getUrl()         Returns the current record's "url" value
+ * @method TempsDocuments setId()          Sets the current record's "id" value
+ * @method TempsDocuments setName()        Sets the current record's "name" value
+ * @method TempsDocuments setDescripcion() Sets the current record's "descripcion" value
+ * @method TempsDocuments setIcon()        Sets the current record's "icon" value
+ * @method TempsDocuments setUrl()         Sets the current record's "url" value
  * 
  * @package    egauss
  * @subpackage model
@@ -39,6 +42,9 @@ abstract class BaseTempsDocuments extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => true,
              'length' => 50,
+             ));
+        $this->hasColumn('descripcion', 'text', null, array(
+             'type' => 'text',
              ));
         $this->hasColumn('icon', 'string', 200, array(
              'type' => 'string',

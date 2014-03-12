@@ -168,6 +168,7 @@ DocumentsRegisteredCompanies:
     information_id:          { type: integer(4) }
     type_information_id:     { type: integer(4) }
     calendar_id:             { type: integer(4) }   
+    descripcion:             { type: text }
     
   relations:
     RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE }
@@ -267,6 +268,7 @@ TempsDocuments:
   columns:
     id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
     name:                    { type: string(50), notnull: true }
+    descripcion:             { type: text }
     icon:                    { type: string(200), notnull: true }
     url:                     { type: string(200), notnull: true } 
     
