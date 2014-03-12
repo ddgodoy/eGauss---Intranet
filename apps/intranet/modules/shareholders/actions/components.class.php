@@ -98,6 +98,7 @@ class shareholdersComponents extends sfComponents
                                         'url'  => $value->getUrl(),
                                           'type' => 'real'
                                        ); 
-        } 
-    }        
-}
+            } 
+        }        
+    }
+}    
