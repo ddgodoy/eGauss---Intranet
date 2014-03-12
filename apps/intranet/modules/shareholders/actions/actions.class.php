@@ -201,6 +201,7 @@ class shareholdersActions extends sfActions
                           $load_doc = NEW DocumentsRegisteredCompanies();
                           $load_doc->setName($v_doc->getName());
                           $load_doc->setIcon($v_doc->getIcon());
+                          $load_doc->setDescripcion($v_doc->getDescripcion());
                           $load_doc->setUrl($v_doc->getUrl());
                           $load_doc->setRegisteredCompaniesId($entity_object->getRegisteredCompaniesId());
                           $load_doc->setCalendarId($entity_object->getId());
