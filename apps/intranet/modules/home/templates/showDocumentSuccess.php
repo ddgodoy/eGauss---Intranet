@@ -23,7 +23,7 @@
                     </a>
                 </td>
                 <td class="text_detail" style="vertical-align: middle ">
-                    <a  href="<?php echo $oValue->getDownload() ?>">
+                    <a  href="<?php echo $oValue->getDownload()?$oValue->getDownload():$oValue->getUrl() ?>" <?php if(!$oValue->getDownload()): ?> target="_blanck" <?php endif; ?>>
                         <img src="/images/descargar-documento.jpg" border="0" style="width:20px;height:20px;" title="Descargar"/>
                         Descargar Documento
                     </a>    

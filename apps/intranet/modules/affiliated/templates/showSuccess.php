@@ -179,7 +179,7 @@ $(document).ready(function()
                         </a>
                     </td>
                     <td>
-                        <a  href="<?php echo $d_value->getDownload() ?>">
+                        <a  href="<?php echo $d_value->getDownload()?$d_value->getDownload():$d_value->getUrl() ?>" <?php if(!$d_value->getDownload()): ?> target="_blanck" <?php endif; ?>>
                             <img src="/images/descargar-documento.jpg" border="0" style="width:20px;height:20px;" title="Descargar"/>
                         </a>    
                     </td>
@@ -208,7 +208,7 @@ $(document).ready(function()
                         </a>
                     </td>
                     <td>
-                        <a  href="<?php echo $d_value->getDownload() ?>">
+                        <a  href="<?php echo $d_value->getDownload()?$d_value->getDownload():$d_value->getUrl() ?>" <?php if(!$d_value->getDownload()): ?> target="_blanck" <?php endif; ?>>
                             <img src="/images/descargar-documento.jpg" border="0" style="width:20px;height:20px;" title="Descargar"/>
                         </a>    
                     </td>
