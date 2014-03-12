@@ -1,14 +1,45 @@
 <?php if(count($result_document)>0): ?>
+<script type="text/javascript">
+$(document).ready(function()
+{
+//
+  $(".fancybox-manual-t").click(function(){
+    var id = $(this).attr('id');
+    $.fancybox.open({
+      href : id,
+      type : 'iframe',
+      padding : 5
+    });
+  });
+  
+});
+</script>
 <fieldset>
     <legend>Documento</legend>
     <table width="100%" cellspacing="4" cellpadding="0" border="0">
         <?php foreach($result_document AS $k=>$v):?>
         <tr>
-            <td width="3%"><img src="<?php echo $v['icon'] ?>" border="0" width="20" height="20"/></td>
-            <td width="35%">
-                <a class="fancybox-media" target="_blanck" title="<?php echo $v['name'] ?>" href="<?php echo $v['url'] ?>">
+            <td width="10%" class="text_detail">
+                <a class="fancybox-manual-t" id="<?php echo url_for('@show-document?id='.$v['id']) ?>" style="text-decoration: none; cursor: pointer ">
+                    <?php echo Common::getFormattedDate($v['date'] , 'd/m/Y') ?>
+                </a>
+            </td>
+            <td width="30%" class="text_detail">
+                <a class="fancybox-manual-t" id="<?php echo url_for('@show-document?id='.$v['id']) ?>" style="text-decoration: none; cursor: pointer ">
                     <label style="cursor: pointer"><strong><?php echo $v['name'] ?></strong></label>
                 </a>        
+            </td>
+            <td width="10%" class="text_detail">
+                <a  href="<?php echo $v['url'] ?>" target="_blanck">
+                    <img src="<?php echo $v['icon'] ?>" border="0" style="width:20px;height:20px;" title="Ver"/>
+                    Ver Documento
+                </a>
+            </td>
+            <td width="10%" class="text_detail">
+                <a  href="<?php echo $v['download']!=''?$v['download']:$v['url'] ?>" <?php if($v['download']==''): ?> target="_blanck" <?php endif; ?>>
+                    <img src="/images/descargar-documento.jpg" border="0" style="width:20px;height:20px;" title="Descargar"/>
+                    Descargar Documento
+                </a>    
             </td>
         </tr>
         <?php endforeach; ?>

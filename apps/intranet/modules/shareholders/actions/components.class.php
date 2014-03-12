@@ -67,7 +67,35 @@ class shareholdersComponents extends sfComponents
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
+                                          'download'=> $value->getDownload(),  
                                           'icon' => $value->getIcon(),
+                                          'type' => 'real',
+                                          'date' => $value->getCreatedAt(),
+                                       ); 
+        } 
+    }
+    
+    /**
+     * get videos
+     * @param sfWebRequest $request
+     */
+    public function executeGetVideosView(sfWebRequest $request)
+    {
+        $id                       = $request->getParameter('id');
+        $videos_by_company        = array();
+        $this->array_videos       = array();
+        if($id){
+            $videos_by_company = VideosRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($id);
+        }
+        
+        if(count($videos_by_company))
+        {
+            foreach ($videos_by_company as $value)
+            {
+                $this->array_videos[]= array(
+                                        'id'   => $value->getId(), 
+                                        'name' => $value->getName(), 
+                                        'url'  => $value->getUrl(),
                                           'type' => 'real'
                                        ); 
         } 
