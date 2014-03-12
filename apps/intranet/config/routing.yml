@@ -416,6 +416,11 @@ google_drive:
   url: /google-drive
   param: { module: home, action: googleDrive }
 
+# show-document rules
+show-document:
+  url:   /show-document/:id
+  param: { module: home, action: showDocument }
+  
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

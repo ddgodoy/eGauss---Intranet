@@ -94,6 +94,16 @@ class homeActions extends sfActions
             }
         }
         $this->setLayout('layout_iframe');
+    }   
+    
+    /**
+     * show document
+     * @param sfWebRequest $request
+     */
+    public function executeShowDocument(sfWebRequest $request)
+    {        
+        $this->oValue = DocumentsRegisteredCompaniesTable::getInstance()->findOneById($request->getParameter('id'));
+        $this->setLayout('layout_iframe');
     }        
     
    /**
