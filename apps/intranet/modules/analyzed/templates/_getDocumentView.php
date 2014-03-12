@@ -7,7 +7,7 @@ $(document).ready(function()
   {
     var id = $(this).attr('dir');
     $.fancybox.open({
-      href : '<?php echo url_for('@show-document?id=') ?>'+id,
+      href : id,
       type : 'iframe',
       padding : 5
     });
@@ -20,9 +20,9 @@ $(document).ready(function()
     <table width="100%" cellspacing="4" cellpadding="0" border="0">
         <?php foreach($result_document AS $k=>$v):?>
         <tr>
-            <td width="10%" class="text_detail"><a class="fancybox-manual-d" dir="<?php echo (int)$v['id'] ?>" style="text-decoration: none; cursor: pointer "><?php echo Common::getFormattedDate($v['date'] , 'd/m/Y') ?></a></td>
+            <td width="10%" class="text_detail"><a class="fancybox-manual-d" dir="<?php echo url_for('@show-document?id='.$v['id']) ?>" style="text-decoration: none; cursor: pointer "><?php echo Common::getFormattedDate($v['date'] , 'd/m/Y') ?></a></td>
             <td width="30%" class="text_detail">
-                <a class="fancybox-manual-d" dir="<?php echo (int)$v['id'] ?>" style="text-decoration: none; cursor: pointer ">
+                <a class="fancybox-manual-d" dir="<?php echo url_for('@show-document?id='.$v['id']) ?>" style="text-decoration: none; cursor: pointer ">
                     <label style="cursor: pointer"><strong><?php echo $v['name'] ?></strong></label>
                 </a>        
             </td>
