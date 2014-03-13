@@ -11,5 +11,43 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class AppUserRegisteredCompanies extends BaseAppUserRegisteredCompanies
-{
+{   
+    /**
+     * set new user in company
+     * @param int $user_id
+     * @param object company $recorded
+     * @return boolean 
+     */
+    public static function setNewUserInCompany($user_id, $recorded)
+    {
+        $app_user_registered_companies = New AppUserRegisteredCompanies();
+        $app_user_registered_companies->setAppUserId($user_id);
+        $app_user_registered_companies->setRegisteredCompaniesId($recorded->getId());
+        $app_user_registered_companies->save();
+
+        $app_user = AppUserTable::getInstance()->findOnebyId($user_id);
+
+        Notifications::setNewNotification('company_affiliated', 'Eres responsable de una nueva Empresas Participada', $recorded->getId(), $user_id);
+
+        sfProjectConfiguration::getActive()->loadHelpers(array("Url"));
+
+        $sendEmail = ServiceOutgoingMessages::sendToSingleAccount
+        (
+          $app_user->getName().' '.$app_user->getLastName(), $app_user->getEmail(),
+          'home/companyAffiliated',
+          array(
+            'subject'    => 'eGauss.com Empresa Participada',
+            'to_partial' => array(
+              'name_user'    => $app_user->getName().' '.$app_user->getLastName(),
+              'name_company' => $recorded->getName(),
+              'url'          => url_for('@affiliated-show?id='.$recorded->getId(),true),
+              'url_home'     => url_for('@homepage',true)
+            )
+          )
+        );
+        $app_user_registered_companies->setNotified(1);
+        $app_user_registered_companies->save();
+        
+        return true;
+    }
 }

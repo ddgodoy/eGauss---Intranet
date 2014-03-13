@@ -143,38 +143,35 @@ class affiliatedActions extends sfActions
         }
         if ($this->id != '')
         {
-          $d_app_user_registered_companies = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id)->delete();  
+          $d_app_user_registered_companies = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);  
+          foreach ($d_app_user_registered_companies as $d){
+            $array_user_by_company[$d->getAppUserId()] = $d->getAppUserId();           
+          }
         }
+        $array_user_active = '(0,';
         foreach ($parameter_post['contacts'] AS $k => $v)
         {
-          $app_user_registered_companies = New AppUserRegisteredCompanies();
-          $app_user_registered_companies->setAppUserId($v);
-          $app_user_registered_companies->setRegisteredCompaniesId($recorded->getId());
-          $app_user_registered_companies->save();
+          if($this->id != '')
+          {
+              if(empty($array_user_by_company[$v])){
+                  AppUserRegisteredCompanies::setNewUserInCompany($v, $recorded);
+              }
+              
+          }
+          else
+          {
+              AppUserRegisteredCompanies::setNewUserInCompany($v, $recorded);
+          }    
           
-          $app_user = AppUserTable::getInstance()->findOnebyId($v);
-
-          Notifications::setNewNotification('company_affiliated', 'Eres responsable de una nueva Empresas Participada', $recorded->getId(), $v);
-
-          sfProjectConfiguration::getActive()->loadHelpers(array("Url"));
-
-          $sendEmail = ServiceOutgoingMessages::sendToSingleAccount
-          (
-            $app_user->getName().' '.$app_user->getLastName(), $app_user->getEmail(),
-            'home/companyAffiliated',
-            array(
-              'subject'    => 'eGauss.com Empresa Participada',
-              'to_partial' => array(
-                'name_user'    => $app_user->getName().' '.$app_user->getLastName(),
-                'name_company' => $recorded->getName(),
-                'url'          => url_for('@affiliated-show?id='.$recorded->getId(),true),
-                'url_home'     => url_for('@homepage',true)
-              )
-            )
-          );
-          $app_user_registered_companies->setNotified(1);
-          $app_user_registered_companies->save();
+          $array_user_active .= $v.',';
         }
+        $string_user = substr($array_user_active, 0, -1).')';
+        
+        
+        if($string_user && $this->id != ''){
+            $d_user_not_in_company = AppUserRegisteredCompaniesTable::getInstance()->deleteUserNotInCompany($string_user, $recorded->getId());
+        }
+        
         # set logo
         RegisteredCompaniesTable::getInstance()->uploadLogo($request->getFiles('logo'), $recorded, $request->getParameter('reset_logo'));
 

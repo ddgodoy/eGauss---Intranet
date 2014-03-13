@@ -142,5 +142,4 @@ class AppUser extends BaseAppUser
   {
     $this->setRecoverToken(sha1(MD5(uniqid('')))); //Random seed
   }
-  
 } // end class

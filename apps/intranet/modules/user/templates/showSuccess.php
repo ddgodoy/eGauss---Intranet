@@ -12,7 +12,9 @@
 			&nbsp;&gt;&nbsp;
 			<?php echo __('Detail') ?>
 		</div>
-		<h1 class="titulos"><?php echo __('Updated record') ?></h1><br />
+		<h1 class="titulos">
+                    <?php echo $oValue->getName() ?> <?php echo $oValue->getLastName() ?>  
+                </h1><br />
 		<fieldset>
 			<table width="100%" cellspacing="4" cellpadding="2" border="0">
 				<tr>
@@ -22,14 +24,6 @@
 				<tr>
 					<td><label><strong><?php echo __('Email') ?>&nbsp;:&nbsp;</strong></label></td>
 					<td class="text_detail"><?php echo $oValue->getEmail() ?></td>
-				</tr>
-				<tr>
-					<td><label><strong><?php echo __('Name') ?>&nbsp;:&nbsp;</strong></label></td>
-					<td class="text_detail"><?php echo $oValue->getName() ?></td>
-				</tr>
-				<tr>
-					<td><label><strong><?php echo __('Last name') ?>&nbsp;:&nbsp;</strong></label></td>
-					<td class="text_detail"><?php echo $oValue->getLastName() ?></td>
 				</tr>
 				<tr>
 					<td><label><strong><?php echo __('Phone') ?>&nbsp;:&nbsp;</strong></label></td>

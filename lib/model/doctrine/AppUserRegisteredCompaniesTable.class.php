@@ -41,4 +41,20 @@ class AppUserRegisteredCompaniesTable extends Doctrine_Table
            }
            return $arr_options;
     }
+    
+    /**
+     * delete user not in company
+     * @param string $array_user
+     * @param int $company_id
+     * @return delete
+     */
+    public function deleteUserNotInCompany($array_user, $company_id)
+    {
+        $q = $this->createQuery()
+             ->where('registered_companies_id = ?', $company_id)
+             ->andWhere('app_user_id NOT IN '.$array_user )
+             ->delete();
+        
+        return $q->execute();
+    }        
 }
