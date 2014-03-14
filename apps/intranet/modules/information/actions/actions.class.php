@@ -123,6 +123,9 @@ class informationActions extends sfActions
       if (!$request->getParameter('id')) {
   		$this->redirect('@information');
       }
+      $videos      = VideosRegisteredCompaniesTable::getInstance()->findByInformationId($request->getParameter('id'))->delete();
+      $document    = DocumentsRegisteredCompaniesTable::getInstance()->findByInformationId($request->getParameter('id'))->delete();
+      
       $information = InformationTable::getInstance()->findOneById($request->getParameter('id'))->delete();
       
       $this->redirect('@information');

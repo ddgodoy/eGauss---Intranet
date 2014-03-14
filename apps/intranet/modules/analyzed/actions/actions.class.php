@@ -95,7 +95,8 @@ class analyzedActions extends sfActions
       if (!$request->getParameter('id')) {
   		$this->redirect('@analyzed');
       }
-      
+      $videos      = VideosRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($request->getParameter('id'))->delete();
+      $document    = DocumentsRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($request->getParameter('id'))->delete();
       NotificationsTable::getInstance()->findOneByRegisteredCompaniesId($request->getParameter('id'))->delete();
       $company = RegisteredCompaniesTable::getInstance()->findOneById($request->getParameter('id'))->delete();
       

@@ -110,6 +110,7 @@ class shareholdersActions extends sfActions
       if (!$request->getParameter('id')) {
   		$this->redirect('@shareholders');
       }
+      $document     = DocumentsRegisteredCompaniesTable::getInstance()->findByCalendarId($request->getParameter('id'))->delete();
       $shareholders = CalendarTable::getInstance()->findOneById($request->getParameter('id'))->delete();
       
       $this->redirect('@shareholders');

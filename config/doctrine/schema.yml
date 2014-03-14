@@ -74,19 +74,75 @@ Userprojects:
 Investor:
   tableName: investor
   columns:
-    id:        { type: integer(4), primary: true, notnull: true, autoincrement: true }
-    name:      { type: string(200) }
-    amount:    { type: decimal(10), scale: 2, default: 0 }
-    phone:     { type: string(50) }
-    website:   { type: string(250) }
-    address:   { type: string(200) }
-    business:  { type: string(250) }
-    year:      { type: integer(8) }
-    estado:    { type: integer(30) }
-    registered_companies_id:  { type: integer(4) }
+    id:                  { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    date:                { type: datetime }
+    name:                { type: string(200), notnull: true }
+    last_name:           { type: string(200)}
+    phone:               { type: string(50) }
+    email:               { type: string(200)}
+    web_personal:        { type: string(200)}
+    company:             { type: string(200)}
+    web_company:         { type: string(200)}
+    city:                { type: string(200)}
+    country:             { type: string(200)}
+    project:             { type: text }
+    tic_id:              { type: integer(4), notnull: true}
+    general_theme_id:    { type: integer(4), notnull: true}
+    theme_id:            { type: integer(4), notnull: true}
+    sub_theme:           { type: text }
+    accredited_enisa:    { type: boolean, default: false }
+    type_of_investor_id: { type: integer(4), notnull: true}
+    investor_from:       { type: decimal(10), scale: 2, default: 0 }
+    investor_to:         { type: decimal(10), scale: 2, default: 0 } 
+    comment:             { type: text }
+    app_user_id:         { type: integer(4)}
   relations:
-    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE } 
+    Tic:                 { class: Tic, local: tic_id, foreign: id, foreignAlias: Tic, onDelete: CASCADE } 
+    GeneralTheme:        { class: GeneralTheme, local: general_theme_id, foreign: id, foreignAlias: GeneralTheme, onDelete: CASCADE } 
+    Theme:               { class: Theme, local: theme_id, foreign: id, foreignAlias: Theme, onDelete: CASCADE } 
+    TypeOfInvestor:      { class: TypeOfInvestor, local: type_of_investor_id, foreign: id, foreignAlias: TypeOfInvestor, onDelete: CASCADE } 
+    AppUser:             { class: AppUser, local: app_user_id, foreign: id, foreignAlias: AppUser, onDelete: CASCADE }
 
+#
+#tic
+#
+Tic:
+  tableName: tic
+  columns:
+    id:           { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:         { type: string(200), notnull: true }
+    code:         { type: string(200), notnull: true }
+
+#
+#general_theme
+#
+GeneralTheme:
+  tableName: general_theme
+  columns:
+    id:           { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:         { type: string(200), notnull: true }
+    code:         { type: string(200), notnull: true }
+    
+#
+#theme
+#
+Theme:
+  tableName: theme
+  columns:
+    id:           { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:         { type: string(200), notnull: true }
+    code:         { type: string(200), notnull: true }    
+
+#
+#type_of_investor
+#
+TypeOfInvestor:
+  tableName: type_of_investor
+  columns:
+    id:           { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:         { type: string(200), notnull: true }
+    code:         { type: string(200), notnull: true }  
+    
 #
 #RegisteredCompanies
 #
