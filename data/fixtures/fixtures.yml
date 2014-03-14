@@ -78,3 +78,265 @@ TypeCalendar:
     id: 2
     name: Juntas de Accionistas  
   
+#################################################################
+
+Tic:
+  tic_1:
+    id: 1
+    name: Online
+    code: online
+    
+  tic_2:
+    id: 2
+    name: Software
+    code: software
+    
+  tic_3:
+    id: 3
+    name: Tic
+    code: tic
+    
+  tic_4:
+    id: 4
+    name: Móvil
+    code: movil
+    
+  tic_5:
+    id: 5
+    name: Otros
+    code: otros
+    
+#################################################################
+
+TypeOfInvestor:
+  TypeOfInvestor_1:
+    id: 1
+    name: Privado
+    code: privado
+    
+  TypeOfInvestor_2:
+    id: 2
+    name: Institucional
+    code: institucional
+    
+  TypeOfInvestor_3:
+    id: 3
+    name: Otros
+    code: Otros  
+    
+ #################################################################
+ 
+GeneralTheme:
+   GeneralTheme_1:
+     id: 1
+     name: Inversión
+     code: inversion 
+   
+   GeneralTheme_2:  
+     id: 2
+     name: Tecnología/Investigación
+     code: tecnologia-investigacion
+     
+   GeneralTheme_3:  
+     id: 3
+     name: Servicios para empresas
+     code: servicios-para-empresas 
+     
+   GeneralTheme_4:  
+     id: 4
+     name: Industria
+     code: industria
+     
+   GeneralTheme_5:  
+     id: 5
+     name: E-commerce
+     code: ecommerce
+     
+   GeneralTheme_6:  
+     id: 6
+     name: Información
+     code: informacion  
+     
+   GeneralTheme_7:  
+     id: 7
+     name: Servicios
+     code: servicios 
+     
+   GeneralTheme_8:  
+     id: 8
+     name: Distribución
+     code: distribucion
+     
+   GeneralTheme_9:  
+     id: 9
+     name: Distribución
+     code: distribucion  
+     
+   GeneralTheme_10:  
+     id: 10
+     name: Otros
+     code: otros
+     
+#################################################################     
+     
+Theme:
+ Theme_1:
+   id: 1
+   name: "Turismo y Ocio"
+   code: "turismo-y-ocio"
+   
+ Theme_2:  
+   id: 2
+   name: "Tecnología"
+   code: "tecnologia"
+   
+ Theme_3:
+   id: 3
+   name: "Industria"
+   code: "industria"
+   
+ Theme_4:
+   id: 4
+   name: "Audiovisual"
+   code: "audiovisual"
+   
+ Theme_5:
+   id: 5
+   name: "Seguridad"
+   code: "seguridad"
+   
+ Theme_6:
+   id: 6
+   name: "Automoción"
+   code: "automocion"
+   
+ Theme_7:
+   id: 7
+   name: "Software"
+   code: "software"
+   
+ Theme_8:
+   id: 8
+   name: "Agroalimentación"
+   code: "agroalimentacion"
+     
+ Theme_10:
+   id: 10
+   name: "Salud y Belleza"
+   code: "salud-y-belleza"
+   
+ Theme_11:
+   id: 11
+   name: "Marketing"
+   code: "marketing"
+   
+ Theme_12:
+   id: 12
+   name: "Aeronáutica"
+   code: "aeronautica"
+   
+ Theme_13:
+   id: 13
+   name: "Telecomunicación"
+   code: "telecomunicacion"
+   
+ Theme_14:
+   id: 14
+   name: "Medio Ambiente"
+   code: "medio-ambiente"
+   
+ Theme_15:
+   id: 15
+   name: "Servicios para empresas"
+   code: "servicios-para-empresas"
+   
+ Theme_16:
+   id: 16
+   name: "Moda"
+   code: "moda"
+   
+ Theme_17:
+   id: 17
+   name: "Inmobiliario"
+   code: "inmobiliario"
+   
+ Theme_18:
+   id: 18
+   name: "Financiero"
+   code: "financiero"
+   
+ Theme_19:
+   id: 19
+   name: "Solidario"
+   code: "solidario"
+   
+ Theme_20:
+   id: 20
+   name: "Animales"
+   code: "animales"
+   
+ Theme_21:
+   id: 21
+   name: "Distribución"
+   code: "distribucion"
+   
+ Theme_22:
+   id: 22
+   name: "Consultoría"
+   code: "consultoria"
+   
+ Theme_23:
+   id: 23
+   name: "Servicios"
+   code: "servicios"
+   
+ Theme_24:
+   id: 24
+   name: "Educación"
+   code: "educacion"
+   
+ Theme_25:
+   id: 25
+   name: "Información"
+   code: "informacion"
+   
+ Theme_26:
+   id: 26
+   name: "Infraestructura"
+   code: "infraestructura"
+   
+ Theme_27:
+   id: 27
+   name: "Legal"
+   code: "legal"
+   
+ Theme_28:
+   id: 28
+   name: "Energía"
+   code: "energia"
+   
+ Theme_29:
+   id: 29
+   name: "Emprendimiento"
+   code: "emprendimiento"
+   
+ Theme_30:
+   id: 30
+   name: "Biotecnología"
+   code: "biotecnologia"
+   
+ Theme_31:
+   id: 31
+   name: "Imagen"
+   code: "imagen"
+   
+ Theme_32:
+   id: 32
+   name: "Material"
+   code: "material"
+   
+ Theme_33:
+   id: 33
+   name: "Otros"
+   code: "otros"  
+     

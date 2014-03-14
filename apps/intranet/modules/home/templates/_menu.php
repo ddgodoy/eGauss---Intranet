@@ -26,9 +26,9 @@
                 <a href="<?php echo url_for('@calendar_lista') ?>" class="first<?php echo $mnGetModule=='calendar' ? ' selected' : '' ?>">
             <?php echo __('Eventos') ?>
                 </a>
-                <a href="<?php echo url_for('@investors') ?>" class="first<?php echo $mnGetModule=='investor' ? ' selected' : '' ?>">
+                <?php /*<a href="<?php echo url_for('@investors') ?>" class="first<?php echo $mnGetModule=='investor' ? ' selected' : '' ?>">
             <?php echo __('Inversores') ?>
-                </a>
+                </a> */ ?>
         <?php endif; ?>
   </li>
 </ul>
