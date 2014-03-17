@@ -27,10 +27,9 @@ class InvestorTable extends Doctrine_Table
 	{
 		$oPager = new sfDoctrinePager('Investor', $per_page);
 		$oPager->getQuery()
-					 ->from('Investor i')
-					 ->leftJoin('i.RegisteredCompanies e')
-					 ->where($filter)
-					 ->orderBy($order);
+                    ->from('Investor i')
+                    ->where($filter)
+                    ->orderBy($order);
 		$oPager->setPage($page);
 		$oPager->init();
 
@@ -44,7 +43,7 @@ class InvestorTable extends Doctrine_Table
 	 */
 	public function getForExcell()
 	{
-		$q = Doctrine_Query::create()->from('Investor i')->leftJoin('i.RegisteredCompanies e')->orderBy('i.name ASC');
+		$q = Doctrine_Query::create()->from('Investor i')->orderBy('i.name ASC');
 
 		return $q->count() > 0 ? $q->execute() : NULL;
 	}

@@ -8,24 +8,17 @@
     <div class="paneles">
       <form action="<?php echo $index_url ?>" enctype="multipart/form-data" method="post">
         <table cellspacing="4" cellpadding="0" border="0" width="100%">
-        	<tr><td><?php echo __('Por inversor') ?></td></tr>
-					<tr><td><input type="text" name="sch_inversor" value="<?php echo $sch_inversor ?>" class="form_input" style="width:98%;"/></td></tr>
-					<tr><td><?php echo __('Por empresa') ?></td></tr>
-					<tr><td><input type="text" name="sch_empresa" value="<?php echo $sch_empresa ?>" class="form_input" style="width:98%;"/></td></tr>
-					<tr><td><?php echo __('Por sector') ?></td></tr>
-					<tr><td><input type="text" name="sch_sector" value="<?php echo $sch_sector ?>" class="form_input" style="width:98%;"/></td></tr>
-					<tr><td><?php echo __('Por estado') ?></td></tr>
-					<tr>
-						<td>
-							<select class="form_input" name="sch_estado" style="width:100%;">
-								<option value=""<?php if ($sch_estado=='') { echo 'selected'; } ?>>-- Todos --</option>
-								<option value="pendiente"<?php if ($sch_estado=='pendiente') { echo 'selected'; } ?>>Pendiente</option>
-								<option value="inversor"<?php if ($sch_estado=='inversor') { echo 'selected'; } ?>>Inversor</option>
-								<option value="descartado"<?php if ($sch_estado=='descartado') { echo 'selected'; } ?>>Descartado</option>
-							</select>
-						</td>
-					</tr>
-          <tr><td style="padding-top:5px;"><input type="submit" name="btn_buscar" value="Buscar" class="boton"></td></tr>
+            <tr><td><?php echo __('Por Nombre') ?></td></tr>
+            <tr><td><input type="text" name="sch_name" value="<?php echo $sch_name ?>" class="form_input" style="width:98%;"/></td></tr>
+            <tr><td><?php echo __('Por Empresa') ?></td></tr>
+            <tr><td><input type="text" name="sch_company" value="<?php echo $sch_company ?>" class="form_input" style="width:98%;"/></td></tr>
+            <tr><td><?php echo __('Por Proyecto') ?></td></tr>
+            <tr><td><input type="text" name="sch_project" value="<?php echo $sch_project ?>" class="form_input" style="width:98%;"/></td></tr>
+            <tr><td><?php echo __('Por Inversión desde') ?></td></tr>
+            <tr><td><input type="text" name="sch_investor_from" value="<?php echo $sch_investor_from ?>" class="form_input" style="width:98%;"/></td></tr>
+            <tr><td><?php echo __('Por Inversión hasta') ?></td></tr>
+            <tr><td><input type="text" name="sch_investor_to" value="<?php echo $sch_investor_to ?>" class="form_input" style="width:98%;"/></td></tr>
+            <tr><td style="padding-top:5px;"><input type="submit" name="btn_buscar" value="Buscar" class="boton"></td></tr>
         </table>
       </form>
     </div>
@@ -39,7 +32,9 @@
 	</div>
   <h1 class="titulos">
   	<?php echo __('Listado de Inversores') ?>
-  		<input type="button" value="<?php echo __('Registrar un inversor') ?>" style="float:right;" class="boton" onclick="document.location='<?php echo url_for('@investor-register') ?>';"/>
+        <?php/* if($sf_user->hasCredential('super_admin')): ?>
+                <input type="button" value="<?php echo __('Registrar inversor') ?>" style="float:right;" class="boton" onclick="document.location='<?php echo url_for('@investor-register') ?>';"/>
+        <?php endif; */?>        
   	<?php if ($oCant > 0): ?>
   		<input type="button" value="<?php echo __('Exportal a Excel') ?>" style="float:right;margin-right:10px;" class="boton" onclick="document.location='<?php echo url_for('@investor-excel') ?>';"/>
   	<?php endif; ?>
@@ -50,27 +45,32 @@
       <tr>
       	<?php if (count($oList) > 0): ?>
 	        <th width="25%"><a href="<?php echo $head_link.'&o=i.name&s='.$sort ?>"><?php echo __('Nombre') ?></a></th>
-	        <th width="30%"><a href="<?php echo $head_link.'&o=e.name&s='.$sort ?>"><?php echo __('Empresa') ?></a></th>
-	        <th width="15%"><a href="<?php echo $head_link.'&o=i.business&s='.$sort ?>"><?php echo __('Sector') ?></a></th>
-	        <th width="18%"><a href="<?php echo $head_link.'&o=i.estado&s='.$sort ?>"><?php echo __('Estado') ?></a></th>
+	        <th width="30%"><a href="<?php echo $head_link.'&o=company&s='.$sort ?>"><?php echo __('Empresa') ?></a></th>
+	        <th width="15%"><a href="<?php echo $head_link.'&o=project&s='.$sort ?>"><?php echo __('Proyecto') ?></a></th>
+	        <th width="18%"><a href="<?php echo $head_link.'&o=investor_from&s='.$sort ?>"><?php echo __('Inversión desde') ?></a></th>
+                <th width="18%"><a href="<?php echo $head_link.'&o=investor_to&s='.$sort ?>"><?php echo __('Inversión hasta') ?></a></th>
+	        <th width="4%"></th>
+                <?php if($sf_user->hasCredential('super_admin')): ?>
 	        <th width="4%"></th>
 	        <th width="4%"></th>
-	        <th width="4%"></th>
+                <?php endif; ?>
         <?php else: ?>
         	<th style="text-align:center;"><?php echo __('No results') ?></th>
         <?php endif; ?>
       </tr>
       <?php foreach ($oList as $item): ?>
       <tr class="<?php if (!empty($odd)) { echo 'gris'; $odd=0; } else { echo 'blanco'; $odd=1; } ?>">
-        <td><?php echo $item->getName() ?></td>
-        <td><?php echo $item->RegisteredCompanies->getName() ?></td>
-        <td><?php echo $item->getBusiness() ?></td>
-        <td><?php echo strtoupper($item->getEstado()) ?></td>
+        <td><?php echo $item->getName().' '.$item->getLastName() ?></td>
+        <td><?php echo $item->getCompany() ?></td>
+        <td><?php echo $item->getProject() ?></td>
+        <td><?php echo $item->getInvestorFrom() ?></td>
+        <td><?php echo $item->getInvestorTo() ?></td>
         <td align="center">
         	<a href="<?php echo url_for('@investor-show?id='.$item->getId()) ?>">
         		<img border="0" src="/images/investor.png" alt="<?php echo __('Ver detalle') ?>" title="<?php echo __('Ver detalle') ?>">
         	</a>
         </td>
+        <?php if($sf_user->hasCredential('super_admin')): ?>
         <td align="center">
         	<a href="<?php echo url_for('@investor-edit?id='.$item->getId()) ?>">
         		<img border="0" src="/images/editar.png" alt="<?php echo __('Edit') ?>" title="<?php echo __('Edit') ?>">
@@ -81,6 +81,7 @@
         		<img border="0" src="/images/borrar.png" alt="<?php echo __('Delete') ?>" title="<?php echo __('Delete') ?>">
         	</a>
         </td>
+        <?php endif; ?>
       </tr>
       <?php endforeach; ?>
     </table>

@@ -31,30 +31,41 @@ class investorActions extends sfActions
    */
   protected function setFilter()
   {
-  	$sch_partial = 'i.id > 0';
+  	$sch_partial = 'id > 0';
   	$this->f_params = '';
-		$this->sch_inversor = trim($this->getRequestParameter('sch_inversor'));
-		$this->sch_empresa  = trim($this->getRequestParameter('sch_empresa'));
-		$this->sch_sector   = trim($this->getRequestParameter('sch_sector'));
-		$this->sch_estado   = trim($this->getRequestParameter('sch_estado', ''));
+        $this->sch_name = trim($this->getRequestParameter('sch_name'));
+        $this->sch_company = trim($this->getRequestParameter('sch_company'));
+        $this->sch_project = trim($this->getRequestParameter('sch_project'));
+        $this->sch_investor_from = trim($this->getRequestParameter('sch_investor_from'));
+        $this->sch_investor_to = trim($this->getRequestParameter('sch_investor_to'));
+		
 
-		if (!empty($this->sch_inversor)) {
-			$sch_partial .= " AND i.name LIKE '%$this->sch_inversor%'";
-			$this->f_params .= '&sch_inversor='.urlencode($this->sch_inversor);
-		}
-		if (!empty($this->sch_empresa)) {
-			$sch_partial .= " AND e.name LIKE '%$this->sch_empresa%'";
-			$this->f_params .= '&sch_empresa='.urlencode($this->sch_empresa);
-		}
-		if (!empty($this->sch_sector)) {
-			$sch_partial .= " AND i.business LIKE '%$this->sch_sector%'";
-			$this->f_params .= '&sch_sector='.urlencode($this->sch_sector);
-		}
-		if (!empty($this->sch_estado)) {
-			$sch_partial .= " AND i.estado = '$this->sch_estado'";
-			$this->f_params .= '&sch_estado='.urlencode($this->sch_estado);
-		}
-		return $sch_partial;
+        if (!empty($this->sch_name)) {
+                $sch_partial .= " AND (name LIKE '%$this->sch_name%' OR last_name LIKE '%$this->sch_name%' )";
+                $this->f_params .= '&sch_name='.urlencode($this->sch_name);
+        }
+        
+        if (!empty($this->sch_company)) {
+                $sch_partial .= " AND company LIKE '%$this->sch_company%'";
+                $this->f_params .= '&sch_company='.urlencode($this->sch_company);
+        }
+        
+        if (!empty($this->sch_project)) {
+                $sch_partial .= " AND project LIKE '%$this->sch_project%'";
+                $this->f_params .= '&sch_project='.urlencode($this->sch_project);
+        }
+        
+        if (!empty($this->sch_investor_from)) {
+                $sch_partial .= " AND investor_from = $this->sch_investor_from";
+                $this->f_params .= '&sch_investor_from='.urlencode($this->sch_investor_from);
+        }
+        
+        if (!empty($this->sch_investor_to)) {
+                $sch_partial .= " AND investor_to = $this->sch_investor_to";
+                $this->f_params .= '&sch_investor_to='.urlencode($this->sch_investor_to);
+        }
+	
+	return $sch_partial;
   }
 
   /**
@@ -242,24 +253,36 @@ class investorActions extends sfActions
     );
     //
     $oXLS = $oWorkBoook->setActiveSheetIndex(0);
-  	$oXLS->setTitle('Reporte de Inversores');
+    $oXLS->setTitle('Reporte de Inversores');
 
-  	$fontStyle = $oXLS->getDefaultStyle()->getFont();
+    $fontStyle = $oXLS->getDefaultStyle()->getFont();
     $fontStyle->setName('Arial');
     $fontStyle->setSize(10);
     
-    $oXLS->setCellValue('A1', 'Nombre del inversor');
-    $oXLS->setCellValue('B1', 'Teléfono');
-    $oXLS->setCellValue('C1', 'Dirección');
-    $oXLS->setCellValue('D1', 'Nombre de la empresa');
-    $oXLS->setCellValue('E1', 'Sector');
-    $oXLS->setCellValue('F1', 'Página web');
-    $oXLS->setCellValue('G1', 'Año de la inversión');
-    $oXLS->setCellValue('H1', 'Monto');
-    $oXLS->setCellValue('I1', 'Estado');
+    $oXLS->setCellValue('A1', 'Nombre');
+    $oXLS->setCellValue('B1', 'Apellido');
+    $oXLS->setCellValue('C1', 'Teléfono');
+    $oXLS->setCellValue('D1', 'Email');
+    $oXLS->setCellValue('E1', 'Web personal');
+    $oXLS->setCellValue('F1', 'Empresa');
+    $oXLS->setCellValue('G1', 'Web');
+    $oXLS->setCellValue('H1', 'Ciudad');
+    $oXLS->setCellValue('I1', 'País, internacional');
+    $oXLS->setCellValue('J1', 'Proyecto');
+    $oXLS->setCellValue('K1', 'TIC');
+    $oXLS->setCellValue('L1', 'Tema general');
+    $oXLS->setCellValue('M1', 'Tema');
+    $oXLS->setCellValue('N1', 'Subtema');
+    $oXLS->setCellValue('O1', 'Acreditado');
+    $oXLS->setCellValue('P1', 'Tipo de inversor');
+    $oXLS->setCellValue('Q1', 'Inversión desde');
+    $oXLS->setCellValue('R1', 'Inversión hasta');
+    $oXLS->setCellValue('S1', 'Observación');
+    $oXLS->setCellValue('T1', 'Conocido por');
+    
 
     $oXLS->getRowDimension('1')->setRowHeight(20);
-    $oXLS->getStyle('A1:I1')->applyFromArray($style_header);
+    $oXLS->getStyle('A1:T1')->applyFromArray($style_header);
     
     $oXLS->getColumnDimension('A')->setAutoSize(true);
     $oXLS->getColumnDimension('B')->setAutoSize(true);
@@ -270,35 +293,60 @@ class investorActions extends sfActions
     $oXLS->getColumnDimension('G')->setAutoSize(true);
     $oXLS->getColumnDimension('H')->setAutoSize(true);
     $oXLS->getColumnDimension('I')->setAutoSize(true);
-		//
-		$ex_fila = 1;
-		$obDatos = InvestorTable::getInstance()->getForExcell();
+    $oXLS->getColumnDimension('J')->setAutoSize(true);
+    $oXLS->getColumnDimension('K')->setAutoSize(true);
+    $oXLS->getColumnDimension('L')->setAutoSize(true);
+    $oXLS->getColumnDimension('M')->setAutoSize(true);
+    $oXLS->getColumnDimension('N')->setAutoSize(true);
+    $oXLS->getColumnDimension('O')->setAutoSize(true);
+    $oXLS->getColumnDimension('P')->setAutoSize(true);
+    $oXLS->getColumnDimension('Q')->setAutoSize(true);
+    $oXLS->getColumnDimension('R')->setAutoSize(true);
+    $oXLS->getColumnDimension('S')->setAutoSize(true);
+    $oXLS->getColumnDimension('T')->setAutoSize(true);
+    
+    //
+    $ex_fila = 1;
+    $obDatos = InvestorTable::getInstance()->getForExcell();
 
-		foreach ($obDatos as $dato)
-		{
-			$ex_fila++;
+    foreach ($obDatos as $dato)
+    {
+            $ex_fila++;
 
-			$oXLS->setCellValue("A$ex_fila", utf8_encode($dato->getName()));
-	    $oXLS->setCellValue("B$ex_fila", utf8_encode($dato->getPhone()));
-	    $oXLS->setCellValue("C$ex_fila", utf8_encode($dato->getAddress()));
-	    $oXLS->setCellValue("D$ex_fila", utf8_encode($dato->RegisteredCompanies->getName()));
-	    $oXLS->setCellValue("E$ex_fila", utf8_encode($dato->getBusiness()));
-	    $oXLS->setCellValue("F$ex_fila", utf8_encode($dato->getWebsite()));
-	    $oXLS->setCellValue("G$ex_fila", utf8_encode($dato->getYear()));
-	    $oXLS->setCellValue("H$ex_fila", $dato->getAmount());
-	    $oXLS->setCellValue("I$ex_fila", strtoupper(utf8_encode($dato->getEstado())));
-		}
-		$oXLS->getStyle("A2:I$ex_fila")->applyFromArray($style_data);
-		$oXLS->getStyle("H2:I$ex_fila")->applyFromArray($style_data1);
-		//
-		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-	  header('Content-Disposition: attachment;filename="inversores_'.date('Ymd_His').'.xlsx"');
-	  header('Cache-Control: max-age=0');
-	
-	  $objWriter = PHPExcel_IOFactory::createWriter($oWorkBoook, 'Excel2007');
-	  $objWriter->save('php://output');
+            $oXLS->setCellValue("A$ex_fila", $dato->getName());
+            $oXLS->setCellValue("B$ex_fila", $dato->getLastName());
+            $oXLS->setCellValue("C$ex_fila", $dato->getPhone());
+            $oXLS->setCellValue("D$ex_fila", $dato->getEmail());
+            $oXLS->setCellValue("E$ex_fila", $dato->getWebPersonal());
+            $oXLS->setCellValue("F$ex_fila", $dato->getCompany());
+            $oXLS->setCellValue("G$ex_fila", $dato->getWebCompany());
+            $oXLS->setCellValue("H$ex_fila", $dato->getCity());
+            $oXLS->setCellValue("I$ex_fila", $dato->getCountry());
+            $oXLS->setCellValue("J$ex_fila", $dato->getProject());
+            $oXLS->setCellValue("K$ex_fila", $dato->getTic()->getName());
+            $oXLS->setCellValue("L$ex_fila", $dato->getGeneralTheme()->getName());
+            $oXLS->setCellValue("M$ex_fila", $dato->getTheme()->getName());
+            $oXLS->setCellValue("N$ex_fila", $dato->getSubTheme());
+            $oXLS->setCellValue("O$ex_fila", $dato->getAccreditedEnisa()==1?'Enisa':'');
+            $oXLS->setCellValue("P$ex_fila", $dato->getTypeOfInvestor()->getName());
+            $oXLS->setCellValue("Q$ex_fila", $dato->getInvestorFrom());
+            $oXLS->setCellValue("R$ex_fila", $dato->getInvestorTo());
+            $oXLS->setCellValue("S$ex_fila", $dato->getComment());
+            $oXLS->setCellValue("T$ex_fila", $dato->getAppUser()->getName().' '.$dato->getAppUser()->getLastName());
+            
+    }
+    
+    $oXLS->getStyle("A2:T$ex_fila")->applyFromArray($style_data);
+    $oXLS->getStyle("H2:T$ex_fila")->applyFromArray($style_data1);
+    //
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="inversores_'.date('Ymd_His').'.xlsx"');
+    header('Cache-Control: max-age=0');
 
-	  exit();
+    $objWriter = PHPExcel_IOFactory::createWriter($oWorkBoook, 'Excel2007');
+    $objWriter->save('php://output');
+
+    exit();
   }
 
 } // end class
