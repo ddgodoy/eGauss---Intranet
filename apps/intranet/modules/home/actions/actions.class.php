@@ -55,15 +55,16 @@ class homeActions extends sfActions
         $this->msj_ok =false;
         
         if ($request->isMethod('POST'))
-        {
+        {  
+            if($this->getUser()->getAttribute('accessToken')){
+                    $google_token= json_decode($this->getUser()->getAttribute('accessToken'));
+                    $client = new Google_Client(); 
+                    $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
+                if($client->isAccessTokenExpired()){
+                    $client->refreshToken($google_token->access_token);
+                }
+            }    
             
-            $google_token= json_decode($this->getUser()->getAttribute('accessToken'));
-            echo $google_token->access_token;
-            exit();
-            $client->refreshToken($google_token->refresh_token);
-            
-            $client = new Google_Client(); 
-            $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
             $service = new Google_DriveService($client);
             
             $files_upload = $_FILES['file'];   
