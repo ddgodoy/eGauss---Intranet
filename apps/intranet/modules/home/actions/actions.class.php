@@ -152,6 +152,11 @@ class homeActions extends sfActions
         $clienttoken_post["grant_type"] = "refresh_token";
         
 
+        echo '<pre>';
+        print_r($clienttoken_post);
+        echo '</pre>';
+        exit();
+        
         $curl = curl_init($oauth2token_url);
 
         curl_setopt($curl, CURLOPT_POST, true);
