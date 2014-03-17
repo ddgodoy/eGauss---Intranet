@@ -63,12 +63,7 @@ class homeActions extends sfActions
                     $client = new Google_Client(); 
                     $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
                 if($client->isAccessTokenExpired()){
-                    $client->refreshToken(
-                            array('client_id' => '394341489547.apps.googleusercontent.com',
-                                  'client_secret' => 'EqhEQdb4YDZc4ZxXtIh1HskA',
-                                  'refresh_token' => $google_token->access_token,
-                                  'grant_type' => 'refresh_token')
-                    );
+                    $client->refreshToken($google_token->access_token);
                 }
             }    
             
