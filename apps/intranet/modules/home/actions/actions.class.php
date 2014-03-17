@@ -177,6 +177,10 @@ class homeActions extends sfActions
             $refreshToken = $authObj->refresh_token;
         }
 
+        echo '<pre>';
+        print_r($authObj);
+        echo '</pre>';
+        exit();
         $accessToken = $authObj->access_token;
         return $accessToken;
     }
