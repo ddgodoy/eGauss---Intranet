@@ -63,6 +63,9 @@ class homeActions extends sfActions
                     $client = new Google_Client(); 
                     $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
                 if($client->isAccessTokenExpired()){
+                    $accessToken = get_oauth2_token($this->getUser()->getAttribute('accessToken'),"online");
+                    echo $accessToken;
+                    exit();
                     $client->refreshToken($this->getUser()->getAttribute('accessToken'));
                 }
             }    
@@ -129,6 +132,54 @@ class homeActions extends sfActions
 
          $this->redirect('@homepage');
    }
+   
+   /**
+    * 
+    * @global type $refreshToken
+    * @param type $grantCode
+    * @param type $grantType
+    * @return type
+    */
+   protected  function get_oauth2_token($grantCode,$grantType) {
+        
+        $oauth2token_url = "https://accounts.google.com/o/oauth2/token";
+        $clienttoken_post = array(
+        "client_id" => '394341489547.apps.googleusercontent.com',
+        "client_secret" => 'EqhEQdb4YDZc4ZxXtIh1HskA');
+
+        if ($grantType === "online"){
+            $clienttoken_post["code"] = $grantCode;
+            $clienttoken_post["redirect_uri"] = 'http://egauss-intranet.icox.com';
+            $clienttoken_post["grant_type"] = "authorization_code";
+        }
+
+        if ($grantType === "offline"){
+            $clienttoken_post["refresh_token"] = $grantCode;
+            $clienttoken_post["grant_type"] = "refresh_token";
+        }
+
+        $curl = curl_init($oauth2token_url);
+
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $clienttoken_post);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $json_response = curl_exec($curl);
+        curl_close($curl);
+
+        $authObj = json_decode($json_response);
+
+        //if offline access requested and granted, get refresh token
+        if (isset($authObj->refresh_token)){
+            global $refreshToken;
+            $refreshToken = $authObj->refresh_token;
+        }
+
+        $accessToken = $authObj->access_token;
+        return $accessToken;
+    }
    
 }
 ?>
