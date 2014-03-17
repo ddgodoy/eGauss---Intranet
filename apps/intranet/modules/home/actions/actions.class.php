@@ -58,7 +58,7 @@ class homeActions extends sfActions
         {
             
             $google_token= json_decode($this->getUser()->getAttribute('accessToken'));
-            echo $google_token->refresh_token;
+            echo $google_token->access_token;
             exit();
             $client->refreshToken($google_token->refresh_token);
             
