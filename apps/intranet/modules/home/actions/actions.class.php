@@ -150,7 +150,7 @@ class homeActions extends sfActions
         
         $clienttoken_post["code"] = $grantCode;
         $clienttoken_post["redirect_uri"] = 'http://egauss-intranet.icox.com';
-        $clienttoken_post["grant_type"] = "authorization_code";
+        $clienttoken_post["grant_type"] = "refresh_token";
         
         $curl = curl_init($oauth2token_url);
 
