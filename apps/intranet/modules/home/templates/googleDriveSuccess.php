@@ -28,9 +28,15 @@ function setGifAnimado()
                 <table width="100%" cellspacing="4" cellpadding="0" border="0">
                     <tbody>
                     <tr>
-                        <td width="10%"><label>Nombre </label></td>
+                        <td width="10%"><label>Nombre</label></td>
                         <td><input type="text" class="form_input" value="<?php echo $name ?>" style="width:300px;" name="name" id="name"></td>
                     </tr>
+                    <?php if($theme == 1): ?>
+                    <tr>
+                        <td width="10%"><label>Categoría</label></td>
+                        <td><?php echo select_tag('categories', options_for_select(TypeInformation::getArrayForSelect(), $categories),array('class'=>'form_input', 'style'=>'width:308px;')) ?></td>
+                    </tr>
+                    <?php endif; ?>
                     <tr>
                         <td width="10%"><label>Descripción</label></td>
                         <td><textarea name="description" style="width: 300px; height: 80px"><?php $description ?></textarea></td>

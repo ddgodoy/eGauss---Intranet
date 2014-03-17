@@ -8,13 +8,16 @@
  * @property integer $id
  * @property string $name
  * @property Doctrine_Collection $TypeInformation
+ * @property Doctrine_Collection $TempsDocuments
  * 
  * @method integer             getId()              Returns the current record's "id" value
  * @method string              getName()            Returns the current record's "name" value
  * @method Doctrine_Collection getTypeInformation() Returns the current record's "TypeInformation" collection
+ * @method Doctrine_Collection getTempsDocuments()  Returns the current record's "TempsDocuments" collection
  * @method TypeInformation     setId()              Sets the current record's "id" value
  * @method TypeInformation     setName()            Sets the current record's "name" value
  * @method TypeInformation     setTypeInformation() Sets the current record's "TypeInformation" collection
+ * @method TypeInformation     setTempsDocuments()  Sets the current record's "TempsDocuments" collection
  * 
  * @package    egauss
  * @subpackage model
@@ -46,6 +49,10 @@ abstract class BaseTypeInformation extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('DocumentsRegisteredCompanies as TypeInformation', array(
+             'local' => 'id',
+             'foreign' => 'type_information_id'));
+
+        $this->hasMany('TempsDocuments', array(
              'local' => 'id',
              'foreign' => 'type_information_id'));
 

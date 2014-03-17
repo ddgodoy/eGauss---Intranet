@@ -22,7 +22,7 @@ $(document).ready(function()
   {
     $.fancybox.open({
       height: '290px',
-      href : '<?php echo url_for("@google_drive") ?>',
+      href : '<?php echo url_for("@google_drive") ?>?theme=1',
       type : 'iframe',
       padding : 5,
       afterClose: function () {

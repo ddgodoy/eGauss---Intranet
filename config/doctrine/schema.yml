@@ -329,6 +329,7 @@ TempsDocuments:
     icon:                    { type: string(200), notnull: true }
     url:                     { type: string(200), notnull: true }
     download:                { type: string(200), notnull: true }
+    type_information_id:     { type: integer(4) }
     
     
 #

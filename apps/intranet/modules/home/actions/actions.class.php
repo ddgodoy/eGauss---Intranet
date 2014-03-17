@@ -49,10 +49,12 @@ class homeActions extends sfActions
      */
     public function executeGoogleDrive(sfWebRequest $request)
     {
-        $this->name = $request->getParameter('name','');
+        $this->name        = $request->getParameter('name','');
         $this->description = $request->getParameter('description','');
-        $this->error = array();
-        $this->msj_ok =false;
+        $this->error       = array();
+        $this->msj_ok      = false;
+        $this->theme       = $request->getParameter('theme', 0);
+        $this->categories  = $request->getParameter('categories', 1);
         
         if ($request->isMethod('POST'))
         {  
@@ -94,6 +96,9 @@ class homeActions extends sfActions
             $temp_file->setIcon($createdFile['iconLink']);
             $temp_file->setUrl($createdFile['alternateLink']);
             $temp_file->setDownload($createdFile['webContentLink']);
+            if($this->theme == 1){
+            $temp_file->setTypeInformationId($this->categories);    
+            }
             $temp_file->save();
 
             if ($temp_file) {

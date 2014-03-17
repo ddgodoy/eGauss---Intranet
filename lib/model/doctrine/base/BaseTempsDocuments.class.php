@@ -11,19 +11,25 @@
  * @property string $icon
  * @property string $url
  * @property string $download
+ * @property integer $type_information_id
+ * @property TypeInformation $TypeInformation
  * 
- * @method integer        getId()          Returns the current record's "id" value
- * @method string         getName()        Returns the current record's "name" value
- * @method text           getDescription() Returns the current record's "description" value
- * @method string         getIcon()        Returns the current record's "icon" value
- * @method string         getUrl()         Returns the current record's "url" value
- * @method string         getDownload()    Returns the current record's "download" value
- * @method TempsDocuments setId()          Sets the current record's "id" value
- * @method TempsDocuments setName()        Sets the current record's "name" value
- * @method TempsDocuments setDescription() Sets the current record's "description" value
- * @method TempsDocuments setIcon()        Sets the current record's "icon" value
- * @method TempsDocuments setUrl()         Sets the current record's "url" value
- * @method TempsDocuments setDownload()    Sets the current record's "download" value
+ * @method integer         getId()                  Returns the current record's "id" value
+ * @method string          getName()                Returns the current record's "name" value
+ * @method text            getDescription()         Returns the current record's "description" value
+ * @method string          getIcon()                Returns the current record's "icon" value
+ * @method string          getUrl()                 Returns the current record's "url" value
+ * @method string          getDownload()            Returns the current record's "download" value
+ * @method integer         getTypeInformationId()   Returns the current record's "type_information_id" value
+ * @method TypeInformation getTypeInformation()     Returns the current record's "TypeInformation" value
+ * @method TempsDocuments  setId()                  Sets the current record's "id" value
+ * @method TempsDocuments  setName()                Sets the current record's "name" value
+ * @method TempsDocuments  setDescription()         Sets the current record's "description" value
+ * @method TempsDocuments  setIcon()                Sets the current record's "icon" value
+ * @method TempsDocuments  setUrl()                 Sets the current record's "url" value
+ * @method TempsDocuments  setDownload()            Sets the current record's "download" value
+ * @method TempsDocuments  setTypeInformationId()   Sets the current record's "type_information_id" value
+ * @method TempsDocuments  setTypeInformation()     Sets the current record's "TypeInformation" value
  * 
  * @package    egauss
  * @subpackage model
@@ -64,6 +70,10 @@ abstract class BaseTempsDocuments extends sfDoctrineRecord
              'notnull' => true,
              'length' => 200,
              ));
+        $this->hasColumn('type_information_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
 
         $this->option('collate', 'utf8_general_ci');
         $this->option('charset', 'utf8');
@@ -72,6 +82,10 @@ abstract class BaseTempsDocuments extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('TypeInformation', array(
+             'local' => 'type_information_id',
+             'foreign' => 'id'));
+
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
     }
