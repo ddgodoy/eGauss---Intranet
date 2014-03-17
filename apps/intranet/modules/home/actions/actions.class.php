@@ -147,7 +147,7 @@ class homeActions extends sfActions
         "client_id" => '394341489547.apps.googleusercontent.com',
         "client_secret" => 'EqhEQdb4YDZc4ZxXtIh1HskA');
 
-        $clienttoken_post["code"] = $grantCode;
+        $clienttoken_post["refresh_token"] = $grantCode;
         $clienttoken_post["grant_type"] = "refresh_token";
          
         
