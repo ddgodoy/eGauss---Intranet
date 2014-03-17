@@ -269,7 +269,7 @@ class Google_OAuth2 extends Google_Auth {
     $http = new Google_HttpRequest(self::OAUTH2_TOKEN_URI, 'POST', array(), $params);
     $request = Google_Client::$io->makeRequest($http);
 
-    echo $http;
+    echo $request->getResponseHttpCode();
       exit();
     
     $code = $request->getResponseHttpCode();
