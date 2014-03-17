@@ -266,11 +266,12 @@ class Google_OAuth2 extends Google_Auth {
   }
 
   private function refreshTokenRequest($params) {
-      echo self::OAUTH2_TOKEN_URI;
-      exit();
     $http = new Google_HttpRequest(self::OAUTH2_TOKEN_URI, 'POST', array(), $params);
     $request = Google_Client::$io->makeRequest($http);
 
+    echo $http;
+      exit();
+    
     $code = $request->getResponseHttpCode();
     $body = $request->getResponseBody();
     if (200 == $code) {
