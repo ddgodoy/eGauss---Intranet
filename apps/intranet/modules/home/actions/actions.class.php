@@ -142,7 +142,7 @@ class homeActions extends sfActions
     */
    protected  function get_oauth2_token($grantCode) {
         
-        $oauth2token_url = "https://accounts.google.com/o/oauth2/token";
+        $oauth2token_url = "https://accounts.google.com/o/oauth2/auth";
         $clienttoken_post = array(
         "client_id" => '394341489547.apps.googleusercontent.com',
         "client_secret" => 'EqhEQdb4YDZc4ZxXtIh1HskA');
@@ -151,11 +151,6 @@ class homeActions extends sfActions
         $clienttoken_post["refresh_token"] = $grantCode;
         $clienttoken_post["grant_type"] = "refresh_token";
         
-
-        echo '<pre>';
-        print_r($clienttoken_post);
-        echo '</pre>';
-        exit();
         
         $curl = curl_init($oauth2token_url);
 
