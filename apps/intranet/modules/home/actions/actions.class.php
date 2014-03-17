@@ -63,7 +63,7 @@ class homeActions extends sfActions
                     $client = new Google_Client(); 
                     $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
                 if($client->isAccessTokenExpired()){
-                    $accessToken = $this->get_oauth2_token($this->getUser()->getAttribute('accessToken'),"online");
+                    $accessToken = $this->get_oauth2_token($this->getUser()->getAttribute('accessToken'));
                     echo $accessToken;
                     exit();
                     $client->refreshToken($this->getUser()->getAttribute('accessToken'));
