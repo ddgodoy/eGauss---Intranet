@@ -140,23 +140,17 @@ class homeActions extends sfActions
     * @param type $grantType
     * @return type
     */
-   protected  function get_oauth2_token($grantCode,$grantType) {
+   protected  function get_oauth2_token($grantCode) {
         
         $oauth2token_url = "https://accounts.google.com/o/oauth2/token";
         $clienttoken_post = array(
         "client_id" => '394341489547.apps.googleusercontent.com',
         "client_secret" => 'EqhEQdb4YDZc4ZxXtIh1HskA');
 
-        if ($grantType === "online"){
-            $clienttoken_post["code"] = $grantCode;
-            $clienttoken_post["redirect_uri"] = 'http://egauss-intranet.icox.com';
-            $clienttoken_post["grant_type"] = "authorization_code";
-        }
-
-        if ($grantType === "offline"){
-            $clienttoken_post["refresh_token"] = $grantCode;
-            $clienttoken_post["grant_type"] = "refresh_token";
-        }
+        
+        $clienttoken_post["refresh_token"] = $grantCode;
+        $clienttoken_post["grant_type"] = "refresh_token";
+        
 
         $curl = curl_init($oauth2token_url);
 
