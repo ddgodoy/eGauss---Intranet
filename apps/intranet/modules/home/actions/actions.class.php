@@ -49,26 +49,29 @@ class homeActions extends sfActions
      */
     public function executeGoogleDrive(sfWebRequest $request)
     {
-        $this->name        = $request->getParameter('name','');
-        $this->description = $request->getParameter('description','');
-        $this->error       = array();
-        $this->msj_ok      = false;
-        $this->theme       = $request->getParameter('theme', 0);
-        $this->categories  = $request->getParameter('categories', 1);
+        $this->name          = $request->getParameter('name','');
+        $this->description   = $request->getParameter('description','');
+        $this->error         = array();
+        $this->msj_ok        = false;
+        $this->theme         = $request->getParameter('theme', 0);
+        $this->categories    = $request->getParameter('categories', 1);
+        $this->token_expired = false;
         
-        if ($request->isMethod('POST'))
+        if($this->getUser()->getAttribute('accessToken')){
+            //   $google_token= json_decode($this->getUser()->getAttribute('accessToken'));
+               $client = new Google_Client(); 
+               $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
+           if($client->isAccessTokenExpired()){
+               $this->token_expired = true;
+               /*$accessToken = $this->get_oauth2_token($client->getAccessToken());
+               echo $accessToken;
+               exit();
+               $client->refreshToken($this->getUser()->getAttribute('accessToken'));*/
+            }
+        }    
+        
+        if ($request->isMethod('POST') && !$this->token_expired)
         {  
-            if($this->getUser()->getAttribute('accessToken')){
-                    $google_token= json_decode($this->getUser()->getAttribute('accessToken'));
-                    $client = new Google_Client(); 
-                    $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
-                if($client->isAccessTokenExpired()){
-                    $accessToken = $this->get_oauth2_token($client->getAccessToken());
-                    echo $accessToken;
-                    exit();
-                    $client->refreshToken($this->getUser()->getAttribute('accessToken'));
-                }
-            }    
             
             $service = new Google_DriveService($client);
             

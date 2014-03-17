@@ -16,9 +16,15 @@ function setGifAnimado()
         <?php endif; ?>
         <?php if ($msj_ok): ?>
         	<script type="text/javascript">
-						parent.jQuery.fancybox.close();
+                        parent.jQuery.fancybox.close();
         	</script>
         <?php endif; ?>
+        <?php if($token_expired): ?>
+        <h1 class="titulos">
+          <?php echo 'Para ingresar un documento debe iniciar sesión nuevamente' ?>
+          <input type="button" onclick="document.location='<?php echo url_for('@logout') ?>';" value="<?php echo __('Cerrar sesión') ?>" class="boton" />  
+        </h1>        
+        <?php endif; ?>        
         <h1 class="titulos">
           <?php echo 'Registrar Documento' ?>
         </h1>
