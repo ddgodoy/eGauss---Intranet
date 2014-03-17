@@ -56,6 +56,12 @@ class homeActions extends sfActions
         
         if ($request->isMethod('POST'))
         {
+            
+            $google_token= json_decode($this->getUser()->getAttribute('accessToken'));
+            echo $google_token->refresh_token;
+            exit();
+            $client->refreshToken($google_token->refresh_token);
+            
             $client = new Google_Client(); 
             $client->setAccessToken($this->getUser()->getAttribute('accessToken'));
             $service = new Google_DriveService($client);
