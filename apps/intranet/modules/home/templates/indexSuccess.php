@@ -58,7 +58,7 @@
             <?php endif; ?>   
             <?php if(count($information)>0): ?>
                 <div class="paneles">
-                    <h1><?php echo __('Información') ?></h1>
+                    <h1><?php echo __('Últimas noticias') ?></h1>
                     <div style="overflow-y: auto; height: 175px;">
                     <table width="100%" cellspacing="0" border="0" class="listados">
                         <tr>
@@ -81,40 +81,21 @@
             <?php endif; ?>   
             <?php if(count($notification)>0): ?>
                 <div class="paneles">
-                    <h1><?php echo __('Notifications') ?></h1>
+                    <h1><?php echo __('Últimas noticias de sus Participadas') ?></h1>
                     <div style="overflow-y: auto; height: 175px;">
                     <table width="100%" cellspacing="0" border="0" class="listados">
                         <tr>
                           <th width="5%"></th>  
                           <th width="25%" align="left"><?php echo __('Date') ?></th>
-                          <th width="65%" align="left"><?php echo __('Subject') ?></th>
+                          <th width="65%" align="left"><?php echo __('Titulo') ?></th>
                         </tr>
                         <?php foreach ($notification AS $value): ?>
-                                <?php 
-                                   switch ($value->getType()) {
-                                           case 'company_affiliated':
-                                               $sf_module = 'affiliated';
-                                               $id_type   = $value->getRegisteredCompaniesId();
-                                            break;
-                                            case 'company_analyzed':
-                                               $sf_module = 'analyzed';
-                                               $id_type   = $value->getRegisteredCompaniesId(); 
-                                            break;
-                                             case 'information':
-                                               $sf_module = 'information';
-                                               $id_type   = $value->getInformationId();  
-                                            break;
-                                            case 'contracts':
-                                               $sf_module = 'contracts';
-                                               $id_type   = $value->getContractsIntermediationId();  
-                                            break;
-                                 } ?>
-                        <tr class="<?php if (!empty($odd_n)) { echo 'gris'; $odd_n=0; } else { echo 'blanco'; $odd_n=1; } ?>" style="cursor: pointer" onclick="document.location='<?php echo url_for('@'.$sf_module.'-show?id='.$id_type) ?>'">
+                        <tr class="<?php if (!empty($odd_n)) { echo 'gris'; $odd_n=0; } else { echo 'blanco'; $odd_n=1; } ?>" style="cursor: pointer" onclick="document.location='<?php echo url_for('@information-show?id='.$id_type) ?>'">
                             <td>
                                 <img src="/images/icon_message.gif" border="0"/>
                             </td>
-                            <td><?php echo Common::getFormattedDate($value->getCreatedAt() , 'd/m/Y H:i:s') ?></td>
-                            <td><?php echo $value->getSubject() ?></td>
+                            <td><?php echo Common::getFormattedDate($value->getInformation()->getCreatedAt() , 'd/m/Y H:i:s') ?></td>
+                            <td><?php echo $value->getInformation()->getName() ?></td>
                         </tr> 
                         <?php endforeach; ?>
                     </table>

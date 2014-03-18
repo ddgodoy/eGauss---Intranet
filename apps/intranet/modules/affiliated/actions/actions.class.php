@@ -110,6 +110,9 @@ class affiliatedActions extends sfActions
    */
   public function executeProcess(sfWebRequest $request)
   {
+    if(!$this->getUser()->hasCredential('super_admin')){
+        $this->redirect('@affiliated');
+    }  
     $this->id       = $request->getParameter('id');
     $this->logo     = '';
     $entity_object  = NULL;

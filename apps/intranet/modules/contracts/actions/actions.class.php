@@ -121,6 +121,10 @@ class contractsActions extends sfActions
     */
     public function executeProcess(sfWebRequest $request)
     {
+        if(!$this->getUser()->hasCredential('super_admin')){
+            $this->redirect('@contracts');
+        }
+        
         $this->id                  = $request->getParameter('id');
         $entity_object             = NULL;
         $this->error               = array();

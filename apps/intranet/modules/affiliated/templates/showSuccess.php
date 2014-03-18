@@ -116,7 +116,7 @@ $(document).ready(function()
       <?php endif; ?>
       <?php if (count($information) > 0): ?>
       <div class="paneles" style="overflow-y: auto; height: 175px;">
-        <h1>Información</h1>
+        <h1>Últimas noticias</h1>
         <table width="100%" cellspacing="0" border="0" class="listados">
           <tr>
             <th width="5%"></th>  

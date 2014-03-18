@@ -16,18 +16,18 @@
         <a href="<?php echo url_for('@shareholders') ?>" class="first<?php echo $mnGetModule=='shareholders' ? ' selected' : '' ?>">
             <?php echo __('Juntas de Accionistas') ?>
         </a>
+        <a href="<?php echo url_for('@investors') ?>" class="first<?php echo $mnGetModule=='investor' ? ' selected' : '' ?>">
+            <?php echo __('Inversores') ?>
+        </a>
+        <a href="<?php echo url_for('@calendar_lista') ?>" class="first<?php echo $mnGetModule=='calendar' ? ' selected' : '' ?>">
+            <?php echo __('Eventos') ?>
+        </a>
+        <a href="<?php echo url_for('@contracts') ?>" class="first<?php echo $mnGetModule=='contracts' ? ' selected' : '' ?>">
+            <?php echo __('Intermediación') ?>
+        </a>
         <?php if ($sf_user->hasCredential('super_admin')): ?>
                 <a href="<?php echo url_for('@billing') ?>" class="first<?php echo $mnGetModule=='billing' ? ' selected' : '' ?>">
             <?php echo __('Facturación') ?>
-                </a>
-                <a href="<?php echo url_for('@contracts') ?>" class="first<?php echo $mnGetModule=='contracts' ? ' selected' : '' ?>">
-            <?php echo __('Intermediación') ?>
-                </a>
-                <a href="<?php echo url_for('@calendar_lista') ?>" class="first<?php echo $mnGetModule=='calendar' ? ' selected' : '' ?>">
-            <?php echo __('Eventos') ?>
-                </a>
-                <a href="<?php echo url_for('@investors') ?>" class="first<?php echo $mnGetModule=='investor' ? ' selected' : '' ?>">
-            <?php echo __('Inversores') ?>
                 </a>
         <?php endif; ?>
   </li>

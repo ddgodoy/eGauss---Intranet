@@ -95,10 +95,15 @@ class calendarActions extends sfActions
      */
     public function executeProcess(sfWebRequest $request)
     {
-  	$this->id        = $request->getParameter('id');
+        if(!$this->getUser()->hasCredential('super_admin')){
+            $this->redirect('@homepage');
+        }
+        
         $this->sch_year  = trim($this->getRequestParameter('sch_year'));
         $this->sch_month = trim($this->getRequestParameter('sch_month'));
         $this->sch_day   = trim($this->getRequestParameter('sch_day'));
+        
+  	$this->id        = $request->getParameter('id');
         $this->error     = array();
   	$entity_object   = NULL;
 

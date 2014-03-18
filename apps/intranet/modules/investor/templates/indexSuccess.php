@@ -14,10 +14,12 @@
             <tr><td><input type="text" name="sch_company" value="<?php echo $sch_company ?>" class="form_input" style="width:98%;"/></td></tr>
             <tr><td><?php echo __('Por Proyecto') ?></td></tr>
             <tr><td><input type="text" name="sch_project" value="<?php echo $sch_project ?>" class="form_input" style="width:98%;"/></td></tr>
-            <tr><td><?php echo __('Por Inversión desde') ?></td></tr>
-            <tr><td><input type="text" name="sch_investor_from" value="<?php echo $sch_investor_from ?>" class="form_input" style="width:98%;"/></td></tr>
-            <tr><td><?php echo __('Por Inversión hasta') ?></td></tr>
-            <tr><td><input type="text" name="sch_investor_to" value="<?php echo $sch_investor_to ?>" class="form_input" style="width:98%;"/></td></tr>
+            <tr><td><?php echo __('Por Tema') ?></td></tr>
+            <tr><td><?php echo select_tag('sch_theme', options_for_select([''=>'--Seleccionar--']+Theme::getArrayForSelect(), $sch_theme), array('class'=>'form_input', 'style'=>'width:100%;')) ?></td></tr>
+            <tr><td><?php echo __('Por Sub tema') ?></td></tr>
+            <tr><td><input type="text" name="sch_sub_theme" value="<?php echo $sch_sub_theme ?>" class="form_input" style="width:98%;"/></td></tr>
+            <tr><td><?php echo __('Acreditado por Enisa') ?></td></tr>
+            <tr><td><input type="checkbox" id="accredited_enisa" name="sch_accredited_enisa" <?php if($sch_accredited_enisa): ?> checked="checked" <?php endif; ?> value="1"></td></tr>
             <tr><td style="padding-top:5px;"><input type="submit" name="btn_buscar" value="Buscar" class="boton"></td></tr>
         </table>
       </form>
@@ -45,10 +47,11 @@
       <tr>
       	<?php if (count($oList) > 0): ?>
 	        <th width="25%"><a href="<?php echo $head_link.'&o=i.name&s='.$sort ?>"><?php echo __('Nombre') ?></a></th>
-	        <th width="30%"><a href="<?php echo $head_link.'&o=company&s='.$sort ?>"><?php echo __('Empresa') ?></a></th>
+	        <th width="25%"><a href="<?php echo $head_link.'&o=company&s='.$sort ?>"><?php echo __('Empresa') ?></a></th>
 	        <th width="15%"><a href="<?php echo $head_link.'&o=project&s='.$sort ?>"><?php echo __('Proyecto') ?></a></th>
-	        <th width="18%"><a href="<?php echo $head_link.'&o=investor_from&s='.$sort ?>"><?php echo __('Inversión desde') ?></a></th>
-                <th width="18%"><a href="<?php echo $head_link.'&o=investor_to&s='.$sort ?>"><?php echo __('Inversión hasta') ?></a></th>
+	        <th width="18%"><a href="<?php echo $head_link.'&o=theme_id&s='.$sort ?>"><?php echo __('Tema') ?></a></th>
+                <th width="18%"><a href="<?php echo $head_link.'&o=sub_theme&s='.$sort ?>"><?php echo __('Sub Tema') ?></a></th>
+                <th width="18%"><a href="<?php echo $head_link.'&o=accredited_enisa&s='.$sort ?>"><?php echo __('Acreditado') ?></a></th>
 	        <th width="4%"></th>
                 <?php if($sf_user->hasCredential('super_admin')): ?>
 	        <th width="4%"></th>
@@ -63,8 +66,9 @@
         <td><?php echo $item->getName().' '.$item->getLastName() ?></td>
         <td><?php echo $item->getCompany() ?></td>
         <td><?php echo $item->getProject() ?></td>
-        <td><?php echo $item->getInvestorFrom() ?></td>
-        <td><?php echo $item->getInvestorTo() ?></td>
+        <td><?php echo $item->getTheme()->getName() ?></td>
+        <td><?php echo $item->getSubTheme() ?></td>
+        <td><?php echo $item->getAccreditedEnisa()==1?'Enisa':''; ?></td>
         <td align="center">
         	<a href="<?php echo url_for('@investor-show?id='.$item->getId()) ?>">
         		<img border="0" src="/images/investor.png" alt="<?php echo __('Ver detalle') ?>" title="<?php echo __('Ver detalle') ?>">

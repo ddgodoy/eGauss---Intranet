@@ -138,6 +138,10 @@ class informationActions extends sfActions
     */
     public function executeProcess(sfWebRequest $request)
     {
+        if(!$this->getUser()->hasCredential('super_admin')){
+            $this->redirect('@information');
+        }
+        
         $this->id                  = $request->getParameter('id');
         $entity_object             = NULL;
         $this->url_register_videos = !$this->id?'@information-register-video':'@information-register-video?id='.$this->id;
@@ -155,13 +159,16 @@ class informationActions extends sfActions
               {
                   $recorded = $this->form->save();
 
-                  if($recorded->getImportant() && $this->id == '')
+                  if($recorded->getImportant())
                   {
                       $app_user = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($recorded->getRegisteredCompaniesId());
                       if($app_user)
                       {    
-                          foreach ($app_user AS $value){  
-                            Notifications::setNewNotification('information', 'Una nueva información de la empresa: '.$recorded->getRegisteredCompanies()->getName().' se ha registrado','',$value->getAppUserId(), $recorded->getId());
+                          foreach ($app_user AS $value){
+                            $notification_user = NotificationsTable::getInstance()->findOneByInformationIdAndAppUserId($recorded->getId(), $value->getAppUserId());
+                            if(!$notification_user){
+                                Notifications::setNewNotification('information', 'Una nueva información de la empresa: '.$recorded->getRegisteredCompanies()->getName().' se ha registrado','',$value->getAppUserId(), $recorded->getId());   
+                            }
                           }  
                       }  
                   }    

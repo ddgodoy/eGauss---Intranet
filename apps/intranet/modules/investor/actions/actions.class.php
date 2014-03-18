@@ -33,11 +33,12 @@ class investorActions extends sfActions
   {
   	$sch_partial = 'id > 0';
   	$this->f_params = '';
-        $this->sch_name = trim($this->getRequestParameter('sch_name'));
-        $this->sch_company = trim($this->getRequestParameter('sch_company'));
-        $this->sch_project = trim($this->getRequestParameter('sch_project'));
-        $this->sch_investor_from = trim($this->getRequestParameter('sch_investor_from'));
-        $this->sch_investor_to = trim($this->getRequestParameter('sch_investor_to'));
+        $this->sch_name             = trim($this->getRequestParameter('sch_name'));
+        $this->sch_company          = trim($this->getRequestParameter('sch_company'));
+        $this->sch_project          = trim($this->getRequestParameter('sch_project'));
+        $this->sch_theme            = trim($this->getRequestParameter('sch_theme'));
+        $this->sch_sub_theme        = trim($this->getRequestParameter('sch_sub_theme'));
+        $this->sch_accredited_enisa = trim($this->getRequestParameter('sch_accredited_enisa'));
 		
 
         if (!empty($this->sch_name)) {
@@ -55,14 +56,19 @@ class investorActions extends sfActions
                 $this->f_params .= '&sch_project='.urlencode($this->sch_project);
         }
         
-        if (!empty($this->sch_investor_from)) {
-                $sch_partial .= " AND investor_from = $this->sch_investor_from";
-                $this->f_params .= '&sch_investor_from='.urlencode($this->sch_investor_from);
+        if (!empty($this->sch_theme)) {
+                $sch_partial .= " AND theme_id = $this->sch_theme";
+                $this->f_params .= '&sch_theme='.urlencode($this->sch_theme);
         }
         
-        if (!empty($this->sch_investor_to)) {
-                $sch_partial .= " AND investor_to = $this->sch_investor_to";
-                $this->f_params .= '&sch_investor_to='.urlencode($this->sch_investor_to);
+        if (!empty($this->sch_sub_theme)) {
+                $sch_partial .= " AND sub_theme LIKE '%$this->sch_sub_theme%'";
+                $this->f_params .= '&sch_sub_theme='.urlencode($this->sch_sub_theme);
+        }
+        
+        if (!empty($this->sch_accredited_enisa)) {
+                $sch_partial .= " AND accredited_enisa = '$this->sch_accredited_enisa'";
+                $this->f_params .= '&sch_accredited_enisa='.urlencode($this->sch_accredited_enisa);
         }
 	
 	return $sch_partial;
@@ -111,6 +117,10 @@ class investorActions extends sfActions
    */
   public function executeProcess(sfWebRequest $request)
   {
+        if(!$this->getUser()->hasCredential('super_admin')){
+            $this->redirect('@investor');
+        }
+        
   	$this->id           = $request->getParameter('id');
   	$entity_object      = new Investor();
 

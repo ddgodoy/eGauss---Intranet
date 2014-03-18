@@ -110,6 +110,9 @@ class analyzedActions extends sfActions
    */
   public function executeProcess(sfWebRequest $request)
   {
+    if(!$this->getUser()->hasCredential('super_admin')){
+        $this->redirect('@analyzed');
+    }   
     $this->id      = $request->getParameter('id');
     $this->logo    = '';
     $entity_object = NULL;

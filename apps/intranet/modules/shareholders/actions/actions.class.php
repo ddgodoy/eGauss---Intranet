@@ -123,6 +123,10 @@ class shareholdersActions extends sfActions
     */
     public function executeProcess(sfWebRequest $request)
     {
+        if(!$this->getUser()->hasCredential('super_admin')){
+            $this->redirect('@homepage');
+        }
+        
         $this->id                  = $request->getParameter('id');
         $entity_object             = NULL;
         $this->url_document        = !$this->id?'@shareholders-register-document':'@shareholders-register-document?id='.$this->id;

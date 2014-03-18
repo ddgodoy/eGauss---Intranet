@@ -97,6 +97,9 @@ class userActions extends sfActions
    */
   public function executeProcess(sfWebRequest $request)
   {
+        if(!$this->getUser()->hasCredential('super_admin')){
+            $this->redirect('@user');
+        }
   	$this->id         = $request->getParameter('id');
     $this->my_profile = $request->getParameter('profile', NULL);
     $this->my_go_ok   = false;

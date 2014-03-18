@@ -24,7 +24,7 @@ class NotificationsTable extends Doctrine_Table
     public function getNotifications($app_user_id)
     {
         $q = $this->createQuery()
-             ->where('app_user_id IS NULL OR app_user_id = '.$app_user_id)   
+             ->where('app_user_id = '.$app_user_id.' AND information_id IS NOT NULL')   
              ->orderBy('id DESC')
              ->limit(10);
         return $q->execute();
