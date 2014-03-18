@@ -12,4 +12,19 @@
  */
 class Theme extends BaseTheme
 {
+    /**
+     * get array for select
+     * @return array
+     */
+    public static function getArrayForSelect()
+    {
+        $return_array = [];
+        $theme_object = ThemeTable::getInstance()->findAll();
+        
+        foreach ($theme_object AS $v){
+            $return_array[$v->getId()] = $v->getName();
+        }
+        
+        return $return_array;
+    }      
 }

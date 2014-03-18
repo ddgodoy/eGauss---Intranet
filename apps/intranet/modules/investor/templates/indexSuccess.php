@@ -32,9 +32,9 @@
 	</div>
   <h1 class="titulos">
   	<?php echo __('Listado de Inversores') ?>
-        <?php/* if($sf_user->hasCredential('super_admin')): ?>
+        <?php if($sf_user->hasCredential('super_admin')): ?>
                 <input type="button" value="<?php echo __('Registrar inversor') ?>" style="float:right;" class="boton" onclick="document.location='<?php echo url_for('@investor-register') ?>';"/>
-        <?php endif; */?>        
+        <?php endif; ?>        
   	<?php if ($oCant > 0): ?>
   		<input type="button" value="<?php echo __('Exportal a Excel') ?>" style="float:right;margin-right:10px;" class="boton" onclick="document.location='<?php echo url_for('@investor-excel') ?>';"/>
   	<?php endif; ?>

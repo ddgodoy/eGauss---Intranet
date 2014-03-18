@@ -18,7 +18,7 @@ $(document).ready(function(){
                 <?php include_component('calendar', 'calendar') ?>
             </div>
             <div class="paneles">
-                <h1>Socios</h1> 
+                <h1>Socio</h1> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="3">
                   <?php $_img_user = $oValue->getAppUser()->getPhoto()? 'uploads/user/'.ServiceFileHandler::getThumbImage($oValue->getAppUser()->getPhoto()) : 'images/no_user.jpg'; ?>
                   <tr>
@@ -112,7 +112,7 @@ $(document).ready(function(){
 				</tr>
                                 <tr><td style="height: 5px;"></td></tr>
                                 <tr>
-                                    <td width="20%"><label><strong><?php echo __('Subtema') ?>:</strong></label></td>
+                                    <td width="20%"><label><strong><?php echo __('Sub tema') ?>:</strong></label></td>
                                     <td class="text_detail"><?php echo $oValue->getSubTheme(); ?></td>
 				</tr>
                                 <tr><td style="height: 5px;"></td></tr>

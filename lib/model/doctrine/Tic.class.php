@@ -12,4 +12,19 @@
  */
 class Tic extends BaseTic
 {
+    /**
+     * get array for select
+     * @return array
+     */
+    public static function getArrayForSelect()
+    {
+        $return_array = [];
+        $tic_object = TicTable::getInstance()->findAll();
+        
+        foreach ($tic_object AS $v){
+            $return_array[$v->getId()] = $v->getName();
+        }
+        
+        return $return_array;
+    }        
 }
