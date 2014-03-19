@@ -285,7 +285,7 @@ class investorActions extends sfActions
             $oXLS->setCellValue("Q$ex_fila", $dato->getInvestorFrom());
             $oXLS->setCellValue("R$ex_fila", $dato->getInvestorTo());
             $oXLS->setCellValue("S$ex_fila", $dato->getComment());
-            $name_app_user = $dato->getAppUser()?$dato->getAppUser()->getName().' '.$dato->getAppUser()->getLastName():'';
+            $name_app_user = $dato->getAppUser()->getId()?$dato->getAppUser()->getName().' '.$dato->getAppUser()->getLastName():'';
             $oXLS->setCellValue("T$ex_fila", $name_app_user);
             
     }
