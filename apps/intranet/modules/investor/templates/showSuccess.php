@@ -150,9 +150,9 @@ $(document).ready(function(){
                 </fieldset>   
                 <?php endif; ?>
 		<div style="padding-top:10px;" class="botonera">
-                        <?php /* if($sf_user->hasCredential('super_admin')): ?> 
+                        <?php if($sf_user->hasCredential('super_admin')): ?> 
                             <input type="button" onclick="document.location='<?php echo url_for('@investor-edit?id='.$id) ?>';" value="<?php echo __('Edit') ?>" class="boton" />
-                        <?php endif; */ ?>
+                        <?php endif;  ?>
 			<input type="button" onclick="document.location='<?php echo url_for('@investors') ?>';" value="<?php echo __('Continue to list') ?>" class="boton" />
 		</div>
 	</div>
