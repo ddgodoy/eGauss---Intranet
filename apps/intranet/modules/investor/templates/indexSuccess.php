@@ -14,6 +14,8 @@
             <tr><td><input type="text" name="sch_company" value="<?php echo $sch_company ?>" class="form_input" style="width:98%;"/></td></tr>
             <tr><td><?php echo __('Por Proyecto') ?></td></tr>
             <tr><td><input type="text" name="sch_project" value="<?php echo $sch_project ?>" class="form_input" style="width:98%;"/></td></tr>
+            <tr><td><?php echo __('Por Tema general') ?></td></tr>
+            <tr><td><?php echo select_tag('sch_general_theme', options_for_select([''=>'--Seleccionar--']+GeneralTheme::getArrayForSelect(), $sch_general_theme), array('class'=>'form_input', 'style'=>'width:100%;')) ?></td></tr>
             <tr><td><?php echo __('Por Tema') ?></td></tr>
             <tr><td><?php echo select_tag('sch_theme', options_for_select([''=>'--Seleccionar--']+Theme::getArrayForSelect(), $sch_theme), array('class'=>'form_input', 'style'=>'width:100%;')) ?></td></tr>
             <tr><td><?php echo __('Por Sub tema') ?></td></tr>
@@ -46,9 +48,10 @@
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="listados">
       <tr>
       	<?php if (count($oList) > 0): ?>
-	        <th width="25%"><a href="<?php echo $head_link.'&o=i.name&s='.$sort ?>"><?php echo __('Nombre') ?></a></th>
-	        <th width="25%"><a href="<?php echo $head_link.'&o=company&s='.$sort ?>"><?php echo __('Empresa') ?></a></th>
+	        <th width="15%"><a href="<?php echo $head_link.'&o=i.name&s='.$sort ?>"><?php echo __('Nombre') ?></a></th>
+	        <th width="15%"><a href="<?php echo $head_link.'&o=company&s='.$sort ?>"><?php echo __('Empresa') ?></a></th>
 	        <th width="15%"><a href="<?php echo $head_link.'&o=project&s='.$sort ?>"><?php echo __('Proyecto') ?></a></th>
+                <th width="18%"><a href="<?php echo $head_link.'&o=general_theme_id&s='.$sort ?>"><?php echo __('Tema general') ?></a></th>
 	        <th width="18%"><a href="<?php echo $head_link.'&o=theme_id&s='.$sort ?>"><?php echo __('Tema') ?></a></th>
                 <th width="18%"><a href="<?php echo $head_link.'&o=sub_theme&s='.$sort ?>"><?php echo __('Sub Tema') ?></a></th>
                 <th width="18%"><a href="<?php echo $head_link.'&o=accredited_enisa&s='.$sort ?>"><?php echo __('Acreditado') ?></a></th>
@@ -66,6 +69,7 @@
         <td><?php echo $item->getName().' '.$item->getLastName() ?></td>
         <td><?php echo $item->getCompany() ?></td>
         <td><?php echo $item->getProject() ?></td>
+        <td><?php echo $item->getGeneralTheme()->getName() ?></td>
         <td><?php echo $item->getTheme()->getName() ?></td>
         <td><?php echo $item->getSubTheme() ?></td>
         <td><?php echo $item->getAccreditedEnisa()==1?'Enisa':''; ?></td>

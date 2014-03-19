@@ -81,7 +81,7 @@
             <?php endif; ?>   
             <?php if(count($notification)>0): ?>
                 <div class="paneles">
-                    <h1><?php echo __('Últimas noticias de sus Participadas') ?></h1>
+                    <h1><?php echo __('Noticias de mis participadas') ?></h1>
                     <div style="overflow-y: auto; height: 175px;">
                     <table width="100%" cellspacing="0" border="0" class="listados">
                         <tr>

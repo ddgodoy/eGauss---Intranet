@@ -36,6 +36,7 @@ class investorActions extends sfActions
         $this->sch_name             = trim($this->getRequestParameter('sch_name'));
         $this->sch_company          = trim($this->getRequestParameter('sch_company'));
         $this->sch_project          = trim($this->getRequestParameter('sch_project'));
+        $this->sch_general_theme    = trim($this->getRequestParameter('sch_general_theme'));
         $this->sch_theme            = trim($this->getRequestParameter('sch_theme'));
         $this->sch_sub_theme        = trim($this->getRequestParameter('sch_sub_theme'));
         $this->sch_accredited_enisa = trim($this->getRequestParameter('sch_accredited_enisa'));
@@ -54,6 +55,11 @@ class investorActions extends sfActions
         if (!empty($this->sch_project)) {
                 $sch_partial .= " AND project LIKE '%$this->sch_project%'";
                 $this->f_params .= '&sch_project='.urlencode($this->sch_project);
+        }
+        
+        if (!empty($this->sch_general_theme)) {
+                $sch_partial .= " AND general_theme_id = $this->sch_general_theme";
+                $this->f_params .= '&sch_general_theme='.urlencode($this->sch_general_theme);
         }
         
         if (!empty($this->sch_theme)) {
