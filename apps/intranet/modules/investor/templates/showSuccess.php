@@ -17,7 +17,7 @@ $(document).ready(function(){
             <div class="paneles" id="conten-calendar">
                 <?php include_component('calendar', 'calendar') ?>
             </div>
-            <?php if($oValue->getAppUser()): ?>
+            <?php if($oValue->getAppUser()->getId()): ?>
             <div class="paneles">
                 <h1>Socio</h1> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="3">
