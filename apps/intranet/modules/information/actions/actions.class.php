@@ -158,19 +158,44 @@ class informationActions extends sfActions
               if ($this->form->isValid()) 
               {
                   $recorded = $this->form->save();
+                  
+                  $app_user = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($recorded->getRegisteredCompaniesId());
+                  if($app_user)
+                  {    
+                    foreach ($app_user AS $value){
+                      $notification_user = NotificationsTable::getInstance()->findOneByInformationIdAndAppUserId($recorded->getId(), $value->getAppUserId());
+                      if(!$notification_user){
+                          Notifications::setNewNotification('information', 'Una nueva información de la empresa: '.$recorded->getRegisteredCompanies()->getName().' se ha registrado','',$value->getAppUserId(), $recorded->getId());   
+                      }
+                    }  
+                  }  
 
                   if($recorded->getImportant())
                   {
-                      $app_user = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($recorded->getRegisteredCompaniesId());
                       if($app_user)
                       {    
-                          foreach ($app_user AS $value){
-                            $notification_user = NotificationsTable::getInstance()->findOneByInformationIdAndAppUserId($recorded->getId(), $value->getAppUserId());
-                            if(!$notification_user){
-                                Notifications::setNewNotification('information', 'Una nueva información de la empresa: '.$recorded->getRegisteredCompanies()->getName().' se ha registrado','',$value->getAppUserId(), $recorded->getId());   
-                            }
-                          }  
+                        sfProjectConfiguration::getActive()->loadHelpers(array("Url"));  
+                        foreach ($app_user AS $value){
+                          $sendEmail = ServiceOutgoingMessages::sendToSingleAccount
+                            (
+                              $value->getAppUser()->getName().' '.$value->getAppUser()->getLastName(), $value->getAppUser()->getEmail(),
+                              'home/companyInformation',
+                              array(
+                                'subject'    => 'eGauss.com Noticias de Empresa Participada',
+                                'to_partial' => array(
+                                  'name_user'    => $value->getAppUser()->getName().' '.$value->getAppUser()->getLastName(),
+                                  'name_company' => $recorded->getRegisteredCompanies()->getName(),
+                                  'name_info'    => $recorded->getName(),
+                                  'type'         => $recorded->getTypeInformation()->getName(),
+                                  'content'      => $recorded->getDescription(),
+                                  'url'          => url_for('@information-show?id='.$recorded->getId(),true),
+                                  'url_home'     => url_for('@homepage',true)
+                                )
+                              )
+                            );         
                       }  
+                  }  
+                      
                   }    
                   #set videos
                   if($new_videos = $this->getUser()->getAttribute('videos'))
