@@ -55,6 +55,7 @@ class ContractsIntermediationForm extends BaseContractsIntermediationForm
       'business_amount'         => new sfWidgetFormInputText(array(), array('class'=>'form_input no_letters', 'style'=>'width:400px;')),
       'intermediation'          => new sfWidgetFormInputText(array(), array('class'=>'form_input no_letters', 'style'=>'width:400px;')),
       'final_commission'        => new sfWidgetFormInputText(array(), array('class'=>'form_input no_letters', 'style'=>'width:400px;')),
+      'cashed'                  => new sfWidgetFormInputCheckbox(array(),array('value'=>1)),
       'comments'                => new sfWidgetFormTextareaTinyMCE(array('config' => 'theme_advanced_buttons1 : "cut, copy, paste, images, bold, italic, underline, justifyleft, justifycenter, justifyright , outdent, indent, bullist, numlist, undo, redo, link",theme_advanced_buttons2 : "",theme_advanced_buttons3 : ""'),array('style' => 'width:900px;  height: 150px;', 'rows' => 10, 'class' => 'foo')),
       'comments_reunion'        => new sfWidgetFormTextareaTinyMCE(array('config' => 'theme_advanced_buttons1 : "cut, copy, paste, images, bold, italic, underline, justifyleft, justifycenter, justifyright , outdent, indent, bullist, numlist, undo, redo, link",theme_advanced_buttons2 : "",theme_advanced_buttons3 : ""'),array('style' => 'width:900px;  height: 150px;', 'rows' => 10, 'class' => 'foo')),  
     ));
@@ -78,6 +79,7 @@ class ContractsIntermediationForm extends BaseContractsIntermediationForm
       'business_amount'         => new sfValidatorNumber(array('required' => false)),
       'intermediation'          => new sfValidatorNumber(array('required' => false)),
       'final_commission'        => new sfValidatorNumber(array('required' => false)),
+      'cashed'                  => new sfValidatorBoolean(array('required' => false)),  
       'comments'                => new sfValidatorPass(array('required' => false)),
       'comments_reunion'        => new sfValidatorPass(array('required' => false)),  
     ));

@@ -379,6 +379,7 @@ ContractsIntermediation:
     final_commission:          { type: 'decimal(9, 2)'}
     comments:                  { type: text }
     registered_companies_id:   { type: integer(4)}
+    cashed:                    { type: boolean, default: false }
     
   relations:
     RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: SET NULL } 

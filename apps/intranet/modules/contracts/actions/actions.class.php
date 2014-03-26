@@ -48,9 +48,11 @@ class contractsActions extends sfActions
                               11=>'Noviembre',
                               12=>'Diciembre');
 
-
+        $this->company      = RegisteredCompanies::getArrayForSelect(); 
         $this->sch_customer    = trim($this->getRequestParameter('sch_customer'));
-        $this->sch_month    = trim($this->getRequestParameter('sch_month'));
+        $this->sch_month       = trim($this->getRequestParameter('sch_month'));
+        $this->sch_cashed      = trim($this->getRequestParameter('sch_cashed'));
+        $this->sch_company  = trim($this->getRequestParameter('sch_company'));
        
         if (!empty($this->sch_customer)) {
                 $sch_partial .= " AND (customer LIKE '%$this->sch_customer%')";
@@ -59,6 +61,14 @@ class contractsActions extends sfActions
         if (!empty($this->sch_month)) {
                 $sch_partial .= " AND month = '$this->sch_month'";
                 $this->f_params .= '&sch_month='.urlencode($this->sch_month);
+        }
+        if (!empty($this->sch_cashed)) {
+                $sch_partial .= " AND cashed = '$this->sch_cashed'";
+                $this->f_params .= '&sch_cashed='.urlencode($this->sch_cashed);
+        }
+        if (!empty($this->sch_company)) {
+                $sch_partial .= " AND registered_companies_id = $this->sch_company";
+                $this->f_params .= '&sch_company='.urlencode($this->sch_company);
         }
         
         return $sch_partial;

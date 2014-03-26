@@ -25,6 +25,7 @@
  * @property decimal $final_commission
  * @property text $comments
  * @property integer $registered_companies_id
+ * @property boolean $cashed
  * @property RegisteredCompanies $RegisteredCompanies
  * @property AppUser $AppUser
  * @property Doctrine_Collection $ContractsIntermediation
@@ -49,6 +50,7 @@
  * @method decimal                 getFinalCommission()         Returns the current record's "final_commission" value
  * @method text                    getComments()                Returns the current record's "comments" value
  * @method integer                 getRegisteredCompaniesId()   Returns the current record's "registered_companies_id" value
+ * @method boolean                 getCashed()                  Returns the current record's "cashed" value
  * @method RegisteredCompanies     getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
  * @method AppUser                 getAppUser()                 Returns the current record's "AppUser" value
  * @method Doctrine_Collection     getContractsIntermediation() Returns the current record's "ContractsIntermediation" collection
@@ -72,6 +74,7 @@
  * @method ContractsIntermediation setFinalCommission()         Sets the current record's "final_commission" value
  * @method ContractsIntermediation setComments()                Sets the current record's "comments" value
  * @method ContractsIntermediation setRegisteredCompaniesId()   Sets the current record's "registered_companies_id" value
+ * @method ContractsIntermediation setCashed()                  Sets the current record's "cashed" value
  * @method ContractsIntermediation setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
  * @method ContractsIntermediation setAppUser()                 Sets the current record's "AppUser" value
  * @method ContractsIntermediation setContractsIntermediation() Sets the current record's "ContractsIntermediation" collection
@@ -174,6 +177,10 @@ abstract class BaseContractsIntermediation extends sfDoctrineRecord
         $this->hasColumn('registered_companies_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
+             ));
+        $this->hasColumn('cashed', 'boolean', null, array(
+             'type' => 'boolean',
+             'default' => false,
              ));
 
         $this->option('collate', 'utf8_general_ci');

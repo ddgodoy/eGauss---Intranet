@@ -10,8 +10,12 @@
         <table cellspacing="4" cellpadding="0" border="0" width="100%">
             <tr><td>Por Mes</td></tr>
             <tr><td><?php echo select_tag('sch_month', options_for_select($month, $sch_month), array('style'=>'width:100%')) ?></td></tr>
+            <tr><td>Por Participada</td></tr>
+            <tr><td><?php echo select_tag('sch_company', options_for_select($company, $sch_company), array('style'=>'width:100%')) ?></td></tr>
             <tr><td>Por Cliente</td></tr>
             <tr><td><input type="text" name="sch_customer" value="<?php echo $sch_customer ?>" class="form_input" style="width:98%;"/></td></tr>
+            <tr><td><?php echo __('Cobrado') ?></td></tr>
+            <tr><td><input type="checkbox" id="cashed" name="sch_cashed" <?php if($sch_cashed): ?> checked="checked" <?php endif; ?> value="1"></td></tr>
             <tr><td style="padding-top:5px;"><input type="submit" name="btn_buscar" value="Buscar" class="boton"></td></tr>
         </table>
       </form>
@@ -35,10 +39,12 @@
       <tr>
       	<?php if (count($oList) > 0): ?>
                 <th width="23%"><a href="<?php echo $head_link.'&o=date&s='.$sort ?>"><?php echo __('Mes previsto de ingresos') ?></a></th>
-	        <th width="23%"><a href="<?php echo $head_link.'&o=customer_name&s='.$sort ?>"><?php echo __('Cliente') ?></a></th>
-                <th width="23%"><a href="<?php echo $head_link.'&o=app_user_id&s='.$sort ?>"><?php echo __('Socio') ?></a></th>
-                <th width="23%"><a href="<?php echo $head_link.'&o=business_amount&s='.$sort ?>"><?php echo __('Volumen negocio') ?></a></th>
-                <th width="23%"><a href="<?php echo $head_link.'&o=final_commission&s='.$sort ?>"><?php echo __('Comisión') ?></a></th>
+                <th width="23%"><a href="<?php echo $head_link.'&o=registered_companies_id&s='.$sort ?>"><?php echo __('Empresa / Participada') ?></a></th>
+	        <th width="15%"><a href="<?php echo $head_link.'&o=customer_name&s='.$sort ?>"><?php echo __('Cliente') ?></a></th>
+                <th width="15%"><a href="<?php echo $head_link.'&o=app_user_id&s='.$sort ?>"><?php echo __('Socio') ?></a></th>
+                <th width="15%"><a href="<?php echo $head_link.'&o=business_amount&s='.$sort ?>"><?php echo __('Volumen negocio') ?></a></th>
+                <th width="15%"><a href="<?php echo $head_link.'&o=final_commission&s='.$sort ?>"><?php echo __('Comisión') ?></a></th>
+                <th width="10%"><a href="<?php echo $head_link.'&o=cashed&s='.$sort ?>"><?php echo __('Cobrado') ?></a></th>
                 <th width="4%"></th>
 	        <?php if($sf_user->hasCredential('super_admin')): ?>
                 <th width="4%"></th>
@@ -51,10 +57,12 @@
       <?php foreach ($oList as $item): ?>
       <tr class="<?php if (!empty($odd)) { echo 'gris'; $odd=0; } else { echo 'blanco'; $odd=1; } ?>">
         <td><?php echo $month[$item->getMonth()].' -- '.$item->getYear() ?></td>
+        <td><?php echo $item->getRegisteredCompanies()?$item->getRegisteredCompanies()->getName().' (Participada)':$item->getCompanyName() ?></td>
         <td><?php echo $item->getCustomerName() ?></td>
         <td><?php echo $item->getAppUser()->getName().' '.$item->getAppUser()->getLastName() ?></td>
-        <td><?php echo $item->getBusinessAmount() ?></td>
-        <td><?php echo $item->getFinalCommission() ?></td>
+        <td align="center"><?php echo $item->getBusinessAmount() ?></td>
+        <td align="center"><?php echo $item->getFinalCommission() ?></td>
+        <td align="center"><?php if($item->getCashed()): ?><img border="0" src="/images/aceptada.png" alt="<?php echo __('Cobrado') ?>" title="<?php echo __('Cobrado') ?>"><?php else: ?> <?php endif; ?></td>
         <td align="center">
         	<a href="<?php echo url_for('@'.$str_module.'-show?id='.$item->getId()) ?>">
         		<img border="0" src="/images/listado.png" alt="<?php echo __('See') ?>" title="<?php echo __('See') ?>">

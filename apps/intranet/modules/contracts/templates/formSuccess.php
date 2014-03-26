@@ -158,6 +158,10 @@ $(document).ready(function(){
                                                 <td width="10%"><label><?php echo __('Comisión final') ?> *</label></td>
                                                 <td><?php echo $form['final_commission'] ?></td>
                                         </tr>
+                                        <tr>
+                                                <td width="10%"><label><?php echo __('Cobrado') ?> </label></td>
+                                                <td><?php echo $form['cashed'] ?></td>
+                                        </tr>
                                     </table>
                                 </fieldset>
                                 <fieldset>

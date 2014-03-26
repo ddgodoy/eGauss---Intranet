@@ -35,6 +35,7 @@ abstract class BaseContractsIntermediationForm extends BaseFormDoctrine
       'final_commission'        => new sfWidgetFormInputText(),
       'comments'                => new sfWidgetFormInputText(),
       'registered_companies_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('RegisteredCompanies'), 'add_empty' => true)),
+      'cashed'                  => new sfWidgetFormInputCheckbox(),
       'created_at'              => new sfWidgetFormDateTime(),
       'updated_at'              => new sfWidgetFormDateTime(),
     ));
@@ -60,6 +61,7 @@ abstract class BaseContractsIntermediationForm extends BaseFormDoctrine
       'final_commission'        => new sfValidatorNumber(array('required' => false)),
       'comments'                => new sfValidatorPass(array('required' => false)),
       'registered_companies_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('RegisteredCompanies'), 'required' => false)),
+      'cashed'                  => new sfValidatorBoolean(array('required' => false)),
       'created_at'              => new sfValidatorDateTime(),
       'updated_at'              => new sfValidatorDateTime(),
     ));
