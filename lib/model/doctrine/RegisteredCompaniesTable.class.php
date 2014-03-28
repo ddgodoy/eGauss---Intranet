@@ -88,7 +88,7 @@ class RegisteredCompaniesTable extends Doctrine_Table
    */
   public function getAffiliated()
   {
-    $q = $this->createQuery()->where('id >1 AND type_companies_id = 1');
+    $q = $this->createQuery()->where('type_companies_id = 1');
     
     return $q->execute();
   }

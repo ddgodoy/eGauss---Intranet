@@ -10,23 +10,29 @@
  * @property string $url
  * @property integer $registered_companies_id
  * @property integer $information_id
+ * @property integer $entrepreneur_id
  * @property RegisteredCompanies $RegisteredCompanies
  * @property Information $Information
+ * @property Entrepreneur $Entrepreneur
  * 
  * @method integer                   getId()                      Returns the current record's "id" value
  * @method string                    getName()                    Returns the current record's "name" value
  * @method string                    getUrl()                     Returns the current record's "url" value
  * @method integer                   getRegisteredCompaniesId()   Returns the current record's "registered_companies_id" value
  * @method integer                   getInformationId()           Returns the current record's "information_id" value
+ * @method integer                   getEntrepreneurId()          Returns the current record's "entrepreneur_id" value
  * @method RegisteredCompanies       getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
  * @method Information               getInformation()             Returns the current record's "Information" value
+ * @method Entrepreneur              getEntrepreneur()            Returns the current record's "Entrepreneur" value
  * @method VideosRegisteredCompanies setId()                      Sets the current record's "id" value
  * @method VideosRegisteredCompanies setName()                    Sets the current record's "name" value
  * @method VideosRegisteredCompanies setUrl()                     Sets the current record's "url" value
  * @method VideosRegisteredCompanies setRegisteredCompaniesId()   Sets the current record's "registered_companies_id" value
  * @method VideosRegisteredCompanies setInformationId()           Sets the current record's "information_id" value
+ * @method VideosRegisteredCompanies setEntrepreneurId()          Sets the current record's "entrepreneur_id" value
  * @method VideosRegisteredCompanies setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
  * @method VideosRegisteredCompanies setInformation()             Sets the current record's "Information" value
+ * @method VideosRegisteredCompanies setEntrepreneur()            Sets the current record's "Entrepreneur" value
  * 
  * @package    egauss
  * @subpackage model
@@ -63,6 +69,10 @@ abstract class BaseVideosRegisteredCompanies extends sfDoctrineRecord
              'type' => 'integer',
              'length' => 4,
              ));
+        $this->hasColumn('entrepreneur_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
 
         $this->option('collate', 'utf8_general_ci');
         $this->option('charset', 'utf8');
@@ -78,6 +88,11 @@ abstract class BaseVideosRegisteredCompanies extends sfDoctrineRecord
 
         $this->hasOne('Information', array(
              'local' => 'information_id',
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
+
+        $this->hasOne('Entrepreneur', array(
+             'local' => 'entrepreneur_id',
              'foreign' => 'id',
              'onDelete' => 'SET NULL'));
 

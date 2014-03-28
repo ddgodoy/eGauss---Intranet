@@ -20,6 +20,7 @@ abstract class BaseVideosRegisteredCompaniesForm extends BaseFormDoctrine
       'url'                     => new sfWidgetFormInputText(),
       'registered_companies_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('RegisteredCompanies'), 'add_empty' => false)),
       'information_id'          => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Information'), 'add_empty' => true)),
+      'entrepreneur_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Entrepreneur'), 'add_empty' => true)),
       'created_at'              => new sfWidgetFormDateTime(),
       'updated_at'              => new sfWidgetFormDateTime(),
     ));
@@ -30,6 +31,7 @@ abstract class BaseVideosRegisteredCompaniesForm extends BaseFormDoctrine
       'url'                     => new sfValidatorString(array('max_length' => 200)),
       'registered_companies_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('RegisteredCompanies'))),
       'information_id'          => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Information'), 'required' => false)),
+      'entrepreneur_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Entrepreneur'), 'required' => false)),
       'created_at'              => new sfValidatorDateTime(),
       'updated_at'              => new sfValidatorDateTime(),
     ));

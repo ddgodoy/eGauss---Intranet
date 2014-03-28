@@ -25,6 +25,9 @@
         <a href="<?php echo url_for('@contracts') ?>" class="first<?php echo $mnGetModule=='contracts' ? ' selected' : '' ?>">
             <?php echo __('Intermediación') ?>
         </a>
+        <a href="<?php echo url_for('@entrepreneur') ?>" class="first<?php echo $mnGetModule=='entrepreneur' ? ' selected' : '' ?>">
+            <?php echo __('Emprendedores') ?>
+        </a>
         <?php if ($sf_user->hasCredential('super_admin')): ?>
                 <a href="<?php echo url_for('@billing') ?>" class="first<?php echo $mnGetModule=='billing' ? ' selected' : '' ?>">
             <?php echo __('Facturación') ?>

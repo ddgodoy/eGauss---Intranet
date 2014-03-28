@@ -15,10 +15,12 @@
  * @property integer $calendar_id
  * @property text $description
  * @property string $download
+ * @property integer $entrepreneur_id
  * @property RegisteredCompanies $RegisteredCompanies
  * @property Information $Information
  * @property TypeInformation $TypeInformation
  * @property Calendar $Calendar
+ * @property Entrepreneur $Entrepreneur
  * 
  * @method integer                      getId()                      Returns the current record's "id" value
  * @method string                       getName()                    Returns the current record's "name" value
@@ -30,10 +32,12 @@
  * @method integer                      getCalendarId()              Returns the current record's "calendar_id" value
  * @method text                         getDescription()             Returns the current record's "description" value
  * @method string                       getDownload()                Returns the current record's "download" value
+ * @method integer                      getEntrepreneurId()          Returns the current record's "entrepreneur_id" value
  * @method RegisteredCompanies          getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
  * @method Information                  getInformation()             Returns the current record's "Information" value
  * @method TypeInformation              getTypeInformation()         Returns the current record's "TypeInformation" value
  * @method Calendar                     getCalendar()                Returns the current record's "Calendar" value
+ * @method Entrepreneur                 getEntrepreneur()            Returns the current record's "Entrepreneur" value
  * @method DocumentsRegisteredCompanies setId()                      Sets the current record's "id" value
  * @method DocumentsRegisteredCompanies setName()                    Sets the current record's "name" value
  * @method DocumentsRegisteredCompanies setIcon()                    Sets the current record's "icon" value
@@ -44,10 +48,12 @@
  * @method DocumentsRegisteredCompanies setCalendarId()              Sets the current record's "calendar_id" value
  * @method DocumentsRegisteredCompanies setDescription()             Sets the current record's "description" value
  * @method DocumentsRegisteredCompanies setDownload()                Sets the current record's "download" value
+ * @method DocumentsRegisteredCompanies setEntrepreneurId()          Sets the current record's "entrepreneur_id" value
  * @method DocumentsRegisteredCompanies setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
  * @method DocumentsRegisteredCompanies setInformation()             Sets the current record's "Information" value
  * @method DocumentsRegisteredCompanies setTypeInformation()         Sets the current record's "TypeInformation" value
  * @method DocumentsRegisteredCompanies setCalendar()                Sets the current record's "Calendar" value
+ * @method DocumentsRegisteredCompanies setEntrepreneur()            Sets the current record's "Entrepreneur" value
  * 
  * @package    egauss
  * @subpackage model
@@ -105,6 +111,10 @@ abstract class BaseDocumentsRegisteredCompanies extends sfDoctrineRecord
              'notnull' => true,
              'length' => 200,
              ));
+        $this->hasColumn('entrepreneur_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
 
         $this->option('collate', 'utf8_general_ci');
         $this->option('charset', 'utf8');
@@ -132,6 +142,11 @@ abstract class BaseDocumentsRegisteredCompanies extends sfDoctrineRecord
              'local' => 'calendar_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
+
+        $this->hasOne('Entrepreneur', array(
+             'local' => 'entrepreneur_id',
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

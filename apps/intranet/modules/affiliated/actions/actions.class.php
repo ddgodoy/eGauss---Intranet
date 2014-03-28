@@ -32,7 +32,7 @@ class affiliatedActions extends sfActions
      */
     protected function setFilter()
     {
-      $sch_partial = 'type_companies_id = 1  AND id > 1';
+      $sch_partial = 'type_companies_id = 1';
       $this->f_params  = '';
       $this->sch_name  = trim($this->getRequestParameter('sch_name'));
       $this->sch_email = trim($this->getRequestParameter('sch_email'));

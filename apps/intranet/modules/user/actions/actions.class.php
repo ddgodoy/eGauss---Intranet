@@ -97,9 +97,7 @@ class userActions extends sfActions
    */
   public function executeProcess(sfWebRequest $request)
   {
-        if(!$this->getUser()->hasCredential('super_admin')){
-            $this->redirect('@user');
-        }
+        
   	$this->id         = $request->getParameter('id');
     $this->my_profile = $request->getParameter('profile', NULL);
     $this->my_go_ok   = false;
@@ -112,6 +110,16 @@ class userActions extends sfActions
   	$entity_object    = NULL;
   	$send_password    = false;
 
+        if($this->my_profile){
+		if($this->id != $this->getUser()->getAttribute('user_id')){
+			$this->redirect('@homepage');	
+		}
+	}else{
+		if(!$this->getUser()->hasCredential('super_admin')){
+            		$this->redirect('@user');
+        	}
+	}
+        
   	if ($this->id)
   	{
   		$entity_object  = AppUserTable::getInstance()->find($this->id);

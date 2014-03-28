@@ -1,3 +1,60 @@
+################################################################### entrepreneur
+
+# entrepreneur-delete-document rules
+entrepreneur-delete-document:
+  url:   /entrepreneur-delete-document
+  param: { module: entrepreneur, action: deleteDocument }
+
+# entrepreneur-get-components-documents rules
+entrepreneur-get-components-documents:
+  url:   /entrepreneur-get-components-documents
+  param: { module: entrepreneur, action: getComponentsDocuments }
+  
+# entrepreneur-register-document rules
+entrepreneur-register-document:
+  url:   /entrepreneur-register-document
+  param: { module: entrepreneur, action: registerDocument }
+
+# entrepreneur-delete-video rules
+entrepreneur-delete-video:
+  url:   /entrepreneur-delete-video
+  param: { module: entrepreneur, action: deleteVideo }
+
+# entrepreneur-get-components-videos rules
+entrepreneur-get-components-videos:
+  url:   /entrepreneur-get-components-videos
+  param: { module: entrepreneur, action: getComponentsVideos }
+  
+# entrepreneur-register-video rules
+entrepreneur-register-video:
+  url:   /entrepreneur-register-video
+  param: { module: entrepreneur, action: registerVideo }
+  
+# entrepreneur-delete rules
+entrepreneur-delete:
+  url:   /entrepreneur-delete/:id
+  param: { module: entrepreneur, action: delete }
+
+# entrepreneur-edit rules
+entrepreneur-edit:
+  url:   /entrepreneur-edit/:id
+  param: { module: entrepreneur, action: edit }
+
+# entrepreneur-register rules
+entrepreneur-register:
+  url:   /entrepreneur-register
+  param: { module: entrepreneur, action: register }
+  
+# entrepreneur-show rules
+entrepreneur-show:
+  url:   /entrepreneur-show/:id
+  param: { module: entrepreneur, action: show }
+  
+# entrepreneur rules
+entrepreneur:
+  url:   /entrepreneur
+  param: { module: entrepreneur, action: index }
+
 ################################################################### basecamp
 
 # project-list rules
