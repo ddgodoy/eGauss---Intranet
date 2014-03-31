@@ -280,6 +280,22 @@ class entrepreneurActions extends sfActions
       return $this->renderComponent('entrepreneur', 'getDocument');
       exit();
       
-  }    
+  }
+
+  /**
+   * Executes show action
+   *
+   * @param sfWebRequest $request
+   */
+   public function executeShow(sfWebRequest $request)
+   {
+          
+          $this->id      = $request->getParameter('id');
+          $this->oValue  = EntrepreneurTable::getInstance()->find($this->id);
+
+          if (empty($this->id)) { $this->redirect('@entrepreneur'); }
+   }  
+  
+  
 }
 
