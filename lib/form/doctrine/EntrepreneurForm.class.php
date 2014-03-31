@@ -14,9 +14,13 @@ class EntrepreneurForm extends BaseEntrepreneurForm
   {
       $i18N       = sfContext::getInstance()->getI18N(); 
       $sex = ['m'=>'Masculino','f'=>'Femenino'];
+      for($i = 1910; $i<(date('Y')-10); $i++)
+      {
+        $years[$i] = $i;
+      }
       $this->setWidgets(array(
       'id'               => new sfWidgetFormInputHidden(),
-      'date'             => new sfWidgetFormJQueryDate(array('image'=>'/images/calendario.gif','date_widget' => new sfWidgetFormDate(array('format' => '%day% %month% %year%')))),
+      'date'             => new sfWidgetFormJQueryDate(array('image'=>'/images/calendario.gif','date_widget' => new sfWidgetFormDate(array('format' => '%day% %month% %year%','years'=> array_combine($years, $years))))),
       'name'             => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
       'last_name'        => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
       'phone'            => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),

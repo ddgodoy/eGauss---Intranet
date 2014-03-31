@@ -12,6 +12,8 @@
 					<tr><td><input type="text" name="sch_name" value="<?php echo $sch_name ?>" class="form_input" style="width:98%;"/></td></tr>
 					<tr><td><?php echo __('By email') ?></td></tr>
 					<tr><td><input type="text" name="sch_email" value="<?php echo $sch_email ?>" class="form_input" style="width:98%;"/></td></tr>
+                                        <tr><td><?php echo __('Por sexo') ?></td></tr>
+					<tr><td><?php echo select_tag('sch_sex', options_for_select([''=>'--Seleccionar--']+['m'=>'Masculino','f'=>'Femenino'], $sch_sex), array('class'=>'form_input', 'style'=>'width:100%;')) ?></td></tr>
           <tr><td style="padding-top:5px;"><input type="submit" name="btn_buscar" value="Buscar" class="boton"></td></tr>
         </table>
       </form>
@@ -34,7 +36,7 @@
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="listados">
       <tr>
       	<?php if (count($oList) > 0): ?>
-                <th width="23%"><a href="<?php echo $head_link.'&o=date&s='.$sort ?>"><?php echo __('Date') ?></a></th>
+                <th width="23%"><a href="<?php echo $head_link.'&o=date&s='.$sort ?>"><?php echo __('Fecha de nacimiento') ?></a></th>
 	        <th width="23%"><a href="<?php echo $head_link.'&o=name&s='.$sort ?>"><?php echo __('Name') ?></a></th>
 	        <th width="46%"><a href="<?php echo $head_link.'&o=email&s='.$sort ?>"><?php echo __('Email') ?></a></th>
 	        <th width="4%"></th>

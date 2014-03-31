@@ -37,16 +37,22 @@ class entrepreneurActions extends sfActions
       $this->f_params  = '';
       $this->sch_name  = trim($this->getRequestParameter('sch_name'));
       $this->sch_email = trim($this->getRequestParameter('sch_email'));
+      $this->sch_sex   = trim($this->getRequestParameter('sch_sex'));
 
       if (!empty($this->sch_name))
       {
-        $sch_partial .= " AND (name LIKE '%$this->sch_name%')";
+        $sch_partial .= " AND (name LIKE '%$this->sch_name%') OR (lastname LIKE '%$this->sch_name%')";
         $this->f_params .= '&sch_name='.urlencode($this->sch_name);
       }
       if (!empty($this->sch_email))
       {
         $sch_partial .= " AND email LIKE '%$this->sch_email%'";
         $this->f_params .= '&sch_email='.urlencode($this->sch_email);
+      }
+      if (!empty($this->sch_sex))
+      {
+        $sch_partial .= " AND sex = '$this->sch_sex'";
+        $this->f_params .= '&sch_sex='.urlencode($this->sch_sex);
       }
       return $sch_partial;
     }
