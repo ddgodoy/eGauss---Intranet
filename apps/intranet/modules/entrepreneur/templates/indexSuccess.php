@@ -53,7 +53,7 @@
         <td><?php echo $item->getEmail() ?></td>
         <td align="center">
         	<a href="<?php echo url_for('@'.$str_module.'-show?id='.$item->getId()) ?>">
-        		<img border="0" src="/images/factory_plant.png" alt="<?php echo __('See') ?>" title="<?php echo __('See') ?>">
+        		<img border="0" src="/images/ver_perfiles.png" alt="<?php echo __('See') ?>" title="<?php echo __('See') ?>">
         	</a>
         </td>
         <?php if($sf_user->hasCredential('super_admin')): ?>
