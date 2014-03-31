@@ -69,9 +69,11 @@
         	</a>
         </td>
         <td align="center">
+            <?php if($item->getId() != 1): ?>
         	<a href="<?php echo url_for('@'.$str_module.'-delete?id='.$item->getId()) ?>" onclick="return confirm('<?php echo __('Are you sure?') ?>');">
         		<img border="0" src="/images/borrar.png" alt="<?php echo __('Delete') ?>" title="<?php echo __('Delete') ?>">
         	</a>
+            <?php endif; ?>
         </td>
         <?php endif; ?>
       </tr>

@@ -161,6 +161,7 @@ class entrepreneurActions extends sfActions
               $load_doc->setDownload($v_doc->getDownload());
               $load_doc->setUrl($v_doc->getUrl());
               $load_doc->setEntrepreneurId($recorded->getId());
+              $load_doc->setRegisteredCompaniesId(1);
               $load_doc->setTypeInformationId(1);
               $load_doc->save();
 
