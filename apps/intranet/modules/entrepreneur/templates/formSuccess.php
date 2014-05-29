@@ -34,6 +34,14 @@ $(document).ready(function(){
             });
     });
     
+    $('#entrepreneur_year_two').change(function(){
+            var value_one =  $('#entrepreneur_year_one').val()
+            if(value_one >= $(this).val())
+            {
+                alert('El segundo rango de fechas debe ser menor al primero');
+            }    
+    });  
+    
     $('#entrepreneur_capital').click(function(){
         if($(this).attr('checked')){
             $('#capital').show();
@@ -99,7 +107,7 @@ $(document).ready(function(){
                 ,
                 theme_advanced_buttons1 : "cut, copy, paste, images, bold, italic, underline, justifyleft, justifycenter, justifyright , outdent, indent, bullist, numlist, undo, redo, link",theme_advanced_buttons2 : "",theme_advanced_buttons3 : ""
             }); 
-    <?php endif; ?>    
+    <?php endif; ?>     
 });
 </script>
 <?php
@@ -139,8 +147,10 @@ $(document).ready(function(){
                   <td style=" width: 60%">
                     <table width="100%" cellspacing="4" cellpadding="0" border="0">
                       <tr>
-                        <td width="15%"><label><?php echo __('Fecha de nacimiento') ?> *</label></td>
-                        <td><?php echo $form['date'] ?></td>
+                        <td width="25%"><label><?php echo __('Año o Rango de años') ?> *</label></td>
+                        <td>
+                            <?php echo $form['year_one'] ?>&nbsp;-&nbsp;<?php echo $form['year_two'] ?>
+                        </td>
                       </tr>
                       <tr>
                         <td><label><?php echo __('Name') ?> *</label></td>
@@ -153,6 +163,10 @@ $(document).ready(function(){
                       <tr>
                         <td><label><?php echo __('Sexo') ?></label></td>
                         <td><?php echo $form['sex'] ?></td>
+                      </tr>
+                      <tr>
+                        <td><label><?php echo __('País, internacional') ?></label></td>
+                        <td><?php echo $form['country'] ?></td>
                       </tr>
                       <tr>
                         <td><label><?php echo __('Phone') ?></label></td>
@@ -173,6 +187,30 @@ $(document).ready(function(){
                       <tr>
                         <td><label><?php echo __('Puesto en la empresa') ?></label></td>
                         <td><?php echo $form['workstation'] ?></td>
+                      </tr>
+                      <tr>
+                        <td><label><?php echo __('Sector') ?></label></td>
+                        <td><?php echo $form['sector'] ?></td>
+                      </tr>
+                      <tr>
+                        <td><label><?php echo __('Twitter') ?></label></td>
+                        <td><?php echo $form['twitter'] ?></td>
+                      </tr>
+                      <tr>
+                        <td><label><?php echo __('Facebook') ?></label></td>
+                        <td><?php echo $form['facebook'] ?></td>
+                      </tr>
+                      <tr>
+                        <td><label><?php echo __('Fuente') ?></label></td>
+                        <td><?php echo $form['source'] ?></td>
+                      </tr>
+                      <tr>
+                        <td><label><?php echo __('Otros sitios de interés') ?></label></td>
+                        <td><?php echo $form['other_sites_interest'] ?></td>
+                      </tr>
+                      <tr>
+                        <td><label><?php echo __('Nombre Proyecto') ?></label></td>
+                        <td><?php echo $form['project_name'] ?></td>
                       </tr>
                     </table><br />
                     <fieldset>

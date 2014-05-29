@@ -408,19 +408,28 @@ ReunionContractsIntermediation:
 Entrepreneur:
   tableName: entrepreneur
   columns:
-    id:                  { type: integer(4), primary: true, notnull: true, autoincrement: true }
-    date:                { type: datetime , notnull: true}  
-    name:                { type: string(200), notnull: true }
-    last_name:           { type: string(200)}
-    phone:               { type: string(50) }
-    email:               { type: string(200)}
-    linkedin:            { type: string(200)}
-    web_personal:        { type: string(200)}
-    sex:                 { type: string(200)}
-    workstation:         { type: string(200)}
-    project:             { type: text }
-    capital:             { type: boolean, default: false }
-    comments_capital:    { type: text }
-    courses:             { type: boolean, default: false }
-    comments_courses:    { type: text }  
-    comments:            { type: text }
+    id:                   { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    date:                 { type: datetime , notnull: true}  
+    year_one:             { type: string(200), notnull: true }
+    year_two:             { type: string(200), notnull: true }   
+    name:                 { type: string(200), notnull: true }
+    last_name:            { type: string(200)}
+    phone:                { type: string(50) }
+    email:                { type: string(200)}
+    linkedin:             { type: string(200)}
+    web_personal:         { type: string(200)}
+    sex:                  { type: string(200)}
+    country:              { type: string(200)}
+    workstation:          { type: string(200)}
+    sector:               { type: string(255)}
+    twitter:              { type: text }
+    facebook:             { type: text }
+    source:               { type: text }
+    other_sites_interest: { type: text }
+    project_name:         { type: string(255) }
+    project:              { type: text }
+    capital:              { type: boolean, default: false }
+    comments_capital:     { type: text }
+    courses:              { type: boolean, default: false }
+    comments_courses:     { type: text }  
+    comments:             { type: text }

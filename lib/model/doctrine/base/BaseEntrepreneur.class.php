@@ -7,6 +7,8 @@
  * 
  * @property integer $id
  * @property datetime $date
+ * @property string $year_one
+ * @property string $year_two
  * @property string $name
  * @property string $last_name
  * @property string $phone
@@ -14,7 +16,14 @@
  * @property string $linkedin
  * @property string $web_personal
  * @property string $sex
+ * @property string $country
  * @property string $workstation
+ * @property string $sector
+ * @property text $twitter
+ * @property text $facebook
+ * @property text $source
+ * @property text $other_sites_interest
+ * @property string $project_name
  * @property text $project
  * @property boolean $capital
  * @property text $comments_capital
@@ -23,40 +32,58 @@
  * @property text $comments
  * @property Doctrine_Collection $Entrepreneur
  * 
- * @method integer             getId()               Returns the current record's "id" value
- * @method datetime            getDate()             Returns the current record's "date" value
- * @method string              getName()             Returns the current record's "name" value
- * @method string              getLastName()         Returns the current record's "last_name" value
- * @method string              getPhone()            Returns the current record's "phone" value
- * @method string              getEmail()            Returns the current record's "email" value
- * @method string              getLinkedin()         Returns the current record's "linkedin" value
- * @method string              getWebPersonal()      Returns the current record's "web_personal" value
- * @method string              getSex()              Returns the current record's "sex" value
- * @method string              getWorkstation()      Returns the current record's "workstation" value
- * @method text                getProject()          Returns the current record's "project" value
- * @method boolean             getCapital()          Returns the current record's "capital" value
- * @method text                getCommentsCapital()  Returns the current record's "comments_capital" value
- * @method boolean             getCourses()          Returns the current record's "courses" value
- * @method text                getCommentsCourses()  Returns the current record's "comments_courses" value
- * @method text                getComments()         Returns the current record's "comments" value
- * @method Doctrine_Collection getEntrepreneur()     Returns the current record's "Entrepreneur" collection
- * @method Entrepreneur        setId()               Sets the current record's "id" value
- * @method Entrepreneur        setDate()             Sets the current record's "date" value
- * @method Entrepreneur        setName()             Sets the current record's "name" value
- * @method Entrepreneur        setLastName()         Sets the current record's "last_name" value
- * @method Entrepreneur        setPhone()            Sets the current record's "phone" value
- * @method Entrepreneur        setEmail()            Sets the current record's "email" value
- * @method Entrepreneur        setLinkedin()         Sets the current record's "linkedin" value
- * @method Entrepreneur        setWebPersonal()      Sets the current record's "web_personal" value
- * @method Entrepreneur        setSex()              Sets the current record's "sex" value
- * @method Entrepreneur        setWorkstation()      Sets the current record's "workstation" value
- * @method Entrepreneur        setProject()          Sets the current record's "project" value
- * @method Entrepreneur        setCapital()          Sets the current record's "capital" value
- * @method Entrepreneur        setCommentsCapital()  Sets the current record's "comments_capital" value
- * @method Entrepreneur        setCourses()          Sets the current record's "courses" value
- * @method Entrepreneur        setCommentsCourses()  Sets the current record's "comments_courses" value
- * @method Entrepreneur        setComments()         Sets the current record's "comments" value
- * @method Entrepreneur        setEntrepreneur()     Sets the current record's "Entrepreneur" collection
+ * @method integer             getId()                   Returns the current record's "id" value
+ * @method datetime            getDate()                 Returns the current record's "date" value
+ * @method string              getYearOne()              Returns the current record's "year_one" value
+ * @method string              getYearTwo()              Returns the current record's "year_two" value
+ * @method string              getName()                 Returns the current record's "name" value
+ * @method string              getLastName()             Returns the current record's "last_name" value
+ * @method string              getPhone()                Returns the current record's "phone" value
+ * @method string              getEmail()                Returns the current record's "email" value
+ * @method string              getLinkedin()             Returns the current record's "linkedin" value
+ * @method string              getWebPersonal()          Returns the current record's "web_personal" value
+ * @method string              getSex()                  Returns the current record's "sex" value
+ * @method string              getCountry()              Returns the current record's "country" value
+ * @method string              getWorkstation()          Returns the current record's "workstation" value
+ * @method string              getSector()               Returns the current record's "sector" value
+ * @method text                getTwitter()              Returns the current record's "twitter" value
+ * @method text                getFacebook()             Returns the current record's "facebook" value
+ * @method text                getSource()               Returns the current record's "source" value
+ * @method text                getOtherSitesInterest()   Returns the current record's "other_sites_interest" value
+ * @method string              getProjectName()          Returns the current record's "project_name" value
+ * @method text                getProject()              Returns the current record's "project" value
+ * @method boolean             getCapital()              Returns the current record's "capital" value
+ * @method text                getCommentsCapital()      Returns the current record's "comments_capital" value
+ * @method boolean             getCourses()              Returns the current record's "courses" value
+ * @method text                getCommentsCourses()      Returns the current record's "comments_courses" value
+ * @method text                getComments()             Returns the current record's "comments" value
+ * @method Doctrine_Collection getEntrepreneur()         Returns the current record's "Entrepreneur" collection
+ * @method Entrepreneur        setId()                   Sets the current record's "id" value
+ * @method Entrepreneur        setDate()                 Sets the current record's "date" value
+ * @method Entrepreneur        setYearOne()              Sets the current record's "year_one" value
+ * @method Entrepreneur        setYearTwo()              Sets the current record's "year_two" value
+ * @method Entrepreneur        setName()                 Sets the current record's "name" value
+ * @method Entrepreneur        setLastName()             Sets the current record's "last_name" value
+ * @method Entrepreneur        setPhone()                Sets the current record's "phone" value
+ * @method Entrepreneur        setEmail()                Sets the current record's "email" value
+ * @method Entrepreneur        setLinkedin()             Sets the current record's "linkedin" value
+ * @method Entrepreneur        setWebPersonal()          Sets the current record's "web_personal" value
+ * @method Entrepreneur        setSex()                  Sets the current record's "sex" value
+ * @method Entrepreneur        setCountry()              Sets the current record's "country" value
+ * @method Entrepreneur        setWorkstation()          Sets the current record's "workstation" value
+ * @method Entrepreneur        setSector()               Sets the current record's "sector" value
+ * @method Entrepreneur        setTwitter()              Sets the current record's "twitter" value
+ * @method Entrepreneur        setFacebook()             Sets the current record's "facebook" value
+ * @method Entrepreneur        setSource()               Sets the current record's "source" value
+ * @method Entrepreneur        setOtherSitesInterest()   Sets the current record's "other_sites_interest" value
+ * @method Entrepreneur        setProjectName()          Sets the current record's "project_name" value
+ * @method Entrepreneur        setProject()              Sets the current record's "project" value
+ * @method Entrepreneur        setCapital()              Sets the current record's "capital" value
+ * @method Entrepreneur        setCommentsCapital()      Sets the current record's "comments_capital" value
+ * @method Entrepreneur        setCourses()              Sets the current record's "courses" value
+ * @method Entrepreneur        setCommentsCourses()      Sets the current record's "comments_courses" value
+ * @method Entrepreneur        setComments()             Sets the current record's "comments" value
+ * @method Entrepreneur        setEntrepreneur()         Sets the current record's "Entrepreneur" collection
  * 
  * @package    egauss
  * @subpackage model
@@ -77,6 +104,16 @@ abstract class BaseEntrepreneur extends sfDoctrineRecord
         $this->hasColumn('date', 'datetime', null, array(
              'type' => 'datetime',
              'notnull' => true,
+             ));
+        $this->hasColumn('year_one', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => 200,
+             ));
+        $this->hasColumn('year_two', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => 200,
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
@@ -107,9 +144,33 @@ abstract class BaseEntrepreneur extends sfDoctrineRecord
              'type' => 'string',
              'length' => 200,
              ));
+        $this->hasColumn('country', 'string', 200, array(
+             'type' => 'string',
+             'length' => 200,
+             ));
         $this->hasColumn('workstation', 'string', 200, array(
              'type' => 'string',
              'length' => 200,
+             ));
+        $this->hasColumn('sector', 'string', 255, array(
+             'type' => 'string',
+             'length' => 255,
+             ));
+        $this->hasColumn('twitter', 'text', null, array(
+             'type' => 'text',
+             ));
+        $this->hasColumn('facebook', 'text', null, array(
+             'type' => 'text',
+             ));
+        $this->hasColumn('source', 'text', null, array(
+             'type' => 'text',
+             ));
+        $this->hasColumn('other_sites_interest', 'text', null, array(
+             'type' => 'text',
+             ));
+        $this->hasColumn('project_name', 'string', 255, array(
+             'type' => 'string',
+             'length' => 255,
              ));
         $this->hasColumn('project', 'text', null, array(
              'type' => 'text',
