@@ -12,6 +12,21 @@
 	$p_formation   = $billing->getFormation() ? $billing->getFormation() : 0;
 	$p_patents     = $billing->getPatents() ? $billing->getPatents() : 0;
 ?>
+<?php else: ?>
+<?php
+	$t_affiliated  =  0;
+	$t_consultancy =  0;
+	$t_intermediat =  0;
+	$t_formation   =  0;
+	$t_patents     =  0;
+	
+	$p_affiliated  =  0;
+	$p_consultancy =  0;
+	$p_intermediat =  0;
+	$p_formation   =  0;
+	$p_patents     =  0;
+?>
+<?php endif; ?>
 <script type="text/javascript">
 google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(drawChart);
@@ -66,7 +81,6 @@ $(document).ready(function(){
     })
 })  
 </script>
-<?php endif; ?>
 <div class="paneles">
     <h1><?php echo __('Facturación') ?><span style="float: right"><?php echo select_tag('month_graph', options_for_select($month, (int)date('m')),array('id'=>'month_graph')) ?> / <?php echo select_tag('year_graph', options_for_select($array_year, date('Y')),array('id'=>'year_graph')) ?>  <input type="button" id="btn_action_graph" class="boton" style="padding: 0; padding-bottom: 2px;" value="ver" name="btn_action"></span></h1>
     <div id="chart_div" style="width: 350px; height: 204px;">

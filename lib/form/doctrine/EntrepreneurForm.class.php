@@ -14,7 +14,7 @@ class EntrepreneurForm extends BaseEntrepreneurForm
   {
       $i18N       = sfContext::getInstance()->getI18N(); 
       $sex = ['m'=>'Masculino','f'=>'Femenino'];
-      for($i = 1910; $i<(date('Y')-10); $i++)
+      for($i = 1910; $i<(date('Y')-1); $i++)
       {
         $years[$i] = $i;
       }
@@ -49,7 +49,7 @@ class EntrepreneurForm extends BaseEntrepreneurForm
 
     $this->setValidators(array(
       'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'date'             => new sfValidatorDate(array('required' => true), array('required' => 'La fecha es obligatoria', 'invalid' => 'La fecha ingresada es incorrecta')),
+      'date'             => new sfValidatorDate(array('required' => False)),
       'year_one'         => new sfValidatorString(array('max_length' => 200)),
       'year_two'         => new sfValidatorString(array('max_length' => 200)),  
       'name'             => new sfValidatorString(array('max_length' => 50), array('required'=>$i18N->__('Enter the name', NULL, 'errors'))),
