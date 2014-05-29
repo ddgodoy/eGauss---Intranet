@@ -13,7 +13,7 @@
 			<?php echo $oValue->getName().' '.$oValue->getLastName(); ?>
 		</div>
 		<h1 class="titulos"><?php echo $oValue->getName().' '.$oValue->getLastName(); ?></h1>
-                <h6 class="titulos" style=" color: #1B6577">Año: <?php echo $oValue->getYearOne().' - '.$oValue->getYearTwo() ?></h6>
+                <h6 class="titulos" style=" color: #1B6577">Año: <?php echo $oValue->getYearOne() ?><?php $oValue->getYearTwo()?' - '.$oValue->getYearTwo():'' ?></h6>
                 <fieldset>
 			<table width="100%" cellspacing="4" cellpadding="2" border="0">
                                 <tr>
@@ -58,7 +58,7 @@
 				</tr>
                                 <tr>
                                     <td width="12%"><label><b><?php echo __('Fuente') ?>:</b></label></td>
-                                    <td class="text_detail"><?php echo $oValue->getSource()?$oValue->getSource():'---' ?></td>
+                                    <td class="text_detail"><?php if($oValue->getSource()): ?><a href="<?php echo $oValue->getSource() ?>" target="_blanck"><?php echo $oValue->getSource() ?></a><?php else: ?> --- <?php endif; ?></td>
 				</tr>
                                 <tr>
                                     <td width="12%"><label><b><?php echo __('Otros sitios de interés') ?>:</b></label></td>

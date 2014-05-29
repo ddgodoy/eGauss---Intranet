@@ -36,7 +36,7 @@
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="listados">
       <tr>
       	<?php if (count($oList) > 0): ?>
-                <th width="23%"><a href="<?php echo $head_link.'&o=date&s='.$sort ?>"><?php echo __('Fecha de nacimiento') ?></a></th>
+                <th width="23%"><a href="<?php echo $head_link.'&o=year_one&s='.$sort ?>"><?php echo __('Año') ?></a></th>
 	        <th width="23%"><a href="<?php echo $head_link.'&o=name&s='.$sort ?>"><?php echo __('Name') ?></a></th>
 	        <th width="46%"><a href="<?php echo $head_link.'&o=email&s='.$sort ?>"><?php echo __('Email') ?></a></th>
 	        <th width="4%"></th>
@@ -50,7 +50,7 @@
       </tr>
       <?php foreach ($oList as $item): ?>
       <tr class="<?php if (!empty($odd)) { echo 'gris'; $odd=0; } else { echo 'blanco'; $odd=1; } ?>">
-        <td><?php echo Common::getFormattedDate($item->getDate(),'d/m/Y') ?></td>
+        <td><?php echo $item->getYearOne() ?><?php $item->getYearTwo()?' - '.$item->getYearTwo():'' ?></td>
         <td><?php echo $item->getName().' '.$item->getLastName() ?></td>
         <td><?php echo $item->getEmail() ?></td>
         <td align="center">

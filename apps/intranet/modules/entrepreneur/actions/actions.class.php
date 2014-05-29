@@ -41,7 +41,7 @@ class entrepreneurActions extends sfActions
 
       if (!empty($this->sch_name))
       {
-        $sch_partial .= " AND (name LIKE '%$this->sch_name%') OR (lastname LIKE '%$this->sch_name%')";
+        $sch_partial .= " AND (name LIKE '%$this->sch_name%') OR (last_name LIKE '%$this->sch_name%')";
         $this->f_params .= '&sch_name='.urlencode($this->sch_name);
       }
       if (!empty($this->sch_email))
