@@ -1,0 +1,11 @@
+staging
+
+https://www.icox.mobi:8443
+usuario: icoxpanel
+clave: lximin+menos
+
+ftp.icox.com
+egauss-intranet
+La-virginia01
+
+
