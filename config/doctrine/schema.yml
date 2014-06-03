@@ -218,24 +218,28 @@ VideosRegisteredCompanies:
 DocumentsRegisteredCompanies:
   tableName: documents_registered_companies
   columns:
-    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
-    name:                    { type: string(50), notnull: true }
-    icon:                    { type: string(200), notnull: true }
-    url:                     { type: string(200), notnull: true } 
-    registered_companies_id: { type: integer(4), notnull: true  }
-    information_id:          { type: integer(4) }
-    type_information_id:     { type: integer(4) }
-    calendar_id:             { type: integer(4) } 
-    description:             { type: text }
-    download:                { type: string(200), notnull: true }
-    entrepreneur_id:         { type: integer(4) }
+    id:                          { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:                        { type: string(50), notnull: true }
+    icon:                        { type: string(200), notnull: true }
+    url:                         { type: string(200), notnull: true } 
+    registered_companies_id:     { type: integer(4) }
+    information_id:              { type: integer(4) }
+    type_information_id:         { type: integer(4) }
+    calendar_id:                 { type: integer(4) } 
+    contracts_intermediation_id: { type: integer(4) } 
+    ci_comments_id:              { type: integer(4) } 
+    description:                 { type: text }
+    download:                    { type: string(200), notnull: true }
+    entrepreneur_id:             { type: integer(4) }
     
   relations:
-    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE }
-    Information:         { class: Information, local: information_id, foreign: id, foreignAlias: Information, onDelete: SET NULL }
-    TypeInformation:     { class: TypeInformation, local: type_information_id, foreign: id, foreignAlias: TypeInformation, onDelete: CASCADE }  
-    Calendar:            { class: Calendar, local: calendar_id, foreign: id, foreignAlias: Calendar, onDelete: CASCADE }  
-    Entrepreneur:        { class: Entrepreneur, local: entrepreneur_id, foreign: id, foreignAlias: Entrepreneur, onDelete: SET NULL }
+    RegisteredCompanies:             { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: SET NULL }
+    Information:                     { class: Information, local: information_id, foreign: id, foreignAlias: Information, onDelete: SET NULL }
+    TypeInformation:                 { class: TypeInformation, local: type_information_id, foreign: id, foreignAlias: TypeInformation, onDelete: CASCADE }  
+    Calendar:                        { class: Calendar, local: calendar_id, foreign: id, foreignAlias: Calendar, onDelete: CASCADE }  
+    ContractsIntermediation:         { class: ContractsIntermediation, local: contracts_intermediation_id, foreign: id, foreignAlias: ContractsIntermediation, onDelete: CASCADE }  
+    ContractsIntermediationComments: { class: ContractsIntermediationComments, local: ci_comments_id, foreign: id, foreignAlias: ContractsIntermediationComments, onDelete: CASCADE }  
+    Entrepreneur:                    { class: Entrepreneur, local: entrepreneur_id, foreign: id, foreignAlias: Entrepreneur, onDelete: SET NULL }
  
 #
 #information
@@ -387,7 +391,19 @@ ContractsIntermediation:
     
   relations:
     RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: SET NULL } 
-    
+
+ContractsIntermediationComments:
+    tableName: contracts_intermediation_comments
+    columns:
+      id:                            { type: integer(4), primary: true, notnull: true, autoincrement: true }
+      comments:                      { type: text }
+      contracts_intermediation_id:   { type: integer(4), notnull: true}
+      app_user_id:                   { type: integer(4), notnull: true }
+        
+    relations:
+      ContractsIntermediation:       { class: ContractsIntermediation, local: contracts_intermediation_id, foreign: id, foreignAlias: ContractsIntermediation, onDelete: CASCADE }    
+      AppUser:                       { class: AppUser, local: app_user_id, foreign: id, foreignAlias: AppUser, onDelete: CASCADE }
+        
 #
 #Reunion Contracts Intermediation
 #

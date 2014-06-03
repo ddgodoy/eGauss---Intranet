@@ -199,7 +199,7 @@ abstract class BaseContractsIntermediation extends sfDoctrineRecord
              'local' => 'app_user_id',
              'foreign' => 'id'));
 
-        $this->hasMany('Notifications as ContractsIntermediation', array(
+        $this->hasMany('DocumentsRegisteredCompanies as ContractsIntermediation', array(
              'local' => 'id',
              'foreign' => 'contracts_intermediation_id'));
 

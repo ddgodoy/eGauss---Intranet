@@ -13,6 +13,8 @@
  * @property integer $information_id
  * @property integer $type_information_id
  * @property integer $calendar_id
+ * @property integer $contracts_intermediation_id
+ * @property integer $ci_comments_id
  * @property text $description
  * @property string $download
  * @property integer $entrepreneur_id
@@ -20,40 +22,50 @@
  * @property Information $Information
  * @property TypeInformation $TypeInformation
  * @property Calendar $Calendar
+ * @property ContractsIntermediation $ContractsIntermediation
+ * @property ContractsIntermediationComments $ContractsIntermediationComments
  * @property Entrepreneur $Entrepreneur
  * 
- * @method integer                      getId()                      Returns the current record's "id" value
- * @method string                       getName()                    Returns the current record's "name" value
- * @method string                       getIcon()                    Returns the current record's "icon" value
- * @method string                       getUrl()                     Returns the current record's "url" value
- * @method integer                      getRegisteredCompaniesId()   Returns the current record's "registered_companies_id" value
- * @method integer                      getInformationId()           Returns the current record's "information_id" value
- * @method integer                      getTypeInformationId()       Returns the current record's "type_information_id" value
- * @method integer                      getCalendarId()              Returns the current record's "calendar_id" value
- * @method text                         getDescription()             Returns the current record's "description" value
- * @method string                       getDownload()                Returns the current record's "download" value
- * @method integer                      getEntrepreneurId()          Returns the current record's "entrepreneur_id" value
- * @method RegisteredCompanies          getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
- * @method Information                  getInformation()             Returns the current record's "Information" value
- * @method TypeInformation              getTypeInformation()         Returns the current record's "TypeInformation" value
- * @method Calendar                     getCalendar()                Returns the current record's "Calendar" value
- * @method Entrepreneur                 getEntrepreneur()            Returns the current record's "Entrepreneur" value
- * @method DocumentsRegisteredCompanies setId()                      Sets the current record's "id" value
- * @method DocumentsRegisteredCompanies setName()                    Sets the current record's "name" value
- * @method DocumentsRegisteredCompanies setIcon()                    Sets the current record's "icon" value
- * @method DocumentsRegisteredCompanies setUrl()                     Sets the current record's "url" value
- * @method DocumentsRegisteredCompanies setRegisteredCompaniesId()   Sets the current record's "registered_companies_id" value
- * @method DocumentsRegisteredCompanies setInformationId()           Sets the current record's "information_id" value
- * @method DocumentsRegisteredCompanies setTypeInformationId()       Sets the current record's "type_information_id" value
- * @method DocumentsRegisteredCompanies setCalendarId()              Sets the current record's "calendar_id" value
- * @method DocumentsRegisteredCompanies setDescription()             Sets the current record's "description" value
- * @method DocumentsRegisteredCompanies setDownload()                Sets the current record's "download" value
- * @method DocumentsRegisteredCompanies setEntrepreneurId()          Sets the current record's "entrepreneur_id" value
- * @method DocumentsRegisteredCompanies setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
- * @method DocumentsRegisteredCompanies setInformation()             Sets the current record's "Information" value
- * @method DocumentsRegisteredCompanies setTypeInformation()         Sets the current record's "TypeInformation" value
- * @method DocumentsRegisteredCompanies setCalendar()                Sets the current record's "Calendar" value
- * @method DocumentsRegisteredCompanies setEntrepreneur()            Sets the current record's "Entrepreneur" value
+ * @method integer                         getId()                              Returns the current record's "id" value
+ * @method string                          getName()                            Returns the current record's "name" value
+ * @method string                          getIcon()                            Returns the current record's "icon" value
+ * @method string                          getUrl()                             Returns the current record's "url" value
+ * @method integer                         getRegisteredCompaniesId()           Returns the current record's "registered_companies_id" value
+ * @method integer                         getInformationId()                   Returns the current record's "information_id" value
+ * @method integer                         getTypeInformationId()               Returns the current record's "type_information_id" value
+ * @method integer                         getCalendarId()                      Returns the current record's "calendar_id" value
+ * @method integer                         getContractsIntermediationId()       Returns the current record's "contracts_intermediation_id" value
+ * @method integer                         getCiCommentsId()                    Returns the current record's "ci_comments_id" value
+ * @method text                            getDescription()                     Returns the current record's "description" value
+ * @method string                          getDownload()                        Returns the current record's "download" value
+ * @method integer                         getEntrepreneurId()                  Returns the current record's "entrepreneur_id" value
+ * @method RegisteredCompanies             getRegisteredCompanies()             Returns the current record's "RegisteredCompanies" value
+ * @method Information                     getInformation()                     Returns the current record's "Information" value
+ * @method TypeInformation                 getTypeInformation()                 Returns the current record's "TypeInformation" value
+ * @method Calendar                        getCalendar()                        Returns the current record's "Calendar" value
+ * @method ContractsIntermediation         getContractsIntermediation()         Returns the current record's "ContractsIntermediation" value
+ * @method ContractsIntermediationComments getContractsIntermediationComments() Returns the current record's "ContractsIntermediationComments" value
+ * @method Entrepreneur                    getEntrepreneur()                    Returns the current record's "Entrepreneur" value
+ * @method DocumentsRegisteredCompanies    setId()                              Sets the current record's "id" value
+ * @method DocumentsRegisteredCompanies    setName()                            Sets the current record's "name" value
+ * @method DocumentsRegisteredCompanies    setIcon()                            Sets the current record's "icon" value
+ * @method DocumentsRegisteredCompanies    setUrl()                             Sets the current record's "url" value
+ * @method DocumentsRegisteredCompanies    setRegisteredCompaniesId()           Sets the current record's "registered_companies_id" value
+ * @method DocumentsRegisteredCompanies    setInformationId()                   Sets the current record's "information_id" value
+ * @method DocumentsRegisteredCompanies    setTypeInformationId()               Sets the current record's "type_information_id" value
+ * @method DocumentsRegisteredCompanies    setCalendarId()                      Sets the current record's "calendar_id" value
+ * @method DocumentsRegisteredCompanies    setContractsIntermediationId()       Sets the current record's "contracts_intermediation_id" value
+ * @method DocumentsRegisteredCompanies    setCiCommentsId()                    Sets the current record's "ci_comments_id" value
+ * @method DocumentsRegisteredCompanies    setDescription()                     Sets the current record's "description" value
+ * @method DocumentsRegisteredCompanies    setDownload()                        Sets the current record's "download" value
+ * @method DocumentsRegisteredCompanies    setEntrepreneurId()                  Sets the current record's "entrepreneur_id" value
+ * @method DocumentsRegisteredCompanies    setRegisteredCompanies()             Sets the current record's "RegisteredCompanies" value
+ * @method DocumentsRegisteredCompanies    setInformation()                     Sets the current record's "Information" value
+ * @method DocumentsRegisteredCompanies    setTypeInformation()                 Sets the current record's "TypeInformation" value
+ * @method DocumentsRegisteredCompanies    setCalendar()                        Sets the current record's "Calendar" value
+ * @method DocumentsRegisteredCompanies    setContractsIntermediation()         Sets the current record's "ContractsIntermediation" value
+ * @method DocumentsRegisteredCompanies    setContractsIntermediationComments() Sets the current record's "ContractsIntermediationComments" value
+ * @method DocumentsRegisteredCompanies    setEntrepreneur()                    Sets the current record's "Entrepreneur" value
  * 
  * @package    egauss
  * @subpackage model
@@ -88,7 +100,6 @@ abstract class BaseDocumentsRegisteredCompanies extends sfDoctrineRecord
              ));
         $this->hasColumn('registered_companies_id', 'integer', 4, array(
              'type' => 'integer',
-             'notnull' => true,
              'length' => 4,
              ));
         $this->hasColumn('information_id', 'integer', 4, array(
@@ -100,6 +111,14 @@ abstract class BaseDocumentsRegisteredCompanies extends sfDoctrineRecord
              'length' => 4,
              ));
         $this->hasColumn('calendar_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
+        $this->hasColumn('contracts_intermediation_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
+        $this->hasColumn('ci_comments_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              ));
@@ -126,7 +145,7 @@ abstract class BaseDocumentsRegisteredCompanies extends sfDoctrineRecord
         $this->hasOne('RegisteredCompanies', array(
              'local' => 'registered_companies_id',
              'foreign' => 'id',
-             'onDelete' => 'CASCADE'));
+             'onDelete' => 'SET NULL'));
 
         $this->hasOne('Information', array(
              'local' => 'information_id',
@@ -140,6 +159,16 @@ abstract class BaseDocumentsRegisteredCompanies extends sfDoctrineRecord
 
         $this->hasOne('Calendar', array(
              'local' => 'calendar_id',
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
+
+        $this->hasOne('ContractsIntermediation', array(
+             'local' => 'contracts_intermediation_id',
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
+
+        $this->hasOne('ContractsIntermediationComments', array(
+             'local' => 'ci_comments_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
 

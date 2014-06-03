@@ -100,6 +100,22 @@ investor-excel:
   param: { module: investor, action: excel }
 
 ################################################################### contracts
+
+# contracts-delete-document rules
+contracts-delete-document:
+  url:   /contracts-delete-document
+  param: { module: contracts, action: deleteDocument }
+
+# contracts-get-components-documents rules
+contracts-get-components-documents:
+  url:   /contracts-get-components-documents
+  param: { module: contracts, action: getComponentsDocuments }
+  
+# contracts-register-document rules
+contracts-register-document:
+  url:   /contractsanalyzed-register-document
+  param: { module: contracts, action: registerDocument }
+
 # delete-reunion-by-contract
 delete-reunion-by-contract:
   url:   /delete-reunion-by-contract

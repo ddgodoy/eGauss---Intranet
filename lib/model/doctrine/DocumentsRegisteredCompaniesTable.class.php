@@ -47,4 +47,18 @@ class DocumentsRegisteredCompaniesTable extends Doctrine_Table
         
         return $q->execute();
     }
+    
+    /**
+     * get document by contrat
+     * @param int $id_contrat
+     * @return object
+     */
+    public function getDocumentByContrat($id_contrat)
+    {
+        $q = $this->createQuery()
+             ->where('contracts_intermediation_id = '.$id_contrat)  
+             ->orderBy('id DESC');
+        
+        return $q->execute();
+    }        
 }

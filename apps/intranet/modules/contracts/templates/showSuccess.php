@@ -16,13 +16,45 @@ $(document).ready(function()
 <div class="content">
         <div style="width:29%;float:right;">
             <?php if(count($reunion_action)>0): ?>
-            <div class="paneles" style="overflow-y: auto; height: 175px;">
+            <div class="paneles" style="overflow-y: auto; height: 280px;">
                 <h1><?php echo __('Reuniones') ?></h1>
                 <div id="div-reunion">
                     <?php include_component('contracts', 'getReunionByContract') ?>
                 </div>
             </div>
             <?php endif; ?>
+            <?php if (count($document) > 0 ): ?>
+            <div class="paneles" id="div_doc_c" style="overflow-y: auto; height: 175px;">
+              <h1>Documentos</h1>
+              <table width="100%" cellspacing="0" id="table_doc_c" border="0" class="listados">
+                  <tr>
+                    <th width="25%" align="left"><?php echo __('Date') ?></th>
+                    <th width="65%" align="left"><?php echo __('Titulo') ?></th>
+                    <th width="10%" align="center"></th>
+                    <th width="10%" align="center"></th>
+                  </tr>
+                  <?php foreach ($document AS $d_value): ?>
+                  <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>">
+                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>" style="text-decoration: none; cursor: pointer "><?php echo Common::getFormattedDate($d_value->getCreatedAt() , 'd/m/Y') ?></a></td>
+                    <td><a class="fancybox-manual-d" dir="<?php echo $d_value->getId() ?>" style="text-decoration: none; cursor: pointer "><?php echo $d_value->getName() ?></a></td>
+                    <td>
+                        <a  href="<?php echo $d_value->getUrl() ?>" target="_blanck">
+                            <img src="<?php echo $d_value->getIcon()  ?>" border="0" style="width:20px;height:20px;" title="Ver"/>
+                        </a>
+                    </td>
+                    <td>
+                        <a  href="<?php echo $d_value->getDownload()?$d_value->getDownload():$d_value->getUrl() ?>" <?php if(!$d_value->getDownload()): ?> target="_blanck" <?php endif; ?>>
+                            <img src="/images/descargar-documento.jpg" border="0" style="width:20px;height:20px;" title="Descargar"/>
+                        </a>    
+                    </td>
+                  </tr>
+                  <?php endforeach; ?>
+              </table>
+            </div>
+            <?php endif; ?>
+            <div class="paneles" id="conten-calendar" >
+                <?php include_component('calendar', 'calendar') ?>
+            </div>
         </div>
 	<div class="leftside" style="width: 70%">
 		<div class="mapa">

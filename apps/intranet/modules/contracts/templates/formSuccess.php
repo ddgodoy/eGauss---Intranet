@@ -32,6 +32,24 @@ $(document).ready(function(){
             $("#input_company").show();
         }
     });
+    
+    $("#fancybox-manual-c").click(function() {
+            $.fancybox.open({
+                    height: '290px',
+                    href : '<?php echo url_for("@google_drive") ?>',
+                    type : 'iframe',
+                    padding : 5,
+                    afterClose: function () { // USE THIS IT IS YOUR ANSWER THE KEY WORD IS "afterClose"
+                       jQuery.ajax({
+                            type: 'GET',
+                            url: '<?php echo url_for($url_document) ?>',
+                            success: function(data) {
+                                $('#drive').html(data);
+                            }
+                       });
+                    }
+            });
+    });
 });
 </script>
 <?php
@@ -192,8 +210,18 @@ $(document).ready(function(){
                                             </tr>    
                                         </table>
                                     </td>
-                                </tr>   
+                                </tr>
+                                <tr>
+                                    <td>
+                                      <a id="fancybox-manual-c">
+                                        <img src="/images/drive.jpeg" border="0" width="50" height="33" title="Ingresar Documento"  style="cursor: pointer; vertical-align: super"/>
+                                      </a>
+                                    </td>
+                                </tr>
                                 </table>
+                                <div id="drive">
+                                    <?php include_component('contracts', 'getDocument') ?>
+                                </div>
                                 <?php if($sf_user->getAttribute('user_id') == 1): ?>
                                 <fieldset>
                                     <legend>Comentario</legend>

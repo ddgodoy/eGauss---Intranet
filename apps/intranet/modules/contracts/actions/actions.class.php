@@ -140,6 +140,7 @@ class contractsActions extends sfActions
         $this->error               = array();
         $this->company             = 1;
         $this->empresa             = 1;
+        $this->url_document        = !$this->id ?'@contracts-register-document':'@analyzed-register-document?id='.$this->id;
         if ($this->id) {
               $entity_object = ContractsIntermediationTable::getInstance()->find($this->id);
               
@@ -226,6 +227,8 @@ class contractsActions extends sfActions
                               12=>'Diciembre');
 
           $this->reunion_action = ReunionContractsIntermediationTable::getInstance()->getReunionByContract($this->id);
+          $this->document       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentByContrat($this->id);
+          
           
           
    }
@@ -282,5 +285,40 @@ class contractsActions extends sfActions
         
         exit();
     }
+    
+   /**
+    * register document
+    * @param sfWebRequest $request
+    */
+   public function executeRegisterDocument(sfWebRequest $request)
+   {
+      return $this->renderComponent('contracts', 'getDocument');
+      exit();
+   }
+  
+   /**
+    * Delete document
+    * @param sfWebRequest $request
+    */
+   public function executeDeleteDocument(sfWebRequest $request)
+   {
+      $id = $request->getParameter('id_doc');
+      $type = $request->getParameter('type');
+      
+      if($type == 'real'){
+          $d_document = DocumentsRegisteredCompaniesTable::getInstance()->findOneById($id);
+      }else{
+          $d_document = TempsDocumentsTable::getInstance()->findOneById($id);
+      }
+          
+      if($d_document)
+      {
+          $d_document->delete();
+      }    
+      
+      return $this->renderComponent('contracts', 'getDocument');
+      exit();
+      
+   }
 }
 ?>
