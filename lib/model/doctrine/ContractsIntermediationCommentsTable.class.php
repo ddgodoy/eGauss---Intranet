@@ -16,4 +16,20 @@ class ContractsIntermediationCommentsTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('ContractsIntermediationComments');
     }
+    
+    /**
+     * get all by contract
+     * @param int $id_contract
+     * @param int $id
+     * @return object
+     */
+    public function getAllByContract($id_contract, $id=0)
+    {
+        $q = $this->createQuery()
+             ->where('contracts_intermediation_id = ?', $id_contract )
+             ->andWhere('id != ?', $id)
+             ->orderBy('id DESC');
+        
+        return $q->execute();
+    }        
 }

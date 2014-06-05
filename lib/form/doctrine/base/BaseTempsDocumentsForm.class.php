@@ -22,6 +22,7 @@ abstract class BaseTempsDocumentsForm extends BaseFormDoctrine
       'url'                 => new sfWidgetFormInputText(),
       'download'            => new sfWidgetFormInputText(),
       'type_information_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TypeInformation'), 'add_empty' => true)),
+      'app_user_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('AppUser'), 'add_empty' => true)),
       'created_at'          => new sfWidgetFormDateTime(),
       'updated_at'          => new sfWidgetFormDateTime(),
     ));
@@ -34,6 +35,7 @@ abstract class BaseTempsDocumentsForm extends BaseFormDoctrine
       'url'                 => new sfValidatorString(array('max_length' => 200)),
       'download'            => new sfValidatorString(array('max_length' => 200)),
       'type_information_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TypeInformation'), 'required' => false)),
+      'app_user_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('AppUser'), 'required' => false)),
       'created_at'          => new sfValidatorDateTime(),
       'updated_at'          => new sfValidatorDateTime(),
     ));

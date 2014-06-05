@@ -198,7 +198,7 @@ class shareholdersActions extends sfActions
                   $entity_object->save();
                   
                   #set document
-                  $temp_document = TempsDocumentsTable::getInstance()->findAll();
+                  $temp_document = TempsDocumentsTable::getInstance()->getFindAllByAppUser();
                   if($temp_document)
                   {
                       foreach ($temp_document AS $v_doc)

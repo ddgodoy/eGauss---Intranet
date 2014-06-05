@@ -88,6 +88,7 @@ class ServiceAuthentication
 		$sessionUser->setAuthenticated(false);
 		$sessionUser->clearCredentials();
 		$sessionUser->getAttributeHolder()->clear();
+                $temp_document = TempsDocumentsTable::getInstance()->findAll()->delete();
 	}
 
 } // end class

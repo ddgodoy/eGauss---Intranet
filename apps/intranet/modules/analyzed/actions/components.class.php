@@ -52,7 +52,7 @@ class analyzedComponents extends sfComponents
         if($id){
             $document_by_company = DocumentsRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($id);
         }
-        $temp_document = TempsDocumentsTable::getInstance()->findAll();
+        $temp_document = TempsDocumentsTable::getInstance()->getFindAllByAppUser();
         
         foreach ($document_by_company as $value)
         {

@@ -156,7 +156,7 @@ class analyzedActions extends sfActions
           $this->getUser()->getAttributeHolder()->remove('videos');
         }
         #set document
-        $temp_document = TempsDocumentsTable::getInstance()->findAll();
+        $temp_document = TempsDocumentsTable::getInstance()->getFindAllByAppUser();
 
         if ($temp_document)
         {

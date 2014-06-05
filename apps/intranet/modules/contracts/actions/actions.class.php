@@ -16,7 +16,7 @@ class contractsActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        
+        $temp_document = TempsDocumentsTable::getInstance()->findAll()->delete();
         $this->iPage  = $request->getParameter('page', 1);
         $this->oPager = ContractsIntermediationTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy());
   	$this->oList  = $this->oPager->getResults();
@@ -140,7 +140,7 @@ class contractsActions extends sfActions
         $this->error               = array();
         $this->company             = 1;
         $this->empresa             = 1;
-        $this->url_document        = !$this->id ?'@contracts-register-document':'@analyzed-register-document?id='.$this->id;
+        $this->url_document        = !$this->id ?'@contracts-register-document':'@contracts-register-document?id='.$this->id;
         if ($this->id) {
               $entity_object = ContractsIntermediationTable::getInstance()->find($this->id);
               
@@ -164,38 +164,58 @@ class contractsActions extends sfActions
               $this->form->bind($request->getParameter($this->form->getName()));
               if ($this->form->isValid() && count($this->error)== 0) 
               {
-                  $form_request = $request->getParameter($this->form->getName());
+                $form_request = $request->getParameter($this->form->getName());
+
+                $recorded = $this->form->save();
+
+                $recorded->setDay(date('d'));
+                $recorded->setMonth($form_request['month']);
+                $recorded->setYear($form_request['year']);
+
+                if($this->company==1){
+                  $recorded->setRegisteredCompaniesId($this->empresa);    
+                }else{
+                  $recorded->setRegisteredCompaniesId(NULL);      
+                }
+
+                $recorded->save();
+
+                if($form_request['date']['year']!= ''){
+                    $date_reunion = $form_request['date']['year'].'-'.$form_request['date']['month'].'-'.$form_request['date']['day'];
+
+                    $reunion = new ReunionContractsIntermediation();
+                    $reunion->setDate($date_reunion);
+                    $reunion->setComments($form_request['comments_reunion']);
+                    $reunion->setContractsIntermediationId($recorded->getId());
+                    $reunion->save();
+                }
                   
-                  $recorded = $this->form->save();
-                  
-                  $recorded->setDay(date('d'));
-                  $recorded->setMonth($form_request['month']);
-                  $recorded->setYear($form_request['year']);
-                  
-                  if($this->company==1){
-                    $recorded->setRegisteredCompaniesId($this->empresa);    
-                  }else{
-                    $recorded->setRegisteredCompaniesId(NULL);      
+                # set document
+                $temp_document = TempsDocumentsTable::getInstance()->getFindAllByAppUser();
+
+                if ($temp_document)
+                {
+                  foreach ($temp_document AS $v_doc)
+                  {
+                    $load_doc = NEW DocumentsRegisteredCompanies();
+                    $load_doc->setName($v_doc->getName());
+                    $load_doc->setIcon($v_doc->getIcon());
+                    $load_doc->setDescription($v_doc->getDescription());
+                    $load_doc->setDownload($v_doc->getDownload());
+                    $load_doc->setUrl($v_doc->getUrl());
+                    $load_doc->setContractsIntermediationId($recorded->getId());
+                    $load_doc->save();
+
+                    $v_doc->delete();
                   }
+                }
                   
-                  $recorded->save();
-                  
-                  if($form_request['date']['year']!= ''){
-                      $date_reunion = $form_request['date']['year'].'-'.$form_request['date']['month'].'-'.$form_request['date']['day'];
-                      
-                      $reunion = new ReunionContractsIntermediation();
-                      $reunion->setDate($date_reunion);
-                      $reunion->setComments($form_request['comments_reunion']);
-                      $reunion->setContractsIntermediationId($recorded->getId());
-                      $reunion->save();
-                  }
-                  
-                  if(!$this->id){
-                    #set notification
-                    Notifications::setNewNotification('contracts', 'Un nuevo Contratos de Intermediación fue creado', '', '', '', $recorded->getId());
-                  }
-                  
-                  $this->redirect('@contracts-edit?id='.$recorded->getId());
+                if(!$this->id){
+                  #set notification
+                  Notifications::setNewNotification('contracts', 'Un nuevo Contratos de Intermediación fue creado', '', '', '', $recorded->getId());
+                }
+
+                $this->redirect('@contracts-edit?id='.$recorded->getId());
               }
         }      
         $this->setTemplate('form');
@@ -320,5 +340,46 @@ class contractsActions extends sfActions
       exit();
       
    }
+   
+   /**
+    * register document
+    * @param sfWebRequest $request
+    */
+   public function executeRegisterDocumentComment(sfWebRequest $request)
+   {
+      return $this->renderComponent('contracts', 'getDocumentComment');
+      exit();
+   }
+  
+   /**
+    * Delete document
+    * @param sfWebRequest $request
+    */
+   public function executeDeleteDocumentComment(sfWebRequest $request)
+   {
+      $id = $request->getParameter('id_doc');
+      $type = $request->getParameter('type');
+      
+      if($type == 'real'){
+          $d_document = DocumentsRegisteredCompaniesTable::getInstance()->findOneById($id);
+      }else{
+          $d_document = TempsDocumentsTable::getInstance()->findOneById($id);
+      }
+          
+      if($d_document)
+      {
+          $d_document->delete();
+      }    
+      
+      return $this->renderComponent('contracts', 'getDocumentComment');
+      exit();
+      
+   }
+   
+   public function executeContratSetCommnet(sfWebRequest $request)
+   {
+      return $this->renderComponent('contracts', 'commentByContract');
+      exit();
+   }        
 }
 ?>

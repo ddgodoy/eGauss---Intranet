@@ -24,6 +24,7 @@
  * @property Company $Company
  * @property UserRole $UserRole
  * @property Doctrine_Collection $AppUser
+ * @property Doctrine_Collection $TempsDocuments
  * @property Doctrine_Collection $ContractsIntermediation
  * 
  * @method integer             getId()                      Returns the current record's "id" value
@@ -45,6 +46,7 @@
  * @method Company             getCompany()                 Returns the current record's "Company" value
  * @method UserRole            getUserRole()                Returns the current record's "UserRole" value
  * @method Doctrine_Collection getAppUser()                 Returns the current record's "AppUser" collection
+ * @method Doctrine_Collection getTempsDocuments()          Returns the current record's "TempsDocuments" collection
  * @method Doctrine_Collection getContractsIntermediation() Returns the current record's "ContractsIntermediation" collection
  * @method AppUser             setId()                      Sets the current record's "id" value
  * @method AppUser             setName()                    Sets the current record's "name" value
@@ -65,6 +67,7 @@
  * @method AppUser             setCompany()                 Sets the current record's "Company" value
  * @method AppUser             setUserRole()                Sets the current record's "UserRole" value
  * @method AppUser             setAppUser()                 Sets the current record's "AppUser" collection
+ * @method AppUser             setTempsDocuments()          Sets the current record's "TempsDocuments" collection
  * @method AppUser             setContractsIntermediation() Sets the current record's "ContractsIntermediation" collection
  * 
  * @package    egauss
@@ -167,6 +170,10 @@ abstract class BaseAppUser extends sfDoctrineRecord
              'onDelete' => 'CASCADE'));
 
         $this->hasMany('Userprojects as AppUser', array(
+             'local' => 'id',
+             'foreign' => 'app_user_id'));
+
+        $this->hasMany('TempsDocuments', array(
              'local' => 'id',
              'foreign' => 'app_user_id'));
 

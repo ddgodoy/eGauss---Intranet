@@ -12,7 +12,9 @@
  * @property string $url
  * @property string $download
  * @property integer $type_information_id
+ * @property integer $app_user_id
  * @property TypeInformation $TypeInformation
+ * @property AppUser $AppUser
  * 
  * @method integer         getId()                  Returns the current record's "id" value
  * @method string          getName()                Returns the current record's "name" value
@@ -21,7 +23,9 @@
  * @method string          getUrl()                 Returns the current record's "url" value
  * @method string          getDownload()            Returns the current record's "download" value
  * @method integer         getTypeInformationId()   Returns the current record's "type_information_id" value
+ * @method integer         getAppUserId()           Returns the current record's "app_user_id" value
  * @method TypeInformation getTypeInformation()     Returns the current record's "TypeInformation" value
+ * @method AppUser         getAppUser()             Returns the current record's "AppUser" value
  * @method TempsDocuments  setId()                  Sets the current record's "id" value
  * @method TempsDocuments  setName()                Sets the current record's "name" value
  * @method TempsDocuments  setDescription()         Sets the current record's "description" value
@@ -29,7 +33,9 @@
  * @method TempsDocuments  setUrl()                 Sets the current record's "url" value
  * @method TempsDocuments  setDownload()            Sets the current record's "download" value
  * @method TempsDocuments  setTypeInformationId()   Sets the current record's "type_information_id" value
+ * @method TempsDocuments  setAppUserId()           Sets the current record's "app_user_id" value
  * @method TempsDocuments  setTypeInformation()     Sets the current record's "TypeInformation" value
+ * @method TempsDocuments  setAppUser()             Sets the current record's "AppUser" value
  * 
  * @package    egauss
  * @subpackage model
@@ -74,6 +80,10 @@ abstract class BaseTempsDocuments extends sfDoctrineRecord
              'type' => 'integer',
              'length' => 4,
              ));
+        $this->hasColumn('app_user_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
 
         $this->option('collate', 'utf8_general_ci');
         $this->option('charset', 'utf8');
@@ -84,6 +94,10 @@ abstract class BaseTempsDocuments extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('TypeInformation', array(
              'local' => 'type_information_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('AppUser', array(
+             'local' => 'app_user_id',
              'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();

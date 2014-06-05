@@ -102,6 +102,7 @@ class homeActions extends sfActions
             $temp_file->setIcon($createdFile['iconLink']);
             $temp_file->setUrl($createdFile['alternateLink']);
             $temp_file->setDownload($createdFile['webContentLink']);
+            $temp_file->setAppUserId($this->getUser()->getAttribute('user_id'));
             if($this->theme == 1){
             $temp_file->setTypeInformationId($this->categories);    
             }

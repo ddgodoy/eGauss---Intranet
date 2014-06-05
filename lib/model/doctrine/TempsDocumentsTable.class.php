@@ -16,4 +16,25 @@ class TempsDocumentsTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('TempsDocuments');
     }
+    
+    /**
+     * get find all by app user
+     * @param int $app_user
+     * @return object
+     */
+    public function getFindAllByAppUser($app_user = null)
+    {
+        $q = $this->createQuery();
+        
+        if($app_user)
+        {
+            $q->where('app_user_id = ?', $app_user);
+        }  
+        else
+        {
+            $q->where('app_user_id IS NULL');
+        }    
+        
+        return $q->execute();
+    }        
 }

@@ -100,6 +100,25 @@ investor-excel:
   param: { module: investor, action: excel }
 
 ################################################################### contracts
+#contrat-set-commnet
+contrat-set-commnet:
+  url:   /contrat-set-commnet
+  param: { module: contracts, action: contratSetCommnet }
+
+# contracts-delete-document-comment rules
+contracts-delete-document-comment:
+  url:   /contracts-delete-document-comment
+  param: { module: contracts, action: deleteDocumentComment }
+
+# contracts-get-components-documents-comment rules
+contracts-get-components-documents-comment:
+  url:   /contracts-get-components-documents-comment
+  param: { module: contracts, action: getComponentsDocumentsComment }
+  
+# contracts-register-document-comment rules
+contracts-register-document-comment:
+  url:   /contractsanalyzed-register-document-comment
+  param: { module: contracts, action: registerDocumentComment }
 
 # contracts-delete-document rules
 contracts-delete-document:

@@ -187,16 +187,9 @@ $(document).ready(function()
 			</table>
 		</fieldset>
                 <?php endif; ?>
-                <?php if($oValue->getComments()): ?>
-                <fieldset>
-                    <legend>Comentario</legend>
-                    <table width="100%" cellspacing="4" cellpadding="0" border="0">
-                        <tr>
-                            <td class="text_detail"><?php echo html_entity_decode($oValue->getComments()) ?></td>
-                        </tr>
-                    </table>
-                </fieldset>
-                <?php endif; ?>
+                <div id='commnet-div'>
+                    <?php include_component('contracts', 'commentByContract') ?>
+                </div>
 		<div style="padding-top:10px;" class="botonera">
                      <?php if($sf_user->hasCredential('super_admin')): ?> 
 			<input type="button" onclick="document.location='<?php echo url_for('contracts/edit?id='.$oValue->getId()) ?>';" value="<?php echo __('Edit') ?>" class="boton" />
