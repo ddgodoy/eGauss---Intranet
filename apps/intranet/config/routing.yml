@@ -100,6 +100,11 @@ investor-excel:
   param: { module: investor, action: excel }
 
 ################################################################### contracts
+#contrat-delete-commnet
+contrat-delete-commnet:
+  url:   /contrat-delete-commnet
+  param: { module: contracts, action: contratDeleteCommnet }
+  
 #contrat-set-commnet
 contrat-set-commnet:
   url:   /contrat-set-commnet

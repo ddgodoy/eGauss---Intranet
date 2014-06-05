@@ -359,6 +359,9 @@ class contractsActions extends sfActions
    {
       $id = $request->getParameter('id_doc');
       $type = $request->getParameter('type');
+      $id_comment = $request->getParameter('id_comment', NULL);
+      
+      $redirect = $id_comment?'getDocumentViewComment':'getDocumentComment'; 
       
       if($type == 'real'){
           $d_document = DocumentsRegisteredCompaniesTable::getInstance()->findOneById($id);
@@ -371,15 +374,36 @@ class contractsActions extends sfActions
           $d_document->delete();
       }    
       
-      return $this->renderComponent('contracts', 'getDocumentComment');
+      return $this->renderComponent('contracts', $redirect, array('id_comment'=>$id_comment));
       exit();
       
    }
    
+   /**
+    * contrat set commnet
+    * @param sfWebRequest $request
+    * @return componet
+    */
    public function executeContratSetCommnet(sfWebRequest $request)
    {
       return $this->renderComponent('contracts', 'commentByContract');
       exit();
+   }        
+   
+   /**
+    * contrat delete commnet
+    * @param sfWebRequest $request
+    * @return componet
+    */
+   public function executeContratDeleteCommnet(sfWebRequest $request)
+   {
+       $id = $request->getParameter('id_comment');
+       
+       ContractsIntermediationCommentsTable::getInstance()->findOneById($id)->delete();
+       
+       return $this->renderComponent('contracts', 'commentByContract');
+       exit();
+       
    }        
 }
 ?>

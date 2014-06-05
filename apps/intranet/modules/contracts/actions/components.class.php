@@ -112,7 +112,7 @@ class contractsComponents extends sfComponents
   {
       $this->app_user_id = $this->getUser()->getAttribute('user_id');
       $this->contract_id = $request->getParameter('id');
-      $this->comment_id  = $request->getParameter('comment_id',0);
+      $this->comment_id  = $request->getParameter('comment_id', 0);
       $commnet           = Null;
       $this->array_value = [];
       $this->url_document= !$this->id ?'@contracts-register-document':'@contracts-register-document?id='.$this->id;
@@ -152,7 +152,10 @@ class contractsComponents extends sfComponents
 
                     $v_doc->delete();
                   }
-              }    
+              }
+            
+            $this->comment_id = 0;  
+            $this->form = new ContractsIntermediationCommentsForm(null, array('app_user_id'=>$this->app_user_id, 'contract_id'=>$this->contract_id));  
           }
       }  
       
@@ -168,10 +171,6 @@ class contractsComponents extends sfComponents
           $this->array_value[$v->getId()]['app_user']['photo'] = $v->getAppUser()->getPhoto();
       } 
       
-      /*echo '<pre>';
-      print_r($this->array_value);
-      echo '</pre>';
-      exit();*/
   }  
   
   /**
@@ -196,6 +195,7 @@ class contractsComponents extends sfComponents
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
+                                          'download'=> $value->getDownload(),  
                                           'icon' => $value->getIcon(),
                                           'type' => 'real'
                                        ); 
@@ -207,6 +207,7 @@ class contractsComponents extends sfComponents
                                           'id' => $value->getId(),
                                           'name' => $value->getName(),
                                           'url'  => $value->getUrl(),
+                                          'download'=> $value->getDownload(),  
                                           'icon' => $value->getIcon(),
                                           'type' => 'temp'
                                        ); 
@@ -219,11 +220,13 @@ class contractsComponents extends sfComponents
    */
   public function executeGetDocumentViewComment(sfWebRequest $request)
   {
-        $id                    = $request->getParameter('id');
+        $id                    = $this->id_comment;
         $this->result_document = array();
         $document_by_company   = array();
+        $this->url_d_document  = !$id?'@contracts-delete-document-comment':'@contracts-delete-document-comment?id_comment='.$id;
         if($id){
-            $document_by_company = DocumentsRegisteredCompaniesTable::getInstance()->findByContractsIntermediationId($id);
+            $document_by_company = DocumentsRegisteredCompaniesTable::getInstance()->findByCiCommentsId($id);
+            $contract_comment    = ContractsIntermediationCommentsTable::getInstance()->findOneById($id); 
         }
         
         foreach ($document_by_company as $value)
@@ -236,6 +239,7 @@ class contractsComponents extends sfComponents
                                           'icon' => $value->getIcon(),
                                           'type' => 'real',
                                           'date' => $value->getCreatedAt(),
+                                          'user' => $contract_comment->getAppUserId()
                                        ); 
         } 
   }
