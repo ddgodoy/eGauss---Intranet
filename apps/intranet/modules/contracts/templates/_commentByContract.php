@@ -72,6 +72,16 @@ $(document).ready(function(){
         });
         return false; // Evitar ejecutar el submit del formulario.
     });
+    
+    $(".fancybox-manual-user-comment").click(function()
+    {
+      var id = $(this).attr('id');
+      $.fancybox.open({
+        href : '<?php echo url_for('@user-view?id=') ?>'+id,
+        type : 'iframe',
+        padding : 5
+      });
+    });
 });
 </script>
 <?php if ($form->hasErrors()): ?>
@@ -87,9 +97,17 @@ $(document).ready(function(){
     <div style="border-bottom: 1px solid #CCCCCC; margin-bottom: 15px;">
         <div>
             <?php $_img_user = $v['app_user']['photo']? 'uploads/user/'.ServiceFileHandler::getThumbImage($v['app_user']['photo']) : 'images/no_user.jpg'; ?>
-            <img src="/<?php echo $_img_user ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle"/>
+            <a class="fancybox-manual-user-comment text_detail" id="<?php echo $v['app_user']['id'] ?>" style="cursor: pointer">
+                <img src="/<?php echo $_img_user ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle"/>
+            </a>
             &nbsp;&nbsp;&nbsp;
-            <label><b><?php echo $v['app_user']['name'] ?>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<?php echo $v['date'] ?></b></label>
+            <label>
+                <b>
+                    <a class="fancybox-manual-user-comment text_detail" id="<?php echo $v['app_user']['id'] ?>" style="cursor: pointer">
+                        <?php echo $v['app_user']['name'] ?>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<?php echo $v['date'] ?>
+                    </a>
+                </b>
+            </label>
             <?php if($v['app_user']['id'] == $sf_user->getAttribute('user_id')): ?>
             <div style="float: right;width: 50px; height: 20px;">
                 <img src="/images/editar.png" class="edit-comment" id="<?php echo $v['id'] ?>" border="0" style="width:20px;height:20px;cursor: pointer" title="Editar"/>

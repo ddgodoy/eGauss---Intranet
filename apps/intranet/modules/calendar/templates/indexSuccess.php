@@ -29,7 +29,7 @@
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="listados">
       <tr>
       	<?php if (count($oList) > 0): ?>
-	        <th width="10%"><a href="<?php echo $head_link.'&o=date&s='.$sort ?>"><?php echo __('Date') ?></a></th>
+          <th width="10%"><a href="<?php echo $head_link.'&o=date&s='.$sort ?>"><?php echo __('Date') ?></a></th>
           <th width="10%"><a href="<?php echo $head_link.'&o=hour_from&s='.$sort ?>"><?php echo __('Hora de inicio') ?></a></th>
           <th width="30%"><a href="<?php echo $head_link.'&o=subject&s='.$sort ?>"><?php echo __('Subject') ?></a></th>
           <th width="10%"><a href="<?php echo $head_link.'&o=type_calendar_id&s='.$sort ?>"><?php echo __('Categoría') ?></a></th>

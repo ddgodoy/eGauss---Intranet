@@ -138,6 +138,7 @@ class contractsActions extends sfActions
         $this->id                  = $request->getParameter('id');
         $entity_object             = NULL;
         $this->error               = array();
+        $this->error_calendar      = array();
         $this->company             = 1;
         $this->empresa             = 1;
         $this->url_document        = !$this->id ?'@contracts-register-document':'@contracts-register-document?id='.$this->id;
@@ -181,13 +182,38 @@ class contractsActions extends sfActions
                 $recorded->save();
 
                 if($form_request['date']['year']!= ''){
-                    $date_reunion = $form_request['date']['year'].'-'.$form_request['date']['month'].'-'.$form_request['date']['day'];
+                    
+                    $hour_from = sprintf("%02d", $form_request['hour_from']['hour']).':'.sprintf("%02d", $form_request['hour_from']['minute']).':'.sprintf("%02d", $form_request['hour_from']['second']);
+              
+                    $hour_to   = sprintf("%02d", $form_request['hour_to']['hour']).':'.sprintf("%02d", $form_request['hour_to']['minute']).':'.sprintf("%02d", $form_request['hour_to']['second']);
+                    
+                    $day       = sprintf("%02d",$form_request['date']['day']).'/'.sprintf("%02d",$form_request['date']['month']).'/'.$form_request['date']['year'];
+              
+                    $event = CalendarTable::getInstance()->getAvailabilities($form_request['date']['year'], $form_request['date']['month'], $form_request['date']['day'], $hour_from, $this->id); 
+              
+                    if($event){
+                      $this->error_calendar['event'] = 'Ya existe un Evento registrado para este horario: '.$hour_from.' -- '.$day;   
+                    }
 
-                    $reunion = new ReunionContractsIntermediation();
-                    $reunion->setDate($date_reunion);
-                    $reunion->setComments($form_request['comments_reunion']);
-                    $reunion->setContractsIntermediationId($recorded->getId());
-                    $reunion->save();
+                    if($hour_from >= $hour_to)
+                    {
+                       $this->error_calendar['hour'] = 'El Horario de inicio debe ser anterior a Horario de fin'; 
+                    }              
+                    if(count($this->error_calendar)== 0){
+                        $reunion = New Calendar();
+                        $reunion->setYear($form_request['date']['year']);
+                        $reunion->setMonth($form_request['date']['month']);
+                        $reunion->setDay($form_request['date']['day']);  
+                        $reunion->setHourFrom($hour_from);
+                        $reunion->setHourTo($hour_to);
+                        $reunion->setSubject($form_request['subject']);
+                        $reunion->setBody($form_request['body']);
+                        $reunion->setContractsIntermediationId($recorded->getId());
+                        $reunion->setAppUserId($this->getUser()->getAttribute('user_id'));
+                        $reunion->setTypeCalendarId(1);
+                        $reunion->save();
+                    }
+                   
                 }
                   
                 # set document
@@ -295,7 +321,7 @@ class contractsActions extends sfActions
     {
         $id_reunion = $request->getParameter('id_reunion');
         
-        $reunion = ReunionContractsIntermediationTable::getInstance()->findOneById($id_reunion);
+        $reunion = CalendarTable::getInstance()->findOneById($id_reunion);
         
         if($reunion){
             $reunion->delete();

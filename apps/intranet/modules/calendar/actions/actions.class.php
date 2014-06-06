@@ -204,14 +204,17 @@ class calendarActions extends sfActions
      */
     public function executeShow(sfWebRequest $request)
     {
-          $this->sch_year = trim($this->getRequestParameter('sch_year'));
+          $this->sch_year  = trim($this->getRequestParameter('sch_year'));
           $this->sch_month = trim($this->getRequestParameter('sch_month'));
-          $this->sch_day = trim($this->getRequestParameter('sch_day'));
+          $this->sch_day   = trim($this->getRequestParameter('sch_day'));
+          $this->is_iframe = trim($this->getRequestParameter('iframe', NULL));
           
           $this->id = $request->getParameter('id');
           $this->oValue = CalendarTable::getInstance()->find($this->id);
 
           if (empty($this->id)) { $this->redirect('@calendar_lista'); }
+          
+          if($this->is_iframe){$this->setLayout('layout_iframe');}
     }
 }
 ?>

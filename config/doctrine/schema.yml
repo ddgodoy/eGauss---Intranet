@@ -296,24 +296,26 @@ Notifications:
 Calendar:
   tableName: calendar
   columns:
-    id:                        { type: integer(4), primary: true, notnull: true, autoincrement: true }
-    app_user_id:               { type: integer(4), notnull: true }
-    year:                      { type: integer(8), notnull: true }
-    month:                     { type: integer(8), notnull: true }
-    day:                       { type: integer(8), notnull: true }
-    hour_from:                 { type: string(50), notnull: true }
-    hour_to:                   { type: string(50), notnull: true }
-    subject:                   { type: text }
-    body:                      { type: text }
-    type_calendar_id:          { type: integer(4), notnull: true }
-    registered_companies_id:   { type: integer(4) }
-    next:                      { type: boolean, default: false }
+    id:                          { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    app_user_id:                 { type: integer(4), notnull: true }
+    year:                        { type: integer(8), notnull: true }
+    month:                       { type: integer(8), notnull: true }
+    day:                         { type: integer(8), notnull: true }
+    hour_from:                   { type: string(50), notnull: true }
+    hour_to:                     { type: string(50), notnull: true }
+    subject:                     { type: text }
+    body:                        { type: text }
+    type_calendar_id:            { type: integer(4), notnull: true }
+    registered_companies_id:     { type: integer(4) }
+    next:                        { type: boolean, default: false }
+    contracts_intermediation_id: { type: integer(4)}
     
     
   relations:
     AppUser:                   { class: AppUser, local: app_user_id, foreign: id, foreignAlias: AppUser, onDelete: CASCADE }      
     RegisteredCompanies:       { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: CASCADE }  
     TypeCalendar:              { class: TypeCalendar, local: type_calendar_id, foreign: id, foreignAlias: TypeCalendar, onDelete: CASCADE }  
+    ContractsIntermediation:       { class: ContractsIntermediation, local: contracts_intermediation_id, foreign: id, foreignAlias: ContractsIntermediation, onDelete: SET NULL }   
 
 #
 #TypeCalendar

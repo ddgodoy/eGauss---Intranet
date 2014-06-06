@@ -15,6 +15,9 @@ $(document).ready(function()
 </script>
 <div class="content">
         <div style="width:29%;float:right;">
+            <div class="paneles" id="conten-calendar" >
+                <?php include_component('calendar', 'calendar') ?>
+            </div>
             <?php if(count($reunion_action)>0): ?>
             <div class="paneles" style="overflow-y: auto; height: 280px;">
                 <h1><?php echo __('Reuniones') ?></h1>
@@ -52,9 +55,6 @@ $(document).ready(function()
               </table>
             </div>
             <?php endif; ?>
-            <div class="paneles" id="conten-calendar" >
-                <?php include_component('calendar', 'calendar') ?>
-            </div>
         </div>
 	<div class="leftside" style="width: 70%">
 		<div class="mapa">

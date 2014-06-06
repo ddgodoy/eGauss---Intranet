@@ -17,43 +17,49 @@
  * @property integer $type_calendar_id
  * @property integer $registered_companies_id
  * @property boolean $next
+ * @property integer $contracts_intermediation_id
  * @property AppUser $AppUser
  * @property RegisteredCompanies $RegisteredCompanies
  * @property TypeCalendar $TypeCalendar
+ * @property ContractsIntermediation $ContractsIntermediation
  * @property Doctrine_Collection $Calendar
  * 
- * @method integer             getId()                      Returns the current record's "id" value
- * @method integer             getAppUserId()               Returns the current record's "app_user_id" value
- * @method integer             getYear()                    Returns the current record's "year" value
- * @method integer             getMonth()                   Returns the current record's "month" value
- * @method integer             getDay()                     Returns the current record's "day" value
- * @method string              getHourFrom()                Returns the current record's "hour_from" value
- * @method string              getHourTo()                  Returns the current record's "hour_to" value
- * @method text                getSubject()                 Returns the current record's "subject" value
- * @method text                getBody()                    Returns the current record's "body" value
- * @method integer             getTypeCalendarId()          Returns the current record's "type_calendar_id" value
- * @method integer             getRegisteredCompaniesId()   Returns the current record's "registered_companies_id" value
- * @method boolean             getNext()                    Returns the current record's "next" value
- * @method AppUser             getAppUser()                 Returns the current record's "AppUser" value
- * @method RegisteredCompanies getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
- * @method TypeCalendar        getTypeCalendar()            Returns the current record's "TypeCalendar" value
- * @method Doctrine_Collection getCalendar()                Returns the current record's "Calendar" collection
- * @method Calendar            setId()                      Sets the current record's "id" value
- * @method Calendar            setAppUserId()               Sets the current record's "app_user_id" value
- * @method Calendar            setYear()                    Sets the current record's "year" value
- * @method Calendar            setMonth()                   Sets the current record's "month" value
- * @method Calendar            setDay()                     Sets the current record's "day" value
- * @method Calendar            setHourFrom()                Sets the current record's "hour_from" value
- * @method Calendar            setHourTo()                  Sets the current record's "hour_to" value
- * @method Calendar            setSubject()                 Sets the current record's "subject" value
- * @method Calendar            setBody()                    Sets the current record's "body" value
- * @method Calendar            setTypeCalendarId()          Sets the current record's "type_calendar_id" value
- * @method Calendar            setRegisteredCompaniesId()   Sets the current record's "registered_companies_id" value
- * @method Calendar            setNext()                    Sets the current record's "next" value
- * @method Calendar            setAppUser()                 Sets the current record's "AppUser" value
- * @method Calendar            setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
- * @method Calendar            setTypeCalendar()            Sets the current record's "TypeCalendar" value
- * @method Calendar            setCalendar()                Sets the current record's "Calendar" collection
+ * @method integer                 getId()                          Returns the current record's "id" value
+ * @method integer                 getAppUserId()                   Returns the current record's "app_user_id" value
+ * @method integer                 getYear()                        Returns the current record's "year" value
+ * @method integer                 getMonth()                       Returns the current record's "month" value
+ * @method integer                 getDay()                         Returns the current record's "day" value
+ * @method string                  getHourFrom()                    Returns the current record's "hour_from" value
+ * @method string                  getHourTo()                      Returns the current record's "hour_to" value
+ * @method text                    getSubject()                     Returns the current record's "subject" value
+ * @method text                    getBody()                        Returns the current record's "body" value
+ * @method integer                 getTypeCalendarId()              Returns the current record's "type_calendar_id" value
+ * @method integer                 getRegisteredCompaniesId()       Returns the current record's "registered_companies_id" value
+ * @method boolean                 getNext()                        Returns the current record's "next" value
+ * @method integer                 getContractsIntermediationId()   Returns the current record's "contracts_intermediation_id" value
+ * @method AppUser                 getAppUser()                     Returns the current record's "AppUser" value
+ * @method RegisteredCompanies     getRegisteredCompanies()         Returns the current record's "RegisteredCompanies" value
+ * @method TypeCalendar            getTypeCalendar()                Returns the current record's "TypeCalendar" value
+ * @method ContractsIntermediation getContractsIntermediation()     Returns the current record's "ContractsIntermediation" value
+ * @method Doctrine_Collection     getCalendar()                    Returns the current record's "Calendar" collection
+ * @method Calendar                setId()                          Sets the current record's "id" value
+ * @method Calendar                setAppUserId()                   Sets the current record's "app_user_id" value
+ * @method Calendar                setYear()                        Sets the current record's "year" value
+ * @method Calendar                setMonth()                       Sets the current record's "month" value
+ * @method Calendar                setDay()                         Sets the current record's "day" value
+ * @method Calendar                setHourFrom()                    Sets the current record's "hour_from" value
+ * @method Calendar                setHourTo()                      Sets the current record's "hour_to" value
+ * @method Calendar                setSubject()                     Sets the current record's "subject" value
+ * @method Calendar                setBody()                        Sets the current record's "body" value
+ * @method Calendar                setTypeCalendarId()              Sets the current record's "type_calendar_id" value
+ * @method Calendar                setRegisteredCompaniesId()       Sets the current record's "registered_companies_id" value
+ * @method Calendar                setNext()                        Sets the current record's "next" value
+ * @method Calendar                setContractsIntermediationId()   Sets the current record's "contracts_intermediation_id" value
+ * @method Calendar                setAppUser()                     Sets the current record's "AppUser" value
+ * @method Calendar                setRegisteredCompanies()         Sets the current record's "RegisteredCompanies" value
+ * @method Calendar                setTypeCalendar()                Sets the current record's "TypeCalendar" value
+ * @method Calendar                setContractsIntermediation()     Sets the current record's "ContractsIntermediation" value
+ * @method Calendar                setCalendar()                    Sets the current record's "Calendar" collection
  * 
  * @package    egauss
  * @subpackage model
@@ -120,6 +126,10 @@ abstract class BaseCalendar extends sfDoctrineRecord
              'type' => 'boolean',
              'default' => false,
              ));
+        $this->hasColumn('contracts_intermediation_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
 
         $this->option('collate', 'utf8_general_ci');
         $this->option('charset', 'utf8');
@@ -142,6 +152,11 @@ abstract class BaseCalendar extends sfDoctrineRecord
              'local' => 'type_calendar_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
+
+        $this->hasOne('ContractsIntermediation', array(
+             'local' => 'contracts_intermediation_id',
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasMany('DocumentsRegisteredCompanies as Calendar', array(
              'local' => 'id',

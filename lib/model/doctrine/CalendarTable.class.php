@@ -65,7 +65,7 @@ class CalendarTable extends Doctrine_Table
            ->andWhere('day >= ?', $day)
            ->orderBy('hour_from ASC');
       */
-			$q = $this->createQuery()->orderBy('CONCAT(year,month,day) DESC')->limit(5);
+      $q = $this->createQuery()->orderBy('CONCAT(year,month,day) DESC')->limit(5);
 
       return $q->execute();
     }        
@@ -95,5 +95,18 @@ class CalendarTable extends Doctrine_Table
         
         return $q->fetchOne();
                 
-    }        
+    }  
+    
+    /**
+     * get reunion by contract 
+     * @param int $id_contract
+     */
+    public function getReunionByContract($id_contract)
+    {
+        $q = $this->createQuery()
+             ->where('contracts_intermediation_id = ?', $id_contract)
+             ->orderBy('CONCAT(year,month,day) DESC');
+        
+        return $q->execute();
+    }   
 }

@@ -35,7 +35,7 @@ class contractsComponents extends sfComponents
   public function executeGetReunionByContract(sfWebRequest $request)
   {
         $this->id   = $request->getParameter('id');
-        $this->reunion = ReunionContractsIntermediationTable::getInstance()->getReunionByContract($this->id);
+        $this->reunion = CalendarTable::getInstance()->getReunionByContract($this->id);
   }    
   
   /**

@@ -188,14 +188,33 @@ $(document).ready(function(){
                                         <?php include_component('contracts', 'getReunionByContract') ?>
                                     </div>
                                     <div>
+                                        <?php if (count($error_calendar) > 0): ?>
+                                        <div class="mensajeSistema error">
+                                            <ul>
+                                             <?php foreach ($error_calendar as $e): ?><li><?php echo $e ?></li><?php endforeach; ?>
+                                            </ul>
+                                        </div>
+                                        <?php endif; ?>
                                         <table width="100%" cellspacing="4" cellpadding="0" border="0">
                                             <tr>
-                                                <td width="20%"><label><?php echo __('Date') ?> *</label></td>
-                                                <td><?php echo $form['date'] ?></td>
+                                                    <td width="10%"><label><?php echo __('Date') ?> *</label></td>
+                                                    <td><?php echo $form['date'] ?></td>
+                                            </tr>
+                                            <tr>
+						<td width="6%"><label><?php echo __('Inicio') ?> *</label></td>
+						<td><?php echo $form['hour_from'] ?></td>
+                                            </tr>
+                                            <tr>
+						<td width="6%"><label><?php echo __('Fin') ?> *</label></td>
+						<td><?php echo $form['hour_to'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                    <td width="10%"><label><?php echo __('Tema') ?> *</label></td>
+                                                    <td><?php echo $form['subject'] ?></td>
                                             </tr>
                                             <tr><td style="height: 15px;"></td></tr>
                                             <tr>
-                                                <td colspan="2"><?php echo $form['comments_reunion'] ?></td>
+                                                <td colspan="2"><?php echo $form['body'] ?></td>
                                             </tr>
                                         </table>  
                                     </div>

@@ -39,6 +39,10 @@ class ContractsIntermediationForm extends BaseContractsIntermediationForm
     $this->setWidgets(array(
       'id'                      => new sfWidgetFormInputHidden(),
       'date'                    => new sfWidgetFormJQueryDate(array('image'=>'/images/calendario.gif','date_widget' => new sfWidgetFormDate(array('format' => '%day% %month% %year%')))),  
+      'hour_from'               => new sfWidgetFormTime(array('with_seconds' => true,'format'=> '%hour% : %minute% : %second%')),
+      'hour_to'                 => new sfWidgetFormTime(array('with_seconds' => true,'format'=> '%hour% : %minute% : %second%')),
+      'subject'                 => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
+      'body'                    => new sfWidgetFormTextareaTinyMCE(array('config' => 'theme_advanced_buttons1 : "cut, copy, paste, images, bold, italic, underline, justifyleft, justifycenter, justifyright , outdent, indent, bullist, numlist, undo, redo, link",theme_advanced_buttons2 : "",theme_advanced_buttons3 : ""'),array('style' => 'width:900px;  height: 150px;', 'rows' => 10, 'class' => 'foo')),  
       'year'                    => new sfWidgetFormChoice(array('choices'=>$array_year), array('class'=>'form_input', 'style'=>'width:130px;')),
       'month'                   => new sfWidgetFormChoice(array('choices'=>$month), array('class'=>'form_input', 'style'=>'width:130px;')),
       'customer_name'           => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
@@ -57,12 +61,15 @@ class ContractsIntermediationForm extends BaseContractsIntermediationForm
       'final_commission'        => new sfWidgetFormInputText(array(), array('class'=>'form_input no_letters', 'style'=>'width:400px;')),
       'cashed'                  => new sfWidgetFormInputCheckbox(array(),array('value'=>1)),
       'comments'                => new sfWidgetFormTextareaTinyMCE(array('config' => 'theme_advanced_buttons1 : "cut, copy, paste, images, bold, italic, underline, justifyleft, justifycenter, justifyright , outdent, indent, bullist, numlist, undo, redo, link",theme_advanced_buttons2 : "",theme_advanced_buttons3 : ""'),array('style' => 'width:900px;  height: 150px;', 'rows' => 10, 'class' => 'foo')),
-      'comments_reunion'        => new sfWidgetFormTextareaTinyMCE(array('config' => 'theme_advanced_buttons1 : "cut, copy, paste, images, bold, italic, underline, justifyleft, justifycenter, justifyright , outdent, indent, bullist, numlist, undo, redo, link",theme_advanced_buttons2 : "",theme_advanced_buttons3 : ""'),array('style' => 'width:900px;  height: 150px;', 'rows' => 10, 'class' => 'foo')),  
     ));
 
     $this->setValidators(array(
       'id'                      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'date'                    => new sfValidatorDate(array('required' => FALSE), array('invalid' => 'La fecha ingresada es incorrecta')),  
+      'date'                    => new sfValidatorDate(array('required' => true), array('required' => 'La fecha es obligatoria', 'invalid' => 'La fecha ingresada es incorrecta')),  
+      'hour_from'               => new sfValidatorTime(array(), array('invalid' => 'Hora de inicio Inválida', 'required' => 'Hora de inicio Obrigatória.')),
+      'hour_to'                 => new sfValidatorTime(array(), array('invalid' => 'Hora de fin Inválida', 'required' => 'Hora de fin Obrigatória.')),
+      'subject'                 => new sfValidatorString(array('max_length' => 50), array('required'=>'Ingrese el Título')),
+      'body'                    => new sfValidatorPass(array('required' => false)),
       'year'                    => new sfValidatorChoice(array('choices' => array_keys($array_year)),array('required' => 'Ingrese un año.')),
       'month'                   => new sfValidatorChoice(array('choices' => array_keys($month)),array('required' => 'Ingrese un mes .')),
       'customer_name'           => new sfValidatorString(array('max_length' => 50)),
@@ -81,7 +88,6 @@ class ContractsIntermediationForm extends BaseContractsIntermediationForm
       'final_commission'        => new sfValidatorNumber(array('required' => false)),
       'cashed'                  => new sfValidatorBoolean(array('required' => false)),  
       'comments'                => new sfValidatorPass(array('required' => false)),
-      'comments_reunion'        => new sfValidatorPass(array('required' => false)),  
     ));
 
     $this->widgetSchema->setNameFormat('contracts_intermediation[%s]');
