@@ -55,7 +55,7 @@ class contractsActions extends sfActions
         $this->sch_company  = trim($this->getRequestParameter('sch_company'));
        
         if (!empty($this->sch_customer)) {
-                $sch_partial .= " AND (customer LIKE '%$this->sch_customer%')";
+                $sch_partial .= " AND (customer_name LIKE '%$this->sch_customer%')";
                 $this->f_params .= '&sch_customer='.urlencode($this->sch_customer);
         }
         if (!empty($this->sch_month)) {
@@ -274,6 +274,7 @@ class contractsActions extends sfActions
 
           $this->reunion_action = ReunionContractsIntermediationTable::getInstance()->getReunionByContract($this->id);
           $this->document       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentByContrat($this->id);
+          $this->information   = InformationTable::getInstance()->findByContractsIntermediationId($this->id);  
           
           
           

@@ -147,8 +147,12 @@ class informationActions extends sfActions
         $this->url_register_videos = !$this->id?'@information-register-video':'@information-register-video?id='.$this->id;
         $this->url_get_videos      = !$this->id?'@information-get-components-videos':'@information-get-components-videos?id='.$this->id;
         $this->url_document        = !$this->id?'@information-register-document':'@information-register-document?id='.$this->id;
+        $this->companies           = $request->getParameter('companies', 1);
+        $this->contracts           = $request->getParameter('contracts', 0);
         if ($this->id) {
-              $entity_object = InformationTable::getInstance()->find($this->id);
+              $entity_object       = InformationTable::getInstance()->find($this->id);
+              $this->companies     = $entity_object->getRegisteredCompaniesId()?1:0;
+              $this->contracts     = $entity_object->getContractsIntermediationId()?1:0;
         }
 
         $this->form = new InformationForm($entity_object);
@@ -157,15 +161,39 @@ class informationActions extends sfActions
               $this->form->bind($request->getParameter($this->form->getName()));
               if ($this->form->isValid()) 
               {
+                  $this->companies           = $request->getParameter('companies');
+                  $this->contracts           = $request->getParameter('contracts');
                   $recorded = $this->form->save();
                   
-                  $app_user = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($recorded->getRegisteredCompaniesId());
+                  if($this->companies){$recorded->setContractsIntermediationId(NULL);}
+                  if($this->contracts){$recorded->setRegisteredCompaniesId(NULL);}
+                  
+                  $recorded->save();
+                  
+                  if($recorded->getRegisteredCompaniesId())
+                  {
+                      $company_id_user = $recorded->getRegisteredCompaniesId();
+                      $title = 'empresa';
+                      $title_mail = 'Empresa Participada';
+                      $name_company = $recorded->getRegisteredCompanies()->getName();
+                  } 
+                  else
+                  {
+                      $contract_intermediation = ContractsIntermediationTable::getInstance()->findOneById($recorded->getContractsIntermediationId());
+                      $company_id_user         = $contract_intermediation->getRegisteredCompaniesId();
+                      $title = 'intermediación';
+                      $title_mail = 'Intermediación';
+                      $company_intermediantion = $contract_intermediation->getRegisteredCompanies()?$contract_intermediation->getRegisteredCompanies()->getName().' (Participada)':$contract_intermediation->getCompanyName();
+                      $name_company = $contract_intermediation->getCustomerName().' - '.$company_intermediantion;
+                  }    
+                  
+                  $app_user = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($company_id_user);
                   if($app_user)
                   {    
                     foreach ($app_user AS $value){
                       $notification_user = NotificationsTable::getInstance()->findOneByInformationIdAndAppUserId($recorded->getId(), $value->getAppUserId());
                       if(!$notification_user){
-                          Notifications::setNewNotification('information', 'Una nueva información de la empresa: '.$recorded->getRegisteredCompanies()->getName().' se ha registrado','',$value->getAppUserId(), $recorded->getId());   
+                          Notifications::setNewNotification('information', 'Una nueva información de la '.$title.': '.$name_company.' se ha registrado','',$value->getAppUserId(), $recorded->getId());   
                       }
                     }  
                   }  
@@ -174,14 +202,14 @@ class informationActions extends sfActions
                   {
                       if($app_user)
                       {    
-                        sfProjectConfiguration::getActive()->loadHelpers(array("Url"));  
+                        sfProjectConfiguration::getActive()->loadHelpers(array("Url")); 
                         foreach ($app_user AS $value){
                           $sendEmail = ServiceOutgoingMessages::sendToSingleAccount
                             (
                               $value->getAppUser()->getName().' '.$value->getAppUser()->getLastName(), $value->getAppUser()->getEmail(),
                               'home/companyInformation',
                               array(
-                                'subject'    => 'eGauss.com Noticias de Empresa Participada',
+                                'subject'    => 'eGauss.com Noticias de '.$title_mail,
                                 'to_partial' => array(
                                   'name_user'    => $value->getAppUser()->getName().' '.$value->getAppUser()->getLastName(),
                                   'name_company' => $recorded->getRegisteredCompanies()->getName(),
@@ -224,7 +252,14 @@ class informationActions extends sfActions
                           $load_doc->setDescription($v_doc->getDescription());
                           $load_doc->setDownload($v_doc->getDownload());
                           $load_doc->setUrl($v_doc->getUrl());
-                          $load_doc->setRegisteredCompaniesId($recorded->getRegisteredCompaniesId());
+                          if($recorded->getRegisteredCompaniesId())
+                          {    
+                            $load_doc->setRegisteredCompaniesId($recorded->getRegisteredCompaniesId());
+                          }
+                          if($recorded->getContractsIntermediationId())
+                          {    
+                            $load_doc->setContractsIntermediationId($recorded->getContractsIntermediationId());
+                          }
                           $load_doc->setInformationId($recorded->getId());
                           $load_doc->setTypeInformationId($recorded->getTypeInformationId());
                           $load_doc->save();

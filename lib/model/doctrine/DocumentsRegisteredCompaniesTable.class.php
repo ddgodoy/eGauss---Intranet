@@ -53,11 +53,16 @@ class DocumentsRegisteredCompaniesTable extends Doctrine_Table
      * @param int $id_contrat
      * @return object
      */
-    public function getDocumentByContrat($id_contrat)
+    public function getDocumentByContrat($id_contrat, $no_comment = NULL)
     {
         $q = $this->createQuery()
              ->where('contracts_intermediation_id = '.$id_contrat)  
              ->orderBy('id DESC');
+        
+        if($no_comment)
+        {
+            $q->andWhere('ci_comments_id Is NULL');
+        }    
         
         return $q->execute();
     }        

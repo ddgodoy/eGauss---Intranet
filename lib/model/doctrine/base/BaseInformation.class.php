@@ -10,32 +10,38 @@
  * @property string $name
  * @property text $description
  * @property integer $registered_companies_id
+ * @property integer $contracts_intermediation_id
  * @property integer $type_information_id
  * @property boolean $important
  * @property RegisteredCompanies $RegisteredCompanies
+ * @property ContractsIntermediation $ContractsIntermediation
  * @property TypeInformation $TypeInformation
  * @property Doctrine_Collection $Information
  * 
- * @method integer             getId()                      Returns the current record's "id" value
- * @method datetime            getDate()                    Returns the current record's "date" value
- * @method string              getName()                    Returns the current record's "name" value
- * @method text                getDescription()             Returns the current record's "description" value
- * @method integer             getRegisteredCompaniesId()   Returns the current record's "registered_companies_id" value
- * @method integer             getTypeInformationId()       Returns the current record's "type_information_id" value
- * @method boolean             getImportant()               Returns the current record's "important" value
- * @method RegisteredCompanies getRegisteredCompanies()     Returns the current record's "RegisteredCompanies" value
- * @method TypeInformation     getTypeInformation()         Returns the current record's "TypeInformation" value
- * @method Doctrine_Collection getInformation()             Returns the current record's "Information" collection
- * @method Information         setId()                      Sets the current record's "id" value
- * @method Information         setDate()                    Sets the current record's "date" value
- * @method Information         setName()                    Sets the current record's "name" value
- * @method Information         setDescription()             Sets the current record's "description" value
- * @method Information         setRegisteredCompaniesId()   Sets the current record's "registered_companies_id" value
- * @method Information         setTypeInformationId()       Sets the current record's "type_information_id" value
- * @method Information         setImportant()               Sets the current record's "important" value
- * @method Information         setRegisteredCompanies()     Sets the current record's "RegisteredCompanies" value
- * @method Information         setTypeInformation()         Sets the current record's "TypeInformation" value
- * @method Information         setInformation()             Sets the current record's "Information" collection
+ * @method integer                 getId()                          Returns the current record's "id" value
+ * @method datetime                getDate()                        Returns the current record's "date" value
+ * @method string                  getName()                        Returns the current record's "name" value
+ * @method text                    getDescription()                 Returns the current record's "description" value
+ * @method integer                 getRegisteredCompaniesId()       Returns the current record's "registered_companies_id" value
+ * @method integer                 getContractsIntermediationId()   Returns the current record's "contracts_intermediation_id" value
+ * @method integer                 getTypeInformationId()           Returns the current record's "type_information_id" value
+ * @method boolean                 getImportant()                   Returns the current record's "important" value
+ * @method RegisteredCompanies     getRegisteredCompanies()         Returns the current record's "RegisteredCompanies" value
+ * @method ContractsIntermediation getContractsIntermediation()     Returns the current record's "ContractsIntermediation" value
+ * @method TypeInformation         getTypeInformation()             Returns the current record's "TypeInformation" value
+ * @method Doctrine_Collection     getInformation()                 Returns the current record's "Information" collection
+ * @method Information             setId()                          Sets the current record's "id" value
+ * @method Information             setDate()                        Sets the current record's "date" value
+ * @method Information             setName()                        Sets the current record's "name" value
+ * @method Information             setDescription()                 Sets the current record's "description" value
+ * @method Information             setRegisteredCompaniesId()       Sets the current record's "registered_companies_id" value
+ * @method Information             setContractsIntermediationId()   Sets the current record's "contracts_intermediation_id" value
+ * @method Information             setTypeInformationId()           Sets the current record's "type_information_id" value
+ * @method Information             setImportant()                   Sets the current record's "important" value
+ * @method Information             setRegisteredCompanies()         Sets the current record's "RegisteredCompanies" value
+ * @method Information             setContractsIntermediation()     Sets the current record's "ContractsIntermediation" value
+ * @method Information             setTypeInformation()             Sets the current record's "TypeInformation" value
+ * @method Information             setInformation()                 Sets the current record's "Information" collection
  * 
  * @package    egauss
  * @subpackage model
@@ -69,6 +75,10 @@ abstract class BaseInformation extends sfDoctrineRecord
              'type' => 'integer',
              'length' => 4,
              ));
+        $this->hasColumn('contracts_intermediation_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
         $this->hasColumn('type_information_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
@@ -88,7 +98,12 @@ abstract class BaseInformation extends sfDoctrineRecord
         $this->hasOne('RegisteredCompanies', array(
              'local' => 'registered_companies_id',
              'foreign' => 'id',
-             'onDelete' => 'CASCADE'));
+             'onDelete' => 'SET NULL'));
+
+        $this->hasOne('ContractsIntermediation', array(
+             'local' => 'contracts_intermediation_id',
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasOne('TypeInformation', array(
              'local' => 'type_information_id',

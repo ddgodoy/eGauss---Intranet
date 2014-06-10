@@ -12,4 +12,20 @@
  */
 class ContractsIntermediation extends BaseContractsIntermediation
 {
+  /**
+   * Get array for select
+   * @return array
+   */
+  public static function getArrayForSelect()
+  {
+    $object = ContractsIntermediationTable::getInstance()->getContractOrdeyBy();
+    $array = array(''=>'-- Seleccionar --');
+    
+    foreach ($object AS $v)
+    {
+      $company = $v->getRegisteredCompanies()?$v->getRegisteredCompanies()->getName().' (Participada)':$v->getCompanyName();  
+      $array[$v->getId()] = $v->getCustomerName().' - '.$company;
+    }
+    return $array;
+  }
 }

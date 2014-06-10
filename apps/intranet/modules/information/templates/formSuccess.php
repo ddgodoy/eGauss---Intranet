@@ -36,6 +36,34 @@ $(document).ready(function(){
             
             
     });
+    
+    $('#companies').click(function(){
+        if($(this).is(':checked')){
+            $('#contracts').removeAttr('checked');
+            $('#data-company').show();
+            $('#data-contract').hide();
+            $('#fancybox-manual-b').show();
+        }else{
+            $('#contracts').attr('checked', 'checked');
+            $('#data-company').hide();
+            $('#data-contract').show();
+            $('#fancybox-manual-b').hide();
+        }    
+    });
+    
+    $('#contracts').click(function(){
+        if($(this).is(':checked')){
+            $('#companies').removeAttr('checked')
+            $('#data-contract').show();
+            $('#data-company').hide();
+            $('#fancybox-manual-b').hide();
+        }else{
+            $('#companies').attr('checked', 'checked');
+            $('#data-company').show();
+            $('#data-contract').hide();
+            $('#fancybox-manual-b').show();
+        }    
+    });
 });
 </script>
 <?php
@@ -44,7 +72,12 @@ $(document).ready(function(){
 	$request_id   = $id ?  "?id=$id" : '';
 ?>
 <div class="content">
-	<div class="leftside">
+        <div class="rightside">
+            <div class="paneles" id="conten-calendar">
+                <?php include_component('calendar', 'calendar') ?>
+            </div> 
+        </div>
+	<div class="leftside" style="margin-left:260px;">
 		<div class="mapa">
 			<a href="<?php echo url_for('home/index') ?>"><strong><?php echo __('Home') ?></strong></a>
 			&nbsp;&gt;&nbsp;
@@ -64,28 +97,51 @@ $(document).ready(function(){
 		</h1>
 		<form enctype="multipart/form-data" method="post" action="<?php echo url_for('@'.$str_module.'-'.$str_action.$request_id) ?>">
                     <label class="lineaListados"><?php echo __('Mandatory fields') ?>&nbsp;(*)</label><br />
+                        <fieldset>
+                            <legend>Pertenece</legend>
+                            <table width="100%" cellspacing="4" cellpadding="0" border="0">
+                                <tr>
+                                    <td width="5%"><input type="checkbox" id="companies" name="companies" <?php if($companies): ?> checked="checked" <?php endif; ?> value="1"></td>
+                                    <td><label>Participadas</label></td>
+                                </tr>
+                                <tr>
+                                    <td width="5%"><input type="checkbox" id="contracts" name="contracts" <?php if($contracts): ?> checked="checked" <?php endif; ?> value="1"></td>
+                                    <td><label>Intermediación</label></td>
+                                </tr>
+                            </table>
+                        </fieldset>    
 			<fieldset>
                             <table width="100%" cellspacing="4" cellpadding="0" border="0">
                                 <tr>
                                     <td style=" width: 60%">
                                         <table width="100%" cellspacing="4" cellpadding="0" border="0">
                                             <tr>
-                                                    <td width="10%"><label><?php echo __('Date') ?> *</label></td>
+                                                    <td width="20%"><label><?php echo __('Date') ?> *</label></td>
                                                     <td><?php echo $form['date'] ?></td>
                                             </tr>
                                             <tr>
                                                     <td width="10%"><label><?php echo __('Título') ?> *</label></td>
                                                     <td><?php echo $form['name'] ?></td>
                                             </tr>
+                                        </table>
+                                        <table width="100%" id="data-company" cellspacing="4" cellpadding="0" border="0" <?php if(!$companies): ?> style="display: none" <?php endif; ?> >
                                             <tr>
-                                                    <td width="10%"><label><?php echo __('Empresa') ?> *</label></td>
+                                                    <td width="20%"><label><?php echo __('Empresa') ?> *</label></td>
                                                     <td><?php echo $form['registered_companies_id'] ?></td>
                                             </tr>
                                             <tr>
                                                     <td width="10%"><label><?php echo __('Categoría') ?> *</label></td>
                                                     <td><?php echo $form['type_information_id'] ?></td>
                                             </tr>
-                                            
+                                        </table>
+                                        <table width="100%" cellspacing="4" id="data-contract" cellpadding="0" border="0" <?php if(!$contracts): ?> style="display: none" <?php endif; ?>>
+                                            <tr>
+                                                    <td width="20%"><label><?php echo __('Intermediación') ?> *</label></td>
+                                                    <td>
+                                                        <?php echo $form['contracts_intermediation_id'] ?>
+                                                        <input type="hidden" id="information_type_information_id" name="information[type_information_id]" value="1" />
+                                                    </td>
+                                            </tr>
                                         </table>
                                     </td>
                                     <td style="vertical-align: top">
@@ -113,7 +169,7 @@ $(document).ready(function(){
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a id="fancybox-manual-b">
+                                        <a id="fancybox-manual-b" <?php if($contracts): ?> style="display: none" <?php endif; ?>>
                                             <img src="/images/video.jpeg" border="0" width="50" height="50" title="Ingresar Vídeo"  style="cursor: pointer"/>
                                         </a>
                                         <a id="fancybox-manual-c">

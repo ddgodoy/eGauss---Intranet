@@ -57,9 +57,9 @@ class ContractsIntermediationTable extends Doctrine_Table
 					GROUP BY u.id 
 					ORDER BY volumen DESC";
 
-    $q = $c->execute($s);
+                $q = $c->execute($s);
 
-    $result = $q->fetchAll();
+                $result = $q->fetchAll();
 		$socios = array();
         
 		foreach ($result as $n)
@@ -72,4 +72,15 @@ class ContractsIntermediationTable extends Doctrine_Table
 		return $socios;
 	}
      
+        /**
+         * get contract ordey by
+         * @return object
+         */
+        public function getContractOrdeyBy()
+        {
+            $q = $this->createQuery()
+                 ->orderBy('customer_name ASC');
+            
+            return $q->execute();     
+        }        
 } // end class

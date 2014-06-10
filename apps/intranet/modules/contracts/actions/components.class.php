@@ -50,7 +50,7 @@ class contractsComponents extends sfComponents
         $temp_document         = array();
         $this->url_d_document  = !$id?'@contracts-delete-document':'@contracts-delete-document?id='.$id;
         if($id){
-            $document_by_company = DocumentsRegisteredCompaniesTable::getInstance()->findByContractsIntermediationId($id);
+            $document_by_company = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentByContrat($id, true);
         }
         $temp_document = TempsDocumentsTable::getInstance()->getFindAllByAppUser();
         

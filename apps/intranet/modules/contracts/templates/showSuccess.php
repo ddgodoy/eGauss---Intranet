@@ -26,6 +26,27 @@ $(document).ready(function()
                 </div>
             </div>
             <?php endif; ?>
+            <?php if (count($information) > 0): ?>
+            <div class="paneles" style="overflow-y: auto; height: 175px;">
+              <h1>Últimas noticias</h1>
+              <table width="100%" cellspacing="0" border="0" class="listados">
+                <tr>
+                  <th width="5%"></th>  
+                  <th width="25%" align="left"><?php echo __('Date') ?></th>
+                  <th width="65%" align="left"><?php echo __('Titulo') ?></th>
+                  <th width="25%" align="left"><?php echo __('Categoría') ?></th>
+                </tr>
+                <?php foreach ($information AS $value): ?>
+                <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>" style="cursor: pointer" onclick="document.location='<?php echo url_for('@information-show?id='.$value->getId()) ?>'">
+                  <td><img src="/images/acta.png" border="0"/></td>
+                  <td><?php echo Common::getFormattedDate($value->getCreatedAt() , 'd/m/Y') ?></td>
+                  <td><?php echo $value->getName() ?></td>
+                  <td><?php echo $value->getTypeInformation()->getName() ?></td>
+                </tr> 
+                <?php endforeach; ?>
+              </table>
+            </div>
+            <?php endif; ?>
             <?php if (count($document) > 0 ): ?>
             <div class="paneles" id="div_doc_c" style="overflow-y: auto; height: 175px;">
               <h1>Documentos</h1>
