@@ -98,7 +98,7 @@ class AppUserTable extends Doctrine_Table
      *
      * @return array
      */
-    public function getAllForSelectContact()
+    public function getAllForSelectContact($id_contact = 2)
     {
        $i18N = sfContext::getInstance()->getI18N();
        $arr_options = array();
@@ -108,7 +108,7 @@ class AppUserTable extends Doctrine_Table
                ->from('AppUser au')
                ->leftJoin('au.UserRole ur')
                ->where('au.email IS NOT NULL')
-               ->andWhere('au.user_role_id = ?', 2)
+               ->andWhere('au.user_role_id = ?', $id_contact)
                ->orderBy(' id');
        
        $d = $q->fetchArray();

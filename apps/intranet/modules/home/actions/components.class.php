@@ -15,7 +15,7 @@ class homeComponents extends sfComponents
      */
     public function executeLogo(sfWebRequest $request)
     {
-        $this->_company_logo = 'images/no_company_logo.png';
+        $this->_company_logo = 'images/logo.png';
         $this->_fixSize_logo = 'width="200"';
 
         if ($this->getUser()->getAttribute('user_company_logo')) {

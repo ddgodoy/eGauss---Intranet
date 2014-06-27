@@ -12,7 +12,7 @@
     </div>
     <?php include_component('home', 'logo') ?>
     <?php include_component('home', 'user') ?>
-    <div class="basics_links"><!--<a href="#"><?php //echo __('Help') ?></a>--></div>
+    <div class="clear"></div>
     <div class="menu"><?php include_partial('home/menu') ?></div>
 </div>
 <?php else: ?>

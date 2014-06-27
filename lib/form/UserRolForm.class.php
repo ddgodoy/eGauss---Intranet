@@ -42,9 +42,7 @@ class UserRolForm extends BaseAppUserForm
 
     if(in_array($sf_user->getAttribute('user_role'),array('super_admin')))
     {   
-        $choices_array= array(0=>$i18N->__('Select', NULL, 'messages'),1=>$i18N->__('Super Admin', NULL, 'messages'),2=>$i18N->__('Socio', NULL, 'messages'));
-        
-        if($sf_user->getAttribute('user_role') == 'manager'){unset($choices_array[4]);}
+        $choices_array= array(0=>$i18N->__('Select', NULL, 'messages'),1=>$i18N->__('Super Admin', NULL, 'messages'),2=>$i18N->__('Socio', NULL, 'messages'), 3=>$i18N->__('Clientes', NULL, 'messages'), 4=>$i18N->__('Socios Empresa', NULL, 'messages'));
         
         $this->setWidget('user_role_id', new sfWidgetFormChoice(array('choices'=>$choices_array),array('style'=>'width:400px;')));
     }

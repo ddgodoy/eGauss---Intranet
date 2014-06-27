@@ -9,7 +9,7 @@ UserRole:
   user_role_super_admin:
     id: 1
     name: Super Admin
-    credentials: super_admin, socios
+    credentials: super_admin, socios, clientes, socios_empresa
     code: super_admin
 
   user_role_socios:
@@ -17,6 +17,18 @@ UserRole:
     name: Socios 
     credentials: socios 
     code: socios 
+    
+  user_role_clients:
+    id: 3
+    name: Clientes 
+    credentials: clientes 
+    code: clientes  
+    
+  user_role_business_partners:
+    id: 4
+    name: Socios Empresa  
+    credentials: socios_empresa  
+    code: socios_empresa    
 
 ###############################################################
 

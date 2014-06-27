@@ -307,6 +307,63 @@ information:
   url:   /information
   param: { module: information, action: index }
 
+#################################################################### company
+
+# company-delete-document rules
+company-delete-document:
+  url:   /company-delete-document
+  param: { module: company, action: deleteDocument }
+
+# company-get-components-documents rules
+company-get-components-documents:
+  url:   /company-get-components-documents
+  param: { module: company, action: getComponentsDocuments }
+  
+# company-register-document rules
+company-register-document:
+  url:   /company-register-document
+  param: { module: company, action: registerDocument }
+
+# company-delete-video rules
+company-delete-video:
+  url:   /company-delete-video
+  param: { module: company, action: deleteVideo }
+
+# company-get-components-videos rules
+company-get-components-videos:
+  url:   /company-get-components-videos
+  param: { module: company, action: getComponentsVideos }
+  
+# company-register-video rules
+company-register-video:
+  url:   /company-register-video
+  param: { module: company, action: registerVideo }
+  
+# company-delete rules
+company-delete:
+  url:   /company-delete/:id
+  param: { module: company, action: delete }
+
+# company-edit rules
+company-edit:
+  url:   /company-edit/:id
+  param: { module: company, action: edit }
+
+# company-register rules
+company-register:
+  url:   /company-register
+  param: { module: company, action: register }
+  
+# company-show rules
+company-show:
+  url:   /company-show/:id
+  param: { module: company, action: show }
+  
+# company rules
+company:
+  url:   /company
+  param: { module: company, action: index }
+
 
 #################################################################### analyzed
 

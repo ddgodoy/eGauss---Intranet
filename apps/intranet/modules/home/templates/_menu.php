@@ -10,6 +10,14 @@
         <a href="<?php echo url_for('@analyzed') ?>" class="first<?php echo $mnGetModule=='analyzed' ? ' selected' : '' ?>">
             <?php echo __('Analizadas') ?>
         </a>
+        <?php if ($sf_user->hasCredential('super_admin')): ?>
+        <a href="<?php echo url_for('@company') ?>" class="first<?php echo $mnGetModule=='company' ? ' selected' : '' ?>">
+            <?php echo __('Empresas') ?>
+        </a>
+        <a href="<?php echo url_for('@user') ?>" class="first<?php echo $mnGetModule=='products' ? ' selected' : '' ?>">
+            <?php echo __('Productos') ?>
+        </a>
+        <?php endif; ?>
         <a href="<?php echo url_for('@information') ?>" class="first<?php echo $mnGetModule=='information' ? ' selected' : '' ?>">
             <?php echo __('Información') ?>
         </a>

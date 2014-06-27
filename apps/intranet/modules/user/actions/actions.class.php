@@ -32,10 +32,10 @@ class userActions extends sfActions
   {
   	$sessionUser = sfContext::getInstance()->getUser();
         
-    $rols = '(1,2)';
+    $rols = '(1,2,3,4)';
     $rols = $sessionUser->getAttribute('user_role') == 'socios'?'(0,2)':$rols;
         
-  	$sch_partial = 'id != '.$sessionUser->getAttribute('user_id'). ' AND user_role_id IN '.$rols;
+    $sch_partial = 'id != '.$sessionUser->getAttribute('user_id'). ' AND user_role_id IN '.$rols;
 
     $this->f_params  = '';
     $this->sch_name  = trim($this->getRequestParameter('sch_name'));
@@ -99,11 +99,11 @@ class userActions extends sfActions
   {
         
   	$this->id         = $request->getParameter('id');
-    $this->my_profile = $request->getParameter('profile', NULL);
-    $this->my_go_ok   = false;
+        $this->my_profile = $request->getParameter('profile', NULL);
+        $this->my_go_ok   = false;
   	$this->email      = '';
   	$this->phone      = '';
-    $this->skype      = '';
+        $this->skype      = '';
   	$this->basecamp   = array();
   	$this->error      = array();
   	$this->photo      = NULL;
@@ -111,37 +111,38 @@ class userActions extends sfActions
   	$send_password    = false;
 
         if($this->my_profile){
-		if($this->id != $this->getUser()->getAttribute('user_id')){
-			$this->redirect('@homepage');	
-		}
+            if($this->id != $this->getUser()->getAttribute('user_id')){
+                    $this->redirect('@homepage');	
+            }
 	}else{
-		if(!$this->getUser()->hasCredential('super_admin')){
-            		$this->redirect('@user');
-        	}
+            if(!$this->getUser()->hasCredential('super_admin')){
+                    $this->redirect('@user');
+            }
 	}
         
   	if ($this->id)
   	{
-  		$entity_object  = AppUserTable::getInstance()->find($this->id);
-  		$this->basecamp = AppUserTable::getInstance()->getRelEnBasecamp($this->id);
-	  	$this->email    = $entity_object->getEmail();
-	  	$this->phone    = $entity_object->getPhone();
-      $this->skype    = $entity_object->getSkype();
-	  	$this->photo    = $entity_object->getPhoto();
+            $entity_object  = AppUserTable::getInstance()->find($this->id);
+            $this->basecamp = AppUserTable::getInstance()->getRelEnBasecamp($this->id);
+            $this->email    = $entity_object->getEmail();
+            $this->phone    = $entity_object->getPhone();
+            $this->skype    = $entity_object->getSkype();
+            $this->photo    = $entity_object->getPhoto();
   	}
   	$this->form = new UserRolForm($entity_object);
         
-    if ($this->id)
-    {
-      $this->form->setDefault('contact_time_from', $entity_object->getContactTimeFrom()); 
-      $this->form->setDefault('contact_time_to', $entity_object->getContactTimeTo());
-    }
+        if ($this->id)
+        {
+          $this->form->setDefault('contact_time_from', $entity_object->getContactTimeFrom()); 
+          $this->form->setDefault('contact_time_to', $entity_object->getContactTimeTo());
+        }
+        
   	if ($request->getMethod() == 'POST')
   	{
   		$this->basecamp = $request->getParameter('proyectos', array());
   		$this->email = trim($request->getParameter('email'));
   		$this->phone = trim($request->getParameter('phone'));
-      $this->skype = trim($request->getParameter('skype'));
+                $this->skype = trim($request->getParameter('skype'));
 
   		$x_password  = trim($request->getParameter('password'));
   		$r_password  = trim($request->getParameter('repeat_password'));
@@ -154,60 +155,60 @@ class userActions extends sfActions
   		if (!empty($check_password)) { $this->error['password'] = $check_password; }
 
   		$form_request = $request->getParameter($this->form->getName());
-      $form_request['company_id'] = 1;
-      $form_request['email']      = $this->email;
-      $form_request['phone']      = $this->phone;
-      $form_request['skype']      = $this->skype;
-                
-      $this->form->bind($form_request);
+                $form_request['company_id'] = 1;
+                $form_request['email']      = $this->email;
+                $form_request['phone']      = $this->phone;
+                $form_request['skype']      = $this->skype;
 
-  		## continue
-  		if ($this->form->isValid() && !$this->error) 
-      {
-  			$recorded = $this->form->    save();
+                $this->form->bind($form_request);
 
-        $recorded->setContactTimeFrom(
-        	sprintf("%02d", $form_request['contact_time_from']['hour']).':'.
-        	sprintf("%02d", $form_request['contact_time_from']['minute']).':'.
-        	sprintf("%02d", $form_request['contact_time_from']['second'])
-        );
-        $recorded->setContactTimeTo(
-        	sprintf("%02d", $form_request['contact_time_to']['hour']).':'.
-        	sprintf("%02d", $form_request['contact_time_to']['minute']).':'.
-        	sprintf("%02d", $form_request['contact_time_to']['second'])
-        );
-        $recorded->save();
+                ## continue
+                if ($this->form->isValid() && !$this->error) 
+                {
+                    $recorded = $this->form->    save();
+
+                    $recorded->setContactTimeFrom(
+                            sprintf("%02d", $form_request['contact_time_from']['hour']).':'.
+                            sprintf("%02d", $form_request['contact_time_from']['minute']).':'.
+                            sprintf("%02d", $form_request['contact_time_from']['second'])
+                    );
+                    $recorded->setContactTimeTo(
+                            sprintf("%02d", $form_request['contact_time_to']['hour']).':'.
+                            sprintf("%02d", $form_request['contact_time_to']['minute']).':'.
+                            sprintf("%02d", $form_request['contact_time_to']['second'])
+                    );
+                    $recorded->save();
                         
-  			## set password
-  			if (!empty($x_password))
-  			{
-					$recorded->setPassword($x_password);
-					$send_password = true;
-  			}
-  			## set photo
-  			AppUserTable::getInstance()->uploadPhoto($request->getFiles('photo'), $recorded, $request->getParameter('reset_photo'));
+                    ## set password
+                    if (!empty($x_password))
+                    {
+                            $recorded->setPassword($x_password);
+                            $send_password = true;
+                    }
+                    ## set photo
+                    AppUserTable::getInstance()->uploadPhoto($request->getFiles('photo'), $recorded, $request->getParameter('reset_photo'));
 
-  			## send password to user
-  			if ($send_password) { AppUser::sendPasswordToUser($x_password, $this->email, $recorded->getName().' '.$recorded->getLastName()); }
+                    ## send password to user
+                    if ($send_password) { AppUser::sendPasswordToUser($x_password, $this->email, $recorded->getName().' '.$recorded->getLastName()); }
 
-        if (!$this->my_profile)
-        {
-        	## set proyectos basecamp
-        	AppUserTable::getInstance()->setRelEnBasecamp($recorded->getId(), $this->basecamp, $request->getParameter('auxi_lista', array()));
-        	
-          $this->redirect('@user-show?id='.$recorded->getId());
+                    if (!$this->my_profile)
+                    {
+                        ## set proyectos basecamp
+                        AppUserTable::getInstance()->setRelEnBasecamp($recorded->getId(), $this->basecamp, $request->getParameter('auxi_lista', array()));
+
+                        $this->redirect('@user-show?id='.$recorded->getId());
+                    }
+                    else 
+                    {
+                      ## update session user data
+                      $this->getUser()->setAttribute('user_name', $recorded->getName());
+                      $this->getUser()->setAttribute('user_photo', $recorded->getPhoto());
+
+                      $this->my_go_ok = true;
+                    }
+                }
         }
-        else 
-        {
-          ## update session user data
-          $this->getUser()->setAttribute('user_name', $recorded->getName());
-          $this->getUser()->setAttribute('user_photo', $recorded->getPhoto());
-
-          $this->my_go_ok = true;
-        }
-  		}
-  	}
-  	$this->setTemplate('form');
+        $this->setTemplate('form');
   }
 
   /**

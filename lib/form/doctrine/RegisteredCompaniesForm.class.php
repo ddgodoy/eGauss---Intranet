@@ -13,7 +13,8 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
   public function configure()
   {
     $i18N       = sfContext::getInstance()->getI18N(); 
-    $contact    = AppUserTable::getInstance()->getAllForSelectContact();
+    $id_contac  = $this->getOption('module') == 'affiliated'?2:4;
+    $contact    = AppUserTable::getInstance()->getAllForSelectContact($id_contac);
     $id         = $this->getObject()->getId();
     $associated = array();
     $required_contacts = FALSE;
@@ -22,7 +23,7 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
     {
       $associated = AppUserRegisteredCompaniesTable::getInstance()->getAllForSelectContactAssociated($id);
     }  
-    if ($this->getOption('module') == 'affiliated')
+    if ($this->getOption('module') == 'affiliated' || $this->getOption('module') == 'company')
     {
        $required_contacts = $i18N->__('Enter the contact', NULL, 'errors');
     }
@@ -64,14 +65,19 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
       'comments'           => new sfValidatorPass(array('required' => false)),
       'contacts'           => new sfValidatorChoice(array('choices' => array_keys($contact), 'multiple' => true, 'required'=>$required_contacts ),array('required'=>$required_contacts))  
     ));
-    if ($this->getOption('module') == 'affiliated')
-    {
-       $this->setDefault('type_companies_id', 1); 
+    
+    switch ($this->getOption('module')) {
+        case 'affiliated':
+            $this->setDefault('type_companies_id', 1);
+            break;
+        case 'analyzed':
+            $this->setDefault('type_companies_id', 2);
+            break;
+        case 'company':
+            $this->setDefault('type_companies_id', 3);
+            break;
     }
-    else
-    {
-       $this->setDefault('type_companies_id', 2); 
-    }
+    
     $this->widgetSchema->setNameFormat('registered_companies[%s]');
   }
 
