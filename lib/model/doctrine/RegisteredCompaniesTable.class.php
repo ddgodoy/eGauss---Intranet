@@ -93,22 +93,35 @@ class RegisteredCompaniesTable extends Doctrine_Table
     return $q->execute();
   }
   
-  /**
-	* Get participadas for select
-	*
-	* @return array
-	*/
-	public function getParticipadasForSelect()
-	{
-		$arr_options = array();
-		
-		$q = Doctrine_Query::create()->from('RegisteredCompanies')->where('type_companies_id = 1')->orderBy('name ASC');
-		$d = $q->fetchArray();
+   /**
+    * Get participadas for select
+    *
+    * @return array
+    */
+    public function getParticipadasForSelect()
+    {
+            $arr_options = array();
 
-		foreach ($d as $value) {
-			$arr_options[$value['id']] = $value['name'];
-		}
-		return $arr_options;
-	}
+            $q = Doctrine_Query::create()->from('RegisteredCompanies')->where('type_companies_id = 1')->orderBy('name ASC');
+            $d = $q->fetchArray();
+
+            foreach ($d as $value) {
+                    $arr_options[$value['id']] = $value['name'];
+            }
+            return $arr_options;
+    }
+    
+    /**
+     * get company by type
+     * @param array $type
+     * @return array
+     */
+    public function getCompanyByType($type = [])
+    {
+        $q = $this->createQuery()
+             ->whereIn('type_companies_id', $type);
+                
+        return $q->execute();        
+    }        
 
 } // end class

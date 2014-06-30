@@ -28,4 +28,17 @@ class RegisteredCompanies extends BaseRegisteredCompanies
     return $array;
   }
 
+  public static function getArrayByType($type)
+  {
+      $company_data = [];
+      $company      = RegisteredCompaniesTable::getInstance()->getCompanyByType($type);
+      
+      foreach ($company as $v) {
+          $type = $v->getTypeCompaniesId()==1?' (Participada)':'';
+          $company_data[$v->getId()] = $v->getName().$type;
+      }
+      
+      return $company_data;
+  }        
+          
 } // end class

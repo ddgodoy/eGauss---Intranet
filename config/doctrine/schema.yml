@@ -454,3 +454,28 @@ Entrepreneur:
     courses:              { type: boolean, default: false }
     comments_courses:     { type: text }  
     comments:             { type: text }
+
+#
+#Product
+#
+Product:
+  tableName: product
+  columns:
+    id:                   { type: integer(4), primary: true, notnull: true, autoincrement: true } 
+    name:                 { type: string(50), notnull: true }
+    description:          { type: text }
+    
+    
+#
+#ProductRegisteredCompanies
+#
+ProductRegisteredCompanies:
+  tableName: product_registered_companies
+  columns:
+    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    product_id:              { type: integer(4)}
+    registered_companies_id: { type: integer(4)}
+    
+  relations:
+    Product:             { class: Product, local: product_id, foreign: id, foreignAlias: Product, onDelete: SET NULL }
+    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: SET NULL }    

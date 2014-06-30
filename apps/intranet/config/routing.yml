@@ -1,3 +1,32 @@
+################################################################### product
+
+# product-delete rules
+product-delete:
+  url:   /product-delete/:id
+  param: { module: product, action: delete }
+
+# product-edit rules
+product-edit:
+  url:   /product-edit/:id
+  param: { module: product, action: edit }
+
+# product-register rules
+product-register:
+  url:   /product-register
+  param: { module: product, action: register }
+  
+# product-show rules
+product-show:
+  url:   /product-show/:id
+  param: { module: product, action: show }
+  
+# product rules
+product:
+  url:   /product
+  param: { module: product, action: index }
+
+
+
 ################################################################### entrepreneur
 
 # entrepreneur-delete-document rules

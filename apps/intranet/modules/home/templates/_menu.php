@@ -14,7 +14,7 @@
         <a href="<?php echo url_for('@company') ?>" class="first<?php echo $mnGetModule=='company' ? ' selected' : '' ?>">
             <?php echo __('Empresas') ?>
         </a>
-        <a href="<?php echo url_for('@user') ?>" class="first<?php echo $mnGetModule=='products' ? ' selected' : '' ?>">
+        <a href="<?php echo url_for('@product') ?>" class="first<?php echo $mnGetModule=='product' ? ' selected' : '' ?>">
             <?php echo __('Productos') ?>
         </a>
         <?php endif; ?>
