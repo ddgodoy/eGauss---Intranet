@@ -10,12 +10,12 @@
  */
 class companyActions extends sfActions
 {
-  /**
-   * index
-   * @param sfWebRequest $request
-   */
-  public function executeIndex(sfWebRequest $request)
-  {
+   /**
+    * index
+    * @param sfWebRequest $request
+    */
+    public function executeIndex(sfWebRequest $request)
+    {
 		$this->getUser()->getAttributeHolder()->remove('videos');
 		$temp_document = TempsDocumentsTable::getInstance()->findAll()->delete();
 		
@@ -23,7 +23,7 @@ class companyActions extends sfActions
 		$this->oPager = RegisteredCompaniesTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy());
 		$this->oList  = $this->oPager->getResults();
 		$this->oCant  = $this->oPager->getNbResults();
-  }   
+    }   
     
     /**
      * Set filter
@@ -144,7 +144,13 @@ class companyActions extends sfActions
           foreach ($d_app_user_registered_companies as $d){
             $array_user_by_company[$d->getAppUserId()] = $d->getAppUserId();           
           }
+          
+          $d_product_registered_companies = ProductRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);  
+          foreach ($d_product_registered_companies as $d){
+            $array_product_by_company[$d->getProductsId()] = $d->getProductsId();           
+          }
         }
+        $array_user_active = '(0,';
         foreach ($parameter_post['contacts'] AS $k => $v)
         {
           if($this->id != '')
@@ -158,7 +164,35 @@ class companyActions extends sfActions
           {
               AppUserRegisteredCompanies::setNewUserInCompany($v, $recorded);
           }    
-          
+          $array_user_active .= $v.',';
+        }
+        $string_user = substr($array_user_active, 0, -1).')';
+        
+        
+        if($string_user && $this->id != ''){
+            $d_user_not_in_company = AppUserRegisteredCompaniesTable::getInstance()->deleteUserNotInCompany($string_user, $recorded->getId());
+        }
+        
+        $array_product_active = '(0,';
+        foreach ($parameter_post['product'] AS $k => $vp)
+        {
+          if($this->id != '')
+          {
+              if(empty($array_product_by_company[$vp])){
+                  ProductRegisteredCompanies::setProductInCompany($recorded->getId(), $vp);
+              }
+
+          }
+          else
+          {
+              ProductRegisteredCompanies::setProductInCompany($recorded->getId(), $vp);
+          }    
+          $array_product_active .= $vp.',';
+        }
+        $string_product = substr($array_product_active, 0, -1).')';
+        
+        if($string_product && $this->id != ''){
+            $d_product_not_in_company = ProductRegisteredCompaniesTable::getInstance()->deleteProductNotInCompany($string_product, $recorded->getId());
         }
         
         #set logo

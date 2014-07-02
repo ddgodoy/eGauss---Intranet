@@ -17,7 +17,7 @@ class productActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
   	$this->iPage  = $request->getParameter('page', 1);
-        $this->oPager = ProductTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy()); 
+        $this->oPager = ProductsTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy()); 
 
   	$this->oList  = $this->oPager->getResults();
   	$this->oCant  = $this->oPager->getNbResults();
@@ -88,8 +88,8 @@ class productActions extends sfActions
       if (!$request->getParameter('id')) {
   		$this->redirect('@product');
       }
-      $procuct_company = ProductRegisteredCompaniesTable::getInstance()->findByProdcutId($request->getParameter('id'))->delete();
-      $product = ProductTable::getInstance()->findOneById($request->getParameter('id'))->delete();
+      $procuct_company = ProductRegisteredCompaniesTable::getInstance()->findByProductsId($request->getParameter('id'))->delete();
+      $product = ProductsTable::getInstance()->findOneById($request->getParameter('id'))->delete();
       
       $this->redirect('@product');
     }
@@ -109,10 +109,10 @@ class productActions extends sfActions
         $entity_object             = NULL;
         $this->error               = array();
         if ($this->id) {
-              $entity_object = ProductTable::getInstance()->find($this->id);
+              $entity_object = ProductsTable::getInstance()->find($this->id);
         }
         
-        $this->form = new ProductForm($entity_object);
+        $this->form = new ProductsForm($entity_object);
         
         if ($request->getMethod() == 'POST') {
             
@@ -125,7 +125,7 @@ class productActions extends sfActions
                   
                   if ($this->id != '')
                   {
-                    $d_product_registered_companies = ProductRegisteredCompaniesTable::getInstance()->findByProductId($this->id);  
+                    $d_product_registered_companies = ProductRegisteredCompaniesTable::getInstance()->findByProductsId($this->id);  
                     foreach ($d_product_registered_companies as $d){
                       $array_company_by_product[$d->getRegisteredCompaniesId()] = $d->getRegisteredCompaniesId();           
                     }
@@ -137,13 +137,13 @@ class productActions extends sfActions
                       if($this->id != '')
                       {
                           if(empty($array_company_by_product[$v])){
-                              ProductRegisteredCompanies::setProductInCompany($v, $recorded);
+                              ProductRegisteredCompanies::setProductInCompany($v, $recorded->getId());
                           }
 
                       }
                       else
                       {
-                          ProductRegisteredCompanies::setProductInCompany($v, $recorded);
+                          ProductRegisteredCompanies::setProductInCompany($v, $recorded->getId());
                       }    
 
                       $array_company_active .= $v.',';
@@ -160,5 +160,19 @@ class productActions extends sfActions
               }
         }      
         $this->setTemplate('form');
+    }
+    
+    /**
+     * Executes show action
+     *
+     * @param sfWebRequest $request
+     */
+    public function executeShow(sfWebRequest $request)
+    {
+          
+          $this->id        = $request->getParameter('id');
+          $this->oValue    = ProductsTable::getInstance()->find($this->id);
+          $this->company = ProductRegisteredCompaniesTable::getInstance()->findByProductsId($this->id);  
+          if (empty($this->id)) { $this->redirect('@product'); }
     }
 }

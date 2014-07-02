@@ -15,13 +15,16 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
     $i18N       = sfContext::getInstance()->getI18N(); 
     $id_contac  = $this->getOption('module') == 'affiliated'?2:4;
     $contact    = AppUserTable::getInstance()->getAllForSelectContact($id_contac);
+    $product    = Products::getArrayForSelect();
     $id         = $this->getObject()->getId();
     $associated = array();
+    $associated_product = array();
     $required_contacts = FALSE;
 
     if ($id)
     {
-      $associated = AppUserRegisteredCompaniesTable::getInstance()->getAllForSelectContactAssociated($id);
+      $associated         = AppUserRegisteredCompaniesTable::getInstance()->getAllForSelectContactAssociated($id);
+      $associated_product = ProductRegisteredCompaniesTable::getInstance()->getAllForSelectProductAssociated($id);
     }  
     if ($this->getOption('module') == 'affiliated' || $this->getOption('module') == 'company')
     {
@@ -44,7 +47,8 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
       'basecamp_id'        => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
       'type_companies_id'  => new sfWidgetFormInputHidden(),
       'comments'           => new sfWidgetFormTextareaTinyMCE(array('config' => 'theme_advanced_buttons1 : "cut, copy, paste, images, bold, italic, underline, justifyleft, justifycenter, justifyright , outdent, indent, bullist, numlist, undo, redo, link",theme_advanced_buttons2 : "",theme_advanced_buttons3 : ""'),array('style' => 'width:900px;  height: 150px;', 'rows' => 10, 'class' => 'foo')),
-      'contacts'           => new sfWidgetFormChoice(array('choices'=> $contact,'renderer_class' => 'sfWidgetFormSelectDoubleList','renderer_options'=>array('associated_first'=>FALSE,'associated_choices' => $associated, 'label_unassociated'=>$i18N->__('Unassociated'), 'label_associated'=>$i18N->__('Associated'))))  
+      'contacts'           => new sfWidgetFormChoice(array('choices'=> $contact,'renderer_class' => 'sfWidgetFormSelectDoubleList','renderer_options'=>array('associated_first'=>FALSE,'associated_choices' => $associated, 'label_unassociated'=>$i18N->__('Unassociated'), 'label_associated'=>$i18N->__('Associated')))),
+      'product'            => new sfWidgetFormChoice(array('choices'=> $product,'renderer_class' => 'sfWidgetFormSelectDoubleList','renderer_options'=>array('associated_first'=>FALSE,'associated_choices' => $associated_product, 'label_unassociated'=>$i18N->__('Unassociated'), 'label_associated'=>$i18N->__('Associated'))))  
     ));
     $this->setValidators(array(
       'id'                 => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
@@ -63,7 +67,8 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
       'basecamp_id'        => new sfValidatorString(array('max_length' => 200, 'required' => false)),  
       'type_companies_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TypeCompanies'))),
       'comments'           => new sfValidatorPass(array('required' => false)),
-      'contacts'           => new sfValidatorChoice(array('choices' => array_keys($contact), 'multiple' => true, 'required'=>$required_contacts ),array('required'=>$required_contacts))  
+      'contacts'           => new sfValidatorChoice(array('choices' => array_keys($contact), 'multiple' => true, 'required'=>$required_contacts ),array('required'=>$required_contacts)),  
+      'product'            => new sfValidatorChoice(array('choices' => array_keys($product), 'multiple' => true, 'required'=>FALSE ))    
     ));
     
     switch ($this->getOption('module')) {

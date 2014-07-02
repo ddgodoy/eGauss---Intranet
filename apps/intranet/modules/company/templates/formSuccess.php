@@ -105,6 +105,10 @@ $(document).ready(function(){
                     <td width="6%"><label><?php echo __('Socios Representantes') ?></label></td>
                     <td><?php echo $form['contacts'] ?></td>
                   </tr>
+                  <tr>
+                    <td width="6%"><label><?php echo __('Productos') ?></label></td>
+                    <td><?php echo $form['product'] ?></td>
+                  </tr>
                 </table>
               </td>
             </tr>

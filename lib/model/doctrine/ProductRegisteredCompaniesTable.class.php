@@ -31,7 +31,7 @@ class ProductRegisteredCompaniesTable extends Doctrine_Table
                    ->from('ProductRegisteredCompanies pr')
                    ->leftJoin('pr.RegisteredCompanies rc')
                    ->leftJoin('rc.TypeCompanies tc')
-                   ->where('pr.product_id = ?', $id)
+                   ->where('pr.products_id = ?', $id)
                    ->orderBy('id');
            
            $d = $q->fetchArray();
@@ -39,6 +39,30 @@ class ProductRegisteredCompaniesTable extends Doctrine_Table
            foreach ($d as $value) {
                    $type = $value['tc_id']==1?' ('.$value['type'].')':'';
                    $arr_options[$value['id']] = $value['name'].$type;
+           }
+           return $arr_options;
+    }
+    
+    /**
+     * Get array of all for select tag
+     * @param string $id 
+     * @return array
+     */
+    public function getAllForSelectProductAssociated($id)
+    {
+           $arr_options = array();
+           
+           $q = Doctrine_Query::create()
+                   ->select('pr.*, p.id AS id, p.name AS name')
+                   ->from('ProductRegisteredCompanies pr')
+                   ->leftJoin('pr.Products p')
+                   ->where('pr.registered_companies_id = ?', $id)
+                   ->orderBy('id');
+           
+           $d = $q->fetchArray();
+
+           foreach ($d as $value) {
+                   $arr_options[$value['id']] = $value['name'];
            }
            return $arr_options;
     }
@@ -52,10 +76,26 @@ class ProductRegisteredCompaniesTable extends Doctrine_Table
     public function deleteCompanyNotInProduct($array_company, $product_id)
     {
         $q = $this->createQuery()
-             ->where('product_id = ?', $product_id)
+             ->where('products_id = ?', $product_id)
              ->andWhere('registered_companies_id NOT IN '.$array_company )
              ->delete();
         
         return $q->execute();
-    }    
+    } 
+    
+    /**
+     * delete product not in company
+     * @param string $array_user
+     * @param int $company_id
+     * @return delete
+     */
+    public function deleteProductNotInCompany($array_product, $company_id)
+    {
+        $q = $this->createQuery()
+             ->where('registered_companies_id = ?', $company_id)
+             ->andWhere('products_id NOT IN '.$array_product )
+             ->delete();
+        
+        return $q->execute();
+    }
 }

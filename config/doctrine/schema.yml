@@ -458,8 +458,8 @@ Entrepreneur:
 #
 #Product
 #
-Product:
-  tableName: product
+Products:
+  tableName: products
   columns:
     id:                   { type: integer(4), primary: true, notnull: true, autoincrement: true } 
     name:                 { type: string(50), notnull: true }
@@ -473,9 +473,9 @@ ProductRegisteredCompanies:
   tableName: product_registered_companies
   columns:
     id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
-    product_id:              { type: integer(4)}
+    products_id:              { type: integer(4)}
     registered_companies_id: { type: integer(4)}
     
   relations:
-    Product:             { class: Product, local: product_id, foreign: id, foreignAlias: Product, onDelete: SET NULL }
+    Products:             { class: Products, local: products_id, foreign: id, foreignAlias: Products, onDelete: SET NULL }
     RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: SET NULL }    

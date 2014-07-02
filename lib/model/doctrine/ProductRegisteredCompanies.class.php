@@ -18,11 +18,11 @@ class ProductRegisteredCompanies extends BaseProductRegisteredCompanies
      * @param object company $recorded
      * @return boolean 
      */
-    public static function setProductInCompany($company_id, $recorded)
+    public static function setProductInCompany($company_id, $product_id)
     {
         $product_registered_companies = New ProductRegisteredCompanies();
         $product_registered_companies->setRegisteredCompaniesId($company_id);
-        $product_registered_companies->setProductId($recorded->getId());
+        $product_registered_companies->setProductsId($product_id);
         $product_registered_companies->save();
-    }
+    }  
 }
