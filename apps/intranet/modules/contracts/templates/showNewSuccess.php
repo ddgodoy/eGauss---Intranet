@@ -11,19 +11,47 @@ $(document).ready(function()
       padding : 5
     });
   });
+  
+  $(".fancybox-manual-company").click(function()
+     {
+       var id = $(this).attr('id');
+       $.fancybox.open({
+         href : id,
+         type : 'iframe',
+         padding : 5
+       });
+     });
+  
 });
 </script>
 <div class="content">
         <div style="width:29%;float:right;">
+            <?php if(!$sf_user->hasCredential('clientes') && !$sf_user->hasCredential('socios_empresa')): ?>
             <div class="paneles" id="conten-calendar" >
                 <?php include_component('calendar', 'calendar') ?>
             </div>
+            <?php endif; ?>
             <?php if(count($reunion_action)>0): ?>
             <div class="paneles" style="overflow-y: auto; height: 280px;">
                 <h1><?php echo __('Reuniones') ?></h1>
                 <div id="div-reunion">
                     <?php include_component('contracts', 'getReunionByContract') ?>
                 </div>
+            </div>
+            <?php endif; ?>
+            <?php if ($product): ?>
+            <div class="paneles" style="overflow-y: auto; height: 175px;">
+              <h1>Productos</h1>
+              <table width="100%" cellspacing="0" border="0" class="listados">
+                <tr>
+                  <th width="25%" align="left"><?php echo __('Productos') ?></th>
+                </tr>
+                <?php foreach ($product AS $pr_value): ?>
+                <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>">
+                  <td><?php echo $pr_value->getProducts()->getName().' - ('.$pr_value->getRegisteredCompanies()->getName().')' ?></td>
+                </tr> 
+                <?php endforeach; ?>
+              </table>
             </div>
             <?php endif; ?>
             <?php if (count($information) > 0): ?>
@@ -37,7 +65,7 @@ $(document).ready(function()
                   <th width="25%" align="left"><?php echo __('Categoría') ?></th>
                 </tr>
                 <?php foreach ($information AS $value): ?>
-                <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?>" style="cursor: pointer" onclick="document.location='<?php echo url_for('@information-show?id='.$value->getId()) ?>'">
+                <tr class="<?php if (!empty($odd_i)) { echo 'gris'; $odd_i=0; } else { echo 'blanco'; $odd_i=1; } ?> fancybox-manual-company" style="cursor: pointer" id="<?php echo url_for('@information-show?id='.$value->getId().'&iframe=1') ?>">
                   <td><img src="/images/acta.png" border="0"/></td>
                   <td><?php echo Common::getFormattedDate($value->getCreatedAt() , 'd/m/Y') ?></td>
                   <td><?php echo $value->getName() ?></td>
@@ -83,118 +111,84 @@ $(document).ready(function()
 			&nbsp;&gt;&nbsp;
 			<a href="<?php echo url_for('contracts/index') ?>"><strong><?php echo __('Contratos de Intermediación') ?></strong></a>
 			&nbsp;&gt;&nbsp;
-			<?php echo $oValue->getCustomerName(); ?>
+			<?php echo $oValue->getName(); ?>
 		</div>
-		<h1 class="titulos"><?php echo $oValue->getCustomerName() ?></h1>
+		<h1 class="titulos"><?php echo $oValue->getName() ?></h1>
                 <h6 class="titulos" style=" color: #1B6577">Mes previsto de ingresos:&nbsp;&nbsp;<?php echo $month[$oValue->getMonth()].' -- '.$oValue->getYear() ?></h6>
                 <table width="100%" cellpadding="2" border="0">
                     <tr>
                         <td style="vertical-align: top">
-                            <fieldset style="height: 180px;">
+                            <fieldset style="height: 160px;">
                                 <legend><?php echo __('Cliente') ?></legend>
                                 <table width="100%" cellspacing="4" cellpadding="2" border="0">
+                                    <?php foreach ($customer AS $p_value): ?>
+                                    <?php $_img_user = $p_value->getAppUser()->getPhoto()? 'uploads/user/'.ServiceFileHandler::getThumbImage($p_value->getAppUser()->getPhoto()) : 'images/no_user.jpg'; ?>
                                     <tr>
-                                        <td width="12%"><label><b><?php echo __('Company') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getCustomerCompany() ?></td>
+                                      <td class="fancybox-manual-b" id="<?php echo $p_value->getAppUser()->getId() ?>">
+                                        <img src="/<?php echo $_img_user ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle; cursor: pointer"/>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <label style="cursor: pointer"><b><?php echo $p_value->getAppUser()->getName().' '.$p_value->getAppUser()->getLastName() ?></b></label>
+                                      </td>
                                     </tr>
-                                    <tr>
-                                        <td width="12%"><label><b><?php echo __('Puesto') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getCustomerWorkstation() ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="12%"><label><b><?php echo __('Email') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getCustomerEmail() ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="12%"><label><b><?php echo __('Phone') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getCustomerPhone() ?></td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </table>
                             </fieldset>
                         </td>
+                        <?php if($company): ?>
                         <td style="vertical-align: top">
-                            <fieldset style="height: 180px;">
-                                <legend><?php echo __('Datos de la empresa') ?></legend>
+                            <fieldset style="height: 160px;">
+                                <legend><?php echo __('Empresa') ?></legend>
                                 <table width="100%" cellspacing="4" cellpadding="2" border="0">
-                                    <?php if($oValue->getRegisteredCompaniesId()): ?>
-                                    <?php $partners_company = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($oValue->getRegisteredCompaniesId()); ?>
+                                    <?php foreach ($company AS $c_value): ?>
                                     <tr>
-                                        <td width="20%"><label><b><?php echo __('Name') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getRegisteredCompanies()->getName() ?> - (Participadas)</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="20%"><label><b><?php echo __('Socios Responsables') ?>:</b></label></td>
-                                        <td class="text_detail">
-                                            <table width="100%" border="0" cellpadding="0" cellspacing="3">
-                                                <?php foreach ($partners_company AS $p_value): ?>
-                                                <?php $_img_user = $p_value->getAppUser()->getPhoto()? 'uploads/user/'.ServiceFileHandler::getThumbImage($p_value->getAppUser()->getPhoto()) : 'images/no_user.jpg'; ?>
-                                                <tr>
-                                                  <td class="fancybox-manual-b" id="<?php echo $p_value->getAppUser()->getId() ?>" style="cursor: pointer">
-                                                    <img src="/<?php echo $_img_user ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle"/>
-                                                    &nbsp;&nbsp;&nbsp;
-                                                    <?php echo $p_value->getAppUser()->getName().' '.$p_value->getAppUser()->getLastName() ?>
-                                                  </td>
-                                                </tr>
-                                                <?php endforeach; ?>
-                                            </table>
+                                        <td class="fancybox-manual-company text_detail" id="<?php echo url_for('@company-show?id='.$c_value->getRegisteredCompaniesId().'&iframe=1') ?>">
+                                        <img style=" width: 50px; height: 50px; vertical-align: middle; cursor: pointer" src="/<?php echo $c_value->getRegisteredCompanies()->getLogo() ? 'uploads/company/'.$c_value->getRegisteredCompanies()->getLogo() : 'images/no_image.jpg' ?>" alt="<?php echo $c_value->getRegisteredCompanies()->getName() ?>" title="<?php echo $c_value->getRegisteredCompanies()->getName() ?>" border="0"/>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <label style="cursor: pointer"><b><?php echo $c_value->getRegisteredCompanies()->getName() ?></b></label>
                                         </td>
-                                    <tr>
-                                        <td width="20%"><label><b><?php echo __('Email') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getRegisteredCompanies()->getEmail() ?></td>
                                     </tr>
-                                    <tr>
-                                        <td width="20%"><label><b><?php echo __('Phone') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getRegisteredCompanies()->getPhone() ?></td>
-                                    </tr>
-                                    </tr>
-                                    <?php else: ?>
-                                    <tr>
-                                        <td width="20%"><label><b><?php echo __('Name') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getCompanyName() ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="20%"><label><b><?php echo __('Contact') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getCompanyContact() ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="20%"><label><b><?php echo __('Email') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getCompanyEmail() ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="20%"><label><b><?php echo __('Phone') ?>:</b></label></td>
-                                        <td class="text_detail"><?php echo $oValue->getCompanyPhone() ?></td>
-                                    </tr>
-                                    <?php endif; ?> 
+                                    <?php endforeach; ?>
                                 </table>
                             </fieldset>        
                         </td>
-                    </tr>
+                        <?php endif; ?>
+                        <?php if($affiliated): ?>
+                        <td style="vertical-align: top">
+                            <fieldset style="height: 160px;">
+                                <legend><?php echo __('Participadas') ?></legend>
+                                <table width="100%" cellspacing="4" cellpadding="2" border="0">
+                                    <?php foreach ($affiliated AS $a_value): ?>
+                                    <tr>
+                                        <td class="fancybox-manual-company text_detail" id="<?php echo url_for('@affiliated-show?id='.$a_value->getRegisteredCompaniesId().'&iframe=1') ?>">
+                                        <img style=" width: 50px; height: 50px; vertical-align: middle; cursor: pointer" src="/<?php echo $a_value->getRegisteredCompanies()->getLogo() ? 'uploads/company/'.$a_value->getRegisteredCompanies()->getLogo() : 'images/no_image.jpg' ?>" alt="<?php echo $a_value->getRegisteredCompanies()->getName() ?>" title="<?php echo $a_value->getRegisteredCompanies()->getName() ?>" border="0"/>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <label style="cursor: pointer"><b><?php echo $a_value->getRegisteredCompanies()->getName() ?></b></label>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </table>
+                            </fieldset>        
+                        </td>
+                        <?php endif; ?>
+                    </tr>   
                 </table>
+                <?php if($sf_user->hasCredential('super_admin')): ?>
                 <table width="100%" cellspacing="4" cellpadding="2" border="0">
-                    <tr>
+                    <tr>    
                         <td style="vertical-align: top;">
                             <fieldset style="height: 160px;">
                                 <legend><?php echo __('Contrato de Intermediación') ?></legend>
                                 <table width="100%" cellspacing="4" cellpadding="2" border="0">
                                     <tr>
-                                        <td width="12%"><label><b>Socio:</b></label></td>
-                                        <?php $_img_user_contract = $oValue->getAppUser()->getPhoto()? 'uploads/user/'.ServiceFileHandler::getThumbImage($oValue->getAppUser()->getPhoto()) : 'images/no_user.jpg'; ?>
-                                        <td class="fancybox-manual-b text_detail" id="<?php echo $oValue->getAppUser()->getId() ?>" style="cursor: pointer">
-                                        <img src="/<?php echo $_img_user_contract ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle"/>
-                                        &nbsp;&nbsp;&nbsp;
-                                        <?php echo $oValue->getAppUser()->getName().' '.$oValue->getAppUser()->getLastName() ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="12%"><label><b>Volumen negocio:</b></label></td>
+                                        <td><label><b>Volumen negocio:</b></label></td>
                                         <td class="text_detail"><?php echo $oValue->getBusinessAmount() ?></td>
                                     </tr>
                                     <tr>
-                                        <td width="12%"><label><b>% Intermediacion:</b></label></td>
+                                        <td><label><b>% Intermediacion:</b></label></td>
                                         <td class="text_detail"><?php echo $oValue->getIntermediation() ?></td>
                                     </tr>
                                     <tr>
-                                        <td width="12%"><label><b>Comisión final:</b></label></td>
+                                        <td><label><b>Comisión final:</b></label></td>
                                         <td class="text_detail"><?php echo $oValue->getFinalCommission() ?></td>
                                     </tr>
 
@@ -203,6 +197,7 @@ $(document).ready(function()
                         </td>
                     </tr>
                 </table>
+                <?php endif; ?>
 		<?php if($oValue->getObservations()): ?>
                 <fieldset>
 			<table width="100%" cellspacing="4" cellpadding="2" border="0">

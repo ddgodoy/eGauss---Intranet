@@ -98,4 +98,18 @@ class ProductRegisteredCompaniesTable extends Doctrine_Table
         
         return $q->execute();
     }
+    
+    /**
+     * getProductsInCompnay
+     * string type $array_company
+     * @return type
+     */
+    public function getProductsInCompnay($array_company)
+    {
+       $q = $this->createQuery()
+            ->where('registered_companies_id IN '.$array_company );
+        
+        return $q->execute();
+        
+    }        
 }

@@ -37,5 +37,5 @@ class ProductsTable extends Doctrine_Table
             $oPager->init();
 
             return $oPager;
-    }
+    }    
 }

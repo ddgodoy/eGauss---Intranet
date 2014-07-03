@@ -23,13 +23,20 @@ class ContractsIntermediationTable extends Doctrine_Table
    * @param string $order
    * @return doctrine pager
    */
-  public function getPager($page, $per_page, $filter, $order)
+  public function getPager($page, $per_page, $filter, $order, $string_contract= NULL)
   {
       $oPager = new sfDoctrinePager('ContractsIntermediation', $per_page);
       $oPager->getQuery()
           ->from('ContractsIntermediation')
           ->where($filter)
           ->orderBy($order);
+      
+      if($string_contract)
+      {
+          $oPager->getQuery()->andWhere('id IN '.$string_contract);
+      }    
+      
+      
       $oPager->setPage($page);
       $oPager->init();
 
@@ -79,7 +86,7 @@ class ContractsIntermediationTable extends Doctrine_Table
         public function getContractOrdeyBy()
         {
             $q = $this->createQuery()
-                 ->orderBy('customer_name ASC');
+                 ->orderBy('name ASC');
             
             return $q->execute();     
         }        

@@ -56,5 +56,18 @@ class AppUserRegisteredCompaniesTable extends Doctrine_Table
              ->delete();
         
         return $q->execute();
+    }  
+    
+    /**
+     * getAppUserByCompanys
+     * @param string $string
+     * @return object
+     */
+    public function getAppUserByCompanys($string)
+    {
+        $q = $this->createQuery()
+            ->where('registered_companies_id IN '.$string );
+        
+        return $q->execute();
     }        
 }

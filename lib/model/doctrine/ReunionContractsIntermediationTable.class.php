@@ -27,6 +27,6 @@ class ReunionContractsIntermediationTable extends Doctrine_Table
              ->where('contracts_intermediation_id = ?', $id_contract)
              ->orderBy('date ASC');
         
-     return $q->execute();
+        return $q->execute();
     }        
 }

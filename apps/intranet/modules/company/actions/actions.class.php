@@ -358,7 +358,10 @@ class companyActions extends sfActions
           $this->oValue  = RegisteredCompaniesTable::getInstance()->find($this->id);
           $this->logo    = $this->oValue->getLogo();
           $this->partners_company = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
+          $this->is_iframe = trim($this->getRequestParameter('iframe', NULL));
 
           if (empty($this->id)) { $this->redirect('@company'); }
+          
+          if($this->is_iframe){$this->setLayout('layout_iframe');}
    }
 }

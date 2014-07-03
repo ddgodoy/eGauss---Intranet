@@ -25,4 +25,21 @@ class ProductRegisteredCompanies extends BaseProductRegisteredCompanies
         $product_registered_companies->setProductsId($product_id);
         $product_registered_companies->save();
     }  
+    
+    /**
+     * getArrayForSelectByCompany
+     * @param type $company
+     */
+    public static function getArrayForSelectByCompany($company)
+    {
+        $array = array();
+        $product = ProductRegisteredCompaniesTable::getInstance()->getProductsInCompnay($company);
+        
+        foreach($product as $v)
+        {
+            $array[$v->getId()] = $v->getProducts()->getName().' - ('.$v->getRegisteredCompanies()->getName().')';
+        }  
+        
+        return $array;
+    }        
 }

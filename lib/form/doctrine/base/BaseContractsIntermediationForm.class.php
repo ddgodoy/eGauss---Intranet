@@ -16,6 +16,7 @@ abstract class BaseContractsIntermediationForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                      => new sfWidgetFormInputHidden(),
+      'name'                    => new sfWidgetFormInputText(),
       'year'                    => new sfWidgetFormInputText(),
       'month'                   => new sfWidgetFormInputText(),
       'day'                     => new sfWidgetFormInputText(),
@@ -28,7 +29,7 @@ abstract class BaseContractsIntermediationForm extends BaseFormDoctrine
       'company_contact'         => new sfWidgetFormInputText(),
       'company_email'           => new sfWidgetFormInputText(),
       'company_phone'           => new sfWidgetFormInputText(),
-      'app_user_id'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('AppUser'), 'add_empty' => false)),
+      'app_user_id'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('AppUser'), 'add_empty' => true)),
       'observations'            => new sfWidgetFormInputText(),
       'business_amount'         => new sfWidgetFormInputText(),
       'intermediation'          => new sfWidgetFormInputText(),
@@ -36,12 +37,14 @@ abstract class BaseContractsIntermediationForm extends BaseFormDoctrine
       'comments'                => new sfWidgetFormInputText(),
       'registered_companies_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('RegisteredCompanies'), 'add_empty' => true)),
       'cashed'                  => new sfWidgetFormInputCheckbox(),
+      'is_new'                  => new sfWidgetFormInputCheckbox(),
       'created_at'              => new sfWidgetFormDateTime(),
       'updated_at'              => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'                      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'name'                    => new sfValidatorString(array('max_length' => 200)),
       'year'                    => new sfValidatorInteger(),
       'month'                   => new sfValidatorInteger(),
       'day'                     => new sfValidatorInteger(),
@@ -50,11 +53,11 @@ abstract class BaseContractsIntermediationForm extends BaseFormDoctrine
       'customer_workstation'    => new sfValidatorString(array('max_length' => 200, 'required' => false)),
       'customer_email'          => new sfValidatorString(array('max_length' => 200, 'required' => false)),
       'customer_phone'          => new sfValidatorString(array('max_length' => 200, 'required' => false)),
-      'company_name'            => new sfValidatorString(array('max_length' => 50)),
+      'company_name'            => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'company_contact'         => new sfValidatorString(array('max_length' => 150, 'required' => false)),
       'company_email'           => new sfValidatorString(array('max_length' => 250, 'required' => false)),
       'company_phone'           => new sfValidatorString(array('max_length' => 250, 'required' => false)),
-      'app_user_id'             => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('AppUser'))),
+      'app_user_id'             => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('AppUser'), 'required' => false)),
       'observations'            => new sfValidatorPass(array('required' => false)),
       'business_amount'         => new sfValidatorNumber(array('required' => false)),
       'intermediation'          => new sfValidatorNumber(array('required' => false)),
@@ -62,6 +65,7 @@ abstract class BaseContractsIntermediationForm extends BaseFormDoctrine
       'comments'                => new sfValidatorPass(array('required' => false)),
       'registered_companies_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('RegisteredCompanies'), 'required' => false)),
       'cashed'                  => new sfValidatorBoolean(array('required' => false)),
+      'is_new'                  => new sfValidatorBoolean(array('required' => false)),
       'created_at'              => new sfValidatorDateTime(),
       'updated_at'              => new sfValidatorDateTime(),
     ));

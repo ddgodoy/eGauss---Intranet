@@ -45,7 +45,15 @@ class authenticationActions extends sfActions
                         $statusLogin = ServiceAuthentication::validateUserLogin($this->auth_email, $this->auth_password, $i18N);
 
                         if ($statusLogin['continue']) {
-                                $this->redirect('@homepage');
+                                if ($this->getUser()->hasCredential('clientes') || $this->getUser()->hasCredential('socios_empresa'))
+                                {
+                                    $this->redirect('@contracts');
+                                }
+                                else 
+                                {
+                                    $this->redirect('@homepage');
+                                }
+                                
                         } else {
                                 $this->auth_error['validate'] = $statusLogin['error'];
                         }

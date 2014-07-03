@@ -5,23 +5,12 @@
 		</div>
 	</div>
 	<div class="leftside" style="margin-left:260px;">
+                <h1 class="titulos"><?php echo $oValue->getName() ?> <?php echo $oValue->getLastName() ?></h1>
 		<fieldset>
 			<table width="100%" cellspacing="4" cellpadding="2" border="0">
 				<tr>
-					<td width="12%"><label><strong><?php echo __('User role') ?>&nbsp;:&nbsp;</strong></label></td>
-					<td class="text_detail"><?php echo __($oValue->UserRole->getName()) ?></td>
-				</tr>
-				<tr>
 					<td><label><strong><?php echo __('Email') ?>&nbsp;:&nbsp;</strong></label></td>
 					<td class="text_detail"><?php echo $oValue->getEmail() ?></td>
-				</tr>
-				<tr>
-					<td><label><strong><?php echo __('Name') ?>&nbsp;:&nbsp;</strong></label></td>
-					<td class="text_detail"><?php echo $oValue->getName() ?></td>
-				</tr>
-				<tr>
-					<td><label><strong><?php echo __('Last name') ?>&nbsp;:&nbsp;</strong></label></td>
-					<td class="text_detail"><?php echo $oValue->getLastName() ?></td>
 				</tr>
 				<tr>
 					<td><label><strong><?php echo __('Phone') ?>&nbsp;:&nbsp;</strong></label></td>
@@ -30,10 +19,6 @@
                                 <tr>
 					<td><label><strong><?php echo __('Skype') ?>&nbsp;:&nbsp;</strong></label></td>
 					<td class="text_detail"><?php echo $oValue->getSkype() ?></td>
-				</tr>
-				<tr>
-					<td><label><strong><?php echo __('Enabled') ?>&nbsp;:&nbsp;</strong></label></td>
-					<td class="text_detail"><?php echo $oValue->getEnabled() ? __('Yes') : __('No') ?></td>
 				</tr>
 			</table>
 		</fieldset>

@@ -17,8 +17,35 @@ class contractsActions extends sfActions
     public function executeIndex(sfWebRequest $request)
     {
         $temp_document = TempsDocumentsTable::getInstance()->findAll()->delete();
+        
+        $user_id = $this->getUser()->getAttribute('user_id');
+        $string_contract = NULL;
+        if(!$this->getUser()->hasCredential('super_admin')){
+            if($this->getUser()->hasCredential('clientes')){
+                $in_contarct = AppUserContractsIntermediationTable::getInstance()->findbyAppUserId($user_id);  
+            }else{
+                $company_in_user = AppUserRegisteredCompaniesTable::getInstance()->findByAppUser($user_id);
+                $array_company_active = '(0,';
+                foreach ($company_in_user AS $v)
+                {
+                    $array_company_active .= $v->getRegisteredCompaniesId().',';
+                }
+                $string_company = substr($array_company_active, 0, -1).')'; 
+
+                $in_contarct = RegisteredCompaniesContractsIntermediationTable::getInstance()->getAllContractByCompany($string_company);  
+            }
+
+
+            $array_contract_active = '(0,';
+            foreach ($in_contarct AS $v)
+            {
+                $array_contract_active .= $v->getContractsIntermediationId().',';
+            }
+            $string_contract = substr($array_contract_active, 0, -1).')'; 
+        }
+        
         $this->iPage  = $request->getParameter('page', 1);
-        $this->oPager = ContractsIntermediationTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy());
+        $this->oPager = ContractsIntermediationTable::getInstance()->getPager($this->iPage, 20, $this->setFilter(), $this->setOrderBy(), $string_contract);
   	$this->oList  = $this->oPager->getResults();
         $this->oCant  = $this->oPager->getNbResults();
     }    
@@ -50,6 +77,7 @@ class contractsActions extends sfActions
 
         $this->company      = RegisteredCompanies::getArrayForSelect(); 
         $this->sch_customer    = trim($this->getRequestParameter('sch_customer'));
+        $this->sch_name    = trim($this->getRequestParameter('sch_name'));
         $this->sch_month       = trim($this->getRequestParameter('sch_month'));
         $this->sch_cashed      = trim($this->getRequestParameter('sch_cashed'));
         $this->sch_company  = trim($this->getRequestParameter('sch_company'));
@@ -57,6 +85,10 @@ class contractsActions extends sfActions
         if (!empty($this->sch_customer)) {
                 $sch_partial .= " AND (customer_name LIKE '%$this->sch_customer%')";
                 $this->f_params .= '&sch_customer='.urlencode($this->sch_customer);
+        }
+        if (!empty($this->sch_name)) {
+                $sch_partial .= " AND (name LIKE '%$this->sch_name%')";
+                $this->f_params .= '&sch_name='.urlencode($this->sch_name);
         }
         if (!empty($this->sch_month)) {
                 $sch_partial .= " AND month = '$this->sch_month'";
@@ -142,10 +174,19 @@ class contractsActions extends sfActions
         $this->company             = 1;
         $this->empresa             = 1;
         $this->url_document        = !$this->id ?'@contracts-register-document':'@contracts-register-document?id='.$this->id;
+        $this->string_in_company   = '(0)';
         if ($this->id) {
               $entity_object = ContractsIntermediationTable::getInstance()->find($this->id);
               
+              $company_in_contract = RegisteredCompaniesContractsIntermediationTable::getInstance()->findByContractsIntermediationId($this->id);
               
+              $in_contract = '(0,';
+              
+              foreach ($company_in_contract as $v_company)
+              {
+                  $in_contract .= $v_company->getRegisteredCompaniesId().',';
+              }    
+              $this->string_in_company = substr($in_contract, 0, -1).')';
               
               if($entity_object->getRegisteredCompaniesId()){
                   $this->empresa = $entity_object->getRegisteredCompaniesId();
@@ -179,6 +220,7 @@ class contractsActions extends sfActions
                   $recorded->setRegisteredCompaniesId(NULL);      
                 }
 
+                $recorded->setIsNew(1);
                 $recorded->save();
 
                 if($form_request['date']['year']!= ''){
@@ -215,7 +257,17 @@ class contractsActions extends sfActions
                     }
                    
                 }
-                  
+                
+                //set customer 
+                AppUserContractsIntermediation::setCustomerInContract($recorded->getId(), $form_request['customer'], $this->id);
+                
+                //set company
+                RegisteredCompaniesContractsIntermediation::setCompanyInContract($recorded->getId(), $form_request['company'], 'company', $this->id);
+                
+                //set affiliated
+                RegisteredCompaniesContractsIntermediation::setCompanyInContract($recorded->getId(), $form_request['affiliated'], 'affiliated', $this->id);
+                
+                
                 # set document
                 $temp_document = TempsDocumentsTable::getInstance()->getFindAllByAppUser();
 
@@ -235,7 +287,21 @@ class contractsActions extends sfActions
                     $v_doc->delete();
                   }
                 }
-                  
+                
+                $products_array = $this->getUser()->getAttribute('product_temp', []);
+                if(count($products_array)>0)
+                {
+                    foreach ($products_array AS $k=>$v_product){
+                        $product_register = new ProductsContractsIntermediation();
+                        $product_register->setProductsId($v_product['id_product']);
+                        $product_register->setRegisteredCompaniesId($v_product['id_company']);
+                        $product_register->setContractsIntermediationId($recorded->getId());
+                        $product_register->setPercentage($v_product['percentage']);
+                        $product_register->save();
+                    }    
+                }  
+                $this->getUser()->getAttributeHolder()->remove('product_temp');
+                
                 if(!$this->id){
                   #set notification
                   Notifications::setNewNotification('contracts', 'Un nuevo Contratos de Intermediación fue creado', '', '', '', $recorded->getId());
@@ -272,10 +338,17 @@ class contractsActions extends sfActions
                               11=>'Noviembre',
                               12=>'Diciembre');
 
-          $this->reunion_action = ReunionContractsIntermediationTable::getInstance()->getReunionByContract($this->id);
+          $this->reunion_action = CalendarTable::getInstance()->findByContractsIntermediationId($this->id);
           $this->document       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentByContrat($this->id);
-          $this->information   = InformationTable::getInstance()->findByContractsIntermediationId($this->id);  
+          $this->information    = InformationTable::getInstance()->findByContractsIntermediationId($this->id);  
           
+          $this->customer       = AppUserContractsIntermediationTable::getInstance()->findByContractsIntermediationId($this->id); 
+          $this->company        = RegisteredCompaniesContractsIntermediationTable::getInstance()->getAllCompanyAssociated($this->id, 'company'); 
+          $this->affiliated     = RegisteredCompaniesContractsIntermediationTable::getInstance()->getAllCompanyAssociated($this->id, 'affiliated'); 
+          $this->product        = ProductsContractsIntermediationTable::getInstance()->findByContractsIntermediationId($this->id); 
+           
+          
+          if($this->oValue->getIsNew() == 1){$this->setTemplate('showNew');}
           
           
    }
@@ -431,6 +504,72 @@ class contractsActions extends sfActions
        return $this->renderComponent('contracts', 'commentByContract');
        exit();
        
+   }      
+   
+   /**
+    * SetTempProduct
+    * @param sfWebRequest $request
+    * @return type
+    */
+   public function executeSetTempProduct(sfWebRequest $request) {
+       
+       $product            = $request->getParameter('product');
+       $percentage         = $request->getParameter('percentage');
+       $string_in_company  = $request->getParameter('string_in_company');
+        
+       $product_temp = $this->getUser()->getAttribute('product_temp',[]);
+       
+       $product_object = ProductRegisteredCompaniesTable::getInstance()->findOneById($product);
+       
+       $array_tem      = ['id_product'=>$product_object->getProductsId(), 'id_company'=>$product_object->getRegisteredCompaniesId(), 'name'=>$product_object->getProducts()->getName().' - ('.$product_object->getRegisteredCompanies()->getName().')', 'percentage'=>$percentage, 'type'=>'temp'];
+       
+       $product_temp[] = $array_tem;
+       
+       $this->getUser()->setAttribute('product_temp', $product_temp);
+       
+       return $this->renderComponent('contracts', 'getProductByCompany', array('string_in_company'=>$string_in_company));
+       exit();
+   }
+   
+   /**
+    * NewProductsByCompany
+    * @param sfWebRequest $request
+    * @return type
+    */
+   public function executeNewProductsByCompany(sfWebRequest $request)
+   {
+       $string_in_company  = $request->getParameter('string_in_company');
+       
+       return $this->renderComponent('contracts', 'getProductByCompany', array('string_in_company'=>$string_in_company));
+       exit();
+   }        
+   
+   /**
+    * delete product
+    * @param sfWebRequest $request
+    * @return type
+    */
+   public function executeDeleteProduct(sfWebRequest $request)
+   {
+       $id_array           = $request->getParameter('id_array'); 
+       $string_in_company  = $request->getParameter('string_in_company');
+       $type               = $request->getParameter('type');
+       
+       $product_temp = $this->getUser()->getAttribute('product_temp',[]);
+       
+       if($type != 'temp')
+       {
+            ProductsContractsIntermediationTable::getInstance()->findOneById($id_array)->delete(); 
+       } 
+       else
+       {
+            unset($product_temp[$id_array]);
+            $this->getUser()->setAttribute('product_temp', $product_temp);
+       }    
+       
+       
+       return $this->renderComponent('contracts', 'getProductByCompany', array('string_in_company'=>$string_in_company));
+       exit();
    }        
 }
 ?>

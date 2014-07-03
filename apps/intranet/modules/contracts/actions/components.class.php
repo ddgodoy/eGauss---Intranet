@@ -243,4 +243,33 @@ class contractsComponents extends sfComponents
                                        ); 
         } 
   }
+  
+  public function executeGetProductByCompany(sfWebRequest $request)
+  {
+     $id             = $request->getParameter('id');
+     
+     $this->products_array = $this->getUser()->getAttribute('product_temp', []);
+     $cont_temp      = count($this->products_array);  
+     
+     if($id)
+     {
+         $products = ProductsContractsIntermediationTable::getInstance()->findByContractsIntermediationId($id);
+         $index = $cont_temp;
+         foreach($products as $v)
+         {
+             $this->products_array[$index]['id']         = $v->getId();
+             $this->products_array[$index]['name']       = $v->getProducts()->getName().' - ('.$v->getRegisteredCompanies()->getName().')';
+             $this->products_array[$index]['percentage'] = $v->getPercentage();
+             $this->products_array[$index]['type']       = 'base';
+             
+             $index++;
+         }    
+         
+     } 
+      
+     if($this->string_in_company)
+     {
+         $this->select_products = array(''=>'--Seleccionar--')+ProductRegisteredCompanies::getArrayForSelectByCompany($this->string_in_company); 
+     }     
+  }        
 } // end class

@@ -19,6 +19,11 @@ class homeActions extends sfActions
     {
         $this->getUser()->setCulture('es');
 
+        if ($this->getUser()->hasCredential('clientes') || $this->getUser()->hasCredential('socios_empresa'))
+        {
+            $this->redirect('@contracts');
+        }
+        
         if ($this->getUser()->hasCredential('super_admin'))
         {
             $client = new Google_Client();
@@ -37,6 +42,7 @@ class homeActions extends sfActions
                 $client->authenticate();
             }
         }
+        
         $this->shareholders = CalendarTable::getInstance()->findOneByNextAndTypeCalendarId(1,2);
         $this->information  = InformationTable::getInstance()->getInformation();
         $this->notification = NotificationsTable::getInstance()->getNotifications($this->getUser()->getAttribute('user_id'));

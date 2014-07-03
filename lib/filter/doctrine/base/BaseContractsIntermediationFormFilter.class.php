@@ -13,6 +13,7 @@ abstract class BaseContractsIntermediationFormFilter extends BaseFormFilterDoctr
   public function setup()
   {
     $this->setWidgets(array(
+      'name'                    => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'year'                    => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'month'                   => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'day'                     => new sfWidgetFormFilterInput(array('with_empty' => false)),
@@ -21,7 +22,7 @@ abstract class BaseContractsIntermediationFormFilter extends BaseFormFilterDoctr
       'customer_workstation'    => new sfWidgetFormFilterInput(),
       'customer_email'          => new sfWidgetFormFilterInput(),
       'customer_phone'          => new sfWidgetFormFilterInput(),
-      'company_name'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'company_name'            => new sfWidgetFormFilterInput(),
       'company_contact'         => new sfWidgetFormFilterInput(),
       'company_email'           => new sfWidgetFormFilterInput(),
       'company_phone'           => new sfWidgetFormFilterInput(),
@@ -33,11 +34,13 @@ abstract class BaseContractsIntermediationFormFilter extends BaseFormFilterDoctr
       'comments'                => new sfWidgetFormFilterInput(),
       'registered_companies_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('RegisteredCompanies'), 'add_empty' => true)),
       'cashed'                  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'is_new'                  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'created_at'              => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'              => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
+      'name'                    => new sfValidatorPass(array('required' => false)),
       'year'                    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'month'                   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'day'                     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
@@ -58,6 +61,7 @@ abstract class BaseContractsIntermediationFormFilter extends BaseFormFilterDoctr
       'comments'                => new sfValidatorPass(array('required' => false)),
       'registered_companies_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('RegisteredCompanies'), 'column' => 'id')),
       'cashed'                  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'is_new'                  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'created_at'              => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'              => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
@@ -80,6 +84,7 @@ abstract class BaseContractsIntermediationFormFilter extends BaseFormFilterDoctr
   {
     return array(
       'id'                      => 'Number',
+      'name'                    => 'Text',
       'year'                    => 'Number',
       'month'                   => 'Number',
       'day'                     => 'Number',
@@ -100,6 +105,7 @@ abstract class BaseContractsIntermediationFormFilter extends BaseFormFilterDoctr
       'comments'                => 'Text',
       'registered_companies_id' => 'ForeignKey',
       'cashed'                  => 'Boolean',
+      'is_new'                  => 'Boolean',
       'created_at'              => 'Date',
       'updated_at'              => 'Date',
     );

@@ -51,7 +51,7 @@ abstract class BaseProducts extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('ProductRegisteredCompanies as Products', array(
+        $this->hasMany('ProductsContractsIntermediation as Products', array(
              'local' => 'id',
              'foreign' => 'products_id'));
 

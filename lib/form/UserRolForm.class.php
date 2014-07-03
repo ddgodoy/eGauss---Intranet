@@ -45,9 +45,10 @@ class UserRolForm extends BaseAppUserForm
         $choices_array= array(0=>$i18N->__('Select', NULL, 'messages'),1=>$i18N->__('Super Admin', NULL, 'messages'),2=>$i18N->__('Socio', NULL, 'messages'), 3=>$i18N->__('Clientes', NULL, 'messages'), 4=>$i18N->__('Socios Empresa', NULL, 'messages'));
         
         $this->setWidget('user_role_id', new sfWidgetFormChoice(array('choices'=>$choices_array),array('style'=>'width:400px;')));
-    }
+   
     
-    $this->setValidator('user_role_id', new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UserRole')), array('required'=>$i18N->__('Select a role', NULL, 'errors'), 'invalid'=>$i18N->__('Select the user role', NULL, 'errors'))));
+        $this->setValidator('user_role_id', new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UserRole')), array('required'=>$i18N->__('Select a role', NULL, 'errors'), 'invalid'=>$i18N->__('Select the user role', NULL, 'errors'))));
+     }    
     
     
     $this->validatorSchema->setPostValidator(

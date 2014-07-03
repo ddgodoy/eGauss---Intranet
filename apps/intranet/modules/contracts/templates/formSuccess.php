@@ -1,3 +1,4 @@
+<script type="text/javascript" src="/sfFormExtraPlugin/js/double_list.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
    $('.no_letters').keydown(function(event) {
@@ -50,7 +51,54 @@ $(document).ready(function(){
                     }
             });
     });
+    
+    $('#arrow_associate_contracts_intermediation_affiliated').click(function(){
+            view_doble_select()
+    });
+    
+    $('#arrow_unassociate_contracts_intermediation_company').click(function(){
+            view_doble_select()
+    });
+    
+    $('#arrow_associate_contracts_intermediation_company').click(function(){
+           view_doble_select() 
+    });
+    
+    $('#arrow_unassociate_contracts_intermediation_affiliated').click(function(){
+           view_doble_select() 
+    });
+    
+    
+    
 });
+
+function view_doble_select()
+{
+    var id = $('#contracts_intermediation_id').val();
+    var in_company = '(0,';
+    var url = '<?php echo url_for('@new-products-by-company') ?>';
+    $("#contracts_intermediation_affiliated option").each(function(){
+        in_company += $(this).attr('value')+',';
+    });
+
+    $("#contracts_intermediation_company option").each(function(){
+        in_company += $(this).attr('value')+',';
+    });
+
+    var result_in_company = in_company.substring(0, in_company.length-1);
+    result_in_company += ')';
+    $('#string_in_company').val(result_in_company);
+    
+    jQuery.ajax({
+            type: 'POST',
+            url: url,
+            data: 'id='+id+'&string_in_company='+result_in_company,
+            success: function(data) {
+                $('#products_div').html(data);
+            }
+       });
+}
+
 </script>
 <?php
 	$str_module   = $sf_params->get('module');
@@ -84,85 +132,44 @@ $(document).ready(function(){
 		<form enctype="multipart/form-data" method="post" action="<?php echo url_for('@'.$str_module.'-'.$str_action.$request_id) ?>">
                     <label class="lineaListados"><?php echo __('Mandatory fields') ?>&nbsp;(*)</label><br />
 			<fieldset>
-                            <fieldset style="margin-top:20px;">
-                                <legend style="padding:0px 10px 0px 10px;">Empresa</legend>
-                                <table width="20%" cellspacing="4" cellpadding="0" border="0">
-                                    <tr>
-                                        <td><input type="radio" style="vertical-align:middle;margin-left:10px;" value="1" <?php if($company == 1): ?> checked="checked" <?php endif; ?> class="checked-company" name="company"></td>
-                                        <td><label><?php echo __('Participadas') ?></label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" style="vertical-align:middle;margin-left:10px;" value="2" <?php if($company == 2): ?> checked="checked" <?php endif; ?> name="company" class="checked-company"></td>
-                                        <td><label><?php echo __('Company') ?></label></td>
-                                    </tr>
-                                </table>
-                            </fieldset>    
-                            <fieldset style="margin-top:20px;" style="display: none">
-                                    <legend style="padding:0px 10px 0px 10px;">Datos de la empresa</legend>
-                                    <table width="100%" cellspacing="4" cellpadding="0" border="0" id="select_company" <?php if($company == 2): ?> style="display: none" <?php endif; ?>>
-                                            <tr>
-                                                    <td width="19%"><label><?php echo __('Nombre') ?> *</label></td>
-                                                    <td id="select_company">
-                                                            <select class="form_input" name="empresa">
-                                                                <?php echo Common::fillSimpleSelect(RegisteredCompaniesTable::getInstance()->getParticipadasForSelect(), $empresa); ?>
-                                                            </select>
-                                                    </td>
-                                            </tr>
-                                    </table>
-                                    <table width="100%" cellspacing="4" cellpadding="0" border="0" id="input_company" <?php if($company == 1): ?> style="display: none" <?php endif; ?>>
-                                        <tr>
-                                                <td width="19%"><label><?php echo __('Name') ?> *</label></td>
-                                                <td><?php echo $form['company_name'] ?></td>
-                                        </tr>
-                                        <tr>
-                                                <td width="19%"><label><?php echo __('Contact') ?></label></td>
-                                                <td><?php echo $form['company_contact'] ?></td>
-                                        </tr>
-                                        <tr>
-                                                <td width="19%"><label><?php echo __('Email') ?></label></td>
-                                                <td><?php echo $form['company_email'] ?></td>
-                                        </tr>
-                                        <tr>
-                                                <td width="19%"><label><?php echo __('Phone') ?></label></td>
-                                                <td><?php echo $form['company_phone'] ?></td>
-                                        </tr>
-                                    </table>
-                            </fieldset>
                             <fieldset>
                                 <legend><?php echo __('Cliente') ?></legend>
                                 <table width="100%" cellspacing="4" cellpadding="0" border="0">
                                     <tr>
-                                        <td width="19%"><label><?php echo __('Name') ?> *</label></td>
-                                        <td><?php echo $form['customer_name'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="19%"><label><?php echo __('Company') ?> </label></td>
-                                        <td><?php echo $form['customer_company'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="19%"><label><?php echo __('Puesto') ?> </label></td>
-                                        <td><?php echo $form['customer_workstation'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="19%"><label><?php echo __('Email') ?> </label></td>
-                                        <td><?php echo $form['customer_email'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="19%"><label><?php echo __('Phone') ?> </label></td>
-                                        <td><?php echo $form['customer_phone'] ?></td>
+                                        <td><?php echo $form['customer'] ?></td>
                                     </tr>
                                 </table>
                             </fieldset>
+                            <fieldset style="margin-top:20px;">
+                                    <legend style="padding:0px 10px 0px 10px;">Empresa</legend>
+                                    <table width="100%" cellspacing="4" cellpadding="0" border="0" id="select_company">
+                                            <tr>
+                                                <td><?php echo $form['company'] ?></td>
+                                            </tr>
+                                    </table>
+                            </fieldset>
+                            <fieldset style="margin-top:20px;" style="display: none">
+                                    <legend style="padding:0px 10px 0px 10px;">Participada</legend>
+                                    <table width="100%" cellspacing="4" cellpadding="0" border="0" id="select_company">
+                                            <tr>
+                                                <td><?php echo $form['affiliated'] ?></td>
+                                            </tr>
+                                    </table>
+                            </fieldset>
+                            <div id="products_div">
+                                <?php include_component('contracts', 'getProductByCompany', array('string_in_company'=>$string_in_company)) ?>
+                            </div>
+                            <input type="hidden" id="string_in_company" value="<?php echo $string_in_company ?>" />
                             <fieldset>
                                 <legend><?php echo __('Contrato de Intermediación') ?></legend>
                                     <table width="100%" cellspacing="4" cellpadding="0" border="0">
                                         <tr>
-                                                <td width="20%"><label><?php echo __('Mes previsto de ingresos') ?> *</label></td>
-                                                <td><?php echo $form['month'] ?>&nbsp;/&nbsp;<?php echo $form['year'] ?></td>
+                                                <td width="20%"><label><?php echo __('Name') ?> *</label></td>
+                                                <td><?php echo $form['name'] ?></td>
                                         </tr>
                                         <tr>
-                                                <td width="20%"><label><?php echo __('Socio') ?> *</label></td>
-                                                <td><?php echo $form['app_user_id'] ?></td>
+                                                <td width="20%"><label><?php echo __('Mes previsto de ingresos') ?> *</label></td>
+                                                <td><?php echo $form['month'] ?>&nbsp;/&nbsp;<?php echo $form['year'] ?></td>
                                         </tr>
                                         <tr>
                                                 <td width="20%"><label><?php echo __('Volumen negocio') ?> *</label></td>
@@ -241,16 +248,6 @@ $(document).ready(function(){
                                 <div id="drive">
                                     <?php include_component('contracts', 'getDocument') ?>
                                 </div>
-                                <?php if($sf_user->getAttribute('user_id') == 1): ?>
-                                <fieldset>
-                                    <legend>Comentario</legend>
-                                    <table width="100%" cellspacing="4" cellpadding="0" border="0">
-                                        <tr>
-                                            <td><?php echo $form['comments'] ?></td>
-                                        </tr>
-                                    </table>
-                                </fieldset>
-                                <?php endif; ?>
                         </fieldset>
                         <div style="padding-top:10px;" class="botonera">
 				<input type="button" onclick="document.location='<?php echo url_for($str_module.'/index') ?>';" value="<?php echo __('Cancel') ?>" class="boton" />

@@ -171,8 +171,8 @@ EOF
       '%id%'                 => $this->generateId($name),
       '%label_associated%'   => $this->getOption('label_associated'),
       '%label_unassociated%' => $this->getOption('label_unassociated'),
-      '%associate%'          => sprintf('<a href="#" onclick="%s">%s</a>', 'sfDoubleList.move(\'unassociated_'.$this->generateId($name).'\', \''.$this->generateId($name).'\'); return false;', $this->getOption('associate')),
-      '%unassociate%'        => sprintf('<a href="#" onclick="%s">%s</a>', 'sfDoubleList.move(\''.$this->generateId($name).'\', \'unassociated_'.$this->generateId($name).'\'); return false;', $this->getOption('unassociate')),
+      '%associate%'          => sprintf('<a href="#" id="arrow_associate_'.$this->generateId($name).'" onclick="%s">%s</a>', 'sfDoubleList.move(\'unassociated_'.$this->generateId($name).'\', \''.$this->generateId($name).'\'); return false;', $this->getOption('associate')),
+      '%unassociate%'        => sprintf('<a href="#" id="arrow_unassociate_'.$this->generateId($name).'" onclick="%s">%s</a>', 'sfDoubleList.move(\''.$this->generateId($name).'\', \'unassociated_'.$this->generateId($name).'\'); return false;', $this->getOption('unassociate')),
       '%associated%'         => $associatedWidget->render($name),
       '%unassociated%'       => $unassociatedWidget->render('unassociated_'.$name),
     ));

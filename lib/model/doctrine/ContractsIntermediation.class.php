@@ -23,8 +23,15 @@ class ContractsIntermediation extends BaseContractsIntermediation
     
     foreach ($object AS $v)
     {
-      $company = $v->getRegisteredCompanies()?$v->getRegisteredCompanies()->getName().' (Participada)':$v->getCompanyName();  
-      $array[$v->getId()] = $v->getCustomerName().' - '.$company;
+      if(!$v->getIsNew())
+      {    
+        $company = $v->getRegisteredCompanies()?$v->getRegisteredCompanies()->getName().' (Participada)':$v->getCompanyName();  
+        $array[$v->getId()] = $v->getCustomerName().' - '.$company;
+      }
+      else
+      {
+        $array[$v->getId()] = $v->getName();  
+      }    
     }
     return $array;
   }

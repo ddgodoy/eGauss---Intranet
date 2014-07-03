@@ -183,11 +183,24 @@ class informationActions extends sfActions
                       $company_id_user         = $contract_intermediation->getRegisteredCompaniesId();
                       $title = 'intermediación';
                       $title_mail = 'Intermediación';
-                      $company_intermediantion = $contract_intermediation->getRegisteredCompanies()?$contract_intermediation->getRegisteredCompanies()->getName().' (Participada)':$contract_intermediation->getCompanyName();
-                      $name_company = $contract_intermediation->getCustomerName().' - '.$company_intermediantion;
+                      $name_company = $contract_intermediation->getName();
                   }    
                   
-                  $app_user = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($company_id_user);
+                  if($recorded->getRegisteredCompaniesId()){
+                    $app_user = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($company_id_user);
+                  }else{
+                    $company_in_contarct = RegisteredCompaniesContractsIntermediationTable::getInstance()->findbyContractsIntermediationId($recorded->getContractsIntermediationId());
+                    
+                    $array_company_active = '(0,';
+                    foreach ($company_in_contarct AS $v)
+                    {
+                        $array_customer_active .= $v->getRegisteredCompaniesId().',';
+                    }
+                    $string_customer = substr($array_company_active, 0, -1).')';
+                    
+                    $app_user = AppUserRegisteredCompaniesTable::getInstance()->getAppUserByCompanys($string_customer);  
+                  }
+                      
                   if($app_user)
                   {    
                     foreach ($app_user AS $value){
@@ -395,8 +408,10 @@ class informationActions extends sfActions
           $this->oValue  = InformationTable::getInstance()->find($this->id);
           $this->company = $this->oValue->getRegisteredCompanies();
           $this->logo    = $this->company->getLogo();
+          $this->is_iframe = trim($this->getRequestParameter('iframe', NULL));
 
           if (empty($this->id)) { $this->redirect('@information'); }
+          if($this->is_iframe){$this->setLayout('layout_iframe');}
     }
 }
 ?>

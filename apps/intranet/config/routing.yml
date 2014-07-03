@@ -25,8 +25,6 @@ product:
   url:   /product
   param: { module: product, action: index }
 
-
-
 ################################################################### entrepreneur
 
 # entrepreneur-delete-document rules
@@ -129,6 +127,21 @@ investor-excel:
   param: { module: investor, action: excel }
 
 ################################################################### contracts
+#delete-products-by-company
+delete-products-by-company:
+  url:   /delete-products-by-company
+  param: { module: contracts, action: deleteProduct }
+
+#new-products-by-company
+new-products-by-company:
+  url:   /new-products-by-company
+  param: { module: contracts, action: newProductsByCompany }
+  
+#set-temp-product
+set-temp-product:
+  url:   /set-temp-product
+  param: { module: contracts, action: setTempProduct }
+  
 #contrat-delete-commnet
 contrat-delete-commnet:
   url:   /contrat-delete-commnet

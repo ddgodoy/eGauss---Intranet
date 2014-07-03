@@ -367,6 +367,7 @@ class affiliatedActions extends sfActions
    public function executeShow(sfWebRequest $request)
    {
       $this->id = $request->getParameter('id');
+      $this->is_iframe = trim($this->getRequestParameter('iframe', NULL));
 
       if (empty($this->id)) { $this->redirect('@affiliated'); }
       
@@ -379,6 +380,11 @@ class affiliatedActions extends sfActions
       $this->document_o       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentsByCompanyAndType($this->id, array(2,3));
       $this->basecamp_id      = $this->oValue->getBasecampId();
       $this->arrDatos         = NewBasecamp::todosLosProyectos(false, $this->basecamp_id);
+      
+      if($this->is_iframe){
+          $this->setTemplate('showIframe');
+          $this->setLayout('layout_iframe');
+      }
    }
 
 } // end class

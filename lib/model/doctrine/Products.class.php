@@ -26,5 +26,21 @@ class Products extends BaseProducts
         }
         
         return $array;
+    }     
+    
+    /**
+     * get array for select 
+     * @return array
+     */
+    public static function getArrayForSelectByCompany()
+    {
+        $array = [];
+        $product_all = ProductsTable::getInstance()->findAll();
+        
+        foreach ($product_all as $value) {
+            $array[$value->getId()] = $value->getName();
+        }
+        
+        return $array;
     }      
 }
