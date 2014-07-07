@@ -219,12 +219,12 @@ class informationActions extends sfActions
                         foreach ($app_user AS $value){
                           $sendEmail = ServiceOutgoingMessages::sendToSingleAccount
                             (
-                              $value->getAppUser()->getName().' '.$value->getAppUser()->getLastName(), $value->getAppUser()->getEmail(),
+                              $value->getAppUser()->getTitle().' '.$value->getAppUser()->getName().' '.$value->getAppUser()->getLastName(), $value->getAppUser()->getEmail(),
                               'home/companyInformation',
                               array(
                                 'subject'    => 'eGauss.com Noticias de '.$title_mail,
                                 'to_partial' => array(
-                                  'name_user'    => $value->getAppUser()->getName().' '.$value->getAppUser()->getLastName(),
+                                  'name_user'    => $value->getAppUser()->getTitle().' '.$value->getAppUser()->getName().' '.$value->getAppUser()->getLastName(),
                                   'name_company' => $recorded->getRegisteredCompanies()->getName(),
                                   'name_info'    => $recorded->getName(),
                                   'type'         => $recorded->getTypeInformation()->getName(),

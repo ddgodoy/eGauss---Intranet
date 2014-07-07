@@ -376,7 +376,7 @@ class contractsActions extends sfActions
               $array_data[$index][2] = $v_contract->getBusinessAmount()?(double)$v_contract->getBusinessAmount():0;
               $array_data[$index][3] = '<div style="padding: 10px;">&nbsp;<b>Fecha de entrega:</b>&nbsp;'.sprintf("%02d",$v_contract->getDay()).'/'.sprintf("%02d",$v_contract->getMonth()).'/'.$v_contract->getYear().'&nbsp;<br/>&nbsp;<b>Cliente:</b>&nbsp;'.$v_contract->getCustomer().'&nbsp;<br/>&nbsp;<b>Volumen negocio:</b>&nbsp;'.($v_contract->getBusinessAmount()?$v_contract->getBusinessAmount():0).'</div>';
               $array_data[$index][4] = $v_contract->getFinalCommission()?(double)$v_contract->getFinalCommission():0;
-              $array_data[$index][5] = '<div style="padding: 10px;">&nbsp;<b>Fecha de entrega:</b>&nbsp;'.sprintf("%02d",$v_contract->getDay()).'/'.sprintf("%02d",$v_contract->getMonth()).'/'.$v_contract->getYear().'&nbsp;<br/>&nbsp;<b>Socio:</b>&nbsp;'.$v_contract->getAppUser()->getName().' '.$v_contract->getAppUser()->getLastName().'&nbsp;<br/>&nbsp;<b>Comisión final:</b>&nbsp;'.($v_contract->getFinalCommission()?$v_contract->getFinalCommission():0).'</div>';
+              $array_data[$index][5] = '<div style="padding: 10px;">&nbsp;<b>Fecha de entrega:</b>&nbsp;'.sprintf("%02d",$v_contract->getDay()).'/'.sprintf("%02d",$v_contract->getMonth()).'/'.$v_contract->getYear().'&nbsp;<br/>&nbsp;<b>Socio:</b>&nbsp;'.$v_contract->getAppUser()->getTitle().' '.$v_contract->getAppUser()->getName().' '.$v_contract->getAppUser()->getLastName().'&nbsp;<br/>&nbsp;<b>Comisión final:</b>&nbsp;'.($v_contract->getFinalCommission()?$v_contract->getFinalCommission():0).'</div>';
               
             }
         }

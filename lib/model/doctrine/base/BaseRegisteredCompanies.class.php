@@ -164,7 +164,7 @@ abstract class BaseRegisteredCompanies extends sfDoctrineRecord
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
 
-        $this->hasMany('AppUserRegisteredCompanies as RegisteredCompanies', array(
+        $this->hasMany('AppUser as RegisteredCompanies', array(
              'local' => 'id',
              'foreign' => 'registered_companies_id'));
 

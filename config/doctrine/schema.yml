@@ -23,26 +23,33 @@ Company:
 AppUser:
   tableName: app_user
   columns:
-    id:                { type: integer(4), primary: true, notnull: true, autoincrement: true }
-    name:              { type: string(100) }
-    last_name:         { type: string(100) }
-    email:             { type: string(200), notnull: true }
-    phone:             { type: string(50), notnull: true }
-    skype:             { type: string(50) }
-    contact_time_from: { type: string(50), notnull: true }
-    contact_time_to:   { type: string(50), notnull: true }
-    photo:             { type: string(50) }
-    salt:              { type: string(100) }
-    password:          { type: string(100) }
-    recover_token:     { type: string(100) }
-    enabled:           { type: boolean, default: true }
-    last_access:       { type: datetime }
-    company_id:        { type: integer(4), notnull: true }
-    user_role_id:      { type: integer(4), notnull: true }
+    id:                      { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    title:                   { type: string(100)} 
+    name:                    { type: string(100) }
+    last_name:               { type: string(100) }
+    email:                   { type: string(200), notnull: true }
+    phone:                   { type: string(50), notnull: true }
+    skype:                   { type: string(50) }
+    job_title:               { type: string(100) }
+    source:                  { type: string(100) }
+    app_user_id:             { type: integer(4) }
+    registered_companies_id: { type: integer(4)}
+    contact_time_from:       { type: string(50), notnull: true }
+    contact_time_to:         { type: string(50), notnull: true }
+    photo:                   { type: string(50) }
+    salt:                    { type: string(100) }
+    password:                { type: string(100) }
+    recover_token:           { type: string(100) }
+    enabled:                 { type: boolean, default: true }
+    last_access:             { type: datetime }
+    company_id:              { type: integer(4), notnull: true }
+    user_role_id:            { type: integer(4), notnull: true }
 
   relations:
-    Company:       { class: Company, local: company_id, foreign: id, foreignAlias: Company, onDelete: CASCADE }
-    UserRole:      { class: UserRole, local: user_role_id, foreign: id, foreignAlias: UserRole, onDelete: CASCADE }
+    Company:             { class: Company, local: company_id, foreign: id, foreignAlias: Company, onDelete: CASCADE }
+    UserRole:            { class: UserRole, local: user_role_id, foreign: id, foreignAlias: UserRole, onDelete: CASCADE }
+    AppUser:             { class: AppUser, local: app_user_id, foreign: id, foreignAlias: AppUser, onDelete: SET NULL }
+    RegisteredCompanies: { class: RegisteredCompanies, local: registered_companies_id, foreign: id, foreignAlias: RegisteredCompanies, onDelete: SET NULL }
     
 #
 # USER_ROLE

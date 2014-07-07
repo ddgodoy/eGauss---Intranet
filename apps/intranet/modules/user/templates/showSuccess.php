@@ -13,12 +13,12 @@
 			<?php echo __('Detail') ?>
 		</div>
 		<h1 class="titulos">
-                    <?php echo $oValue->getName() ?> <?php echo $oValue->getLastName() ?>  
+                    <?php echo $oValue->getTitle() ?> <?php echo $oValue->getName() ?> <?php echo $oValue->getLastName() ?>  
                 </h1><br />
 		<fieldset>
 			<table width="100%" cellspacing="4" cellpadding="2" border="0">
 				<tr>
-					<td width="12%"><label><strong><?php echo __('User role') ?>&nbsp;:&nbsp;</strong></label></td>
+					<td width="14%"><label><strong><?php echo __('User role') ?>&nbsp;:&nbsp;</strong></label></td>
 					<td class="text_detail"><?php echo __($oValue->UserRole->getName()) ?></td>
 				</tr>
 				<tr>
@@ -39,6 +39,34 @@
 				</tr>
 			</table>
 		</fieldset>
+                <?php if($oValue->getUserRoleId()== 4): ?> 
+                <fieldset>
+                    <legend>&nbsp;<?php echo __('Socios Empresa') ?>&nbsp;</legend>
+                    <table width="100%" cellspacing="4" cellpadding="0" border="0">
+                        <tr>
+                            <td width="14%"><label><strong><?php echo __('Job Title') ?>&nbsp;:&nbsp;</strong></label></td>
+                            <td class="text_detail"><?php echo $oValue->getJobTitle() ?></td>
+                        </tr>
+                        <tr>
+                            <td><label><strong><?php echo __('Fuente') ?>&nbsp;:&nbsp;</strong></label></td>
+                            <td class="text_detail"><?php echo $oValue->getSource() ?></td>
+                        </tr>
+                        <tr>
+                            <?php $_img_user = $oValue->getAppUser()->getPhoto()? 'uploads/user/'.ServiceFileHandler::getThumbImage($oValue->getAppUser()->getPhoto()) : 'images/no_user.jpg'; ?>
+                            <td><label><strong><?php echo __('Contact From') ?>&nbsp;:&nbsp;</strong></label></td>
+                            <td class="text_detail">
+                                <img src="/<?php echo $_img_user ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle"/>
+                                &nbsp;&nbsp;&nbsp;
+                                <?php echo $oValue->getAppUser()->getTitle().' '.$oValue->getAppUser()->getName().' '.$oValue->getAppUser()->getLastName() ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label><strong><?php echo __('Contact Company') ?>&nbsp;:&nbsp;</strong></label></td>
+                            <td class="text_detail"><?php echo $oValue->getRegisteredCompanies()->getName() ?></td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <?php endif; ?>  
                 <fieldset>
                     <legend>&nbsp;<?php echo __('Schedule') ?>&nbsp;</legend>
                     <table cellpadding="0" cellspacing="0">

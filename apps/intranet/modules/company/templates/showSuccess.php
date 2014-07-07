@@ -39,7 +39,7 @@ $(document).ready(function()
                     <td class="fancybox-manual-b" id="<?php echo $p_value->getAppUser()->getId() ?>" style="cursor: pointer">
                       <img src="/<?php echo $_img_user ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle"/>
                       &nbsp;&nbsp;&nbsp;
-                      <?php echo $p_value->getAppUser()->getName().' '.$p_value->getAppUser()->getLastName() ?>
+                      <?php echo $p_value->getAppUser()->getTitle().' '.$p_value->getAppUser()->getName().' '.$p_value->getAppUser()->getLastName() ?>
                     </td>
                   </tr>
                   <?php endforeach; ?>

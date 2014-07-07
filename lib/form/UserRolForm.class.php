@@ -11,29 +11,41 @@ class UserRolForm extends BaseAppUserForm
 {
   public function configure()
   {
-    $i18N    = sfContext::getInstance()->getI18N();
-    $sf_user = sfContext::getInstance()->getUser();
+    $i18N                = sfContext::getInstance()->getI18N();
+    $sf_user             = sfContext::getInstance()->getUser();
+    $contact             = [''=>'Seleccionar']+AppUserTable::getInstance()->getAllForSelectContact(2);
+    $array_affiliated    = [''=>'Seleccionar']+RegisteredCompanies::getArrayByType(['0','1']);
 
     $this->setWidgets(array(
-      'id'                 => new sfWidgetFormInputHidden(),  
-      'name'               => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
-      'last_name'          => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
-      'email'              => new sfWidgetFormInputText(),  
-      'phone'              => new sfWidgetFormInputText(),
-      'skype'              => new sfWidgetFormInputText(),
-      'contact_time_from'  => new sfWidgetFormTime(array('with_seconds' => true,'format'=> '%hour% : %minute% : %second%')),  
-      'contact_time_to'    => new sfWidgetFormTime(array('with_seconds' => true,'format'=> '%hour% : %minute% : %second%')),    
-      'enabled'            => new sfWidgetFormInputCheckbox(),
-      'company_id'         => new sfWidgetFormInputHidden(),
+      'id'                      => new sfWidgetFormInputHidden(),  
+      'title'                   => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),  
+      'name'                    => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
+      'last_name'               => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
+      'email'                   => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),  
+      'phone'                   => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
+      'skype'                   => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
+      'job_title'               => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')),
+      'source'                  => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:400px;')), 
+      'app_user_id'             => new sfWidgetFormChoice(array('choices'=>$contact), array('style'=>'width:400px;')),
+      'registered_companies_id' => new sfWidgetFormChoice(array('choices'=>$array_affiliated), array('style'=>'width:400px;')),  
+      'contact_time_from'       => new sfWidgetFormTime(array('with_seconds' => true,'format'=> '%hour% : %minute% : %second%')),  
+      'contact_time_to'         => new sfWidgetFormTime(array('with_seconds' => true,'format'=> '%hour% : %minute% : %second%')),    
+      'enabled'                 => new sfWidgetFormInputCheckbox(),
+      'company_id'              => new sfWidgetFormInputHidden(),
     ));
 
     $this->setValidators(array(
-      'id'                => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),  
+      'id'                 => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),  
+      'title'              => new sfValidatorString(array('max_length' => 100, 'required' => false)),  
       'name'               => new sfValidatorString(array('max_length' => 100, 'required' => true), array('required'=>$i18N->__('Enter the name', NULL, 'errors'))),
       'last_name'          => new sfValidatorString(array('max_length' => 100, 'required' => true), array('required'=>$i18N->__('Enter the last name', NULL, 'errors'))),
       'email'              => new sfValidatorString(array('max_length' => 200, 'required' => false)),
       'phone'              => new sfValidatorString(array('max_length' => 200, 'required' => false)),
       'skype'              => new sfValidatorString(array('max_length' => 200, 'required' => false)),  
+      'job_title'          => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'source'             => new sfValidatorString(array('max_length' => 100, 'required' => false)),  
+      'app_user_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('AppUser'), 'required' => false)),  
+      'registered_companies_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('RegisteredCompanies'), 'required' => false)),  
       'enabled'            => new sfValidatorBoolean(array('required' => false)),
       'company_id'         => new sfValidatorInteger(),
       'contact_time_from'  => new sfValidatorTime(array('required' => false), array('invalid' => 'Horario de contacto desde Inválida')),  

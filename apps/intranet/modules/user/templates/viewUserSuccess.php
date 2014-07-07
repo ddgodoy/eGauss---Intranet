@@ -5,7 +5,7 @@
 		</div>
 	</div>
 	<div class="leftside" style="margin-left:260px;">
-                <h1 class="titulos"><?php echo $oValue->getName() ?> <?php echo $oValue->getLastName() ?></h1>
+                <h1 class="titulos"><?php echo $oValue->getTitle() ?> <?php echo $oValue->getName() ?> <?php echo $oValue->getLastName() ?></h1>
 		<fieldset>
 			<table width="100%" cellspacing="4" cellpadding="2" border="0">
 				<tr>

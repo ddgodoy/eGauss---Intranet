@@ -26,7 +26,7 @@ $(document).ready(function(){
                     <td class="fancybox-manual-b" id="<?php echo $oValue->getAppUser()->getId() ?>" style="cursor: pointer">
                       <img src="/<?php echo $_img_user ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle"/>
                       &nbsp;&nbsp;&nbsp;
-                      <?php echo $oValue->getAppUser()->getName().' '.$oValue->getAppUser()->getLastName() ?>
+                      <?php echo $oValue->getAppUser()->getTitle().' '.$oValue->getAppUser()->getName().' '.$oValue->getAppUser()->getLastName() ?>
                     </td>
                   </tr>
                 </table>

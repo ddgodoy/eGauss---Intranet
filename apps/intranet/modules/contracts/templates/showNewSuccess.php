@@ -127,7 +127,7 @@ $(document).ready(function()
                                       <td class="fancybox-manual-b" id="<?php echo $p_value->getAppUser()->getId() ?>">
                                         <img src="/<?php echo $_img_user ?>" width="20" height="20" alt="User" border="0" style="vertical-align: middle; cursor: pointer"/>
                                         &nbsp;&nbsp;&nbsp;
-                                        <label style="cursor: pointer"><b><?php echo $p_value->getAppUser()->getName().' '.$p_value->getAppUser()->getLastName() ?></b></label>
+                                        <label style="cursor: pointer"><b><?php echo $p_value->getAppUser()->getTitle().' '.$p_value->getAppUser()->getName().' '.$p_value->getAppUser()->getLastName() ?></b></label>
                                       </td>
                                     </tr>
                                     <?php endforeach; ?>

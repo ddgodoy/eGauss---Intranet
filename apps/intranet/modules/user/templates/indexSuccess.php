@@ -53,7 +53,7 @@
                 <img src="/<?php echo $item->getPhoto() ? 'uploads/user/'.$item->getPhoto() : 'images/no_user.jpg' ?>" width="20" border="0" height="20"/>
             </a>    
         </td>  
-        <td><?php echo $item->getName().' '.$item->getLastName() ?></td>
+        <td><?php echo $item->getTitle().' '.$item->getName().' '.$item->getLastName() ?></td>
         <td><?php echo $item->getEmail() ?></td>
         <td><?php echo __($item->getUserRole()->getName())?></td>
         <?php if($sf_user->hasCredential('super_admin')): ?>

@@ -1,3 +1,15 @@
+<script type="text/javascript">
+    $('docuemnt').ready(function(){
+        $('#user_rol_user_role_id').change(function(){
+            var value = $(this).val();
+            if(value === "4"){
+                $('.tr-partner').show();
+            }else{
+                $('.tr-partner').hide();  
+            } 
+        });
+   })
+</script>
 <?php
 	$str_module = $sf_params->get('module');
 	$str_action = $sf_params->get('action');
@@ -51,6 +63,10 @@
                 <tr>
                   <td width="7%"><label><?php echo __('Email') ?> *</label></td>
                   <td width="93%"><input type="text" class="form_input" name="email" value="<?php echo $email ?>" style="width:400px;"/></td>
+                </tr>
+                <tr>
+                  <td><label><?php echo __('Titulo') ?> </label></td>
+                  <td><?php echo $form['title'] ?></td>
                 </tr>
                 <tr>
                   <td><label><?php echo __('Name') ?> *</label></td>
@@ -119,22 +135,43 @@
               </fieldset>
             </td>
           </tr>
-				</table>
-			</fieldset>
-      <fieldset>
-			  <legend>&nbsp;<?php echo __('Schedule') ?>&nbsp;</legend>
-			  <table cellpadding="0" cellspacing="0">
-			    <tr>
-			      <td style="padding-right: 30px;"><label><?php echo __('Contact Time From') ?></label></td>
-			      <td><?php echo $form['contact_time_from'] ?></td>
-			    </tr>
-			    <tr><td colspan="3" style="height: 15px;"></td></tr>
-			    <tr>
-			      <td><label><?php echo __('Contact Time To') ?></label></td>
-			      <td><?php echo $form['contact_time_to'] ?></td>
-			    </tr>
-			  </table>
-      </fieldset>
+        </table>
+    </fieldset>
+    <fieldset class="tr-partner" <?php if($form['user_role_id']->getValue()== 4): ?> style="display: block" <?php endif; ?>  >
+        <legend>&nbsp;<?php echo __('Socios Empresa') ?>&nbsp;</legend>
+        <table width="100%" cellspacing="4" cellpadding="0" border="0">
+            <tr>
+                <td><label><?php echo __('Job Title') ?> </label></td>
+                <td><?php echo $form['job_title'] ?></td>
+            </tr>
+            <tr>
+                <td><label><?php echo __('Fuente') ?> </label></td>
+                <td><?php echo $form['source'] ?></td>
+            </tr>
+            <tr>
+                <td><label><?php echo __('Contact from') ?> </label></td>
+                <td><?php echo $form['app_user_id'] ?></td>
+            </tr>
+            <tr>
+                <td><label><?php echo __('Contact company') ?> </label></td>
+                <td><?php echo $form['registered_companies_id'] ?></td>
+            </tr>  
+        </table>
+    </fieldset>    
+    <fieldset>
+        <legend>&nbsp;<?php echo __('Schedule') ?>&nbsp;</legend>
+        <table cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="padding-right: 30px;"><label><?php echo __('Contact Time From') ?></label></td>
+            <td><?php echo $form['contact_time_from'] ?></td>
+          </tr>
+          <tr><td colspan="3" style="height: 15px;"></td></tr>
+          <tr>
+            <td><label><?php echo __('Contact Time To') ?></label></td>
+            <td><?php echo $form['contact_time_to'] ?></td>
+          </tr>
+        </table>
+    </fieldset>
       <?php /* if (!$my_profile): ?>
       <fieldset>
 			  <legend>&nbsp;<?php echo __('Proyectos en Basecamp') ?>&nbsp;</legend>

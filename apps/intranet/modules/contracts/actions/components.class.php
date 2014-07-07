@@ -167,7 +167,7 @@ class contractsComponents extends sfComponents
           $this->array_value[$v->getId()]['comment']           = $v->getComments();
           $this->array_value[$v->getId()]['date']              = Common::getFormattedDate($v->getCreatedAt(),'d/m/Y h:i:s');
           $this->array_value[$v->getId()]['app_user']['id']    = $v->getAppUser()->getId();
-          $this->array_value[$v->getId()]['app_user']['name']  = $v->getAppUser()->getName().' '.$v->getAppUser()->getLastName();
+          $this->array_value[$v->getId()]['app_user']['name']  = $v->getAppUser()->getTitle().' '.$v->getAppUser()->getName().' '.$v->getAppUser()->getLastName();
           $this->array_value[$v->getId()]['app_user']['photo'] = $v->getAppUser()->getPhoto();
       } 
       
