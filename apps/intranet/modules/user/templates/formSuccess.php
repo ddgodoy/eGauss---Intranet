@@ -149,11 +149,11 @@
                 <td><?php echo $form['source'] ?></td>
             </tr>
             <tr>
-                <td><label><?php echo __('Contact from') ?> </label></td>
+                <td><label><?php echo __('Contact From') ?> </label></td>
                 <td><?php echo $form['app_user_id'] ?></td>
             </tr>
             <tr>
-                <td><label><?php echo __('Contact company') ?> </label></td>
+                <td><label><?php echo __('Contact Company') ?> </label></td>
                 <td><?php echo $form['registered_companies_id'] ?></td>
             </tr>  
         </table>
