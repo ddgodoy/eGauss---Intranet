@@ -33,6 +33,7 @@ abstract class BaseRegisteredCompaniesForm extends BaseFormDoctrine
       'type_companies_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TypeCompanies'), 'add_empty' => false)),
       'comments'           => new sfWidgetFormInputText(),
       'basecamp_id'        => new sfWidgetFormInputText(),
+      'code_name'          => new sfWidgetFormInputText(),
       'created_at'         => new sfWidgetFormDateTime(),
       'updated_at'         => new sfWidgetFormDateTime(),
     ));
@@ -56,6 +57,7 @@ abstract class BaseRegisteredCompaniesForm extends BaseFormDoctrine
       'type_companies_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TypeCompanies'))),
       'comments'           => new sfValidatorPass(array('required' => false)),
       'basecamp_id'        => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'code_name'          => new sfValidatorString(array('max_length' => 200, 'required' => false)),
       'created_at'         => new sfValidatorDateTime(),
       'updated_at'         => new sfValidatorDateTime(),
     ));

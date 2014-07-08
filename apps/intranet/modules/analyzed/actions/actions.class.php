@@ -138,6 +138,9 @@ class analyzedActions extends sfActions
       {
         $parameter_post = $request->getParameter($this->form->getName());
         $recorded = $this->form->save();
+        slugify($text);
+        $recorded->setCodeName(Common::getStrtrSpecialCharacters($parameter_post['name']));
+        $recorded->save();
             
         #set logo
         RegisteredCompaniesTable::getInstance()->uploadLogo($request->getFiles('logo'), $recorded, $request->getParameter('reset_logo'));

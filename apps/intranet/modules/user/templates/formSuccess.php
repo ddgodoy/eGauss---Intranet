@@ -141,6 +141,18 @@
         <legend>&nbsp;<?php echo __('Socios Empresa') ?>&nbsp;</legend>
         <table width="100%" cellspacing="4" cellpadding="0" border="0">
             <tr>
+                <td><label><?php echo __('Address') ?> </label></td>
+                <td><?php echo $form['address'] ?></td>
+            </tr>
+            <tr>
+                <td><label><?php echo __('Ciudad ') ?> </label></td>
+                <td><?php echo $form['city'] ?></td>
+            </tr>
+            <tr>
+                <td><label><?php echo __('Código Postal') ?> </label></td>
+                <td><?php echo $form['postal_code'] ?></td>
+            </tr>
+            <tr>
                 <td><label><?php echo __('Job Title') ?> </label></td>
                 <td><?php echo $form['job_title'] ?></td>
             </tr>

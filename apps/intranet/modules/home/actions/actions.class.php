@@ -17,6 +17,12 @@ class homeActions extends sfActions
     */
     public function executeIndex(sfWebRequest $request)
     {
+        /*$company_all = RegisteredCompaniesTable::getInstance()->findAll();
+        foreach ($company_all AS $v){
+            $v->setCodeName(Common::getStrtrSpecialCharacters($v->getName()));
+            $v->save();
+        }*/
+        
         $this->getUser()->setCulture('es');
 
         if ($this->getUser()->hasCredential('clientes') || $this->getUser()->hasCredential('socios_empresa'))

@@ -142,6 +142,7 @@ class affiliatedActions extends sfActions
       {
         $parameter_post = $request->getParameter($this->form->getName());
         $recorded = $this->form->save();
+        $recorded->setCodeName(Common::getStrtrSpecialCharacters($parameter_post['name']));
         $recorded->save();
         
         if (!$this->id)

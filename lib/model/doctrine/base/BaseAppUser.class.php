@@ -14,6 +14,9 @@
  * @property string $skype
  * @property string $job_title
  * @property string $source
+ * @property string $city
+ * @property string $postal_code
+ * @property string $address
  * @property integer $app_user_id
  * @property integer $registered_companies_id
  * @property string $contact_time_from
@@ -42,6 +45,9 @@
  * @method string              getSkype()                   Returns the current record's "skype" value
  * @method string              getJobTitle()                Returns the current record's "job_title" value
  * @method string              getSource()                  Returns the current record's "source" value
+ * @method string              getCity()                    Returns the current record's "city" value
+ * @method string              getPostalCode()              Returns the current record's "postal_code" value
+ * @method string              getAddress()                 Returns the current record's "address" value
  * @method integer             getAppUserId()               Returns the current record's "app_user_id" value
  * @method integer             getRegisteredCompaniesId()   Returns the current record's "registered_companies_id" value
  * @method string              getContactTimeFrom()         Returns the current record's "contact_time_from" value
@@ -69,6 +75,9 @@
  * @method AppUser             setSkype()                   Sets the current record's "skype" value
  * @method AppUser             setJobTitle()                Sets the current record's "job_title" value
  * @method AppUser             setSource()                  Sets the current record's "source" value
+ * @method AppUser             setCity()                    Sets the current record's "city" value
+ * @method AppUser             setPostalCode()              Sets the current record's "postal_code" value
+ * @method AppUser             setAddress()                 Sets the current record's "address" value
  * @method AppUser             setAppUserId()               Sets the current record's "app_user_id" value
  * @method AppUser             setRegisteredCompaniesId()   Sets the current record's "registered_companies_id" value
  * @method AppUser             setContactTimeFrom()         Sets the current record's "contact_time_from" value
@@ -135,6 +144,18 @@ abstract class BaseAppUser extends sfDoctrineRecord
              'length' => 100,
              ));
         $this->hasColumn('source', 'string', 100, array(
+             'type' => 'string',
+             'length' => 100,
+             ));
+        $this->hasColumn('city', 'string', 100, array(
+             'type' => 'string',
+             'length' => 100,
+             ));
+        $this->hasColumn('postal_code', 'string', 100, array(
+             'type' => 'string',
+             'length' => 100,
+             ));
+        $this->hasColumn('address', 'string', 100, array(
              'type' => 'string',
              'length' => 100,
              ));

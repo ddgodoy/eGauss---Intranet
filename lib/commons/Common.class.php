@@ -95,22 +95,31 @@ class Common
   * @param string $toClean
   * @return string
   */
-  public static function getStrtrSpecialCharacters($toClean)
+  public static function getStrtrSpecialCharacters($text, $separator = 'dash', $lowercase = TRUE)
   {
-    $GLOBALS['normalizeChars'] = array(
-      'Š' => 'S', 'š' => 's', 'Ð' => 'Dj', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A',
-      'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I',
-      'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U', 'Ú' => 'U',
-      'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a',
-      'å' => 'a', 'æ' => 'a', 'ç' => 'c', 'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i',
-      'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', 'ö' => 'o', 'ø' => 'o', 'ù' => 'u',
-      'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'ƒ' => 'f'
-		);
-    $toClean = str_replace('&', '_and_', $toClean);
-    $toClean = str_replace('--', '_', $toClean);
-    $toClean = str_replace(' ', '_', $toClean);
+    $text = strip_tags($text);
+    $text = preg_replace("`\[.*\]`U","",$text);
+    $text = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$text);
+    $text = htmlentities($text, ENT_COMPAT, 'utf-8');
+    $text = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);`i","\\1", $text );
+    $text = preg_replace( array("`[^a-z0-9]`i","`[-]+`") , "-", $text);
 
-    return strtr($toClean, $GLOBALS['normalizeChars']);
+    if ($lowercase === TRUE)
+    {
+        $text = strtolower($text);
+    }
+
+    if($separator != 'dash')
+    {
+        $text = str_replace('-', '_', $text);
+        $separator = '_';
+    }
+    else
+    {
+        $separator = '-';
+    }
+
+    return trim($text, $separator);
   }
   
   /**

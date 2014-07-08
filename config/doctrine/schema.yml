@@ -32,6 +32,9 @@ AppUser:
     skype:                   { type: string(50) }
     job_title:               { type: string(100) }
     source:                  { type: string(100) }
+    city:                    { type: string(100) }
+    postal_code:             { type: string(100) }
+    address:                 { type: string(100) }
     app_user_id:             { type: integer(4) }
     registered_companies_id: { type: integer(4)}
     contact_time_from:       { type: string(50), notnull: true }
@@ -174,6 +177,7 @@ RegisteredCompanies:
     type_companies_id:  { type: integer(4), notnull: true }
     comments:           { type: text }
     basecamp_id:        { type: string(50) }
+    code_name:          { type: string(200) } 
   relations:
     TypeCompanies:      { class: TypeCompanies, local: type_companies_id, foreign: id, foreignAlias: TypeCompanies, onDelete: CASCADE } 
     
