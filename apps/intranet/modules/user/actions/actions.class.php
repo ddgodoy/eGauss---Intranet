@@ -30,16 +30,21 @@ class userActions extends sfActions
    */
   protected function setFilter()
   {
-  	$sessionUser = sfContext::getInstance()->getUser();
-        
+    $sessionUser = sfContext::getInstance()->getUser();
+    
+    $i18N        = sfContext::getInstance()->getI18N();
+    
     $rols = '(1,2,3,4)';
     $rols = $sessionUser->getAttribute('user_role') == 'socios'?'(0,2)':$rols;
-        
+    
+    $this->choices_array= array(0=>$i18N->__('Select', NULL, 'messages'),1=>$i18N->__('Super Admin', NULL, 'messages'),2=>$i18N->__('Socio', NULL, 'messages'), 3=>$i18N->__('Clientes', NULL, 'messages'), 4=>$i18N->__('Socios Empresa', NULL, 'messages')); 
+    
     $sch_partial = 'id != '.$sessionUser->getAttribute('user_id'). ' AND user_role_id IN '.$rols;
 
     $this->f_params  = '';
     $this->sch_name  = trim($this->getRequestParameter('sch_name'));
     $this->sch_email = trim($this->getRequestParameter('sch_email'));
+    $this->sch_rol   = trim($this->getRequestParameter('sch_rol'));
 
     if (!empty($this->sch_name))
     {
@@ -51,6 +56,11 @@ class userActions extends sfActions
       $sch_partial .= " AND email LIKE '%$this->sch_email%'";
       $this->f_params .= '&sch_email='.urlencode($this->sch_email);
     }
+    if (!empty($this->sch_rol))
+    {
+      $sch_partial .= " AND user_role_id = '$this->sch_rol'";
+      $this->f_params .= '&sch_rol='.urlencode($this->sch_rol);
+    }
     return $sch_partial;
   }
 
@@ -61,7 +71,7 @@ class userActions extends sfActions
    */
   protected function setOrderBy()
   {
-  	$q_order = $this->getRequestParameter('o', 'name');	// order
+  	$q_order = $this->getRequestParameter('o', 'user_role_id');	// order
   	$q_sort  = $this->getRequestParameter('s', 'asc');  // sort
 
   	$this->sort = $q_sort == 'asc' ? 'desc' : 'asc';

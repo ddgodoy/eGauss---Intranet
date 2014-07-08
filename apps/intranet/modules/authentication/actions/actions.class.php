@@ -24,9 +24,7 @@ class authenticationActions extends sfActions
   * @param sfRequest $request A request object
   */
   public function executeIndex(sfWebRequest $request)
-  {
-      echo '<em style="color: red">* Tareas de mantenimiento</em>';
-      exit();
+  {      
         ServiceAuthentication::closeSessionProcess();
   	$i18N = $this->getContext()->getI18N();
 

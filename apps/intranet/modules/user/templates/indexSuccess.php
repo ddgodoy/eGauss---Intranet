@@ -12,6 +12,10 @@
 					<tr><td><input type="text" name="sch_name" value="<?php echo $sch_name ?>" class="form_input" style="width:98%;"/></td></tr>
 					<tr><td><?php echo __('By email') ?></td></tr>
 					<tr><td><input type="text" name="sch_email" value="<?php echo $sch_email ?>" class="form_input" style="width:98%;"/></td></tr>
+                                        <?php if($sf_user->hasCredential('super_admin')): ?>
+                                        <tr><td><?php echo __('Por rol') ?></td></tr>
+                                        <tr><td><?php echo select_tag('sch_rol', options_for_select($choices_array,$sch_rol), array('class'=>'form_input','style'=>'width:98%;')) ?></td></tr>
+                                        <?php endif; ?>
           <tr><td style="padding-top:5px;"><input type="submit" name="btn_buscar" value="Buscar" class="boton"></td></tr>
         </table>
       </form>
