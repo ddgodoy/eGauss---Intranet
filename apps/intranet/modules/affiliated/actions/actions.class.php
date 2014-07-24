@@ -377,8 +377,8 @@ class affiliatedActions extends sfActions
       $this->partners_company = AppUserRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
       $this->information      = InformationTable::getInstance()->findByRegisteredCompaniesId($this->id);  
       $this->videos           = VideosRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($this->id);
-      $this->document_c       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentsByCompanyAndType($this->id, array(0,1));
-      $this->document_o       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentsByCompanyAndType($this->id, array(2,3));
+      $this->document_c       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentsByCompanyAndType($this->id, '(0,1)');
+      $this->document_o       = DocumentsRegisteredCompaniesTable::getInstance()->getDocumentsByCompanyAndType($this->id, '(2,3)');
       $this->basecamp_id      = $this->oValue->getBasecampId();
       $this->arrDatos         = NewBasecamp::todosLosProyectos(false, $this->basecamp_id);
       

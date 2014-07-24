@@ -41,7 +41,7 @@ class DocumentsRegisteredCompaniesTable extends Doctrine_Table
     {
         $q = $this->createQuery()
              ->where('registered_companies_id = '.$id_company)
-             ->whereIn('type_information_id', $type)
+             ->andWhere('type_information_id IN '.$type)
              ->andWhere('entrepreneur_id IS NULL AND calendar_id IS NULL')   
              ->orderBy('id DESC');
         
