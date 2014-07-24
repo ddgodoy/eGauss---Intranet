@@ -66,6 +66,7 @@ class homeActions extends sfActions
         $this->error         = array();
         $this->msj_ok        = false;
         $this->theme         = $request->getParameter('theme', 0);
+        $this->url_form      = $this->theme?'@google_drive?theme=1':'@google_drive';
         $this->categories    = $request->getParameter('categories', 1);
         $this->token_expired = false;
         
