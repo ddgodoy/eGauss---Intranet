@@ -28,7 +28,7 @@ function setGifAnimado()
         <h1 class="titulos">
           <?php echo 'Registrar Documento' ?>
         </h1>
-        <form action="<?php echo url_for('@google_drive') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo url_for($url_form) ?>" method="post" enctype="multipart/form-data">
             <label class="lineaListados">Campos obligatorios&nbsp;(*)</label><br>
             <fieldset>
                 <table width="100%" cellspacing="4" cellpadding="0" border="0">
