@@ -29,11 +29,7 @@ class TempsDocumentsTable extends Doctrine_Table
         if($app_user)
         {
             $q->where('app_user_id = ?', $app_user);
-        }  
-        else
-        {
-            $q->where('app_user_id IS NULL');
-        }    
+        }      
         
         return $q->execute();
     }        
