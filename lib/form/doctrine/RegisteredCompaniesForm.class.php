@@ -16,11 +16,12 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
     $id_contac  = $this->getOption('module') == 'affiliated'?2:4;
     $contact    = AppUserTable::getInstance()->getAllForSelectContact($id_contac);
     $product    = Products::getArrayForSelect();
+    $valida_contact = AppUserTable::getInstance()->getAllForSelect();
     $id         = $this->getObject()->getId();
     $associated = array();
     $associated_product = array();
     $required_contacts = FALSE;
-
+    
     if ($id)
     {
       $associated         = AppUserRegisteredCompaniesTable::getInstance()->getAllForSelectContactAssociated($id);
@@ -67,7 +68,7 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
       'basecamp_id'        => new sfValidatorString(array('max_length' => 200, 'required' => false)),  
       'type_companies_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TypeCompanies'))),
       'comments'           => new sfValidatorPass(array('required' => false)),
-      'contacts'           => new sfValidatorChoice(array('choices' => array_keys($contact), 'multiple' => true, 'required'=>$required_contacts ),array('required'=>$required_contacts)),  
+      'contacts'           => new sfValidatorChoice(array('choices' => array_keys($valida_contact), 'multiple' => true, 'required'=>$required_contacts ),array('required'=>$required_contacts)),  
       'product'            => new sfValidatorChoice(array('choices' => array_keys($product), 'multiple' => true, 'required'=>FALSE ))    
     ));
     

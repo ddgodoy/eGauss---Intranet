@@ -120,6 +120,31 @@ class AppUserTable extends Doctrine_Table
     }
     
     /**
+     * Get array of all bedrooms for select tag
+     *
+     * @return array
+     */
+    public function getAllForSelect()
+    {
+       $i18N = sfContext::getInstance()->getI18N();
+       $arr_options = array();
+       
+       $q = Doctrine_Query::create()
+               ->select('au.id AS id, au.name AS name, au.last_name AS last_name, ur.name AS rol')
+               ->from('AppUser au')
+               ->leftJoin('au.UserRole ur')
+               ->where('au.email IS NOT NULL')
+               ->orderBy(' id');
+       
+       $d = $q->fetchArray();
+       
+       foreach ($d as $value) {
+         $arr_options[$value['id']] = $value['name'].' '.$value['last_name'].' ('.$i18N->__($value['rol']).')';
+       }
+       return $arr_options;
+    }
+    
+    /**
      * Get proyectos relaciones en basecamp
      *
      * @param integer $usuario_id
