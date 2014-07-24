@@ -26,6 +26,7 @@ $(document).ready(function()
       type : 'iframe',
       padding : 5,
       afterClose: function () {
+          alert('<?php echo url_for($url_document) ?>');
        jQuery.ajax({
         type: 'GET',
         url: '<?php echo url_for($url_document) ?>',
