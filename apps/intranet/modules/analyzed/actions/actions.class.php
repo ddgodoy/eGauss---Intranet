@@ -102,7 +102,8 @@ class analyzedActions extends sfActions
       if(count($videos)>0){$videos->delete();}
       $document    = DocumentsRegisteredCompaniesTable::getInstance()->findByRegisteredCompaniesId($request->getParameter('id'));
       if(count($document)>0){$document->delete();}
-      NotificationsTable::getInstance()->findOneByRegisteredCompaniesId($request->getParameter('id'))->delete();
+      $notification = NotificationsTable::getInstance()->findOneByRegisteredCompaniesId($request->getParameter('id'));
+      if(count($notification)>0){$notification->delete();}
       $company = RegisteredCompaniesTable::getInstance()->findOneById($request->getParameter('id'))->delete();
       
       $this->redirect('@analyzed');
