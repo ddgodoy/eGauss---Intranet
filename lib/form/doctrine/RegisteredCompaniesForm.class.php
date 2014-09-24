@@ -35,7 +35,7 @@ class RegisteredCompaniesForm extends BaseRegisteredCompaniesForm
       'id'                 => new sfWidgetFormInputHidden(),
       'date'               => new sfWidgetFormJQueryDate(array('image'=>'/images/calendario.gif','date_widget' => new sfWidgetFormDate(array('format' => '%day% %month% %year%')))),
       'name'               => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
-      'description'        => new sfWidgetFormTextareaTinyMCE(array(),array('style' => 'width:930px;  height: 450px;', 'rows' => 10, 'class' => 'foo')),
+      'description'        => new sfWidgetFormTextareaTinyMCE(array('config' =>'theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,forecolor,backcolor",theme_advanced_buttons3 : "removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr",'),array('style' => 'width:930px;  height: 450px;', 'rows' => 10, 'class' => 'foo')),
       'email'              => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
       'address'            => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
       'phone'              => new sfWidgetFormInputText(array(), array('class'=>'form_input', 'style'=>'width:300px;')),
